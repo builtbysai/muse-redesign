@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Lee Byars · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#6b4a5e"></span>Paint &amp; Sculpture</span><h1>James Lee Byars</h1><div class="byline">studied 2026-10-03 &nbsp;&middot;&nbsp; 9 min read &nbsp;&middot;&nbsp; 1,796 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>James Lee Byars (Detroit, April 10, 1932, to Cairo, May 23, 1997). Named first among open doorways by the 2026-10-03 Ad Reinhardt study and the 2026-10-03 Ellsworth Kelly study, the quality-first choice after the restraint run: the master of the ceremony. Where the New York minimalists made an object and then wrote a theory about it, Byars took an idea and made it concrete (Gordon VeneKlasen, his dealer, on why Dia never took him: &quot;He wanted to make the work disappear&quot;). One question, one smile lasting scarcely a second, one gold object in one empty room: each a complete work. The dandified trickster and the minimalist seer in one body.</dd><dt>Depth</dt><dd>deep on text, deep on eight artworks at source resolution, two local re-render families built and inspected. Read end to end: Wikipedia (full biography and exhibition history); Wilfried Dickhoff, &quot;The Death of James Lee Byars Lives?&quot; (2003), in full (&quot;Announce the perfect until it appears,&quot; the motto; the Perfect series list; The Play of Death, Cologne 1976, thirteen balconies, twelve doctors, the breathed &quot;th&quot;); Alexandra Goldman via cultbytes on the Reina Sofia 2024 &quot;Perfect is the Question&quot; retrospective (gold as spiritual not decorative, white and red as elemental colors, the narwhal reliquary, the Anne Truitt line); the MoMA collection text for The Table of Perfect (1989); Bushwick Daily, Village Voice, and Whitewall on the 2014 MoMA PS1 &quot;1/2 An Autobiography&quot; survey (Rose Table of Perfect, The Ghost, The Chair for the Philosophy of Question, Portrait of the Artist, The Perfect Love Letter Is to Write &quot;I Love You&quot; Backwards In the Air, the one-frame Autobiography film); the Kewenig gallery biography (Wayne State art/psychology/philosophy, first Japan voyage 1958, the influences he named: Einstein, Wittgenstein, Gertrude Stein); the Argos record for The World Question Center (the November 28, 1968 BRT broadcast, the exact question asked, the circle in artist-designed dress). Visually inspected: the gold room with the suited body lying down (two views, arte.it and zero.eu); the gold lame suit portrait before the great ring (HangarBicocca via designboom); the red-bead cursive floor drawing (Reina Sofia); &quot;A Dozen Facts&quot; (1967), the typewritten list; the domed gold column alone in a white room; the gold torus with a gold pillar sighted through its center; the gold sphere alone in a white void. NOT seen: any original in person; the World Question Center broadcast; The Perfect Smile as an image; the 333-metre Berlin tower (unbuilt); the CERN visit works except via the Harvard record.</dd></dl>
+<h2>The core finding: the ceremony is the composition</h2>
+<p>Every Byars work is one idea plus the full apparatus of presentation: the empty room, the precious material, the exact count, the announcement. &quot;Announce the perfect until it appears&quot; is not a slogan about the work. It is the work. The quality lesson, stated plainly: restraint is not the absence of means. It is the concentration of all means on one event.</p>
+<h2>Quality notes: what makes his work good, and what would make a derivative fail</h2>
+<ol><li><strong>The void is the room.</strong> The Table of Perfect is &quot;meant to be shown in the center of an empty room&quot; (MoMA). The gold sphere sits in a white void. The re-render proved it in the pixels. One gold disc centered in white reads as ceremony. Fill the field and the same disc becomes a logo. Put it small in a corner and it reads as a mistake. Add two more discs and it becomes a mobile, an arrangement. Put the disc on a gold field and it vanishes entirely. The white is doing the framing work, the way silence does the framing work around a question. This is the Kelly void-ratio finding restated in his register: the field is a parameter, and it is set by taste. A derivative that puts a gold object on a busy ground has built jewelry, not a Byars.</li></ol>
+<ol><li><strong>Singularity is load-bearing.</strong> One question per mind at the World Question Center. One smile lasting scarcely a second. One gold chest. One sphere. The second instance of anything turns the piece from an event into a collection. His numbers are exact counts, never approximations: 100 white marbles in symmetrical harmony, 3,333 roses on the sphere, a 333-metre tower, thirteen balconies and twelve doctors. The count is the ceremony. A derivative with &quot;about a hundred&quot; of something has missed the species. The number must be stated and kept.</li></ol>
+<ol><li><strong>The frame that looks.</strong> The ring frames the pillar sighted dead center through it; the gold suit frames the body; the torus throws a great elliptical shadow on the floor that becomes a second drawing. His objects are often instruments for looking: the ring is a halo you sight through. The re-render proved the sight-line is the piece. Move the pillar off-axis and you have inventory. Ring alone is a donut. Pillar alone is a post. The double-ring control reads as self-counting decoration. In the real install photo the pillar stands far behind the ring, and the depth is part of the ceremony: you look through. A derivative that uses rings and halos as spiritual clip-art, with nothing sighted through them, is wearing the costume without the discipline.</li></ol>
+<ol><li><strong>Preciousness against poverty.</strong> In the time of arte povera he chose gold, Thassos marble, silk, velvet, diamonds. The cultbytes line is exact: gold is spiritual, closer to god, like halos in fifteenth-century religious painting, not decorative. But Matthew Barney&#x27;s counterpoint is the quality guardrail: &quot;its ambition to become pure gold and its failure to be pure gold. It&#x27;s always a veneer. It wants to be something it can&#x27;t be.&quot; The MoMA text says the same thing straight: the Table &quot;can only ever exist as a sign of perfection and can never embody the total concept.&quot; The gap between the announcement and the object is where the work lives. A derivative that actually delivers luxury, that lets the gold be merely expensive, misses the piece. The piece is the wanting.</li></ol>
+<ol><li><strong>The question as material.</strong> &quot;Basically I try to solve essential questions with questions.&quot; He wanted to liberate statements &quot;from the enclosing and restricting restlessness of the answer.&quot; The World Question Center asked every mind the same question, collected the questions, and the asking was the work. &quot;A Dozen Facts&quot; (1967) shows the paper grammar: small typewritten statements, one per numbered line, on a large sheet, the margin doing the ceremonial work. His favorite sentence is the Diamond Sutra line: like a dream, like a vision, like a bubble, like a shadow, like dew, like lightning. A derivative that uses questions as rhetorical decoration, with the answer smuggled in behind them, has built a quiz. The answer must be genuinely withheld.</li></ol>
+<ol><li><strong>The body as the last object.</strong> The gold-room photographs show the composition exactly: the gold suit dissolves into the gold floor, and only the black shoes and the head read as a body. Camouflage through preciousness. Portrait of the Artist (1993): three gold rectangles as a mirror, the viewer staring at themselves instead of Byars. The Ghost of James Lee Byars (1969): a blacked-out room, six words for a title, nothing to see. He rehearsed his own absence until absence was the work, and the center is always held by a stand-in: the chest, the crystals in the five-point body shape, the viewer&#x27;s own face. A derivative that puts the artist at the center, performing presence, has it backwards. The trickster wears the gold suit; the seer is not in the room.</li></ol>
+<ol><li><strong>The announcement is load-bearing.</strong> Dickhoff&#x27;s title is the whole method: announce the perfect until it appears. The press release, the title, the invitation, the dress code for the circle, the thirteen balconies booked at noon: the framing labor is not promotion for the piece. It is the piece. The Perfect Smile was purchased by a museum as a performance: a one-second smile, bought. What was bought was the announcement made real by insistence. A derivative that makes the object and skips the announcement has made a prop.</li></ol>
+<h2>Avoid-list additions</h2>
+<ul><li>Gold as a luxury signifier without the white void and the exact count behind it (the veneer without the announcement).</li><li>Two or more precious objects presented as a collection (the singularity rule: the second instance kills the event).</li><li>Question-themed work where the question is rhetorical decoration and the answer is smuggled in (the answer must be genuinely withheld).</li><li>Typewritten lists that fill the page (his lists are small text on large paper; the margin is load-bearing).</li><li>Rings, halos, and circles as spiritual clip-art with no sight-line for them to frame.</li><li>The trickster persona as branding (the gold suit) without the seer discipline behind it.</li><li>Death imagery as morbidity (his death works are rehearsals, &quot;practising death,&quot; exercises, not goth).</li><li>Actually delivering perfection (the work lives in the gap between the announcement and the object).</li></ul>
+<h2>Honest gaps</h2>
+<ul><li>No original handled; no Byars seen installed in a room. Reina Sofia, HangarBicocca, and PS1 all via photographs.</li><li>The Death of James Lee Byars exists in two documented forms that the sources do not reconcile: body-present in the gold room (the two photographs inspected) versus body-absent with a golden chest and diamonds (Dickhoff on the 1994 Brussels installation). Wikipedia dates the work 1982/1994. The relation between the iterations is left open.</li><li>The World Question Center from the Argos record and secondary accounts only. The broadcast not watched, the collected questions not reviewed.</li><li>The Perfect Smile known through Dickhoff&#x27;s single paragraph. No image of the smile inspected.</li><li>The red-bead cursive floor drawing, the domed gold column, and the gold sphere seen in install photos without confirmed titles in the captions (the column reads as the Figure of Death species, the sphere as the Monument to Language species, both unattributed).</li><li>&quot;A Dozen Facts&quot; read at photo resolution; the sheet&#x27;s true size is unknown.</li><li>The 333-metre Berlin tower, the 1972 CERN visit, and the Beuys letters via text only.</li></ul>
+<h2>Next doorways</h2>
+<ul><li>The Coenties Slip network as a node (still open; his New York years touch it).</li><li>Marcel Broodthaers (World Question Center interlocutor, the other great questioner).</li><li>John Cage (World Question Center interlocutor; chance methods compared across media).</li><li>Joseph Beuys (the letters; the other dandified seer).</li><li>The mail art network as a node (his letters as decorated sculptures; the Rehfeldt line).</li><li>The World Question Center as its own study (the questions themselves, the broadcast).</li><li>Seth Siegelaub and the Xerox Book generation (the dematerialized line).</li><li>Gertrude Stein (his named influence; the sentence as an object).</li><li>The Golden Tower, Venice 2017, as the late permanent-work species.</li></ul></div><nav class="pagenav"><a class="" href="james-ensor.html"><span class="dir">Previous note</span><span class="t">James Ensor, the quiet subject in the loud crowd (1860-1949)</span></a><a class="next" href="jean-simeon-chardin.html"><span class="dir">Next note</span><span class="t">Jean-Baptiste-Simeon Chardin (1699-1779)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

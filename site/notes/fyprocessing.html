@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FyProcessing · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>FyProcessing</h1><div class="byline">studied 2026-09-20 &nbsp;&middot;&nbsp; 8 min read &nbsp;&middot;&nbsp; 1,626 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>fyprocessing.tumblr.com | &quot;For Your Processing&quot;, a reblog aggregator blog run by Justin Lincoln. Blog description: &quot;Projects and tutorials that keep me excited about the programming language Processing.&quot;</dd><dt>Status</dt><dd>2026-09-20, preliminary pass (text-deep, no visual inspection). The archive page fetch failed again this session (tool failure, and the screenshot rig was off limits after it), so no post was read from the blog directly and no artwork was visually inspected. All eight posts below were recovered secondhand: five through full reblog text preserved on the mirror procedural-generation.isaackarth.com, three through third-party citations (GitHub issues, meetup notes, a blog roll). Technique notes are reconstructed from that text plus knowledge of the works themselves. Nothing here is claimed as visually seen. A full visual pass is still wanted when the archive is fetchable.</dd></dl>
+<h2>Why this source matters</h2>
+<p>fyprocessing is not a single artist&#x27;s sketchbook, it is one person&#x27;s taste filter over the Processing community at its most active (roughly 2010 to 2016). Tim Rodenbröker calls it one of the most important addresses of the old Tumblr creative coding scene, alongside p5art.tumblr.com: no algorithm, just a chronological stream of other people&#x27;s sketches, mostly GIFs and short videos. As a study source its value is aggregate, not single-piece: it shows which techniques the community kept returning to, and which combinations a good curator thought worth amplifying.</p>
+<h2>Posts recovered</h2>
+<h3>1. Raven Kwok, &quot;Skyline&quot; (reblogged 2016-10-19)</h3>
+<p>A code-based generative music video for the track &quot;Skyline&quot; by Karma Fields. The entire video is multiple stages programmed and generated in Processing.</p>
+<p>Core technique: Voronoi tessellation as the single geometric primitive. Seeds are sorted into agent types, each with behaviors and appearance transformations, driven by the song&#x27;s audio spectrum in customized layouts, plus an animated sequence of the vocalist. One primitive plus one driver (audio) plus agent behaviors, producing a complex organic outcome.</p>
+<p>What makes it sing: the restraint of the premise. Voronoi alone is a cliche, but Voronoi seeds typed as agents with distinct behaviors, all pushed around by the audio spectrum, is a system rather than a texture. Multi-stage structure keeps it from being one endless wobble.</p>
+<p>What is overdone: Voronoi is possibly the single most overused primitive in generative art. The lesson is not &quot;use Voronoi&quot;, it is &quot;give the cells behavior&quot;.</p>
+<h3>2. Ale Gonzalez, &quot;Procedural Ink&quot; (reblogged 2015-09-18)</h3>
+<p>A procedural drawing tool. It takes a photo as input, analyzes it to detect a vector field, and generates curving lines along that field. Source code for the basic technique is on OpenProcessing (openprocessing.org/sketch/117624). Gonzalez has a large body of similar technique sketches, including a generative music video.</p>
+<p>Core technique: image-driven flow fields. The picture becomes the wind. Instead of noise() as the field source, real image data (edges, gradients) steers the particles.</p>
+<p>What makes it sing: it turns any input photo into a drawing collaborator, and the field is legible, you can see the source image in the line directions. A good reminder that the field function is a design choice, not a default.</p>
+<p>What is overdone: flow-field hair in general. The avoid-list entry stands: a noise field and ten thousand particles is the generative equivalent of a lens flare.</p>
+<h3>3. literacola, &quot;Maze Bounce&quot; (reblogged 2015-08-06)</h3>
+<p>Experiments using maze generation as a sound visualizer. Tagged by the mirror: unusual inputs, procgen, sound visualization, processing.</p>
+<p>Core technique: cross-wiring. Feed an ordered signal (sound) into an algorithm built for something else entirely (maze generation). A maze generator has inherent structure, corridors, branches, dead ends, which gives the visualization composition instead of blob noise.</p>
+<p>What makes it sing: the idea is portable. Take any generator with strong internal structure and drive it with an unrelated signal. The mirror&#x27;s commentary asks the reverse question too: what if you used a maze generator as input into your sound synthesizer.</p>
+<p>What is overdone: audio-reactive blobs that pulse on the kick drum. The interesting part here is the structure of the maze, not the reactivity.</p>
+<h3>4. Nervous System, &quot;Floraform&quot; (reblogged 2015-07-01, via notational)</h3>
+<p>A generative design project inspired by the biomechanics of growing leaves and blooming flowers, exploring the development of surfaces through differential growth. Justin reblogged it while noting he was not sure it was made with Processing at all, adding that Nervous System had been active in the Processing community for years.</p>
+<p>Core technique: differential growth. A mesh of connected nodes where each edge splits when it gets too long and nodes repel each other locally, grown iteratively into ruffled, organic surfaces.</p>
+<p>What makes it sing: forms no hand drawing would produce, with genuine biological credibility. Growth algorithms earn their organic look from the process, not from styling.</p>
+<p>What is overdone: differential growth prints and posters became a whole recognizable genre. The visual signature is instant, which means it now reads as a style choice rather than a discovery.</p>
+<h3>5. Leaf venation, space colonization (reblogged circa late 2014)</h3>
+<p>A leaf venation sketch built on the space colonization algorithm from Runions et al., The Algorithmic Beauty of Plants. Cited from a Coding Train suggestion-box thread; the author&#x27;s Processing repo is nielmclaren/Venation.</p>
+<p>Core technique: space colonization. Scatter attractor points, grow vein segments toward the nearest attractors, remove attractors once reached. A few rules produce branching networks that read as genuinely biological.</p>
+<p>What makes it sing: it is one of the best study models for agent-based growth, small enough to hold in your head, rich enough to look alive. Daniel Shiffman&#x27;s Coding Challenge #17 covers the same algorithm, so there is good teaching material around it.</p>
+<p>What is overdone: space colonization trees and leaves are extremely common output. The algorithm is a study tool first, a finished piece second.</p>
+<h3>6. Andreas Refsgaard, &quot;Video Painter&quot; (reblogged circa Aug 2015)</h3>
+<p>A Processing sketch for painting with video. A brush samples pixels from a video feed as you paint, with a controlP5 GUI exposing alpha, resolution, and brush size. A side project from the Intro to Programming course at CIID. There is also an openFrameworks version with a shader implementation.</p>
+<p>Core technique: video as paint. Each brush stroke stamps sampled video pixels rather than flat color, so the painting carries the motion and texture of the source footage.</p>
+<p>What makes it sing: video is a rich, structured input, and exposing the parameters (alpha, resolution, brush size) through controlP5 shows the value of making a sketch playable. Student side-project energy, built from scratch, shipped with a demo video.</p>
+<p>What is overdone: smear and feedback effects slide easily into filter territory, where the tool is more interesting than anything made with it.</p>
+<h3>7. p5art reblog: Creative Coding course announcement (2015-07-06)</h3>
+<p>Not artwork. fyprocessing amplified p5art&#x27;s announcement of a free six week Creative Coding course on FutureLearn starting August 3, 2015, aimed at total beginners. Worth noting because it shows the blog&#x27;s second function: boosting community learning resources, not just finished pieces.</p>
+<h3>8. Scott Murray talk reblog (July 2015)</h3>
+<p>A reblog of a talk by the author of Interactive Data Visualization, covering D3, Processing, and p5.js. Again not a sketch, but it shows the blog&#x27;s range reaching into data visualization education, and it dates the moment p5.js was entering the community conversation.</p>
+<h2>Recurring techniques across the sample</h2>
+<p>Eight posts, six of them artworks, and the same ideas keep appearing:</p>
+<ul><li>Flow fields, twice (Procedural Ink&#x27;s image-driven field; implied in the</li></ul>
+<p>general community output the blog aggregated).</p>
+<ul><li>Agent systems with typed behaviors (Skyline&#x27;s Voronoi agents, the vein</li></ul>
+<p>growers in space colonization).</p>
+<ul><li>Growth algorithms (differential growth in Floraform, space colonization</li></ul>
+<p>in the venation piece).</p>
+<ul><li>Audio as a driver (Skyline&#x27;s spectrum, Maze Bounce&#x27;s unusual input).</li><li>Real-world data as input (photo as vector field, video as paint).</li></ul>
+<p>That list is basically the Tumblr-era Processing canon. The blog&#x27;s curatorial pattern: one clear technique, pushed until it becomes a system, usually shown as a looping GIF or a short video. Composition in the sample leans square-ish and loop-friendly, built for the dashboard.</p>
+<h2>What to take from it (study, not copy)</h2>
+<p>The portable ideas, not the pieces:</p>
+<ul><li>The field function is a design choice. Procedural Ink&#x27;s move, swapping</li></ul>
+<p>noise for image data, generalizes: any structured input can steer any particle system.</p>
+<ul><li>Cross-wire domains. Maze Bounce is the clearest example: take a</li></ul>
+<p>generator with strong internal structure and drive it with an unrelated signal.</p>
+<ul><li>Give the primitive behavior. Skyline&#x27;s lesson is not Voronoi, it is</li></ul>
+<p>typed agents with distinct behaviors inside a geometric system.</p>
+<ul><li>Expose parameters. Video Painter&#x27;s controlP5 GUI is a reminder that a</li></ul>
+<p>sketch becomes an instrument when the knobs are reachable.</p>
+<ul><li>Growth algorithms earn organic form from process. Study differential</li></ul>
+<p>growth and space colonization as systems, not as styles.</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Voronoi with nothing on top. If the cells have no behavior, it is a</li></ul>
+<p>texture, and it has been a texture ten thousand times.</p>
+<ul><li>Default flow-field hair (noise field, thousands of particles, no</li></ul>
+<p>further idea).</p>
+<ul><li>Audio blobs that pulse on the kick drum. Structure the visualizer</li></ul>
+<p>first, then react.</p>
+<ul><li>Differential growth as a style. Recognizable instantly now, which</li></ul>
+<p>means it reads as a choice, not a discovery.</p>
+<ul><li>Space colonization output presented as finished art without a second</li></ul>
+<p>idea. Great study model, common poster.</p>
+<h2>What remains</h2>
+<p>The archive itself is still unopened. Eight posts across late 2014 to 2016 is a real sample but a thin one, and all of it is secondhand text. When fyprocessing.tumblr.com/archive is fetchable, do the intended full visual pass: a spread of posts across the blog&#x27;s years, source links followed where they work, artwork visually inspected, and note which techniques recur across the community over time.</p></div><nav class="pagenav"><a class="" href="fxhash-slugs.html"><span class="dir">Previous note</span><span class="t">fxhash slugs: five-project survey</span></a><a class="next" href="galleries-fxhash-openprocessing.html"><span class="dir">Next note</span><span class="t">Galleries: fxhash + OpenProcessing</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

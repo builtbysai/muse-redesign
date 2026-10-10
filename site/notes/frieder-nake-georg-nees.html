@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frieder Nake / Georg Nees / the Stuttgart circle · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>Frieder Nake / Georg Nees / the Stuttgart circle</h1><div class="byline">studied 2026-09-30 &nbsp;&middot;&nbsp; 12 min read &nbsp;&middot;&nbsp; 2,305 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-30 (study pass)</dd><dt>Artists</dt><dd>Frieder Nake (born 1938, Stuttgart; math student, then Rechenzentrum programmer, ER56/Z64, ALGOL/Fortran), Georg Nees (1926 to 2016, Nuremberg/Erlangen; Siemens industry mathematician, ALGOL, Zuse Graphomat Z64; first PhD in computer art, under Max Bense, defended 1968, published 1969), around Max Bense&#x27;s information aesthetics at the Technische Hochschule Stuttgart.</dd><dt>Hop path</dt><dd>the German half of the 1965 circuit, named as a next doorway by the A. Michael Noll study the same morning. Noll named Nees and Nake himself in the Le Random interview; the three are the &quot;3N&quot; (Nake, Nees, Noll), and their 1965 shows bookend the year: Nees in Stuttgart in February, Noll and Julesz in New York in April, Nake and Nees together in Stuttgart in November.</dd><dt>Depth</dt><dd>deep. Nake&#x27;s own account in Mario Verdicchio&#x27;s &quot;The Role of Computers in Visual Art&quot; (HaPoC 2015, HAL) read end to end. Nake&#x27;s full Digital Art Museum interview with Bettina Munk (Lines Fiction) read end to end. The DADA Database of Digital Art entries for the February 1965 Nees show, the November 1965 Nake/Nees show, and Nake&#x27;s 13/9/65 Nr. 2 read end to end. Wikipedia&#x27;s Nees entry read end to end. Blogger zellyn&#x27;s June 2024 reconstruction of the original Schotter ALGOL-60 listing read end to end (the recipe itself, from a 2016 German presentation). Media Art Net&#x27;s Schotter page read end to end. Two artworks visually inspected at full res: Nees&#x27;s Schotter (the V&amp;A-era circulating reproduction, 693x1080, clean vector edges), Nake&#x27;s 13/9/65 Nr. 2 &quot;Hommage a Paul Klee&quot; (DADA scan, 387x400; small but legible down to the buckling lines and the auto-plotted NAKE/ER56/Z64 signature). Two local procedural re-renders built and visually inspected: Schotter from the verbatim recipe, and a Hommage reconstruction from Nake&#x27;s PI-21 random-element list.</dd><dt>Honest gaps</dt><dd>the original ALGOL/Fortran sources were read only through transcriptions and reconstructions, not from Nees&#x27;s or Nake&#x27;s own printouts. The RNG in my Schotter re-render is Python&#x27;s random, not Nees&#x27;s G2/G3 library generator, so exact layouts cannot match. Kreisbogengewirre (Locken) read about through Nake&#x27;s quoted account, not seen as a print. Bense&#x27;s &quot;Projekte generativer Aesthetik&quot; (rot 19) read about, not in full. The blue-pencil censorship anecdote about the rot 19 proofs could not be verified in-session and is left out entirely. No plotter output run; re-renders are PIL, not ink.</dd></dl>
+<hr>
+<h2>The February show</h2>
+<p>February 5, 1965, Hahn building, Stuttgart. Ten to twelve small graphics by Georg Nees on the walls of Bense&#x27;s Studiengalerie. Two months before Howard Wise opens in New York. Nake stresses, in the DAM interview, that it was not even an official exhibition: it happened in the gallery&#x27;s rooms, open to the public, but without the institutions&#x27; blessing. The university rented two floors of a private building for philosophy and literature; Bense ran his Aesthetisches Colloquium there; concrete art, text, typography. Algorithmic drawings were, in DADA&#x27;s phrase, &quot;the most natural and consequential continuation of what Bense&#x27;s radical rationalism called for.&quot;</p>
+<p>For the opening, Bense and Elisabeth Walther published rot 19, <em>computer-grafik</em>: a few of Nees&#x27;s drawings plus short precise pseudocode, and Bense&#x27;s &quot;Projekte generativer Aesthetik,&quot; which Nake later called the manifesto of algorithmic art. At the opening, an artist-professor from the Stuttgart academy asked Nees whether he could make his computer draw in the man&#x27;s own manner, his Duktus. Nees paused, then: yes, of course, under one condition, you must tell me how you draw. The irritation that followed pushed Bense to coin, on the spot, the phrase &quot;artificial art.&quot;</p>
+<p>Nees&#x27;s temptation story is the cleanest origin statement in early computer art. In 1963 he got Siemens to buy a Zuse Graphomat Z64 flatbed plotter for the data center. He wrote ALGOL graphics libraries G1, G2, G3 for it. And then, in his own words at the 2006 ZKM show: &quot;There it was, the great temptation for me, for once not to represent something technical with this machine but rather something &#x27;useless&#x27;, geometrical patterns.&quot; Useless on purpose. The plotter was built for technical drawings; Nees was the first to ask it to draw something that meant nothing and was everything.</p>
+<h2>Schotter, the recipe</h2>
+<p>Schotter (&quot;Gravel&quot;, 1968) is the famous one, and thanks to zellyn&#x27;s digging we have something close to the actual generator. The ALGOL program is two procedures. QUAD draws one square. SERIE calls it across a grid: SERIE(10.0, 10.0, 22, 12, QUAD), so 22 columns by 12 rows, 264 squares, each in a 10 by 10 cell. A global counter I runs 0 to 263 and steers the disorder:</p>
+<ul><li>position jitter: uniform in plus or minus 5 times I/264. Zero at</li></ul>
+<p>the first square, half a cell at the last.</p>
+<ul><li>angle jitter: uniform between PI/4 times (1 minus I/264) and PI/4</li></ul>
+<p>times (1 plus I/264). At I=0 the angle is exactly PI/4, no randomness at all. At I=263 it spans 0 to PI/2, fully random.</p>
+<p>The square itself is drawn from its four corners on a circle of radius 5 times sqrt(2), so at I=0 the corners land exactly on the cell corners. And then the plotter quirk that explains the portrait orientation: LEER and LINE plot (y, x), swapping the axes, so the 22-long column axis runs vertically. Top row: perfect tessellation. Bottom row: gravel.</p>
+<p>My re-render from this recipe reads exactly like the original: a clean grid dissolving, in a straight vertical gradient, into tumbled stones. The key finding from building it: the disorder is not applied to the squares, it is applied to the grid. One square does not know about its neighbors; there is no interaction, no accumulation model. The order-to-chaos reading is purely a function of the single global counter I. That is the whole trick, and it is why the piece is so economical. Nees&#x27;s own comment on the mechanism: the successively increasing variation of P, Q, and PSI is controlled by the counter index I, invoked by each call of QUAD.</p>
+<p>Why it sings: the gradient is the composition. Anyone can scatter squares; Nees parameterizes the <em>amount</em> of scatter and walks it. The top of the piece teaches you how to read the bottom. Also the top row is not quite mechanical-looking, because plotter lines have a hand in them, and the bottom is not quite noise, because the cell grid still ghosts through. The piece lives in that middle band, roughly rows 8 to 15, where the squares are drunk but still standing.</p>
+<h2>The error that became Locken</h2>
+<p>Nees&#x27;s 1965 Kreisbogengewirre (&quot;Arc confusion&quot;, also called Locken, &quot;curls&quot;) is, per Nake&#x27;s account quoted on Wikipedia, one continuous path of arcs whose lengths and radii were randomly chosen within programmer-set limits, and &quot;the picture in its present form is due to a fairly serious programming error. It was designed to be less complex and it had to be ended manually because of the error.&quot; The error was kept. It was kept because it was better. This is the 1965 version of the lesson every generative artist re-learns: the bug is not the enemy of the program, it is the program&#x27;s way of telling you what it wanted to be.</p>
+<h2>Nake&#x27;s polygons and his distributions</h2>
+<p>Nake started on the ER56 mainframe in 1963, machine language first, later ALGOL 60 on the Telefunken TR4, then Fortran IV and PL/I on the IBM 360. The early series have date-stamp titles: 25/2/65, 13/9/65. The Zufalliger Polygonzug (random polygon walk) pieces, Geradenscharen (line bundles), Rechteckschraffuren (rectangle hatchings). His own description of the random machinery, quoted in the research literature: he used uniform, exponential, Gaussian, Poisson, and arbitrary discrete distributions to control the myriads of random decisions, and as a further source of variability he used several different uniform generators, so the program first had to decide which distribution and which generator to use. The system clock seeded everything at startup.</p>
+<p>That is the palette doctrine: a random number is not one thing. The choice of distribution is a compositional choice, the way a painter chooses between a flat brush and a round one. Uniform gives jitter. Gaussian gives clustering with rare excursions. Exponential gives decay. The macro-aesthetics (the overall geometry) plus the set of probability distributions plus mediating random numbers: that triad, in the Media Art Net formulation, is the whole Stuttgart theory of a picture.</p>
+<p>Nake&#x27;s Nietzsche quote, the one he uses to explain why the three N&#x27;s independently produced such similar-looking broken-line polygons: Nietzsche wrote to his secretary in 1882 about a typewriter with only uppercase letters that &quot;our writing instrument attends to our thought.&quot; The 1960s computer could little more than trace segments between two points. Anybody with artistic ambitions and that instrument, Nake says, would have arrived at results like his Random Polygons No. 20. The tool is the style&#x27;s co-author.</p>
+<h2>13/9/65 Nr. 2, the Hommage</h2>
+<p>Nake&#x27;s most cited early work, after Klee&#x27;s Hauptweg und Nebenwege (1929). His PI-21 (Programm-Information, page 10) lists the random elements, and it reads like a score:</p>
+<ol><li>the widths of the horizontal bands at the left boundary</li><li>the buckling of the bands left to right, never intersecting</li><li>per quadrilateral: empty, vertical-line fill, or triangle fill</li><li>the number of signs per quad</li><li>the positions of the signs</li><li>the number of circles</li><li>the position of each circle</li><li>the radius of each circle</li></ol>
+<p>Looking at the DADA scan: roughly nine horizontal bands, their edges bending gently from vertex to vertex, quads delineated by verticals at irregular x positions. Some quads are empty. Some carry tight vertical hatching. Some carry clusters of triangle scribbles. Circles float over everything, about seven of them, various sizes, the way Klee&#x27;s painting has none. The signature at lower left is plotted by the machine itself: NAKE/ER56/Z64.</p>
+<p>The DADA entry corrects a long-standing misprint: many books, including Nake&#x27;s own 1974 book, titled it after Klee&#x27;s painting, &quot;Haupt- und Nebenwege.&quot; Wrong on both counts, since Klee&#x27;s title means one main road and several side roads. Nake fixed it in his own publications from 2001 on. Forty years to correct a caption, and he did it.</p>
+<p>My reconstruction from the PI-21 list reads correctly in character: buckling bands, quad fills, circles. What the exercise taught: the piece is a hierarchy of decisions, not a texture. The band edges are drawn once, shared between adjacent bands. The verticals divide. The fills decorate. The circles ignore all of it. Four independent layers, one picture. That layering is why it does not dissolve into hatch soup: the emptiness of the empty quads is doing as much work as the scribbles.</p>
+<h2>The selection doctrine</h2>
+<p>From the DAM interview, the passage that matters most for anyone making generative work today. Munk asks about editions: a hundred prints, a silkscreen edition of 40, the famous 13/9/65 Nr. 2. Was there a predetermined limit? Nake: &quot;No, never. I write a program. I decide on its completion. I let it run, once or many times. I choose the images that I like, and of which I keep one copy.&quot; People liked 13/9/65 Nr. 2, so he had the punched tape redraw it, &quot;a doubling of the original,&quot; three hours on the plotter, sold cheap. Twenty or thirty such runs, then the silkscreen edition.</p>
+<p>And the harder line, the one he will not soften: &quot;A computer leaves nothing to chance. Never ever. For the computer is the machine of computability. Period. Everything on the computer is computed, even what we call &#x27;chance.&#x27; To talk about chance on the computer is pretty much nonsense! Instead, we should talk about &#x27;pseudo-chance.&#x27; That is a kind of chance pretending to be chance.&quot;</p>
+<p>Then the philosophical frame he built around it: the algorithmic image exists in the form of a double. There is the surface, what we see, and the subface, the computable part that exists for the software. &quot;Think the image, don&#x27;t make it&quot;: to think an image is to think the infinity of all images the algorithm can generate. The single image is only a representative of its class. &quot;The program is the operational description of the work... the operational description of an infinite number of images. That was a revolution.&quot;</p>
+<p>The practical upshot, stated plainly: the program generates the class, the artist curates the instance. Every edition of 150 unique plots, which Nake actually did with 25/2/65, is the selection doctrine made literal: run the class, keep the ones that sing.</p>
+<h2>What makes it sing, what is overdone</h2>
+<p>Sing: the single-counter gradient (Schotter&#x27;s I). The distribution as brush (Nake&#x27;s palette of uniform/Gaussian/exponential/Poisson). The layered independence (Hommage&#x27;s bands, fills, circles not knowing about each other). The kept error (Locken). The machine signature (NAKE/ER56/Z64, authorship stamped by the instrument itself). The economy: Schotter&#x27;s entire program fits in twenty lines of ALGOL, and the idea fits in one sentence.</p>
+<p>Overdone (avoid-list): randomness as decoration rather than structure. The three N&#x27;s all warn, in their own ways, that random numbers are the easiest thing to add and the hardest thing to mean. A jittered grid with no gradient, no distribution choice, and no selection is not Schotter, it is wallpaper. Nake&#x27;s complaint about nonsense talk around computers and art applies: if the random element could be swapped for any other random element without changing the piece, the piece is not using randomness, it is wearing it.</p>
+<hr>
+<h2>Technique seeds for future pieces</h2>
+<p>See FUTURE_PIECES.md, seeds 271-273: Disorder Ledger, Distribution Palette, The Kept Error.</p></div><nav class="pagenav"><a class="" href="elena-asins.html"><span class="dir">Previous note</span><span class="t">Elena Asins</span></a><a class="next" href="hanne-darboven.html"><span class="dir">Next note</span><span class="t">Hanne Darboven</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

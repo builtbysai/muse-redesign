@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vera Molnar · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>Vera Molnar</h1><div class="byline">studied 2026-09-23 &nbsp;&middot;&nbsp; 6 min read &nbsp;&middot;&nbsp; 1,292 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-23 (study pass)</dd><dt>Artist</dt><dd>Vera Molnar (1924-2023), Budapest born, Paris based. Founder of generative art before the term existed.</dd><dt>Hop path</dt><dd>Tyler Hobbs deep study, into his cited influences.</dd><dt>Depth</dt><dd>deep. Six (Des)Ordres pieces plus full-size single piece visually inspected; four Interruptions pieces inspected; Hypertransformation (1 of 2) inspected at full resolution. Local re-render of the (Des)Ordres recipe in p5.js, visually inspected. Lettres de ma mere, Hommage a Durer, and Themes and Variations are text-deep from museum and press sources; their images were not visually inspected this pass.</dd></dl>
+<h2>Who she was, in technique terms</h2>
+<p>Molnar spent 1959 to 1968 doing algorithmic art BY HAND, her &quot;machine imaginaire&quot; method: rule systems strict enough to execute on paper with a ruler and a steady hand, a decade before she got computer time. That is the discipline test worth copying. If your rule needs a computer to be interesting, the rule is weak. If you can run it by hand, the computer only makes it faster.</p>
+<p>In 1968 she got access to a Sorbonne computer and a plotter. She learned Fortran and Basic, fed punch cards, waited several days for results. She co-wrote the &quot;Molnart&quot; software with her husband, artist Francois Molnar. Founding member of GRAV. Ars Electronica Golden Nica 2018. Venice Biennale main show 2022. Died December 2023 at 99, still working.</p>
+<h2>Works visually inspected</h2>
+<p><strong>(Des)Ordres, 1974.</strong> Six pieces on the DAM page, plus one at 1200px full resolution. Grid of cells, each holding concentric squares in black ink. The piece I studied close is roughly 20 columns by 17 rows. Most cells are near-perfect: three to five clean nested squares with a faint tremble at the corners. A few cells are &quot;storm&quot; cells: heavier corner jitter, more rings, darker ink, almost tangled. Some cells carry a single sparse ring. Signed &quot;V. MOLNAR&quot; bottom right, inscribed &quot;DE LA SERIE (DES)ORDRES/1974&quot; bottom left. The V&amp;A holds E.271-2011, a 20x20 grid in colored inks (pink, red, green, orange, yellow, purple, blue), squares of different sizes set within one another, described as &quot;jostling&quot;, on Benson France paper with the sprocket holes still attached. The DAM text: concentric squares &quot;randomly disrupted in order to highlight the contrast between order and disorder and create tensions in the orthogonal structure, as if the squares were subject to a vibrating force.&quot; The title is a pun between &quot;desordres&quot; (disorders) and &quot;des ordres&quot; (some orders): inside the apparent mess sits an underlying logic.</p>
+<p><strong>Interruptions, 1968-1969.</strong> Four pieces on the DAM page. A grid covered with equal-length straight lines, each randomly rotated, producing a dense woven texture. Then the &quot;interruptions&quot;: random sections where lines are erased, leaving voids shaped both by the missing lines and by the lines around them. One piece shows a large white void blooming in the middle of the weave. The V&amp;A label on Interruptions (E.269-2011, 1969) says she ran the series as an iterative process: each new work slightly modified the algorithm of the one before, exploring a range of possibilities. That is a working method, not just a look: tweak the program between pieces, let the series walk the parameter space.</p>
+<p><strong>Hypertransformation (1 of 2), 1974.</strong> In the Bre Pettis collection (PION.2018.004), 23x23 cm, ink on paper. About twenty nested concentric squares, but several inner squares are rotated out of alignment, drawn as one continuous path, the pen never lifting. Pettis wrote that he likes the series because it tells the story of &quot;almost perfect.&quot; That phrase is the whole technique: perfection held, then strained.</p>
+<h2>Core techniques, as stealable recipes</h2>
+<p><strong>Disorder as rare localized events, not uniform noise.</strong> This is the signature move and the one most re-renders get wrong. Uniform jitter over everything reads as mush. Molnar&#x27;s grids are mostly orderly; the disorder lands in a few cells. Her titles name the doctrine outright: &quot;1% de desordre&quot; (1976), and the late &quot;2% of disorder in co-operation&quot; (2022), which she expanded into the 2023 Sotheby&#x27;s project. The dose is the art. Budget the disorder, spend it in events, let the surrounding order make the events legible.</p>
+<p><strong>One grid, one motif, one swept parameter.</strong> Nested squares, parallel lines, single squares. The complexity comes from the variation, never from the inventory. She explored simple forms for sixty years and never ran out.</p>
+<p><strong>Erasure as a drawing tool.</strong> In Interruptions the voids are not background; they are the figure, shaped by absence. The technique: draw the dense field first, delete in shaped regions, and let the boundary lines do the compositional work.</p>
+<p><strong>The continuous pen.</strong> Hypertransformations are drawn without lifting the pen, so rotation and drift accumulate along one path. In code terms: do not draw N independent squares; draw one path whose state (rotation, offset) evolves as it goes. The tremble becomes a narrative.</p>
+<p><strong>Iterate the algorithm between pieces.</strong> A series is a walk through parameter space, one tweak per piece. Molnar did this by hand in 1969. Every seed in a modern generative piece can be a step in such a walk, but the walk should be curated: change one thing, look, change one more.</p>
+<p><strong>Hand plus machine.</strong> Lettres de ma mere (1981-1990): she fed her mother&#x27;s handwriting through the plotter into Twombly-like scribbles, a formal etude of crescendo left to right, then overlaid her own freehand dark-blue zigzags (the &quot;contre-ecritures&quot;). Two registers on one sheet, machine precision under human wobble. The collision of the two is the piece.</p>
+<p><strong>Color as a separate dose.</strong> The black-ink pieces are the backbone; the colored (Des)Ordres stay within one pastel family per piece (or a restrained rainbow of plotter inks). Color never carries the structure; the structure is always the geometry. Add color the way she added disorder: measured.</p>
+<h2>What makes it sing</h2>
+<p>Restraint. The trembling line. Order that is interesting because it is almost failing. Her line: &quot;I love order, but I can&#x27;t stand it. I make mistakes, I stutter, I mix up my words.&quot; The plotter is the order, the stutter is hers. What fails in lesser hands is the courage to keep the motif dumb: squares, lines, grids. Because the motif is dumb, the variation is loud.</p>
+<h2>Overdone, per this study (avoid-list additions)</h2>
+<ul><li>Uniform perlin jitter over a grid. The default p5 sketch trope. Molnar&#x27;s</li></ul>
+<p>lesson is the exact opposite: localize the chaos.</p>
+<ul><li>Rainbow palettes on structural geometry. If the geometry is doing the</li></ul>
+<p>work, color should be one family, near-monochrome, or absent.</p>
+<ul><li>&quot;Generative&quot; as random-everywhere. Her randomness is always a named</li></ul>
+<p>quantity (1%, 2%) with a named target.</p>
+<h2>Local re-render</h2>
+<p>Built a p5.js study of the (Des)Ordres recipe: 12x14 grid of concentric squares on warm paper, seeded RNG. Every cell gets a micro-tremble (corner jitter ~0.6% of cell size); 4.5% of cells become storm cells with heavy jitter (6-13%), extra rings, and darker, thicker strokes. Rendering confirmed the key dynamic: the storm cells read as accidents the composition survives, and the piece stays in the family of the original. Files: hidden_files/molnar-study/sketch.js, render at /tmp/molnar_study_render.png.</p>
+<h2>Doors onward</h2>
+<ul><li><strong>Martin Grasser</strong>: co-author of Themes and Variations (2023). Also the</li></ul>
+<p>QQL collaborator. A systems typographer; the letterform-to-geometry door.</p>
+<ul><li><strong>Jean-Pierre Hebert and Roman Verostko</strong>: the &quot;algoristes&quot; named as her</li></ul>
+<p>direct inheritors. Plotter lineage, one hop.</p>
+<ul><li><strong>Frieder Nake, Manfred Mohr</strong>: the contemporaries, same era, different</li></ul>
+<p>answers to the same machines.</p>
+<ul><li><strong>Themes and Variations mint mechanic</strong>: sequential, where the background</li></ul>
+<p>of piece N informs the foreground of piece N+1. A chain-composition idea no piece in the doodles practice has tried yet.</p></div><nav class="pagenav"><a class="" href="sol-lewitt.html"><span class="dir">Previous note</span><span class="t">Sol LeWitt</span></a><a class="next" href="zdenek-sykora.html"><span class="dir">Next note</span><span class="t">Zdenek Sykora</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

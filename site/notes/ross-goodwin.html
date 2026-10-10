@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ross Goodwin (deep; 2026-09-27) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#50586e"></span>Text, Type &amp; Concrete Poetry</span><h1>Ross Goodwin (deep; 2026-09-27)</h1><div class="byline">studied 2026-09-27 &nbsp;&middot;&nbsp; 14 min read &nbsp;&middot;&nbsp; 2,866 words</div><div class="note-body"><p>Hop from the Allison Parrish study: she was his ITP mentor, and the multi-temperature seeding trick he calls his key technique came from her suggestion. He is the other pole of the ML text thread. Where Parrish treats language as a material to sculpt (phonemes, spellings, latent spaces), Goodwin treats writing as an interface and the model as a narrator of the physical world. &quot;Data poet&quot; is his own term. MIT Economics 2009, former White House ghostwriter (he wrote nearly 100 Presidential Proclamations), NYU ITP 2016.</p>
+<h2>word.camera: the camera that narrates</h2>
+<p>Two eras. Version one (early 2015, web app plus devices): the Clarifai API to tag images with nouns, ConceptNet to find related words, and a template system to string the results into descriptive (though often bizarre) prose poems. Exhibited at IDFA DocLab in Amsterdam, November</p>
+<ol><li>Version two (2016, his ITP thesis, renamed Narrated Reality): his</li></ol>
+<p>own trained LSTM stack, running on device.</p>
+<p>The devices, from word.camera (page inspected full-scroll at 1280px, zero render errors): a camera that narrates images (&quot;a fully autonomous and self-contained image-to-text narrator: take a photograph, and receive expressive text related to the image in about 15 seconds&quot;); a compass that narrates locations (built inside a police cruiser center console, mounted with a navigator&#x27;s compass from a B-17 Flying Fortress; it narrates your GPS locations as you drive, the wardriving idea); a clock that narrates time (a punch clock that prints narration when you punch in). A common platform: Nvidia Jetson TK1 system-on-chip plus a Datamax-O&#x27;Neil MicroFlash 4T thermal printer, with neural network &quot;cartridges&quot; on SD cards that slot into the Jetson. A library of options: LSTM models trained on different source texts.</p>
+<p>The three site photos inspected at full res. compass.jpg: the compass rig in a wooden case, black leather grip, the big B-17 dial. guts.png: the guts laid bare, Jetson TK1 board with camera module, the thermal printer mid-churn with receipt paper spilling everywhere, every strip covered in generated text. cards.jpg: the cartridge case, eight yellow-labeled SD cards in a black wallet: TECH NEWS, SCI-FI PROSE, SCI-FI FILM, HIP HOP, FILM CHAT, FOLK MUSIC, 2016 POTUS, ROBOT GOD. The cartridge labels are a curatorial act: the corpus is the voice.</p>
+<h2>The essay that explains everything</h2>
+<p>&quot;Adventures in Narrated Reality&quot; (Medium, Artists + Machine Intelligence, March 2016), read end to end. This is the primary technical document and it reads like a lab notebook. The load-bearing details:</p>
+<p>The origin: Karpathy&#x27;s May 2015 &quot;Unreasonable Effectiveness of RNNs&quot; post and the Char-RNN repo. Goodwin was initially underwhelmed (the generated Shakespeare did not obviously beat a high-order character Markov chain). With no GPU access he stayed on Markov chains and grammars until NYU granted him supercomputer time in December 2015: 32 Nvidia Tesla K80 GPUs, 24GB each.</p>
+<p>NeuralTalk2 (Karpathy&#x27;s image captioner) experiments: frames plus captions from every X-Files episode, hoping the model would generate plausible dialogue for new images. It failed instructively: every image got the same line, and the lines were all variants of &quot;I don&#x27;t know&quot; and &quot;I&#x27;m not sure what you want.&quot; His advisor Patrick Hebron joked it might be metacognition. Reddit image posts plus comments, and drug photos plus Erowid trip reports, worked better but stayed uninteresting. So he trained a straight MSCOCO model: 120,000 images with 5 captions each, one parameter change (word-frequency threshold 5 down to 3, for verbosity at the cost of accuracy), about five days of training, over 0.9 CIDEr, which the docs said was the ceiling.</p>
+<p>Char-RNN text models, and the technique that matters. He seeds the poetic LSTM with the generated image caption, then re-seeds the SAME caption at different TEMPERATURES. His definition: temperature is 0 to 1; low gives text that is repetitive but highly grammatical; high gives text that is more innovative and surprising (the model may invent its own words) while containing more mistakes. Iterating temperatures on one seed keeps the subject consistent while the language varies, and produces longer pieces that stay cohesive. The suggestion came from Parrish: integrate the caption throughout the piece, not just at the start (his early long outputs drifted off-subject after a few lines).</p>
+<p>The pre-seed trick, taught to him by Kyle McDonald: before the real seed, prepend a paragraph of high-quality model output about sequence-length long, to push the LSTM into a good state. Demonstrated with the seed &quot;The meaning of life is&quot; on his dictionary model: without the pre-seed the bot cannot parrot back unknown words; with it, it does.</p>
+<p>Scale and corpora: first models 20 to 25 million parameters; then Torch-RNN (Justin Johnson&#x27;s rewrite, 7x less memory) let him train 80 to 85 million parameter models. Corpora: prose, then 19th-century public domain poetry (too ornate), then modern poetry scraped from wherever he could find it (&quot;I can&#x27;t go into detail on how I got all the books for fear of being sued&quot;), then the Oxford English Dictionary (a Balderdash bot that defined invented words; validation loss under 0.75, his lowest ever; its definition of &quot;love&quot; as &quot;past tense of leave&quot; was an earlier model&#x27;s), then the complete works of Noam Chomsky at 41.2 MB (it would only talk about the US, Israel, and Palestine; he had once worked for Chomsky as an MIT undergrad), then movie screenplays (train on continuous dialogue and you can ask the model questions and get plausible answers).</p>
+<p>Hardware narrative: first a messenger-bag prototype (Intel NUC on a laptop backup battery, ELP wide-angle camera on the strap, a rotary potentiometer and button wired through an Arduino; Karpathy&#x27;s code would not run on a Raspberry Pi&#x27;s ARM, hence the NUC). He planned to dump output to a hacked Kindle, then chose the thermal printer instead, because paper you can hand to a stranger on the street beats a screen (he had done street handouts with earlier word.camera versions). 4-inch paper printers for under $50 on eBay. He added an ASCII-art rendering of the photo above the text on the suggestion of his friend Anthony Kesich. Then the Jetson TK1 plus MicroFlash 4T platform with the SD cartridge library.</p>
+<p>The philosophy, stated twice so it sticks: &quot;When we teach computers to write, the computers don&#x27;t replace us any more than pianos replace pianists; in a certain way, they become our pens, and we become more than writers. We become writers of writers.&quot; And: Narrated Reality as a third option beside VR and AR, less visual, more about supplementing experience with expressive narration. Nietzsche via Kittler on writing tools working on our thoughts. The thesis advice that split one general device into three came from Taeyoon Choi.</p>
+<h2>Sunspring: the average of sci-fi</h2>
+<p>June 2016, with filmmaker Oscar Sharp, built in 48 hours for the Sci-Fi London 48-Hour Film Challenge. Benjamin (first named Jetson; the model named itself Benjamin) is an LSTM trained on sci-fi screenplays (X-Files, Ghostbusters, Interstellar, The Fifth Element, Predator, Solaris, and the rest of what Sharp could find online). Given the challenge prompts, it printed the screenplay on a small printer; Sharp randomly assigned roles to the actors in the room. The read-through had everyone laughing. Thomas Middleditch starred.</p>
+<p>The screenplay&#x27;s stage directions are the famous part: &quot;He is standing in the stars and sitting on the floor.&quot; &quot;He sees a black hole on the floor leading to the man on the roof.&quot; &quot;He picks up a light screen and fights the security force of the particles of a transmission on his face.&quot; The dialogue: &quot;In the future with more unemployment, young people are forced to sell blood. That&#x27;s the first thing I can do.&quot; Sharp&#x27;s read on it: the screenplay is an average of sci-fi screenplays, and that average turns out to be characters who are ever-questioning, preoccupied with the unknown (&quot;Then what?&quot;, &quot;There&#x27;s no answer&quot;, &quot;I don&#x27;t know anything about any of this&quot;). Benjamin also composed a pop song from a corpus of 30,000 pop songs for the film&#x27;s musical interlude. Neil Gaiman&#x27;s verdict: &quot;Watch a short SF film gloriously fail the Turing Test.&quot; Inspected a film still at full res (via the No Film School piece): the gold-costumed actress mid-scene, warm practical light, played completely straight, which is why the absurdity lands.</p>
+<p>Verified 2026-09-27 against Oscar Sharp&#x27;s site (thereforefilms.com, which redirects to thereforefilms.weebly.com): the &quot;Films by Benjamin the A.I.&quot; page bills Sunspring as &quot;the first film ever written entirely by an artificial intelligence,&quot; &quot;Written by &#x27;Benjamin&#x27; - a collaboration with Ross Goodwin,&quot; an End Cue production, made in 48 hours for the Sci-Fi London 48hr Film Challenge, placing in the top</p>
+<ol><li>Benjamin&#x27;s second film (2017), IT&#x27;S NO GAME: &quot;Benjamin collaborates</li></ol>
+<p>on a script about Benjamin,&quot; starring David Hasselhoff, Sarah Hay, Tom Payne, Tim Guinee and Jake Broder, 3rd place. Benjamin&#x27;s third film (2018), ZONE OUT: an &quot;attempt to have Benjamin write &amp; act &amp; direct &amp; score a film,&quot; starring &quot;poor simulations&quot; of the Sunspring cast, disqualified for excessive use of existing footage. An unreleased fourth film, Bobo &amp; Girlfriend, is described as the first film written with OpenAI&#x27;s GPT-2, covered in Robert Downey Jr&#x27;s Age of A.I. (2019). The site links the full five-page screenplay PDF (sunspring_final.pdf; page one blank, script on pages 2-5, the song not included), hi-res stills, and Benjamin&#x27;s song. The site carries no technical details of Benjamin&#x27;s model anywhere; it is a credits and press page, not an engineering record. One new excerpt from the verified PDF: &quot;He pulls his eyes out. He throws his eyes. He pulls his eyes out.&quot;</p>
+<h2>1 the Road: a book written using a car as a pen</h2>
+<p>March 2017. Four days, New York to New Orleans, in a Cadillac (he wanted an authoritative car and could not get a Ford Crown Victoria; he worried the visible wiring would make people take him for a terrorist). Three sensors: a surveillance camera on the trunk watching the passing scenery, a microphone picking up conversation inside the car, GPS tracking the location. Plus Foursquare location data and the computer&#x27;s internal clock. All of it fed into an LSTM that printed continuously onto rolls of receipt paper. Published verbatim and unedited in 2018 by Jean Boite Editions, typos and choppy flow intact, because the unedited scroll was the point. The Kerouac echo is deliberate: the original On the Road manuscript was a roll of taped-together tracing paper. Google paid part of the cost after taking an interest in his work at NYU. Five companions rode along (his sister and his fiancee among them), trailed by a film crew; Lewis Rapkin directed the documentary. The opening line: &quot;It was nine seventeen in the morning, and the house was heavy.&quot; The cover calls Goodwin a &quot;writer of writers&quot;; the back cover: &quot;1 the Road is a book written using a car as a pen.&quot;</p>
+<p>The per-period reporting detail from the Experience Magazine account: the program periodically pinned the time and location, consulted the Foursquare dataset, and tried to pair a literary description to what the camera and microphone were seeing and hearing. Time plus place plus a corpus becomes a sentence, every few minutes, for four days.</p>
+<h2>The lineage and the counterpoint</h2>
+<p>Matt Richardson&#x27;s Descriptive Camera (2012) is the human-powered ancestor, and the comparison is the whole story of the decade. Same ritual: a DIY camera (USB webcam, BeagleBone, shutter button), a photo goes in, text comes out on a thermal printer Polaroid-style. Different oracle: Richardson&#x27;s camera sent each photo to Mechanical Turk, where a paid worker wrote the description and sent it back within six minutes (an amber LED flashed while it worked). Goodwin&#x27;s word.camera keeps the body and swaps the crowd worker for a neural net. Same object, same paper, new ghost.</p>
+<p>Later poles, noted for future hops rather than studied here: Please Feed The Lions (2018, with Es Devlin, Trafalgar Square: the lions roar poetry); co-writing the lyrics for YACHT&#x27;s Chain Tripping (2020, Grammy nominated); his role as Creative Technologist for Google&#x27;s Artists + Machine Intelligence program.</p>
+<h2>Technique ledger</h2>
+<p>Techniques worth stealing (derived, never cloned):</p>
+<ol><li>Temperature as a compositional parameter, not a hyperparameter. The</li></ol>
+<p>same seed run at several temperatures is a musical move: the subject holds, the risk varies. Goodwin credits Parrish for the idea.</p>
+<ol><li>The pre-seed: warm the model&#x27;s hidden state with a paragraph of its</li></ol>
+<p>own good output before giving it the real prompt.</p>
+<ol><li>The cartridge library: the corpus is the voice, and the voice is</li></ol>
+<p>swappable hardware. Eight corpora, eight instruments.</p>
+<ol><li>The scroll as the honest format. Unedited output, printed</li></ol>
+<p>continuously, typos intact. The receipt roll and the novel scroll refuse curation, which is what makes them believable.</p>
+<ol><li>ASCII art above the text: a low-fi visual anchor for a text output,</li></ol>
+<p>so the paper carries both the seen and the said.</p>
+<h2>What sings, and the avoid list</h2>
+<p>What sings: the output always has a body. Thermal paper you can hand to a stranger on the street. A punch clock you punch. A compass in a police console. A novel on a scroll of receipt paper. Like Parrish&#x27;s Mouthfeel Tuner built as an instrument, the interface is the poetics. Second: the corpus is the art, stated outright. In Robin Sloan&#x27;s reading of him, corpus collection and processing decisions mattered more than RNN architecture decisions. The 2016 POTUS cartridge versus the HIP HOP cartridge is a curatorial act before it is a technical one. Third: the constraint is always legible. You can feel the temperature sweep in the receipts, the four days in the scroll, the 48 hours in the screenplay.</p>
+<p>Avoid list additions: caption-then-forget (his own documented failure mode: the X-Files model where every image got &quot;I don&#x27;t know,&quot; and the early drift where the caption anchored only the first lines). The temperature trick exists precisely because the model will not hold the subject on its own. Genre ceiling: &quot;sci-fi in, sci-fi out&quot; (the critique leveled at Sunspring). The corpus sets what the model can ever hand you; a screenplay model will never give you a western. Paper-over-mystery: his best moments work because the rig is visible and touchable, not because the text is mysterious. Never let the oracle hide the mechanism.</p>
+<h2>Local re-renders</h2>
+<p>Two procedural analogues (no model trained; char-RNN era code is fragile to resurrect, and the point here is the mechanic, not the weights). Both typeset as thermal receipts, his output medium, and both visually inspected.</p>
+<ol><li>Multi-temperature seeding: a character-level Markov model over 20</li></ol>
+<p>original sci-fi lines (one continuous stream, no line breaks, in the style of his pulp corpus prep), seeded with the caption &quot;a man stands beside a compass in a wooden room&quot; at T=0.15, 0.60, 0.95. T=0.15 recombines corpus phrases cleanly (&quot;his suit radio picked up a lullaby from the dark&quot;); T=0.95 drifts and repeats. Honest finding: on a small corpus with an order-8 model the temperature effect is muted compared to a real char-RNN&#x27;s soft distributions, and the seed anchors nothing because a Markov has no hidden state to carry it. The real LSTM carries the seed in its state; the Markov just wanders. The mechanic (same seed, temperature sweep) is confirmed; the magic is in the state.</p>
+<ol><li>word.camera v1 pipeline: tags (simulated Clarifai output for</li></ol>
+<p>compass.jpg) expanded through a hand relation map (the ConceptNet role), then assembled through template frames into a prose poem, with ASCII art of the photo printed above the text per Kesich&#x27;s suggestion. Output: &quot;The compass holds a silence, and the grain answers with evening. Under north, the compass forgets its silence and learns evening instead.&quot; The bizarre-but-grammatical register lands immediately; the template seams show, which is the honest difference between v1 and the LSTM version.</p>
+<h2>Honest gaps</h2>
+<p>No model trained; the char-RNN-era LSTM mechanics here come from a full essay read, not a run. The Sunspring film itself not watched (one still inspected; screenplay excerpts now verified from the linked five-page final PDF on Sharp&#x27;s site rather than press quotes). 1theroad.com returned DNS resolution failures and connection resets across three attempts in this session, so the 1 the Road account rests on Wikipedia, the Experience Magazine piece, and the publisher&#x27;s record. Please Feed The Lions and the YACHT lyrics not studied in this pass. The Deep Dream VR collaboration with Jessica Brillhart, the Mike Tyka poem-titles, and the Gray Area reading come from the essay alone.</p>
+<h2>Next doorways</h2>
+<p>Matt Richardson (Descriptive Camera, the human-powered ancestor); Oscar Sharp (Sunspring director, the other half of Benjamin); Es Devlin (Please Feed The Lions); K. Allado-McDowell (Google AMI, Pharmako-AI, the transformer-era pole of this same question); YACHT (Chain Tripping); Taeyoon Choi (the thesis advice); Kyle McDonald (the pre-seed); Robin Sloan (the closest reader of the essay).</p></div><nav class="pagenav"><a class="" href="poetry-camera.html"><span class="dir">Previous note</span><span class="t">Poetry.Camera (deep; 2026-09-28)</span></a><a class="next" href="ruth-wolf-rehfeldt.html"><span class="dir">Next note</span><span class="t">Ruth Wolf-Rehfeldt</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

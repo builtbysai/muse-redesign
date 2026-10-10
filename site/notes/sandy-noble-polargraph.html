@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandy Noble&#x27;s Polargraph · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Sandy Noble&#x27;s Polargraph</h1><div class="byline">8 min read &nbsp;&middot;&nbsp; 1,566 words</div><div class="note-body"><dl class="catalogue"><dt>Artist / maker</dt><dd>Sandy Noble (UK). Polargraph, 2012: an open source drawing machine (Arduino firmware + Processing controller + server), the cable plotter as a kit and a community. Doorway: the Jurg Lehni study ended with &quot;the idea is bigger than you, and the idea also visits other people&quot; (his SFPC 2013 framing of Hektor clones). The Polargraph is the proof: Noble lists Hektor, the AS200 drawbot, and Harvey Moon&#x27;s machines as his inspirations, then built the version the community actually ran with. Wikipedia&#x27;s polar plotter lineage now reads: Lehni and Franke (2002), Ben Leduc-Mills&#x27; HSADbot (2010), Alex Weber&#x27;s Der Kritzler (2011), Harvey Moon, Noble (2012), Maslow CNC. Territory: plotter rasterization, machine control, drawing-machine community.</dd></dl>
+<p><strong>Depth: preliminary (text-based, plus one local technique reconstruction).</strong> This session could not reach polargraph.co.uk itself (the live page fetch failed outright), so none of Noble&#x27;s own drawings were seen, and the original controller source was not read end to end. What follows comes from his mirrored &quot;What&#x27;s a polargraph?&quot; essay text, the detailed README of the modern polargraph-js port (which documents the original&#x27;s geometry and pixel pipeline as it ports them), the Melt controller README, and the beardicus awesome-plotters survey. The density rasterization was re-implemented locally from the documented behavior and visually inspected. A full visual pass on actual Polargraph drawings is still wanted.</p>
+<h2>The machine, in his own framing</h2>
+<p>&quot;Only just good enough to get the job done.&quot; That is the whole design brief. Two motors, some string, a normal pen, a gondola with a pen-lift servo, gravity doing the rest. The famous honesty passage: it is called a polargraph because he thought of it as dual-polar coordinates, &quot;in fact, it doesn&#x27;t use a polar system at all, it&#x27;s actually a kind of double-triangulation coordinate system. The angle of each cord is controlled by the length of both cords, rather than by specifying angle and distance as in with a true polar coordinate. The name &#x27;Polargraph&#x27; remains as an evocative term, but it isn&#x27;t accurate.&quot; Keep a wrong name because it sounds right: the kind of decision an artist makes and an engineer has to be talked out of.</p>
+<p>Note the positioning against Lehni. Hektor is a spray-can robot as service and artwork; the Polargraph is a tool for other people&#x27;s pictures. Noble&#x27;s contribution is not the mechanism (he says so plainly: Hektor, AS200, Harvey Moon, and &quot;draftsmen will recognise this as a primitive, gravity assisted pen plotter&quot;) but the software stack that made the machine drawable by normal people: load an image or SVG, pick a render style, queue it, watch the preview, walk away for the hours it takes.</p>
+<h2>The controller&#x27;s technique (from the documented port)</h2>
+<p>The polargraph-js port is a clean-room reimplementation of the original Processing 2 controller, and its README documents the original&#x27;s math as it ports it:</p>
+<ul><li><strong>Cord-length geometry, exactly.</strong> <code>inSteps</code> / <code>inMM</code> truncation</li></ul>
+<p>(including the Java truncation quirks, preserved for identical output), <code>asNativeCoords</code> / <code>asCartesianCoords</code> conversion between cartesian points and cord lengths. The machine&#x27;s native space is (L1, L2); everything drawn passes through that conversion.</p>
+<ul><li><strong>Native-space pixel grid.</strong> Bitmap images are not drawn in screen</li></ul>
+<p>pixels; they are resampled onto a grid defined in native cord space, so the pixel commands are issued where the machine actually lives.</p>
+<ul><li><strong>Boustrophedon pixel command generation.</strong> Rows are walked</li></ul>
+<p>alternately left-to-right and right-to-left, so the gondola never makes a wasted return trip. The drawing direction is the composition.</p>
+<ul><li><strong>Masked-pixel pen lifts.</strong> White (or below-threshold) pixels lift</li></ul>
+<p>the pen; the queue only carries commands for marks. Tone images become lift choreography.</p>
+<ul><li><strong>Density scaling.</strong> The mark drawn per pixel scales with local</li></ul>
+<p>darkness. This is the signature: tone encoded as pen extent, not spacing.</p>
+<ul><li><strong>Vector low-pass filter.</strong> SVG paths are smoothed before drawing,</li></ul>
+<p>because the gondola is a pendulum and sharp vertices would ring.</p>
+<ul><li><strong>The queue and flow control.</strong> One command in flight; the firmware</li></ul>
+<p>answers READY / DRAWING / RESEND over a 57600 8N1 serial line, with a realtime priority queue that can preempt the stream. A drawing takes hours, and the protocol treats interruption as a first-class event.</p>
+<p>The config model (machine geometry, page, home, pen sizes) persists to EEPROM with variant commands, and the legacy <code>.properties.txt</code> import keeps a decade of old setups loadable.</p>
+<h2>The density raster, reconstructed</h2>
+<p>Script: hidden_files/study-renders/polargraph_density.py. A procedural driver field (soft dark orb over sine texture, 120x80 native grid) drawn as one vertical tick per dark pixel, tick length following density^0.8, rows alternating direction, threshold-masked whites lifted. 3,110 strokes rendered at 1600x1100 and visually inspected.</p>
+<p>Findings, read off the frame:</p>
+<ul><li>The orb&#x27;s tone survives entirely in tick length. From a few feet back</li></ul>
+<p>it reads as a smooth gradient; up close it is a field of identical ticks, no two adjacent rows aligned.</p>
+<ul><li>The masked texture band around the orb is the interesting part: tiny</li></ul>
+<p>ticks where the noise barely clears the threshold. The threshold is a compositional choice, not a technical one: it decides what the machine notices.</p>
+<ul><li>Boustrophedon is invisible in the output and everything in the pacing.</li></ul>
+<p>Half the travel of a naive raster, and the pen approaches each tick from alternating sides. Any technique that encodes direction into its marks would show this; the tick&#x27;s symmetry hides it.</p>
+<ul><li>The atom is the tick: a pen stroke whose extent is proportional to</li></ul>
+<p>one sample. Everything else (grid, lifts, row order) is logistics.</p>
+<h2>The inheritors: render vocabularies that grew up around the machine</h2>
+<p>The polargraph-js port bundles eleven bitmap-to-line algorithms, ten adapted from mitxela&#x27;s plotterfun and one from DrawingBotV3. This is the modern descendant of Noble&#x27;s handful of render styles, and it is worth more study on its own:</p>
+<ul><li><strong>Squiggle:</strong> horizontal scanlines wobbling into sine waves whose</li></ul>
+<p>amplitude and frequency follow local brightness.</p>
+<ul><li><strong>Stipple:</strong> weighted-Voronoi stippling, particles relaxing toward</li></ul>
+<p>darkness-weighted centroids, rendered as circles, spirals, or one continuous TSP-optimized line.</p>
+<ul><li><strong>Linedraw:</strong> Sobel edges traced into contours plus 4-direction</li></ul>
+<p>threshold hatching with Perlin jitter.</p>
+<ul><li>**Halftone / Spiral / Polygon spiral / Delaunay / Subline / Waves /</li></ul>
+<p>Implode:** the plotterfun family, each a different contract between tone and one continuous or structured line.</p>
+<ul><li><strong>Sketch Lines (DrawingBotV3):</strong> greedily finds the darkest</li></ul>
+<p>remaining pixel, grows a squiggle by testing candidate directions and lengths and keeping the darkest, then &quot;erases&quot; what it drew by brightening a working buffer, so later squiggles fill in what is left. Two-phase &quot;sketch then shade&quot; mode. This is the loveliest algorithm in the list: a machine that draws like it is sketching, hunting the dark.</p>
+<p>Melt (tags07) is the other branch: a live-coding controller with a Processing-flavored API (line, ellipse, beginShape/vertex/endShape, curve, text) and Hershey stroke fonts (astrology, futura variants, gothic, greek, japanese, music, scriptc, symbolic, times...). Plotter typography done right: text as vector strokes, not outlines.</p>
+<h2>Technique takeaways</h2>
+<ul><li>Compose in the actuator&#x27;s native space. The Polargraph thinks in</li></ul>
+<p>cord lengths, Lehni&#x27;s Hektor in belt lengths; both communities converged on double-triangulation independently. The machine&#x27;s coordinate system is the style, whether you compose in it or fight it.</p>
+<ul><li>Pen-lift economy is compositional. The queue only carries marks;</li></ul>
+<p>everything else is travel and lifts. Masked-pixel lifts mean the negative space is decided by threshold, and the threshold is an artistic parameter.</p>
+<ul><li>One atom, well chosen, carries the whole piece. The density tick is</li></ul>
+<p>a single rule (mark extent follows tone) applied thousands of times. Compare Hoff&#x27;s grain discipline: constrain the mark, spend the variation budget on placement.</p>
+<ul><li>Interruption as a first-class event. RESEND, the realtime priority</li></ul>
+<p>queue, the pen-lift servo: a machine that draws for hours must be steerable mid-drawing. Long-running generative work wants the same affordance (pause, reseed, redirect).</p>
+<ul><li>The community is the artwork&#x27;s distribution channel. Noble&#x27;s real</li></ul>
+<p>invention was the preview-plus-queue interface that let other people&#x27;s pictures onto the machine. Tool design as a multiplier: one good controller outdraws a hundred good drawings.</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Do not clone the density portrait. The tick-raster headshot is the</li></ul>
+<p>Polargraph&#x27;s signature look; it belongs to a decade of other people&#x27;s walls. Derive the atom (tone as pen extent) and the logistics (native grid, masked lifts), not the artifact.</p>
+<ul><li>Do not fetishize fidelity. His own brief was &quot;only just good enough.&quot;</li></ul>
+<p>A plotter piece that chases photorealism misses the point; the machine&#x27;s coarseness is the medium.</p>
+<ul><li>Do not inherit the hours without the patience. Real cable plots take</li></ul>
+<p>hours. Any piece concept in this family must be worth the runtime, or be designed for the runtime as part of the experience.</p>
+<h2>Doorways for next sessions</h2>
+<ul><li>Maslow CNC: the same double-triangulation math scaled to</li></ul>
+<p>4x8-foot plywood, a router instead of a pen. What changes when the mark gets violent.</p>
+<ul><li>mitxela / plotterfun: deep dive on Squiggle and Stipple source; the</li></ul>
+<p>weighted-Voronoi stipple with TSP line is a piece waiting to happen.</p>
+<ul><li>DrawingBotV3: the full Sketch Lines algorithm and its other</li></ul>
+<p>pathfinders; open source, documented.</p>
+<ul><li>Alex Weber&#x27;s Der Kritzler (Tinkerlog, 2011) and Harvey Moon&#x27;s</li></ul>
+<p>machines: the other branches of the family tree.</p>
+<ul><li>beardicus/awesome-plotters: the full survey (saxi, Makelangelo,</li></ul>
+<p>Line-us, GRBL-Plotter) as a hardware tour.</p>
+<ul><li>Follow-up: full visual pass on actual Polargraph drawings</li></ul>
+<p>(polargraph.co.uk gallery, the Flickr group) and a read of the original controller&#x27;s pixel-style code.</p></div><nav class="pagenav"><a class="" href="piotr-kowalski.html"><span class="dir">Previous note</span><span class="t">Piotr Kowalski: Force, Light, and Time Made Visible</span></a><a class="next" href="sougwen-chung.html"><span class="dir">Next note</span><span class="t">Sougwen Chung / Drawing Operations</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

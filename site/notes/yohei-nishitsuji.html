@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yohei Nishitsuji · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Yohei Nishitsuji</h1><div class="byline">5 min read &nbsp;&middot;&nbsp; 1,022 words</div><div class="note-body"><dl class="catalogue"><dt>Site</dt><dd>yoheinishitsuji.com | <strong>X:</strong> @YoheiNishitsuji | <strong>Playground:</strong> twigl.app, fragcoord.xyz | <strong>Interview:</strong> codrops 2025 (&quot;Rendering the Simulation Theory&quot;)</dd><dt>Depth</dt><dd>deep. Six award works were downloaded from yoheinishitsuji.com/art and viewed at full resolution. His posted shader sources were read in full via X-post mirrors, and one more shader was read out of the handwritten code watermark he prints inside his own artworks. The X profile itself is login-walled, as usual.</dd></dl>
+<h2>Who he is</h2>
+<p>A physicist by trade, wave mechanics, geophysics, machine learning, now fusion energy and AI at Sumitomo. He came to fractals through the science: self-similarity kept showing up in his wave research, in coastlines and shells and galaxy clusters, and he decided to take the universe on directly in code. Every piece he publishes fits inside twigl.app&#x27;s geekest limit, about 300 characters of GLSL. He has the awards to show it is not a gimmick: grand award at Asia Digital Art Award FUKUOKA, a Code Graphics win, SHIBUYA AWARDS, ART OLYMPIA.</p>
+<h2>Core techniques</h2>
+<h3>The 300-character universe</h3>
+<p>His whole practice is a wager: if a few hundred characters are enough for a sky, then the universe runs on the same kind of compression. His famous claims are specific: clouds in 267 characters, sky in 280, ocean in 267, an electron microscope in 267. This is code golf as a metaphysical statement, and the discipline shapes every technique choice below.</p>
+<h3>The log-polar tunnel transform</h3>
+<p>The signature move, repeated across half the pieces I read. After raymarching a step, he remaps the point to <code>vec3(log(R) - t, &lt;height term&gt;, atan(y, x))</code>, that is, log-radius, a height ratio, and angle. This turns an infinite corridor into a repeating tile along one axis, so a cheap accumulation loop reads as an endless fractal tunnel. Variants show up in the slime mold piece, the sea floor piece, and the &quot;mother sponge&quot; membrane.</p>
+<h3>Nested cosine/sine interference instead of noise</h3>
+<p>Where most shader artists reach for fBm noise, he builds his fractals from tightly nested trig loops: <code>e += dot(sin(p.xz*s), cos(p.xx*s + t)) / s</code> with <code>s</code> doubling each iteration, or <code>cos(dot(cos(p.zyy*s), cos(p.xyx*s))) / s</code>. No noise textures, no hash functions, just interference patterns summed over octaves. It is why his surfaces look like wave interference rather than smoke: standing waves and membranes instead of turbulence.</p>
+<h3>Fake raymarch with additive accumulation</h3>
+<p>Most of the 300-char pieces skip real SDF marching. The pattern is: walk a ray forward by tiny steps, remap to the log-polar tunnel, accumulate a trig sum, and paint it through <code>hsv(hue, sat, value)</code> directly onto the framebuffer. Color is rarely composited; it is added, piece by piece, per step.</p>
+<h3>Particle-loop fireworks</h3>
+<p>His &quot;fireworks&quot; piece (267 chars) works differently: a single loop of 900 iterations, each iteration drawing one spark as a 2D distance falloff with <code>hsv(R, u, exp(3 - e - l))</code>, particles arranged on expanding spherical shells with per-particle phase offsets. Procedural crowds from one loop, no geometry at all.</p>
+<h3>The code as watermark</h3>
+<p>Several award pieces carry the actual GLSL source rendered as handwritten text in a corner of the artwork. It is provenance, signature, and technique sheet in one. Stealing the aesthetic is pointless; the recipe is printed on the canvas.</p>
+<h2>Palette and composition</h2>
+<p>He is allergic to the neon-glow-on-black shader cliché, and most pieces read as naturalist. The clouds are genuinely photorealistic: white cumulus, blue sky, silver lining on backlit edges. The ocean piece looks like an aerial photo of whitecaps. The slime mold and sea floor pieces are monochrome gray macro studies. Where color appears it is restrained and physical: violet and white for &quot;galactic soup,&quot; copper and amber for &quot;mother sponge,&quot; pure B&amp;W for &quot;upwelling mantra.&quot; Compositions are often radial or centered, tunnels and membranes filling the frame edge to edge, sometimes a single upward jet.</p>
+<h2>What makes it sing</h2>
+<ul><li>The photorealism-per-character ratio. The clouds piece should not be possible</li></ul>
+<p>in 267 characters, and yet it looks like a photo of backlit cumulus. The compression is the art.</p>
+<ul><li>The interference aesthetic is genuinely his. The trig-octave loops give a</li></ul>
+<p>tissue-like, membranous quality that noise-based work does not have. You can spot the look across pieces.</p>
+<ul><li>The science-to-art pipeline is real, not branding. The log-polar transform</li></ul>
+<p>and the wave interference are the same math he did for a living.</p>
+<ul><li>Range inside the constraint: particle fireworks, fake-volumetric clouds,</li></ul>
+<p>macro biology, cosmic soup, all from one 300-character grammar.</p>
+<h2>Techniques to steal (not copy)</h2>
+<ul><li>The log-polar tunnel remap: <code>log(length(p))</code> for radius plus <code>atan</code> for angle</li></ul>
+<p>is a cheap infinite corridor generator in any raymarcher</p>
+<ul><li>Trig-octave interference instead of noise when you want tissue, membrane,</li></ul>
+<p>or standing-wave surfaces rather than smoke</p>
+<ul><li>The <code>hsv()</code> direct-to-framebuffer coloring with accumulation, for when you</li></ul>
+<p>want palette control without compositing nodes</p>
+<ul><li>Single-loop particle crowds: one iteration per particle, 2D distance falloff</li></ul>
+<p>each, arranged on parameterized shells</p>
+<ul><li>The code-in-the-corner watermark: printing the generating recipe inside the</li></ul>
+<p>work as signature</p>
+<ul><li>The discipline itself: cap a piece at N characters and let the constraint</li></ul>
+<p>choose the techniques</p>
+<h2>What NOT to do</h2>
+<ul><li>Do not copy his trig-octave recipe wholesale. The look is identifiable and</li></ul>
+<p>the watermark trick means the recipe is his, publicly.</p>
+<ul><li>The radial tunnel compositions are his default; ours should find different</li></ul>
+<p>framing or they will read as Nishitsuji studies.</p>
+<ul><li>His pieces are stills and looping renders, not interactive. Do not assume</li></ul>
+<p>the techniques transfer directly to real-time interactive work without testing the frame cost.</p>
+<ul><li>The naturalism depends on careful parameter tuning; golfed code with bad</li></ul>
+<p>constants looks like static, and the tuning is invisible labor.</p>
+<h2>Revisit notes</h2>
+<ul><li>twigl.app pieces themselves were not screenshotted (GLSL canvas render in</li></ul>
+<p>headless Chrome was not attempted this pass); a revisit could run several of his twigl links through the rig and capture frames.</p>
+<ul><li>His GitHub was not found this pass; worth checking for longer-form shaders.</li></ul></div><nav class="pagenav"><a class="" href="xordev.html"><span class="dir">Previous note</span><span class="t">xordev</span></a><a class="next" href="yoichiro-kawaguchi.html"><span class="dir">Next note</span><span class="t">Yoichiro Kawaguchi: the Growth Model</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

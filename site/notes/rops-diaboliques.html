@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Felicien Rops, the small board delegated and the large board reworked (Les Diaboliques, 1883-1892) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a4a2b"></span>Print &amp; the Etched Line</span><h1>Felicien Rops, the small board delegated and the large board reworked (Les Diaboliques, 1883-1892)</h1><div class="byline">studied 2026-10-06 &nbsp;&middot;&nbsp; 16 min read &nbsp;&middot;&nbsp; 3,297 words</div><div class="note-body"><p>Deep study, 2026-10-06. Hop-only session, queue exhausted. Named as the next doorway by the 2026-10-06 Felicien Rops study. The quality-first choice: the small/large Diaboliques pair is the only study in the whole lineage where the SAME artist remade the SAME compositions twice, once as a delegated commission and once as his own project, and his own verdict on the difference survives: &quot;les petites planches ne disent rien,&quot; the small boards say nothing. What his hand changed is directly visible on the sheets.</p>
+<h2>The two series, what they are</h2>
+<p>The Diaboliques are not one edition but two series of nine plates each, constantly confused in the literature, which is why the dating keeps wobbling between 1882, 1884, and 1886. Alric Delaporte&#x27;s 2014 master&#x27;s thesis (Paris 1, drawn from the Rops museum archives in Namur) is the one document that disentangles them, and this study follows it. Correction to the 2026-10-06 Rops study: it was Rops himself, not Lemerre, who delegated the small boards to the engraver Leon Evely, and even the large boards were engraved by Evely first, with Rops reworking them personally afterward. The delegation story is messier and more interesting than &quot;Lemerre delegated the work.&quot;</p>
+<p>The plates: frontispice Le Sphinx, six story plates (Le Rideau Cramoisi, Le Plus bel Amour de Don Juan, Le dessous de cartes d&#x27;une partie de whist, A un diner d&#x27;athees, Le Bonheur dans le Crime, La Vengeance d&#x27;une femme), and the two-version postface La femme et la folie dominant le monde I and II. The Barbey d&#x27;Aurevilly portrait was engraved by Paul Rajon, not Rops, because Rops&#x27;s caricatural portrait of Barbey could not match the classic facture of Lemerre&#x27;s author frontispieces.</p>
+<p>Small series (commissioned): drawings ordered 20 November 1883 per Rops&#x27;s letter to Peladan, delivered in dribs through September 1885 (the ninth plate, the second postface culispice, added 4 September 1885 as a make-good for the lateness), engraved by Evely, published February 1886 by Lemerre. Format about 12 x 9 cm, &quot;Lemerre format&quot; paper. The margin carries the full apparatus: title, &quot;Felicien Rops del. &amp; sc.,&quot; &quot;A. Lemerre Ed.,&quot; &quot;Imp. A. Salmon.&quot; Delaporte shows the &quot;del. &amp; sc.&quot; is a fiction: Rouir&#x27;s technical examination found no trace of Rops&#x27;s retouching on the first states, and the Rops-Evely letters show Rops sending Evely the drawings to engrave from June 1884, then complaining in September 1885 about the deplorable state of the plates, all while reassuring Lemerre &quot;not to be frightened by certain brutalities.&quot; Evely was led to believe his plates were reproductions, not the final state.</p>
+<p>Large series (his own): announced by Rops in April 1886, two months after the small series appeared, with the verdict that the small boards say nothing. Exhibited once, at the Salon des XX in February</p>
+<ol><li>The engraving was Evely&#x27;s again, per Rouir&#x27;s hypothesis built</li></ol>
+<p>on the September-October 1888 copper-theft letters (&quot;there is only you who engraved the Diaboliques in large format&quot;), but the retouching was Rops&#x27;s own, pursued with Armand Rassenfosse through the early 1890s, developing the &quot;undetectable&quot; soft-ground varnish the two men were inventing together. Rops&#x27;s April 1891 letter: &quot;Il y a deux editions de Diaboliques une, la petite, chez Lemerre. Puis la grande en train de se faire. ... La Vengeance de femme n&#x27;est pas encore faite ni le Vol &amp; la Prostitution dominant le monde.&quot; The large series was still unfinished in 1891, and Rouir holds that the large La Vengeance was never completed. Ramiro&#x27;s 1887 catalogue lists only the small series plus one large Sphinx; the 1893 supplement lists six large plates. Lemerre had no part in the large series and may not have known it existed; his 1894 debt claim of 3100 francs against Rops may be the shadow of the fraudulent large edition sale.</p>
+<p>Also in the shadows: Rops sold proofs of the small series at Drouot in May 1885 before publication, without Lemerre&#x27;s knowledge, and used a boy engraver, Louis Legrand, to &quot;mass&quot; (model) the drawings, a collaboration he then furiously disavowed. The whole production is a paper trail of delegation, deception, and debt.</p>
+<h2>Technique</h2>
+<p>Small boards: heliogravure, pure or slightly retouched, reproducing Rops&#x27;s drawings. Line-and-crosshatch register on white paper, the titles drawn in the sky of the plate (lettered in the image itself, like the Sataniques) with the publication apparatus in the margin.</p>
+<p>Large boards: heliogravure transfer engraved by Evely, then reworked by Rops with soft-ground (vernis mou), drypoint, and aquatint. The Rassenfosse collaboration produced a soft-ground varnish retouch &quot;undetectable&quot; by the standard examination, which is exactly why Rouir&#x27;s authenticity criteria misfire on them. The visual register is the reversal of the small boards: full-bleed tonal ground, the figure reserved pale, line dissolved into grain. The title stays inside the plate, lettered faintly in the field; the signature is Rops&#x27;s own, written in the plate. No Lemerre, no Salmon, no margin apparatus: the plate is a self-contained object.</p>
+<h2>What was inspected</h2>
+<p>Nine small boards, the complete 1886 series, from the Mu.Zee uploads on Wikimedia Commons (~1400x2000 each): Le Sphinx (frontispice), the six story plates, and both postface versions. Seven large-board impressions for comparison: six Rijksmuseum sheets (PK.MP.11371 Le rideau cramoisi, PK.MP.11343 Le bonheur dans le crime, PK.MP.11347 A un diner d&#x27;athees, PK.MP.11363 Le dessous de cartes d&#x27;une partie de whist, PK.MP.11346 La vengeance d&#x27;une femme, PK.MP.11349 La femme et la folie dominant le monde) and the KBR Don Juan large board (23.5 x 16.2 cm, etching, drypoint, aquatint), plus LACMA impressions of A un diner d&#x27;athees and Le Sphinx for cross-check.</p>
+<p>Plate-area tonal measurements (crops of the image area, not the sheet): the numbers confirm what the eye sees, with a caveat. Small boards run pale: Rideau 123.2, Bonheur 132.2, Diner 104.8, Whist 148.9, Postface II 142.5, Vengeance 123.2, standard deviation 36-49, dark fraction 0.06-0.35. Large boards run lower and wider in feel but the means overlap (Rideau 124.4, Bonheur 128.3, Diner 130.1, Whist 120.8, Postface 172.2, Vengeance 110.9) because the difference is textural, not metrical: the small boards are line on white (high local contrast, white reserves), the large boards are grain on a continuous ground (the whole field carries tone). Mean gray flattens the distinction; the discriminator is whether white exists as paper or as the palest part of the field.</p>
+<h2>What makes the large boards good, pair by pair</h2>
+<p>Le Rideau Cramoisi: the largest change. Small board: vertical, a curtain fills the left half, a pale woman lies diagonally across a dark right field, small reaching hands at the bottom, everything legible. Large board: HORIZONTAL, the woman now floats upright in a dark mist, the curtain dissolving into tonal haze, the composition rebuilt around her as a spectral presence rather than a scene. Rops did not just re-register the drawing; he recomposed it for the tonal medium.</p>
+<p>Le Bonheur dans le Crime: the most faithful carry-over. Small: lovers bound to a pillar with a Medusa head, a ghost woman at the bottom, radiating line sky, &quot;LE BONHEUR DANS LE CRIME&quot; lettered across the top. Large: the same composition, but the radiating lines become a real tonal night, the pillar and bodies modeled in light on dark, signed &quot;Felicien Rops&quot; in the plate. The finding: the composition survives translation, but only because the light logic is rewritten, light as reserve in a dark field instead of line on white.</p>
+<p>A un diner d&#x27;athees: same scene in both (dead woman sprawled on a table, candle, the coffin lid diagonal, boots below), but the small board is a hard linear rendering and the large board is a nocturne: soft-ground grain, the title lettered in the dark field above the scene, the candle the one punctual light. This is the pair where &quot;say nothing&quot; reads most clearly: the small board is a crime-scene illustration; the large board is the night after.</p>
+<p>Le dessous de cartes d&#x27;une partie de whist: tall black-clad woman, hands clasped at her mouth, skull and cards at her feet, on a full soft-ground dark field. The small board&#x27;s version is linear and explanatory; the large board&#x27;s is the species the Sataniques study identified, the committed tonal ground with one pale figure, the title faint in the field.</p>
+<p>Le plus bel amour de Don Juan (KBR large board): full-bleed grain, the pale girl center-left, Don Juan&#x27;s ghost looming in the dark behind her, the title barely legible in the upper field, Rops&#x27;s signature in the plate. No hard contour anywhere; the figures dissolve into the ground they came from.</p>
+<p>La femme et la folie dominant le monde / La Vengeance d&#x27;une femme: the large Vengeance turns out to EXIST as an impression, and this session can say which file it is. The Commons upload &quot;De wraak van een vrouw, objectno PK.MP.11346.jpg&quot; is a linear hatched proof, all diagonal lines, no tonal ground, an early state of the engraving. The other Commons upload, &quot;Felicien Rops - La vengeance d&#x27;une femme,&quot; is the finished large board: full soft-ground tonal ground, the woman in the top hat with the candle, and Rops&#x27;s own signature in red pencil in the margin below the plate. That red-pencil signature is the mark of his own issue, the same gesture as the Sataniques signatures. The cataloguers&#x27; dispute (Rouir&#x27;s &quot;never finished&quot; vs the nine-plate completeness) is about the edition as a publication; the plate itself exists in the tonal register, signed by the man. The postface pair shows the same register logic: tonal field, pale woman, faint in-plate title.</p>
+<p>The quality thesis: the large boards work because they are the diametrical opposite of the commission conditions. The small boards were fast, linear, legible, margin-apparatus illustrations for somebody else&#x27;s book, engraved by somebody else&#x27;s hand. The large boards were slow (1886 to at least 1892), tonal, illegible on purpose, self-contained, signed by the man, and made for no publisher. What his hand changed was the register: he dissolved the line he was famous for into the grain of the ground. The &quot;undetectable retouch&quot; is not just a technical anecdote; it is the aesthetic. The retouching is invisible because the whole point was that the plate should read as a night, not as a drawing.</p>
+<h2>Quality notes</h2>
+<p>What makes this work good, decision by decision:</p>
+<ul><li>The small boards carry the DRAWING; the large boards carry the</li></ul>
+<p>NIGHT. The drawing is the commission&#x27;s property; the night is Rops&#x27;s. A derivative that copies the small boards gets illustrations; a derivative that copies the large boards gets the compositional species: full-bleed tonal field, one pale figure, faint title inside the plate.</p>
+<ul><li>The title inside the plate, written faint, is load-bearing. The</li></ul>
+<p>small boards keep the title in the margin with the publisher&#x27;s apparatus, and the picture stays a page illustration. On the large boards the title written in the field makes the plate a self-contained object, like the Sataniques signature in red pencil. A derivative with no title is a mood; a derivative with a bold title is a poster.</p>
+<ul><li>The ground on the large boards never rests at mid-tone. It runs</li></ul>
+<p>deep everywhere or it fails into the overcast. The pale figure is the one event. This is the same discipline the Kubin and Redon studies found, now executed in grain instead of line.</p>
+<ul><li>The best large board (Rideau) is the one he recomposed, not</li></ul>
+<p>translated. The faithful ones (Bonheur, Diner) are good; the recomposed one is great. Compositional loyalty to the source drawing is a ceiling.</p>
+<p>What would make a derivative fail:</p>
+<ul><li>Line illustration with a tonal wash laid over it. The species is</li></ul>
+<p>grain all the way down; a line drawing with a dark filter on top reads exactly as what it is.</p>
+<ul><li>Mid-tone everything with one vignette. The large boards are not</li></ul>
+<p>vignettes; the dark runs to every edge.</p>
+<ul><li>The bold in-plate title. Faint or nothing; the letters are part</li></ul>
+<p>of the weather, not a label.</p>
+<ul><li>Copying the small boards&#x27; compositions and calling it Rops. The</li></ul>
+<p>small boards are Evely&#x27;s engraving of Rops&#x27;s drawings, and Rops himself said they say nothing. The thing to learn from is the rework, not the source.</p>
+<h2>The delegation question, honestly</h2>
+<p>The comfortable story, &quot;Rops was a genius betrayed by delegation,&quot; does not survive the letters. Rops delegated the small boards himself, deceived his engraver about their status, deceived his publisher about their completion, and sold proofs on the side. Then he spent six years reworking the large boards, partly with a friend inventing new soft-ground formulas, while running up debts his publisher may have been punishing. The large boards are better art, but the story of their making is not the romantic one. The honest quality reading: the small boards say nothing not because Evely&#x27;s hand was inferior but because the CONDITIONS were wrong, fast, linear, legible, for a book he had no stake in. The large boards are his because he gave them the conditions his work needed: time, darkness, tone, no margin apparatus, nobody else&#x27;s name on them. The lesson for the pieces: the register you give a piece is a condition, not a style choice, and the wrong condition will silence any hand, even your own.</p>
+<p>The one contemporary who saw the distinction exactly was Huysmans, writing in Certains (1889), reprinted in the 1896 La Plume special number: &quot;Je ne parle pas ici, bien entendu, de ces eaux-fortes si miserablement reduites pour les besoins du tirage de l&#x27;edition Lemerre, mais bien des originaux, des vernis mous, dans lesquels l&#x27;artiste a pu, en se liberant de la minutie d&#x27;un format de poche, travailler sur de valables planches.&quot; He was not speaking of the etchings miserably reduced for the Lemerre edition&#x27;s print run, but of the originals, the soft-grounds, in which the artist, freed from the fussiness of a pocket format, could work on worthy plates. Mirbeau, announcing the publication in Le Matin on 19 February 1886, gave the verdict the whole century kept repeating: &quot;Felicien Rops n&#x27;illustre pas, il fait oeuvre a cote d&#x27;une oeuvre&quot; (he does not illustrate, he makes a work beside the work).</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Small-board compositions presented as Rops&#x27;s own work: they are</li></ul>
+<p>Evely&#x27;s engravings, and Rops&#x27;s own verdict stands.</p>
+<ul><li>The &quot;Lemerre delegated the engraving&quot; story: it was Rops. (The</li></ul>
+<p>Musset plates were the Lemerre delegation; the Diaboliques were Rops&#x27;s.)</p>
+<ul><li>Dating the large series to 1886: the large series ran 1886 to at</li></ul>
+<p>least 1892, probably unfinished.</p>
+<ul><li>Treating the two series as one work: they are a commission and a</li></ul>
+<p>reclamation, different objects with different authors&#x27; hands in them.</p>
+<ul><li>The bold title, the mid-tone ground, the vignette as night.</li><li>Barbey as collaborator: he never met Rops, never saw the drawings</li></ul>
+<p>until October 1885, disliked them, and the illustrations were sold separately from the book, never bound in.</p>
+<h2>Conflicts and gaps, honestly</h2>
+<ul><li>The dossier (delegated, text-only) is pending integration; this</li></ul>
+<p>note was written from the Delaporte thesis, the letters it cites, and the visual inspections. If the dossier contradicts any claim here, the note gets revised.</p>
+<ul><li>Whether the large La Vengeance was ever finished: resolved this</li></ul>
+<p>session at the plate level. The linear Rijksmuseum proof (PK.MP.11346) is an early state; the finished large board exists on Commons with the full soft-ground tonal ground and Rops&#x27;s red pencil signature in the margin. What remains unresolved is the edition as a publication: Rouir&#x27;s &quot;never finished,&quot; Ramiro&#x27;s 1893 six-plate supplement, and the nine-plate completeness all still sit uneasily together.</p>
+<ul><li>The dossier&#x27;s extra conflicts, carried: a dealer listing (Arenberg</li></ul>
+<p>via Drouot, citing Rouir and Exsteens) names Francois Courboin as the hand reworker of the small boards, Evely having made the heliogravure grounds. Dealer-level, not scholarly; the split Evely-ground/Courboin-rework is plausible but single-sourced. The Taelemans of the 8 April 1886 letter is Jean-Francois per Wikipedia, Francois per Delaporte&#x27;s footnote. The large boards&#x27; Exsteens numbers were not pinned down in the dossier pass.</p>
+<ul><li>&quot;Le Vol &amp; la Prostitution dominant le monde,&quot; the postface</li></ul>
+<p>variant Rops mentioned in 1891: Exsteens says Pellet&#x27;s reproduction is from an original drawing, not from the postface plate. Not located this session.</p>
+<ul><li>The exact division of labor on the large boards (which passages</li></ul>
+<p>are Evely&#x27;s engraving, which Rops&#x27;s retouch) is unknowable from the Rassenfosse &quot;undetectable&quot; varnish, which is the point of it. The comparison in this study is between editions, not between hands on one plate.</p>
+<ul><li>The Louvre RF 40087 Sphinx and the LACMA impressions were located</li></ul>
+<p>but not fully compared plate-state by plate-state.</p>
+<ul><li>The 1889 Salon des XX showing: Delaporte and Rouir cite it, but</li></ul>
+<p>it is not settled whether the exhibited series was small or large.</p>
+<ul><li>Re-render families are single-pass schematics with crude figure</li></ul>
+<p>glyphs; they test the register structure, not the drawing.</p>
+<h2>Re-render families (single pass, inspected)</h2>
+<p>Family A, the tonal rework: A1 (species) is full-bleed dark grain with the pale reserved figure and the faint in-plate title. A2 (the overcast failure) keeps the same composition on a shallow mid-tone ground and reads as unfinished, not night. A3 (the illustration failure) keeps the dark ground but draws the figure as a hard outline, and the outline collapses the atmosphere back into a diagram. A4 is the comparison anchor, the small board in line hatching on white. Finding: the ground must commit, the figure must be reserved not outlined, and line-on-white is a different species, not a lesser one.</p>
+<p>Family B, the title inside the field: B1 (species) is the faint title written in the dark field. B2 (the commission failure) puts the title in a white margin below the plate with publisher credits, and the plate immediately becomes an illustration. B3 (the poster failure) writes the title bold inside, and the letters stop being weather. B4 (the floating failure) drops the title entirely, and the composition loses the anchor that makes it an object. Finding: the faint in-plate title is what makes the large board a thing instead of a page.</p>
+<h2>Sources</h2>
+<ul><li>Alric Delaporte, &quot;Felicien Rops et l&#x27;illustration des</li></ul>
+<p>Diaboliques de Jules Barbey d&#x27;Aurevilly: divagations et artifices sur la genese des oeuvres,&quot; Master 1, Universite Paris 1 Pantheon-Sorbonne, 2014 (from the Rops museum archives, Namur), read in full via the archived PDF.</p>
+<ul><li>A delegated research dossier this session (text-only, returned</li></ul>
+<p>after the note&#x27;s first draft; no contradictions with the Delaporte-based account found) covering the commission paper trail, the Evely and Courboin attributions, criticism (Mirbeau, Huysmans, Peladan, Pradelle, Seguin, Vedrine, the 2024-2025 Album du Diable show), holdings (Princeton, Namur, Fondation Roi Baudouin), and the conflict inventory. Its title-by-title list matches the nine-subject structure used here.</p>
+<ul><li>The plates: nine small boards (1886 Lemerre series) from the</li></ul>
+<p>Mu.Zee uploads on Wikimedia Commons; seven large-board impressions (Rijksmuseum PK.MP.11343/11346/11347/11349/11363/ 11371, KBR Don Juan) plus LACMA M.81.313.88 and M.81.313.93, all visually inspected at source resolution.</p>
+<ul><li>Catalogues referenced through Delaporte: Ramiro 1887 and 1893</li></ul>
+<p>supplement, Exsteens 1928, Mascha 1910, Rouir 1991.</p>
+<ul><li>The Rops 2026-10-06 study&#x27;s Sataniques findings carry over: the</li></ul>
+<p>in-plate title and the committed ground are the same devices, here in intaglio instead of aquarelle.</p>
+<p>Evidence: ~/workspace/goals/generative-doodles-site/hidden_files/ study-2026-10-06-diaboliques/ (small/ and large/ image sets, delaporte.txt full text, families/ re-render scripts and outputs, tonal measurements in the session log).</p></div><nav class="pagenav"><a class="" href="felicien-rops.html"><span class="dir">Previous note</span><span class="t">Felicien Rops, the flat color ground and the sower in the sky (Les Sataniques, 1882)</span></a><a class="next" href="francisco-goya-etcher.html"><span class="dir">Next note</span><span class="t">Francisco de Goya, the etcher (1746-1828)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

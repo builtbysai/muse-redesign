@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scorch · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Scorch</h1><div class="byline">studied 2026-09-20 &nbsp;&middot;&nbsp; 14 min read &nbsp;&middot;&nbsp; 2,744 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>codepen.io/scorch | Prolific generative sketch artist, many genuary entries</dd><dt>Status</dt><dd>all 26 plan-list pens visually inspected live with JS read (2026-09-20, four passes). Technique summaries below.</dd></dl>
+<h2>Style profile</h2>
+<p>Scorch works like a daily sketch practitioner: one small idea per pen, executed tightly. Heavy monochrome discipline (black ground with white, or white ground with black) plus a few limited-palette pieces. Recurring devices: noise-steered growth, circle packing, line grids with local displacement, seeded random so a composition is reproducible. Most pens are static outputs; some animate.</p>
+<h2>Technique breakdowns</h2>
+<h3>1. &quot;Abstract Vegetation&quot; (yLPBJNo, GENUARY2022)</h3>
+<p>White branching fern-like plants growing on near-black. Each plant grows segment by segment, steered by two SimplexNoise instances; a semi-transparent background redraw each frame leaves motion trails, so growth leaves fading history.</p>
+<p><strong>Takeaway:</strong> segmented growth with noise steering is a strong vegetation idiom. Trail-fade via translucent background fill is the cheap, good motion-history trick.</p>
+<h3>2. &quot;Another noise field&quot; (RwjmJoV)</h3>
+<p>6000 points advected through a noise flow field, each drawing a short line segment per frame. The marks accumulate into a swirling petal/flower pattern on black.</p>
+<p><strong>Takeaway:</strong> density through accumulation. The composition emerges from thousands of tiny contributions rather than being drawn directly. Flow fields want points, not paths.</p>
+<h3>3. &quot;SPACE&quot; (QWqrdYe, Genuary2022 no.3)</h3>
+<p>Ringed Saturn-like planet built from rotated ellipse arcs, a star field, and a jagged noise-displaced horizon line. Simple primitives plus noise composition.</p>
+<p><strong>Takeaway:</strong> noise does not have to be the subject. Here it roughens one horizon line while the rest is clean geometry, and that one irregular line carries the whole piece&#x27;s organic feel.</p>
+<h3>4. &quot;DITHER&quot; (WNZzLQv, Genuary2022 no.2)</h3>
+<p>A grid of blob tiles, each holding a randomized cartoon face (eyes, brows, mouths). Built with two.js as fullscreen SVG, per-cell randomized feature parameters, subtle animation.</p>
+<p><strong>Takeaway:</strong> grid-plus-variation is a durable generative format: fix the structure (grid of cells), randomize the contents (features per cell). Works for faces, tiles, glyphs, anything modular.</p>
+<h3>5. &quot;diamond tiles&quot; (JjJWoZQ, p5.js)</h3>
+<p>Concentric diamond outlines in rows on black, each stroked multiple times with slight random offset jitter. Fixed palette: deep navy, burnt orange, off-white. Seeded random, so the layout is fixed.</p>
+<p><strong>Takeaway:</strong> offset multi-stroke plus a limited palette is a complete drawing rule. The jitter makes one geometric shape read as hand-drawn and rich.</p>
+<h3>6. &quot;Packed like circles&quot; (KKqPpdj)</h3>
+<p>Dozens of overlapping organic blobs on white; each blob is a ring of concentric wavy contours with light-to-dark shading that reads as 3D embossed relief, like pebbles or microbes. Vanilla 2D canvas. Circle packing by random attempts with collision checking (up to ~500 circles, radii growing to contact). Each circle&#x27;s rings are displaced by a sine of angle with a per-circle phase, giving the wavy organic outline; inside-out grayscale shading sells the relief. Seeded random.</p>
+<p><strong>Takeaway:</strong> embossed relief comes from shading, not geometry. Concentric rings plus a phase-shifted sine and a radial light gradient turn flat packing into something tactile.</p>
+<h3>7. &quot;p5js ~ lines&quot; (mdmmppK)</h3>
+<p>Twelve thin horizontal polylines on white, straight at top and bottom, wavy in a central band (the Joy Division Unknown Pleasures idiom). A 12x40 grid of points; points inside an annular region around the canvas center get sinusoidal vertical displacement scaled by distance; points outside stay flat, yielding straight outer lines.</p>
+<p><strong>Takeaway:</strong> masking displacement by a region (annulus here) is the composition move. The untouched margins frame the chaos in the middle.</p>
+<h3>8. &quot;p5js ~ lines 2&quot; (NWjjeeZ)</h3>
+<p>Same 12-line layout, but the waveforms are jagged and spiky in the center band, like an oscilloscope static burst. Same construction as the sibling, except each vertex gets a per-point random vertical offset instead of smooth sine waves.</p>
+<p><strong>Takeaway:</strong> random versus smooth displacement is an entire aesthetic axis. Same scaffold, opposite character. Worth remembering when a piece feels too calm or too harsh: swap the noise source first.</p>
+<h3>9. &quot;cpc-generative-blocks (animated)&quot; (GRJMNNr)</h3>
+<p>Pale peach ground; concentric translucent rotated squares radiating from a dark gear-like star core; small outlined diamonds orbit a middle ring; the layered forms slowly pulse and rotate. p5.js animation loop. Each frame draws concentric layers of rotated polygons (4 or 6 sides), radii cycling through a 130-step cycle; random booleans toggle filled layers versus diamond ornaments. Palette: dark navy and gray with alpha fills for the translucent layering.</p>
+<p><strong>Takeaway:</strong> translucent layering of simple rotated shapes is an easy route to richness. A restrained two-color palette plus alpha does the work that a bigger palette would do.</p>
+<h3>10. &quot;cpc-generative-blocks&quot; (ExjvGaQ)</h3>
+<p>Dark navy ground with six bright-red hexagonal &quot;cage&quot; wireframes in hexagonal arrangement, white triangles and small tick marks around the forms. Geometric, high-contrast, emblem-like. p5.js; random side counts, radii, and colors per run; nested wireframe polygons drawn in stroke; a click handler regenerates the composition on demand.</p>
+<p><strong>Takeaway:</strong> wireframe nests plus tick marks read as technical emblems. The click-to-regenerate loop turns a static piece into a slot machine.</p>
+<h3>11. &quot;loops - grid&quot; (oPyVZR)</h3>
+<p>Mondrian-style grid of outlined black and white rectangles of varying widths and heights on a near-black ground. Vanilla 2D canvas; a 10x10 nested-loop grid generator places rectangles with randomized cell spans. No animation.</p>
+<p><strong>Takeaway:</strong> the simplest possible generator (nested loops, randomized spans) can produce a composed look if the palette and stroke discipline hold. Random rectangles only look random when the taste is missing.</p>
+<h2>Batch 3 (2026-09-20, third live pass)</h2>
+<p>Two standalone studies plus a four-pen &quot;polygon slicing&quot; series that reads as a single idea iterated in public, from minimal prototype to smoothed and tuned instrument.</p>
+<h3>12. &quot;Untitled&quot; (PeLmpY): rotating hatch grid</h3>
+<p>A grid of jittered square cells on cream; each cell holds fine dark hatch lines at a slightly different angle, forming an evolving angular moire texture like plotter line work. Vanilla 2D canvas: a grid of random quads with jittered corners, each quad picking a random hatch angle; parallel lines are swept across the quad&#x27;s rotated bounding box and clipped to the quad via a segment-segment intersection routine, so only interior segments draw. Each frame increments every quad&#x27;s angle by pi/360, so the whole hatch field rotates continuously. Palette: cream ground rgb(242,235,222), semi-transparent navy hatch #00227766; dense full-bleed grid.</p>
+<p><strong>Takeaway:</strong> clipping line sweeps to arbitrary quads is a general motif-maker. One hatch rule times a jittered grid gives a texture that reads as woven. The slow uniform rotation turns a static pattern into ambient motion without any compositional risk.</p>
+<h3>13. &quot;Untitled&quot; (deaZxz): counter-rotating petal mandala</h3>
+<p>A white layered petal/flower mandala with gray outlines on pale pink, soft and organic, like a blooming flower seen from above. p5.js: a Shape class stores points in Cartesian coordinates but caches their polar transform so rotation and scale apply cheaply; shapes drawn with beginShape/curveVertex. Four concentric layers (center blob, then 6, 9, 15 petal copies at even angular steps, scaled 1.1/1.4/1.8). The translucent pale-pink background [242,225,222,150] is drawn with alpha each frame, so motion leaves trails. The three petal layers rotate at different speeds (0.0035/0.0051/0.0064 rad/frame), counter-rotating. White-filled petals, gray/black 1.4px outlines, centered 520px canvas, no interaction.</p>
+<p><strong>Takeaway:</strong> counter-rotation at irrational-ish speed ratios is what keeps a mandala from locking into a periodic flipbook. Alpha background redraw is the same trail trick as Abstract Vegetation, here serving smoothness rather than history.</p>
+<h3>14-17. The &quot;polygon slicing&quot; series (WzojLb, ZxLajX, NYoNJq, JLNOvr)</h3>
+<p>An interactive instrument built in public, four iterations. The engine is constant: a seeded polygon, a click-drag defining a line, segment-segment intersection tests against every polygon edge, and bisection of each polygon hit by exactly two intersections. Rendering is what evolves:</p>
+<ul><li><strong>WzojLb &quot;polygon slicing&quot;:</strong> the minimal prototype. Plain white square with</li></ul>
+<p>thin black border on crimson (190,50,70); default p5 white fill/black stroke, raw vertex() rendering, no smoothing, no coloring. A dark-red drag line shows while the mouse is pressed.</p>
+<ul><li><strong>ZxLajX &quot;polygon slicing (2)&quot;:</strong> adds craft. Each piece&#x27;s vertices inset</li></ul>
+<p>slightly toward the polygon centroid (0.98/0.02 blend); pieces filled with a near-white rose tint varying subtly per piece (220,200,200 plus a sin wobble). Crimson ground, pale-rose square, &quot;Click + Drag...&quot; hint on canvas.</p>
+<ul><li><strong>NYoNJq &quot;Polygon Slicing 6 (circle)&quot;:</strong> seeds a 120-vertex circle instead of</li></ul>
+<p>a quad, renders as an open unfilled stroke with double Chaikin smoothing. Adds a dat.GUI S1 slider (0.51-0.99, default 0.95) controlling the smoothing factor live. Gray background, dark desaturated-green stroke; the most minimal composition of the four.</p>
+<ul><li><strong>JLNOvr &quot;polygon slicing (5) cell division&quot;:</strong> the richest. Vertices pulled</li></ul>
+<p>slightly toward centroid, then smoothed with two passes of Chaikin-style corner cutting and drawn with curveVertex into blobby forms; two passes draw outer salmon layer (240,120,120 with sin wobble) over an inner rose layer (180,40,70,180). Burnt-sienna background [122,44,28]; cells read as microscopic cell-division slides. Subtle sine &quot;breathing&quot; wobble each frame, so cuts accumulate on a living form.</p>
+<p><strong>Takeaway:</strong> publish the series, not just the best version. Four pens trace one engine from raw prototype to polished instrument, and the trail teaches more than any single piece. For our own work: Chaikin corner-cutting plus centroid pull is the fastest route from angular generated geometry to organic blobby forms, and exposing one tuning parameter (the smoothing slider) turns a demo into an instrument.</p>
+<h2>Batch 4 (2026-09-20, fourth live pass): the last 9 pens</h2>
+<h3>18. &quot;Untitled&quot; (jZeVGN): Twig radial sea-urchin</h3>
+<p>p5.js. 47 &quot;Twig&quot; strands radiate from canvas center; each strand is a chain of points walking outward along Perlin noise angles, with random jitter and an inverse-square mouse repulsion (800000/(dx^2+dy^2)) that bends strands away from the cursor. Each strand renders as a filled ribbon: two offset polylines stitched with curveVertex in dark fill (47) on warm beige (220,210,200), plus a small circle at each tip. A central blob is built by joining all strand base points with curveVertex and filling it. Strands slowly rotate (angle drift 0.003/frame) with jitter and live mouse bending. Sings: organic hand-drawn feel, smooth ribbon rendering, strong beige/black contrast. Weak: one composition repeated frame to frame, uniform tips, and the blob can read as a blob rather than a flower head.</p>
+<h3>19. &quot;Untitled&quot; (KQGwOL): the same Twig engine, breathing</h3>
+<p>Visually near-identical to #18 in a still frame. Code differences: a conf object (NUM_PARTICLES 8, NUM_STRANDS 12, FRAME_RATE 120), frameRate(120), and a global sine cycle (c/cS) added to the mouse force so the strands slowly breathe in and out over roughly 200-second cycles. Strength: smoother 120fps motion. Weakness: a duplicate study of #18, and the config object looks vestigial (fields like NUM_PARTICLES and NUM_STRANDS appear unused in the visible code).</p>
+<h3>20. &quot;Untitled&quot; (jZvqrO): Twig spears</h3>
+<p>Same engine, but strand width 2.4, no tip dots, and the final segment of each strand swells (w=(w+1)*1.4), so each strand tapers into a spear or leaf tip. Reads as a dandelion or pincushion starburst. Keeps the 120fps and sine breathing from #19. Sharper silhouette and confident botanical linework. Weak: thick strands pile into visual noise near the center, and the central blob is less elegant without the tip dots.</p>
+<h3>21. &quot;#Codevember 6: Storm&quot; (yPaaoG): lightning via midpoint displacement</h3>
+<p>Raw Canvas 2D, three layered canvases composited with &#x27;screen&#x27; blend. The bolt is classic midpoint displacement: 8 subdivision iterations between two endpoints, each new midpoint offset perpendicular by a random amount with decreasing range 200/(i*i+1). The bolt strokes in flickering blue-violet hsla (hue around 238) with width modulated by sin/cos of the frame step; every frame applies a full-canvas blur plus a translucent background fill, giving phosphor-like fading trails. Soft dark cloud blobs drift on a second layer. Interaction: mousemove moves one endpoint, mousedown moves the other, and endpoints auto re-seed at random. Palette: near-black teal (13,27,34) with a blue-violet bolt. Strengths: genuinely stochastic bolt geometry, atmospheric glow, good layered compositing. Weaknesses: the bolt sometimes exits the frame awkwardly, the clouds are crude blobs, and heavy trailing can smear into murk.</p>
+<h3>22-25. The &quot;experiment 992&quot; DOM-grid series (no canvas at all)</h3>
+<p>Four pens share one trick: 400 DOM divs in a 20x20 grid, animated purely with CSS. Each cell is a dark rounded square whose half-fill is a linear-gradient rotated by the atan2 angle from a pointer point, plus a global cosine wave over 120 frames that animates fill heights and slight rotation. The result is a vortex of half-filled squares rippling in concentric waves around the cursor, near-black cells on off-white (#f4f4f4). Crisp, mesmerizing moire motion that is cheap and smooth to render; but DOM-heavy, and at rest it is just a static grid, so the effect only lives under mouse movement.</p>
+<ul><li><strong>YrgWYQ &quot;experiment 992-Br&quot;:</strong> the half-fill squares described above.</li><li><strong>JrzKEG &quot;experiment 992-Fp&quot;:</strong> same engine in blue (#28a); the gradient fill</li></ul>
+<p>is vertical with the blue band positioned by cos(distance/170) plus the global wave, so columns of blue bars rise and fall in concentric waves radiating from the pointer, like an equalizer or waterfall. Clean and hypnotic, but the bars vary in only one dimension, so less dynamic range than its sibling.</p>
+<ul><li><strong>MExeWZ &quot;experiment 992-Pk&quot;:</strong> each cell shows a diagonal stripe via a rotated</li></ul>
+<p>linear-gradient (transparent 30%, #333 from 30.5% to 70%), producing parallelogram blades that all point at the cursor, like a school of fish or compass needles. Strong directional field, elegant vortex, minimal and graphic. Weakness: stripe clipping at cell edges can look choppy at some angles.</p>
+<ul><li><strong>mBoPpV &quot;experiment 992-[Beethoven]&quot;:</strong> 600 divs at 60px cells; each cell a</li></ul>
+<p>hard diagonal split (linear-gradient at the pointer angle, #333 50%, #f4f4f4 50.5%) making two-tone triangle cells, a bold Op-Art pinwheel vortex radiating from the pointer (default focus at 150,150). High-contrast and very hypnotic under motion. Weaknesses: 600-node DOM is heavy, visible aliasing on the diagonal edges, strictly monochrome which limits depth.</p>
+<h3>26. &quot;Zap zap&quot; (NpogGr): plasma ribbons</h3>
+<p>Single canvas on setInterval(animate, 60ms). Each tick draws one midpoint-displacement arc (8 iterations, the same 200/(i*i+1) falloff as the Storm pen) between pt1, which follows the mousemove, and pt2, set on mousedown. Stroke hue cycles with sin(step/30)*120+50 at 90% saturation, 70% lightness. Each frame starts with a blur and a 0.17 fade, so past arcs linger as ghost filaments; the live view shows a stream of neon yellow-green electric ribbons sweeping across the dark teal field. Lovely plasma-ribbon motion, the trails make arc history visible, and the code is simple and effective. Weaknesses: one arc per tick can feel sparse, the hue cycle passes through muddy greens, and nothing on the page hints that it is interactive.</p>
+<h2>Cross-cutting observations</h2>
+<ul><li>Seeded random is a habit across the stronger pens. Reproducibility lets a good</li></ul>
+<p>composition be kept; it also makes parameter exploration honest.</p>
+<ul><li>Monochrome or two-color discipline does more for perceived quality than any</li></ul>
+<p>algorithm choice. The pieces that sing are the ones with the strictest palette.</p>
+<ul><li>Scorch reuses scaffolds with one parameter changed (the two &quot;lines&quot; pens, the</li></ul>
+<p>two &quot;cpc-generative-blocks&quot; pens). A small series from one scaffold is a legitimate format, not a shortcut.</p>
+<ul><li>The final 9 pens add two more series to that point: three Twig radial pens</li></ul>
+<p>and four &quot;experiment 992&quot; DOM-grid pens. Across the whole body of work, the series itself is the signature device: vary one parameter, publish the family.</p>
+<ul><li>Pointer-driven CSS gradient fields (the experiment 992 trick: atan2-rotated</li></ul>
+<p>linear-gradients on divs, global cosine wave) are a legitimate generative technique with zero canvas code. GPU-cheap, smooth, and sharp; the tradeoff is DOM weight and no idle-state composition.</p>
+<ul><li>Midpoint-displacement lightning recipe worth stealing: 8 iterations,</li></ul>
+<p>200/(i*i+1) offset falloff, each frame a blur plus a translucent fade for phosphor trails, composited &#x27;screen&#x27; over drifting background layers.</p></div><nav class="pagenav"><a class="" href="satoshi-aizawa.html"><span class="dir">Previous note</span><span class="t">satoshi_aizawa</span></a><a class="next" href="snowesamosc-viewyonder-takawo.html"><span class="dir">Next note</span><span class="t">Snow Esamosc / viewyonder / takawo: two p5.js micro-sketches (Sep 2024 cluster)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

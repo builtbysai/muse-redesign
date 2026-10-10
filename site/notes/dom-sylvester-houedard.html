@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dom Sylvester Houedard · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#50586e"></span>Text, Type &amp; Concrete Poetry</span><h1>Dom Sylvester Houedard</h1><div class="byline">studied 2026-10-03 &nbsp;&middot;&nbsp; 9 min read &nbsp;&middot;&nbsp; 1,733 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>Dom Sylvester Houedard (Pierre-Thomas-Paul Joseph, Guernsey, February 16, 1924, to January 15, 1992), known everywhere as dsh, all lower case. The doorway named first by the 2026-10-03 Robert Rehfeldt study, the other end of the typewriter line: where Ruth Wolf-Rehfeldt ran the strictest grid machine and her husband ran the postal system, dsh ran the page as a visual field. Benedictine monk at Prinknash Abbey in Gloucestershire, ordained 1959, after army intelligence work 1944-47 and history at Jesus College, Oxford (the en-academic biography entry says Cambridge, every other source says Oxford). Literary editor of the Jerusalem Bible 1961-66. He introduced concrete poetry to Britain in 1961, published the first UK article on it, &quot;Concrete Poetry and Ian Hamilton Finlay,&quot; in Typographica no. 8, December 1963. His friend Edwin Morgan coined the term for his work: typestracts, typewriter plus abstract. All made on an Olivetti Lettera 22, the portable he had already started experimenting with during his army years. First visual poems appeared in Ian Hamilton Finlay&#x27;s Poor. Old. Tired. Horse. in 1963. Co-founded the concrete poetry collective Gloup with John Furnival and Ken Cox in 1964, co-founded Openings Press with Furnival the same year. Exhibited at Better Books and Signals 1965, the ICA&#x27;s &quot;Between Poetry and Painting&quot; 1965, Arnolfini 1966, Lisson 1967 and 1968 (first solo during Lisson&#x27;s inaugural year), the V&amp;A retrospective 1971, Stedelijk Amsterdam 1972. The 1969 &quot;12 dancepoems of the cosmic typewriter&quot; were made with David Medalla&#x27;s Exploding Galaxy and performed as dance. Fame made him a problem for the monastery in the mid-1970s, and for the last ten years of his life he turned back to theology as an infirmarian and stopped making art. His archive came to the John Rylands Library in the early 1990s; the Sackner Archive in Miami holds the largest collection of the work. Address book said to run to 3,000 names; his letters were collectable typewriter-art objects in their own right.</dd><dt>Depth</dt><dd>deep on text, deep on three artworks at source resolution, two local re-render studies built and inspected, pass 2 of Study B after a layout overprint in pass 1. Read end to end: the Richard Saltoun biography and Lisson biography (Lettera 22, blue black and red ribbons, the Morgan coinage); the DesignObserver &quot;Cosmic Typewriter&quot; piece (the Typographica essay in condensed note style, the frailty line, the Simpson &quot;Notes from the Cosmic Typewriter&quot; 2012 book and South London Gallery day, the John Rylands archive, Meister Eckhart to Zen as the reading list behind the work); the Fast Company piece (the estate history, the monastery pressure quote); the Rylands &quot;Digital Concrete&quot; reconstruction of Frog Pond Plop (the 1965 haiku as a folding paper fortune teller: flat it is jumbled letters, folded it reveals frog, then pond, then plop, in sequence, the transience made mechanical; the blog&#x27;s honest account of failing to model it in Blender); the Iowa Sackner finding aid entries (the Frog Pond working ideas, the Opening Number No. 6 realization); the Peter Harrington listing for the 1965 Openings Press edition (500 copies, letter sheet folded into the fortune teller plus instructions); the Princeton concrete poetry archive guide (the dsh alphabet sent to Edward Wright, the 4-fold Maoscreen, the frog pond plop memorial card). Visually inspected: &quot;cored emptrix&quot; (Artsy, framed sheet: isometric blue slash-hatch block with a cored diamond void, tiny lowercase title top-left, vertical &quot;dsh 270563&quot; signature at right, dated 27 May 1963); the 1964 red-and-black collage sheet signed &quot;dsh 041264&quot; (designobserver image: overstrike red 5-glyph, &quot;chopin&quot; word-ribbons curving, &quot;henri&quot; line-polygon, red &quot;h&quot; tower, the ECKERT AILLON diagonal band, dense overstrike &quot;e&quot; halftone block at lower right); &quot;that and that&quot; (dreamideamachine archive, signed &quot;dsh 090771&quot;: red wireframe cube over a blue field of one repeated &quot;o&quot; forming a sheared triangular shadow plane, lowercase blue title top-left); one Tate artist-page image (too small to read detail, a thin black box holding scattered glyphs, rain-like). NOT seen: any original in person, the Frog Pond Plop folded object, the moire poems, the mirror reverse poems, the 12 dancepoems performed, &quot;sonic water,&quot; &quot;69,&quot; &quot;splendid weeping&quot; as objects (known through captions only), the Simpson monograph, Ceolfrith 15.</dd></dl>
+<h2>The core finding: the machine keeps its staircase</h2>
+<p>Every artist in this study sequence owns an instrument, and dsh&#x27;s is the most literal: the Olivetti Lettera 22 is the whole workshop, and the cell grid of its typebasket is the composition&#x27;s law. His diagonal forms staircase. They cannot help it. The finding of both re-render studies is that he never fought this, and his good work comes from the refusal to fight it. When he wanted a clean edge he did not smooth the typewriter&#x27;s line; he changed instruments entirely, drawing the wireframe in red with a felt pen over the typed field. Two voices, each honest in its own register, never one voice faking the other. That is the compositional decision the whole practice turns on: the machine is allowed to be a machine, and cleanliness is bought with a second instrument, not with correction.</p>
+<p><strong>Study A, the cored-cube species: the staircase is the texture.</strong> I built his &quot;cored emptrix&quot; species as a cell-grid drawing: blue slash hatching for the isometric faces, a cored diamond void cut from the left face, tiny lowercase title, vertical dsh-date signature, wide margin. Control one: staircase edges left alone. Control two: the same hatching with a smoothed anti-aliased diagonal drawn over it. The smoothed version reads as a vector graphic that happens to contain slashes; the staircase version reads as a typewriter that happens to contain a cube. The surprise finding: the smoothed control accidentally reproduced his own move. The red straight edge I drew to &quot;fix&quot; the staircase is exactly his red wireframe solution, an overlay in a second voice. He never anti-aliased. He overlaid. So the species rule is: the machine keeps its staircase, and any clean line arrives as a guest, signed by a different instrument.</p>
+<p><strong>Study B, the letterfield-shadow species: one glyph is a shadow, two are a pattern.</strong> I built his &quot;that and that&quot; species: a red wireframe cube over a blue letterfield forming a sheared triangular shadow plane. Three controls: the field in one glyph (&quot;o&quot;), the field in two (&quot;o&quot;, &quot;x&quot;), the title in uppercase. The one-glyph field reads as a single cast shadow; the eye stops reading characters and starts reading tone and edge, which is what lets the red cube float. The two-glyph field reads as camouflage: the eye keeps reading characters, the shadow reading dies, the field becomes decoration. The uppercase title shouts at the cube&#x27;s volume and breaks the sheet&#x27;s quiet. Pass 1 overprinted the third panel (a layout bug that ironically produced dsh&#x27;s own overtyping); pass 2 is clean and the finding rests on the clean pass.</p>
+<h2>Quality notes: what makes it good</h2>
+<p>The margin is the composition. On every strong sheet most of the A4 is blank, and the motif sits in it the way a haiku sits in a season: one event, placed. The blank is not left over; it is the field the event happens in. A derivative piece fails here first, by filling the sheet.</p>
+<p>The title refuses hierarchy. Every title is lowercase, small, and parked away from the motif, &quot;cored emptrix,&quot; &quot;that and that,&quot; &quot;frog pond plop.&quot; They read as labels on a specimen jar, deliberately quieter than the work. A derivative fails by letting the title perform, or by titling in a way that explains the piece.</p>
+<p>The signature is typographic, not calligraphic. &quot;dsh&quot; plus a six-digit date, typed vertically at the sheet&#x27;s edge: 270563, 041264, 090771. It is a date discipline as strict as Kawara&#x27;s, but it lives in the margin as part of the grid, not as the subject. The signature never competes; it timestamps. A derivative fails by signing like a painter.</p>
+<p>Two colors carry the syntax. Blue or black for the machine field, red for the overlay, the comment, the wireframe. The red is always the second voice, never the ground. In &quot;that and that&quot; the red cube is the object and the blue field is its shadow; reverse the assignment and the piece dies.</p>
+<p>The word is allowed to be a material. In the 1964 collage sheet &quot;chopin&quot; and &quot;henri&quot; are not names being invoked; they are ribbons, bent into curves and polygons, repeated until the word becomes a line. The semantic content is thinned to near zero and the visual content carries everything. A derivative fails by picking words that insist on being read.</p>
+<p>Restraint of vocabulary is the whole technique. The re-renders proved it twice: one glyph is a shadow, two are a pattern; one motif is a poem, two are a collage. His sparest sheets are his best because the instrument&#x27;s limitation is treated as the poem&#x27;s form. Frog Pond Plop is three words and a fold. The 1964 collage is the busiest sheet I saw and the weakest in the set, interesting for its energy, not its judgment.</p>
+<p><strong>Avoid-list additions:</strong> typewriter texture as set dressing (the grid without the grid&#x27;s law); ASCII cubes without the staircase discipline; anti-aliased typewriter pastiche; two-glyph fields presented as shadows; uppercase titles on quiet sheets; signatures that perform; words chosen for meaning in a piece that needs material; full sheets (the margin is load-bearing); the monk story as branding over the machine discipline.</p>
+<p><strong>Honest gaps:</strong> no original handled, so ribbon color readings follow reproductions; &quot;sonic water,&quot; &quot;69,&quot; &quot;splendid weeping,&quot; the moire poems and the mirror reverse poems not seen as objects; the Simpson monograph and Ceolfrith 15 not read; Frog Pond Plop known through the Rylands reconstruction and the Harrington listing, never folded; the dance poems never seen performed; letterforms measured from DejaVu Sans Mono, not a Lettera 22; Study A pass 1 had no void bug but the void placement is my reconstruction, not a measured tracing; the 1964 collage sheet&#x27;s title is unknown, described by its signature date only.</p>
+<p>Next doorways: concrete poetry proper (Eugen Gomringer, the Noigandres group), the mail art network as a node (Ray Johnson, Eastern Bloc circuits), Paulo Bruscky as his own study, Edwin Morgan (who named the typestract), Ian Hamilton Finlay (the other British pole of 1963).</p></div><nav class="pagenav"><a class="" href="allison-parrish.html"><span class="dir">Previous note</span><span class="t">Allison Parrish (deep; 2026-09-27)</span></a><a class="next" href="hershey-fonts.html"><span class="dir">Next note</span><span class="t">Hershey stroke fonts: the 1967 vector alphabet that never died</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

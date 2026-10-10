@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TGAM Issues #05–#08 — (Generative Doodles) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5e5648"></span>Scenes &amp; Gatherings</span><h1>TGAM Issues #05–#08 — (Generative Doodles)</h1><div class="byline">18 min read &nbsp;&middot;&nbsp; 3,503 words</div><div class="note-body"><p>Study-only. No building, no production code. Read from the four TGAM issue landing pages in full, artist sections/sub-pages, one out-link followed per issue, and 13 downloaded full-resolution works visually inspected. Factual claims only; gaps are marked.</p>
+<p><strong>Source URLs</strong></p>
+<ul><li>Issue #05: https://tgam.xyz/exhibitions/issue-05-world-wide-art</li><li>Issue #06: https://tgam.xyz/exhibitions/issue-06-input-output</li><li>Issue #07: https://tgam.xyz/exhibitions/issue-07-she-codes</li><li>Issue #08: https://tgam.xyz/exhibitions/issue-08-formulae</li></ul>
+<p><strong>Correction to supplied context:</strong> the task brief mentioned &quot;thefunnyguys&quot; for Issue #06, but TGAM&#x27;s actual Issue #06 page features <strong>DEAFBEEF, Licia He, and Anna Carreras</strong>. This study follows the TGAM page as source of truth.</p>
+<hr>
+<h2>Issue #05 — World Wide Art</h2>
+<p><strong>Curatorial thesis.</strong> Technology and blockchain democratize art creation, distribution, cultural expression, and artist–audience interaction. The issue frames the open web as a gallery without gatekeepers: work is made with code, shared globally, and collected by anyone.</p>
+<h3>Featured artists + visual descriptions</h3>
+<p><strong>Lars Wander</strong></p>
+<ul><li><em>Gossamer #15</em> — one large organic blob on warm off-white, built from hundreds of thin parallel contour lines in red, blue, and black/dark gray that stream across the form like flowing hair or current. Two nested loop regions (top-center, lower-left) read as &quot;eyes&quot; — a creature-like, pareidolic quality. Ragged edges where line segments terminate; short-segment multicolor stitching creates a moiré/fiber texture. Reads as a topographic map of an imaginary organism.</li><li>Other mapped works: <em>how you see me #11</em>, <em>Unfolded #79</em>, <em>SPLAT 3/N</em>, <em>Gossamer #12</em>.</li><li>Own-site art page found: https://larswander.com/art/</li></ul>
+<p><strong>Zach Lieberman</strong></p>
+<ul><li><em>color gradient circle study</em> — soft-focus, dreamlike color study: big overlapping blurry blobs of cobalt blue (top), violet (left), black oval (upper-center), cream (center-right), red mass (lower-right), deep purple diagonal (center-bottom), a small vivid green blob and a cyan blob (center-right), muted olive-gray disc (lower-left), on near-white. Feathered edges; colors bleed into one another like out-of-focus gel lights. No hard geometry; pure color interaction and gradient.</li><li>Other mapped works: <em>color ribbon study</em>, <em>light study gradient cross</em>.</li><li>Studied one-hop: http://zach.li/ — code as a poetic medium; experimental drawing/animation tools; interactive environments where participants become performers.</li></ul>
+<p><strong>Zancan</strong></p>
+<ul><li><em>Garden, Monoliths #117</em> — monochrome green engraving-like botanical scene: thousands of finely drawn leaves, petals, and seed heads in precise linework on pale sage-green, thin darker frame border. Dark gray-black poppy/tulip-like flowers on long thin stems at varying heights; tree trunk in background with diagonal woodgrain hatching. Dense all-over composition, no horizon; foreground pebble/leaf-litter shapes. A Victorian botanical plate reimagined algorithmically.</li><li>Other mapped works: <em>Lushtemples NYC #3</em>, <em>Lushtemples — Highlights of the Hike</em>, <em>(kinder)Garden, Monuments #225</em>.</li><li>Exact own-site work URL found: https://zancan.art/Works/30-objkt-one</li></ul>
+<h3>Techniques / code approaches</h3>
+<ul><li><strong>Lars Wander:</strong> studies perception through generative patterns, repetition, controlled randomness, simulated light, packing, folds, and plotter translation. Watercolor plotter practice deliberately combines machine precision with pigment unpredictability. <em>how you see me</em> is machine-generated, human-curated gestural work that relies on pareidolia — the viewer finding faces/figures in the marks.</li><li><strong>Zach Lieberman:</strong> openFrameworks/C++; drawing and geographic imagery (<em>Land Lines</em>); face-responsive masks; simulated reflected light; phone-rotation-driven 3D drawing; eye tracking; converting gesture and data into visual or sonic outputs. Participants become performers in the work.</li><li><strong>Zancan:</strong> &quot;figurative-generative&quot; nature imagery built with JavaScript and mathematical equations. Former oil painter; digital works and pen plots emphasize ecological and social themes.</li></ul>
+<h3>Original piece seeds (inspired-by, not copies)</h3>
+<p><strong>Seed 1 — &quot;Migration Ledger.&quot;</strong> A single continuous agent walks a grid, each step laying a colored thread segment; thread color comes from a migration dataset&#x27;s origin palette, and the path never crosses itself. The accumulated threads build Gossamer-like multicolor striations. Distinction: the line field is a data portrait — its color legend encodes a real dataset, merging Wander&#x27;s contour streams with data-viz honesty.</p>
+<p><strong>Seed 2 — &quot;Pareidolia Engine.&quot;</strong> Machine-generated gestural contour fields (Wander&#x27;s <em>how you see me</em> approach) where the system scores random line clusters against simple face/animal templates and keeps only outputs above a recognition threshold. Distinction: curation-by-pareidolia becomes an explicit algorithmic filter — machine-scored, human-reviewed.</p>
+<hr>
+<h2>Issue #06 — Input Output</h2>
+<p><strong>Curatorial thesis.</strong> Code is an artistic medium that generates evolving visual, sonic, and interactive outputs. Featured systems respond to real-time data and changing environmental factors — the work is never a fixed image, it is a living system.</p>
+<h3>Featured artists + visual descriptions</h3>
+<p><strong>DEAFBEEF</strong></p>
+<ul><li><em>Series 0: Synth Poems — Token 100</em> — monochrome, genuinely oscilloscope-like: faint grid lines on a dark field, glowing white curves sweeping diagonally from lower-left to upper-right. Smooth parametric waveforms (Lissajous-like loops), several overlapping passes with phosphor glow. Square with slightly curved screen edges suggesting a CRT. The image is the sound plotted against itself — minimal, luminous, technical.</li><li>Other mapped work: <em>Series 3: Entropy — Token 146</em>.</li><li>Studied one-hop: https://deafbeef.com/about.htm</li></ul>
+<p><strong>Licia He</strong></p>
+<ul><li><em>Running Moon #99</em> — pale, icy composition: a large pale-blue square at center-left filled with big simple rounded rect/cell shapes outlined in thin teal-gray, cells filled with fine white scribble hatching — a hand-drawn mosaic, stained glass through frost. Background washes of pale blue, cream, and beige with wispy pencil-like diagonal lines, dots, and arcs; subtle crosshatch and stipple in some cells. Delicate, translucent, paper-like; organic variation inside geometric tessellation.</li><li>Other mapped works: <em>Drifting Dreams #2/#3</em>, <em>Running Moon #0/#138/#292</em>.</li><li>Own-site URL found: https://www.eyesofpanda.com/</li><li>Gap: no usable description found for <em>A story for a minute</em>; not described beyond visual inspection here.</li></ul>
+<p><strong>Anna Carreras</strong></p>
+<ul><li><em>Pinzell d&#x27;Arbres I</em> — black field with explosive tree-like branching crowns in orange, copper, cream, and pale teal — feathery fractal canopies like autumn crowns or mycelium fireworks. Scattered small squares (orange, white, teal; some with red centers, like target/marker glyphs). Two glitched rectangular columns (top-center, bottom-right) of vertical color-band stripes — digital corruption blocks. Thin diagonal hatch texture over the whole black field. Organic growth balanced against hard digital markers; autumn palette on black.</li><li>Other mapped works: <em>Trossets #996</em>, <em>Pinzell d&#x27;Arbres II</em>.</li><li>Own-site URL found: https://www.annacarreras.com/</li><li>Gap: no usable description found for <em>Pinzell d&#x27;Arbres II</em>; only visually studied <em>Pinzell d&#x27;Arbres I</em>.</li></ul>
+<h3>Techniques / code approaches</h3>
+<ul><li><strong>DEAFBEEF:</strong> low-level C, Linux, Emacs, command-line tools, no expensive DAW/hardware. Programs directly generate raw numeric sound and image data. In <em>Synth Poems</em>, the mint hash controls tempo, timbre, pitch, meter, and related musical properties; the imagery directly visualizes the audio waveform like an oscilloscope. Self-contained C code is stored on-chain to reduce browser/library/IPFS dependencies and improve reconstructability. His terminal workflow is described as muscle memory akin to playing an instrument.</li><li><strong>Licia He:</strong> combines generative art, HCI, data visualization, and physical plotter painting; researches robot versus human gesture; makes custom plotter tools.</li><li><strong>Anna Carreras:</strong> creates systems from small simple behaviors, balancing pattern/order with randomness; Mediterranean landscape and color are recurring sources.</li></ul>
+<h3>Original piece seeds (inspired-by, not copies)</h3>
+<p><strong>Seed 1 — &quot;Scope Ballads.&quot;</strong> DEAFBEEF-inspired: synthesize a short melody from a hash (tempo/timbre/pitch), plot its waveform in phosphor green on an oscilloscope grid, and let the melody&#x27;s own harmonic content drive the camera drift — the grid warps with amplitude so the &quot;screen&quot; itself responds. Distinction: the image is a literal sound portrait whose container reacts to the sound it holds.</p>
+<p><strong>Seed 2 — &quot;Robot Hand Studies.&quot;</strong> Licia He-inspired: a simulated plotter pen draws the same generative tree many times with tiny parameter jitter; the piece displays all N attempts overlaid so the error between human-ish wobble and machine repetition becomes the visible subject. Distinction: the artifact is the accumulation of attempts — gesture-residue as the medium.</p>
+<hr>
+<h2>Issue #07 — She Codes</h2>
+<p><strong>Curatorial thesis.</strong> Amplifies underrepresented women in creative coding and generative art. Showcases visionary algorithmic approaches and explicitly aims to encourage future women creators — representation through excellence, not tokenism.</p>
+<h3>Featured artists + visual descriptions</h3>
+<p><strong>Monica Rizzolli</strong></p>
+<ul><li><em>Fragments of an Infinite Field #1023</em> — extremely dense all-over botanical field filling the frame edge-to-edge: thousands of thin radiating line strokes in yellow-green forming grass tufts, lavender-purple feathery fronds, and dotted blossoms in apricot-orange, lavender, and white with yellow centers. No horizon, no ground — like a textile, or a meadow seen from directly above/inside. Every element is built from fine parallel strokes; palette is sunlit (warm yellows, sage/lavender, cream blossoms, dark-green shadow strokes) suggesting spring. Figure and ground merge — blossoms and grass share one plane; purple fronds layer atop the field.</li><li>Other mapped works: <em>Fragments #10/#137</em>, <em>A Tour of Hypothetical Waterfalls #19</em>.</li><li>Gap: no personal own-site found for Rizzolli; the Art Blocks collection page is the canonical home: https://www.artblocks.io/collection/fragments-of-an-infinite-field-by-monica-rizzolli</li></ul>
+<p><strong>Nadieh Bremer (Visual Cinnamon)</strong></p>
+<ul><li><em>Twistings #233</em> — playful confetti arrangement on warm off-white: dozens of &quot;twisted&quot; spiral pinwheel blobs of varying sizes, each built from overlapping ribbon-like curved wedge segments in candy colors (cobalt blue, red-orange, kelly green, magenta/pink, yellow, light blue), with white gaps between wedges creating rotation/suction energy. Large ones dominate (some cropped by edges), tiny ones scattered like seeds. Slightly irregular, hand-drawn feel inside geometric construction; some loose open spirals, some tight. Paper-cut collage joy.</li><li>Other mapped works: <em>Twistings #251</em>, <em>Obscured 5f9b</em>, <em>Fleeting Thoughts #40</em>.</li><li>Studied one-hop: https://www.visualcinnamon.com/about/</li><li>Gap: no project-specific description found for <em>Twistings</em> or <em>Fleeting Thoughts</em>; only the general practice description below.</li></ul>
+<p><strong>Alida Sun</strong></p>
+<ul><li><em>Insomnia Drawing Simulation</em> — aggressive, restless visual noise: hundreds of thin streaking lines in red, blue, orange, black, and white crossing diagonally, layered over warped/melted blocks of solid color (red, cobalt, black, cream) that bend and smear like liquid or dragged paint. Starburst/rosette nodes where lines converge, like pinwheel vortices. Multiple glitched drawings dragged across each other — kinetic, sleepless, anxious. High saturation, clashing primaries, no rest areas. AV-synesthesia quality: visual static like an overdriven television signal crossed with a drawing hand.</li><li>Studied one-hop: TGAM artist page https://tgam.xyz/artist/alida-sun and practice context (see below).</li><li>Gap: no personal own-site found; her Instagram is https://www.instagram.com/alidasun/ (listed on the CCBT Tokyo player page).</li></ul>
+<h3>Techniques / code approaches</h3>
+<ul><li><strong>Monica Rizzolli:</strong> p5.js, Art Blocks Curated, fixed edition of 1,024, released September 13, 2021. <em>Fragments of an Infinite Field</em> is a compositional system: an idealized plant species is generated and arranged in a potentially infinite field of foliage. The season is the master environmental parameter — it determines the palette and defines per-season phenomena (rain in summer, snow in winter, falling petals in autumn, pollen in spring). Flower variables are macro (whole population) or micro (per-individual); small deviations in petal/filament counts produce mutations. Figure/background colors deliberately confuse — backgrounds use colors present in the figures, breaking boundaries into chromatic masses. Her stated research question: &quot;How to create parameters that resemble a living organism&#x27;s growth?&quot; — the project approaches digital morphogenesis and procedural organisms. Background: artist-programmer from São Paulo, Brazil; deep interest in morphology (shapes and arrangements of organism parts); painting degree from UNESP, creative programming since 2012 at Kunsthochschule Kassel; her animated patterns loop like the rapport of a fabric.</li><li><strong>Nadieh Bremer:</strong> data-first process — start from the actual dataset and communication goal, never generic chart forms. Pipeline: understand/clean data → sketch and design → implement and iterate, typically JavaScript + D3. Works across static, interactive, animated visualization, and data art. Aims for custom visual metaphors that stay informative while becoming memorable and emotionally engaging.</li><li><strong>Alida Sun:</strong> a daily practice of extraordinary discipline — at the time of the DANAE interview, 2,645 consecutive days hand-coding a new generative artwork, on second-hand, repaired, decade-old hardware. Practice spans installation, sound, architecture, choreography, drawing, and light; works in C++ and AV synesthesia. Themes: presence, resistance, adaptation in the age of algorithms. Glitch and low-poly aesthetics function as resistance — refusal of big-tech smoothness and efficiency in favor of expressive friction; process over outcome; glitches as sites of generative discovery. Code translates across textiles, bodies, and space (hand-embroidered tapestries generated from bodily movement via infrared capture). Creator of Art Blocks Curated project <em>glitch crystal monsters</em>; exhibited at the Venice Biennale Decentralized Pavilion, Ars Electronica, UCCA Center for Contemporary Art, Seattle NFT Museum.</li></ul>
+<h3>Original piece seeds (inspired-by, not copies)</h3>
+<p><strong>Seed 1 — &quot;Field Season Dial.&quot;</strong> Rizzolli-inspired: one idealized flower species drawn procedurally, with a single master &quot;season&quot; parameter that continuously cross-fades palette, petal-count variance, and background weather particles (rain/snow/pollen/petal-fall) instead of switching between four presets. Distinction: the field becomes a playable climate slider — a continuous morph, not four discrete states.</p>
+<p><strong>Seed 2 — &quot;Two-Thousand-Day Streak.&quot;</strong> Alida Sun-inspired: a piece generated by a small daily-practice ritual — the script is re-run by hand every day, each run adding exactly one layer to a growing canvas; the finished image exists only as the sum of days. Distinction: time and labor are the medium; the piece cannot be regenerated from a hash alone — absence shows as blank layers.</p>
+<hr>
+<h2>Issue #08 — Formulae</h2>
+<p><strong>Curatorial thesis.</strong> Algorithms are generative art&#x27;s structural backbone — they control shape, color, texture, arrangement, dynamism, unpredictability, temporal change, and responses to external stimuli. The issue treats the formula itself as the artwork&#x27;s subject.</p>
+<h3>Featured artists + visual descriptions</h3>
+<p><strong>Aleksandra Jovanic</strong></p>
+<ul><li><em>CHROMATLAS Vol. 6 #139</em> — scientific-plate aesthetic on warm cream paper: vintage captions &quot;CHROMATLAS, Vol. 6&quot; (top-left) and &quot;4th section PLATE CCLVIII&quot; (top-right), faint diagonal construction lines across the sheet. A central bubble-plot scatter of translucent spheres of varying sizes in muted earth tones (peach, taupe, gray-green), each with one darker lobe/shadow segment and thin concentric circle outlines inside. Small numeric labels beside spheres (161, 132, 62, 64, 54); a row of small vertical tick marks along the bottom edge. A vintage color-atlas plate crossed with a data-viz bubble chart; translucency gives an optical-illusion depth — the large peach sphere at bottom-center has a dark shaded underside.</li><li>Other mapped works: <em>CHROMATLAS Vol. 1 #105</em>, Vol. 3 #210, Vol. 7 #190.</li><li>Own-site URL found: http://aleksandrajovanic.com/ (listed in her official bio materials)</li></ul>
+<p><strong>Arttu Koskela (shaderism)</strong></p>
+<ul><li><em>Sound Therapy #59</em> — warm orange-to-cream vertical gradient with fine grain: ~16 identical &quot;stalactite&quot; cones (orange-brown glossy gradient, pointing down) clustered in a loose cross/grid, each capped with a small green-and-white sphere like a sprout. Below them a soft pale-green concentric-circle ripple motif — a sound-wave pool. Toy-like 3D render with halftone/stipple shading; a dithered retro texture. Music-visualization turned into objects: instruments dripping sound into a pond.</li><li><em>Blind Spots #46</em> — portrait-format macro view through rippled translucent glass: diagonal bands of refraction over a dark silhouette background; pearl-like iridescent color shifts (teal-green, pink, orange, white) at glancing angles; visible halftone dot-screen texture in regions; chromatic-aberration edges. Extreme close-up abstraction with photographic depth.</li><li>Other mapped works: <em>On Time #33</em>, <em>Chordal Reveries #17</em>, <em>Kinetic Bug #227</em>, <em>Blind Spots #307/#396</em>.</li><li>Studied one-hop: https://www.artblocks.io/articles/in-conversation-with-arttu-koskela-shaderism-on-blind-spots</li><li>Gaps: no descriptions found for <em>Sound Therapy</em>&#x27;s generative rules, <em>Moiré Meditation</em>, or <em>On Time</em>; <em>Chordal Reveries</em> is documented below.</li></ul>
+<p><strong>Alejandro Campos</strong></p>
+<ul><li><em>Enfantines II #190</em> — cream/yellowish paper with a thin rectangular border (the active drawing area). Scattered childlike &quot;sun/creature&quot; figures — each a loose hand-drawn spiral or circle with radiating multicolored stick rays (pink, teal, blue, yellow, purple crayon colors), shaky sketchy linework. Sparse distribution with two denser clusters; faint dotted flow lines drifting across the paper. Deliberately naive — children&#x27;s crayon drawings with systematic variation in ray length, color, and spiral tightness. The imperfect-repetition theme is directly visible: same motif, every instance slightly different.</li><li>Own site: https://art.arqtistic.com (architect and creative coder; works across ETH and Tezos)</li><li>TGAM artist page: https://tgam.xyz/artist/alejandro-campos</li><li>Related project context: <em>Fuga a tientas</em> (Verse, 2023) is described as &quot;the coming-of-age of the <em>Enfantines</em> (fxhash, 2022) algorithm — still childlike but now a more sophisticated and yet imperfect exploration of form and counterform, sound and colour,&quot; fully composed of horizontal lines and simple shapes traveling through imperfect flow fields.</li></ul>
+<h3>Techniques / code approaches</h3>
+<ul><li><strong>Aleksandra Jovanic:</strong> artist and programmer from Belgrade, Serbia (doctorate in Digital Arts, BSc in Computer Science; associate professor teaching at Belgrade&#x27;s art faculties). Combines interactive art, art games, and generative art; recent work focuses on data-visualization aesthetics and optical illusions. She calls working with algorithms &quot;economical&quot; — every reload gives a different result, and fast rendering buys time to explore adding/removing elements and their flipsides (an explicit nod to Vera Molnár-style visual research). <em>CHROMATLAS</em> is a 10-volume series developed over a year as an evolving idea — not planned as ten, but the concept kept yielding visual ideas; she stopped when she felt she had exhausted them. The series&#x27; visual language comes from data science crossed with vintage color-classification books (the source of the name). She likes series coherence through a single generator but chose the volume structure deliberately rather than one random-everything machine.</li><li><strong>Arttu Koskela:</strong> Houdini procedural-systems/VFX background, moved to WebGL real-time development. JavaScript, real-time graphics, interaction, audiovisuality, simulations, and generated musical instruments; no pregenerated assets in artworks. Career path: VFX → WebGL (~6 years before the Art Blocks interview), creative-coding sketches on Twitter from 2020, long-form works after discovering fx(hash) at end of 2021 (<em>Sound Therapy #23</em>, 2022, JavaScript; <em>Deformed Patterns</em>, 2019, was a Houdini generative output). <em>Blind Spots</em>: procedural glass inspired by Iittala glass sculpture; a silhouette behind a refractive shell; animated viewpoint change; a complex algorithm searches for the ideal camera position. Palette starts as one color gradient plus black and white — chromatic aberration creates the pearl-like iridescence. Feature set: aberration, roughness, glass ripple amount/deformation, stripe and halftone effects, camera framing; supports animated interaction and print rendering up to 10,000 pixels. <em>Chordal Reveries</em>: a self-playing musical instrument — eight marbles navigate a glass labyrinth triggering sounds; eight knobs control camera and sound generation (designed around the AKAI LPD8 MIDI controller, also keyboard-accessible); extends into physical interactive installation. His definition of responsive art: graphically responsive art adapts and reacts — it should fill whatever screen it is given, including dynamic resize.</li><li><strong>Alejandro Campos:</strong> architect (Arqtistic, Valencia/Ontinyent; academic work on modern architecture) turned creative coder since 2021. Works in p5 and built the open-source p5.brush library; celebrates imperfect repetition — coding as sketching, where unexpected shapes and colors emerge from simple geometric operations through imperfect flow fields; <em>Enfantines</em> is childlike but sophisticated. Engages generative art through the lens of web design and experience; revived a defunct AI model to generate music for <em>Fantasia</em>.</li></ul>
+<h3>Original piece seeds (inspired-by, not copies)</h3>
+<p><strong>Seed 1 — &quot;Chromatlas of One Dataset.&quot;</strong> Jovanic-inspired: take one real dataset and render it as a vintage color-atlas plate — Roman-numeral plate numbers, translucent bubble spheres, marginal tick marks — where sphere size, position, and color encode the data honestly. Distinction: data-viz wearing a 19th-century classification-book costume; the annotation system itself is the aesthetic.</p>
+<p><strong>Seed 2 — &quot;Glass Silhouette Studies.&quot;</strong> shaderism-inspired: a simple dark silhouette behind a procedural glass shell with adjustable ripple, roughness, and aberration; the viewer drags to rotate, and pearl iridescence appears only at glancing angles. Distinction: the beauty lives entirely in the optics, not the geometry — geometry stays fixed, all variation is refraction.</p>
+<hr>
+<h2>Artist out-links for follow-up</h2>
+<ul><li>Lars Wander — https://larswander.com/art/</li><li>Zach Lieberman — http://zach.li/</li><li>Zancan — https://zancan.art/Works/30-objkt-one</li><li>DEAFBEEF — https://deafbeef.com/about.htm</li><li>Licia He — https://www.eyesofpanda.com/</li><li>Anna Carreras — https://www.annacarreras.com/</li><li>Monica Rizzolli — no personal own-site found; canonical project page: https://www.artblocks.io/collection/fragments-of-an-infinite-field-by-monica-rizzolli</li><li>Nadieh Bremer (Visual Cinnamon) — https://www.visualcinnamon.com/about/</li><li>Alida Sun — no personal own-site found; Instagram: https://www.instagram.com/alidasun/ ; TGAM page: https://tgam.xyz/artist/alida-sun</li><li>Alejandro Campos — https://art.arqtistic.com (TGAM page: https://tgam.xyz/artist/alejandro-campos)</li><li>Aleksandra Jovanic — http://aleksandrajovanic.com/</li><li>Arttu Koskela (shaderism) — https://www.shaderism.com (Art Blocks interview: https://www.artblocks.io/articles/in-conversation-with-arttu-koskela-shaderism-on-blind-spots ; Responsive Dreams profile: https://responsivedreams.com/shaderism)</li></ul>
+<h2>Open gaps (honest)</h2>
+<ul><li>No project-specific text descriptions found for: Licia He&#x27;s <em>A story for a minute</em>, Anna Carreras&#x27;s <em>Pinzell d&#x27;Arbres II</em>, Nadieh Bremer&#x27;s <em>Twistings</em> / <em>Fleeting Thoughts</em>, Alida Sun&#x27;s <em>Insomnia Drawing Simulation</em> (practice context found, project text not), Alejandro Campos&#x27;s <em>Moiré Meditation</em>, or shaderism&#x27;s <em>Sound Therapy</em> generative rules / <em>On Time</em>. Visual descriptions above come from direct inspection of the downloaded works only.</li><li>Own-sites not found for Monica Rizzolli and Alida Sun (work pages substituted).</li></ul></div><nav class="pagenav"><a class="" href="tgam-issues-01-04.html"><span class="dir">Previous note</span><span class="t">TGAM Issues #01–#04 — Deep</span></a><a class="next" href="tgam.html"><span class="dir">Next note</span><span class="t">TGAM — The Generative Art Museum (tgam.xyz)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

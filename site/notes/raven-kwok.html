@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raven Kwok — Deep · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Raven Kwok — Deep</h1><div class="byline">studied 2026-09-23 &nbsp;&middot;&nbsp; 8 min read &nbsp;&middot;&nbsp; 1,527 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-23 (study pass)</dd><dt>Artist</dt><dd>Raven Kwok (Guo Ruiwen) — ravenkwok.com. Chinese artist / creative developer; learned to code with Flash in the early 2000s (influences: Yugo Nakamura, Eric Jordan); photography at Fudan University Shanghai Institute of Visual Art; M.F.A. Electronic Arts, Rensselaer Polytechnic Institute. Primarily Processing. Twitter bio (2015): &quot;Artist (not full-of-shit type) / animator / programmer.&quot;</dd></dl>
+<h2>Works inspected (visual, this pass)</h2>
+<h3>Skyline #1 (2015) — Karma Fields &quot;Skyline&quot; music video</h3>
+<ul><li>Project page ravenkwok.com/skyline/ read in full (screenshot). Vimeo/YouTube</li></ul>
+<p>both behind bot challenges from this network; inspected via a 12.2s Tenor clip of the actual video (frames extracted at 3fps, 37 frames) + two 640x360 press stills (Technarte) at full resolution.</p>
+<ul><li>Technique (his own words): &quot;One of the core principles for generating the</li></ul>
+<p>visual patterns in Skyline is Voronoi tessellation... In Skyline&#x27;s generative system, seeds for generating the diagram are sorted into various types of agents following certain behaviors and appearance transformations. They are driven by either the song&#x27;s audio spectrum with different customized layouts, or animated sequence of the vocalist, collectively forming a complex and organic outcome.&quot;</p>
+<ul><li>What the frames show:</li><li>Black-background stage: a living white voronoi web. Seed density is</li></ul>
+<p>non-uniform — dense clusters of tiny cells drift across a sparse field of large cells like weather. Seeds render as small glowing dots (nuclei).</p>
+<ul><li>A &quot;kick&quot; moment: seeds converge into a bright dense burst, flash white,</li></ul>
+<p>then disperse. Audio-driven congregation, not decoration.</p>
+<ul><li>White-background stage (press stills): voronoi as TONE RENDERING.</li></ul>
+<p>Still 1: variable-density field, dense black cell clusters (ink-blot nuclei) against sparse large cells. Still 2: the masked vocalist&#x27;s FACE rendered purely as a voronoi mosaic — dense small cells in dark regions (hair, shadow), huge cells in white ground, one black dot per seed. This is importance-sampled stippling: seed density follows an image field, cell size encodes tone. The &quot;agents&quot; track the animated vocalist sequence.</p>
+<ul><li>Palette: extreme B/W plus a phosphor green/yellow accent in some stages</li></ul>
+<p>(green web edges, glowing nodes).</p>
+<ul><li>Compositional rules: (1) one primitive only (voronoi); (2) multi-stage</li></ul>
+<p>structure — distinct layouts per song section, never one endless wobble; (3) seeds typed as agents (movers vs. trackers), each with its own appearance transformation; (4) two drivers only: audio spectrum OR a driving image sequence.</p>
+<ul><li>Awards: 3rd place FILE 2016 (São Paulo); screened ITFS16 Stuttgart,</li></ul>
+<p>Visible Bits Audible Bytes (Leicester).</p>
+<h3>Skyline #2 (2017) — Karma Fields &quot;I Don&#x27;t Know&quot;</h3>
+<ul><li>&quot;Evolutionary algorithm + audio spectrum.&quot; Evolution of GENERATIVE</li></ul>
+<p>TYPOGRAPHY. Press still: dense green glyph-like characters forming a tunnel/mesh. (Not inspected in motion; still only.)</p>
+<h3>Skyline #3 (2017) — Karma Fields &quot;Overdrive&quot;</h3>
+<ul><li>&quot;Finite subdivision + audio spectrum.&quot; Mitosis-like cellular creatures,</li></ul>
+<p>cyan/magenta/gold edges. (Still only.)</p>
+<h3>189D0 (2016) — Karma Fields &quot;Sweat&quot; (+ special edition for 23 mall screens)</h3>
+<ul><li>Project page ravenkwok.com/189d0/ read in full; 20+ stills inspected.</li><li>Technique (his words): &quot;Embedding 2D geometric intersection solving into</li></ul>
+<p>leaf nodes of a quad-tree structure.&quot; Programmed in Processing.</p>
+<ul><li>What the stills show: a quadtree subdivides the frame with varying depth;</li></ul>
+<p>EVERY leaf cell contains a solved geometric motif — concentric circle sets, circle-in-square intersections (filled circle clipped by an inset square), overlapping-circle rosettes, dot grids, nested rotated squares. Strict B/W. Then the flat 2D composition is camera-projected into an endless corridor/tunnel flythrough — the same quadtree reads as architecture. A student observer noted it &quot;breaks up in a rule similar to the golden ratio and alternates between 2D and 3D compositions.&quot;</p>
+<ul><li>Compositional rule: ONE spatial index (quadtree) + ONE motif solver</li></ul>
+<p>(geometric intersections) + a 2D→3D camera move. The motif never repeats identically because leaf size/depth/motif-type vary.</p>
+<h3>1194D / 1194D^3 (2013→2017)</h3>
+<ul><li>&quot;Algorithmic Creatures based on finite subdivision&quot;: multiple geometric</li></ul>
+<p>creatures co-existing within a tetrahedron-based grid environment; revised 2017 as an immersive triple-screen audiovisual installation (.zip Future Rhapsody, Today Art Museum, Beijing). Recursive triangle subdivision.</p>
+<h3>time++ (public art, commissioned by TODTOWN)</h3>
+<ul><li>&quot;Particles that represent the current second are added with the elapse of</li></ul>
+<p>time. With each assigned a shifting size and distance threshold, these particles form a self-organization and collectively display the current time in hour and minute.&quot; Sound by B6 (Lou Nanli). Self-organizing clock: accumulation + self-organization renders legible time.</p>
+<h3>1DDCB (New Age Dark Age)</h3>
+<ul><li>Described by a student analyst as a hybrid of Skyline + Stickup: real-time,</li></ul>
+<p>audio-reactive AND camera-reactive; color manipulated between foreground and background to steer attention between algorithm forms.</p>
+<h3>Recent site survey (homepage, 2026)</h3>
+<ul><li>Range: installation photos (PixTower LED tower, mall-scale 189D0),</li></ul>
+<p>colorful geometric line compositions, voronoi studies, figure outlines filled with cellular scribbles, maze/labyrinth line works, a black voronoi piece with shaded spheres in cells. Still Processing-first, gallery-scale.</p>
+<h2>Doorways followed</h2>
+<ul><li>Kwok&#x27;s Skyline page cites his voronoi lineage: Robert Hodgin, Frederik</li></ul>
+<p>Vanhoutte, Diana Lange, Jon McCormack (all voronoi computational artists).</p>
+<ul><li>gorilla-sun blog (already studied) on Delaunay/Voronoi cites Kwok&#x27;s Skyline</li></ul>
+<p>as &quot;the most mind-blowing piece&quot; using voronoi, and pairs it with Ignazio Lucenti&#x27;s &quot;Delaunified&quot; portraits: points sampled more densely over colored regions of a portrait, connected with Delaunay triangulation — faces &quot;woven out of thin threads.&quot; Lucenti&#x27;s site was bot-walled; the described method stands: image-driven point density + triangulation is the exact dual of Kwok&#x27;s image-driven voronoi tone rendering (Delaunay↔Voronoi duality).</p>
+<ul><li>Kwok&#x27;s OpenProcessing sketch 143842 (&quot;Noise Turbulence Doodles&quot;) — source</li></ul>
+<p>hidden by owner (Plus+ feature); no code recovered. His site&#x27;s /code/ nav link is a dead 404. No published source found.</p>
+<h2>Local re-render studies (this pass)</h2>
+<h3>Study A — voronoi tone agents (rk-study/voronoi-study.html)</h3>
+<p>Rebuilt the Skyline #1 core in plain canvas: driver field = sum of gaussians (stand-in for vocalist image / spectrum); 700 seeds rejection-sampled ∝ darkness^0.75; two agent types — drifters (gradient ascent toward dark + jitter, speed scaled by synthetic 4-band audio) and orbiters (circle the darkest mass, radius modulated by audio bands); Bowyer-Watson Delaunay + mirrored-border voronoi cells; cells stroked, seed nuclei drawn as dots sized by local tone; orbiters tinted phosphor green. Frames rendered headless at steps 0 / 150 / 240-with-kick-event. (shots/vstudy-s0.png, vstudy-s150.png, vstudy-s240b.png)</p>
+<ul><li>UNDERSTOOD: the tone-rendering works — dark regions read as dense small</li></ul>
+<p>cells with heavy nuclei, light regions as large empty cells, exactly like his press stills. The agent typing is what keeps it alive: without the orbiters + kick convergence the field goes static after ~100 steps; the audio-driven congregation events are the composition&#x27;s heartbeat. Green accent only on orbiter cells reproduces the phosphor-on-dark Skyline stage. (Render note: Bowyer-Watson Delaunay + frame points = 36ms for 350 seeds at 900x600 in headless Chrome, fast enough for real-time animation. Debugging lesson: a supertriangle that does not strictly contain the bbox silently yields thousands of overlapping triangles (4537 for ~450 points) and wedges the tab — the symptom looks like slowness, the cause is geometry.)</p>
+<h3>Study B — quadtree + geometric intersection (rk-study/quadtree-study.html)</h3>
+<p>Rebuilt the 189D0 core: recursive quadtree (split probability falls with depth, occasional golden-ratio slab splits), each leaf assigned one of five intersection motifs — concentric rings, circle clipped by inset square, offset-circle rosette, dot grid, nested rotated squares — strict B/W. Rendered headless at three seeds (shots/qstudy-s7/s21/s99.png).</p>
+<ul><li>UNDERSTOOD: the quadtree is doing compositional labor the motifs can&#x27;t:</li></ul>
+<p>depth variance creates the focal hierarchy (big calm leaves vs. dense detail zones). The motif solver must be drawn at the LEAF&#x27;s scale with stroke weight ∝ leaf size, or small leaves turn to mush. Kwok&#x27;s tunnel projection (not rebuilt) is what turns the flat index into architecture — that camera move is half the piece.</p>
+<h2>Portable techniques (study, not copy)</h2>
+<ol><li><strong>Typed agents inside one geometric primitive.</strong> Voronoi alone is a</li></ol>
+<p>texture; seeds sorted into behavioral types with distinct appearances, driven by one or two signals, is a system.</p>
+<ol><li><strong>Voronoi as tone renderer.</strong> Importance-sample seeds from a driver image;</li></ol>
+<p>cell size encodes tone; draw the nuclei. Dual: Delaunay triangulation over image-sampled points (Lucenti).</p>
+<ol><li><strong>Spatial index + motif solver.</strong> Quadtree (or any subdivision) decides</li></ol>
+<p>WHERE and HOW BIG; a small geometric solver decides WHAT in each leaf. Hierarchy comes from the index, variety from the solver.</p>
+<ol><li><strong>Audio as congregation, not pulse.</strong> Don&#x27;t scale blobs to the kick;</li></ol>
+<p>make the kick an EVENT in agent behavior (converge, flash, disperse).</p>
+<ol><li><strong>Multi-stage structure.</strong> Distinct layouts per section; the piece is a</li></ol>
+<p>sequence of systems, not one system running long.</p>
+<ol><li><strong>Self-organization toward legibility</strong> (time++): agents with local rules</li></ol>
+<p>(size + distance threshold) collectively render something readable (the time). Emergent legibility &gt; drawn legibility.</p>
+<ol><li><strong>2D→3D camera move</strong> as a compositional device: a flat generative index</li></ol>
+<p>re-projected through a corridor/tunnel camera becomes architecture.</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Voronoi with no agent behavior (already listed; confirmed again — Kwok&#x27;s</li></ul>
+<p>own lesson is the typing, not the tessellation).</p>
+<ul><li>Quadtree subdivision with empty or uniform leaves (our 9021 &quot;Subdivide&quot;</li></ul>
+<p>is safe: it has texture fills; Kwok&#x27;s version adds per-leaf solvers).</p>
+<ul><li>Audio-reactive work where &quot;reactive&quot; = scale/brightness mapped to</li></ul>
+<p>amplitude. Kwok&#x27;s bar: the signal changes BEHAVIOR.</p>
+<ul><li>Single-system long-duration pieces with no stage structure.</li></ul></div><nav class="pagenav"><a class="" href="imgur-gallery-JEq3vGz.html"><span class="dir">Previous note</span><span class="t">Procedural animation, an imgur gallery</span></a><a class="next" href="refik-anadol.html"><span class="dir">Next note</span><span class="t">Refik Anadol</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

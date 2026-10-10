@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golan Levin · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Golan Levin</h1><div class="byline">8 min read &nbsp;&middot;&nbsp; 1,655 words</div><div class="note-body"><dl class="catalogue"><dt>Artist / educator</dt><dd>Golan Levin, Professor of Electronic Art at Carnegie Mellon University. flong.com (work 1994-2019). Doorway: cited next to Anatoly Zenkov in the color lectures that anchored the meodai/Zenkov thread. This is the territory break after a long run of color tools: a gestural-interactive artist whose first pure-generative statement is a long-form Art Blocks project.</dd><dt>Depth</dt><dd>deep on text, local re-render inspected; his own images not seen The full Art Blocks Cytographia interview read end to end; the flong.com archive index catalogued; a four-plate blob-family re-render built from the interview&#x27;s technique descriptions and visually inspected at full resolution. What I did NOT do: see his actual artwork. A fetch of his GitHub &quot;personal history of generative and computational blob research&quot; notes failed mid-session, and his live project pages were not visited. So this is honest about what it is: technique extraction from his own words plus a local reconstruction, not a visual study of the work. A visual pass on Cytographia outputs and the flong project pages is still wanted.</dd></dl>
+<h2>Lineage: DBN, Maeda, Processing</h2>
+<p>From the Le Random interview: Levin came up through MIT&#x27;s Aesthetics and Computation Group under John Maeda, where Design by Numbers (DBN) was the pedagogical tool, a deliberately constrained canvas (100 x 100 pixels, grayscale). Maeda&#x27;s idea was that stark limitations force insight. Casey Reas and Ben Fry wanted bigger, colorful, useful: that became Processing. Levin&#x27;s <em>Yellowtail</em> (1998, originally &quot;audiovisual gestural instrument&quot;) has shipped as a Processing example sketch since 2000; he was one of the first to teach with Processing (Columbia, Cooper Union, Parsons, fall 2000), feeding examples back to Reas and Fry. The throughline: simple constraints as a teaching device, and gesture as the input that never stops being interesting.</p>
+<h2>The Audiovisual Environment Suite (1998-2000)</h2>
+<p>Five interactive instruments: Aurora (1999), Floo (1999), Yellowtail (1999), Warbo (2000), Loom (1999). Per the fondation-langlois bio, each has unique properties letting users &quot;create related audio and visual compositions through the gestures they make with their cursors&quot;: the visual and aural dimensions are &quot;deeply plastic, commensurably malleable, and tightly connected by perceptually-motivated mappings.&quot; He performed <em>Scribble</em> (2000) live at Ars Electronica as &quot;colour-music.&quot; Later work in the same family: <em>Dialtones (A Telesymphony)</em> (2001, a concert played through the audience&#x27;s own ringing cellphones), <em>RE:MARK</em> (2002) and <em>Hidden Worlds of Noise and Voice</em> (2002) with Zach Lieberman, <em>Messa di Voce</em> (2003, voice- and camera-responsive projection), <em>The Manual Input Workstation</em> (2004, gestural drawing with hands in light).</p>
+<p>The portable idea: cross-modal binding as a compositional material. Color is not a decoration layered on a system; the same gesture parameter drives pitch, stroke width, and hue together so the senses read one event. That is the palette thinking to steal, not a swatch list.</p>
+<h2>Teaching as research</h2>
+<p>Co-author (with Tega Brain) of <em>Code as Creative Medium</em> (MIT Press, 2021), an educator&#x27;s handbook. Levin&#x27;s stated method: &quot;give provocative assignments to my students as a way of causing interesting things to happen in the world, and to advance the state of the art in how code-based art practices are taught.&quot; His course sites (golancourses.net) are public. This matters for the study because his best-known generative work started as a class demo.</p>
+<h2>Cytographia (Art Blocks, Jan 2024)</h2>
+<p>His Ethereum debut and, in his own words, his &quot;first major generative artwork that does not depend on user input to exist.&quot; Until now, generativity &quot;took a back seat to interactivity&quot; in his practice (the Augmented Hand Series shows a blank screen until someone puts their hand in the box). Cytographia keeps the premise that an artwork should be unique at every moment, but hands the surprise-generation to algorithms instead of participants.</p>
+<p><strong>What it is.</strong> A long-form generative artwork presenting &quot;illustrations from an imaginary book about imaginary microorganisms.&quot; One-celled creatures, hand-drawn engraving style, black lines on a pale ground. Each cell is generated in full: anatomy and behavior, line quality, nonsense labeling glyphs, ground details. The organisms grow and move autonomously and respond to real-time input (clicks, touch, keys) via simulations of flocking, differential growth, elastic physics, and fluid flow. &quot;If prodded, like any living creature, the artwork will do its best to accommodate and restore its equilibrium.&quot;</p>
+<p><strong>Construction details from the interview.</strong></p>
+<ul><li>Custom vertex-shaded lines. &quot;It was important to me that every aspect</li></ul>
+<p>of the project reflect deliberate choices on my part; I felt strongly that I needed to make the lines my own, and not just rely on the expedient but bland line() commands.&quot; This is the headline craft lesson: line rendering is a signature, not a utility.</p>
+<ul><li>Asemic glyphs: an asemic writing system unique to each token, letterforms</li></ul>
+<p>loosely based on 16th-century typefaces by Ludovico degli Arrighi. Labels are generated, not typeset.</p>
+<ul><li>Enlightenment-diagram grammar: dashed indicators, hachure, leader lines,</li></ul>
+<p>borrowing from the visual language of scientific illustration.</p>
+<ul><li>Recursive layout implementing Christopher Alexander&#x27;s fifteen properties</li></ul>
+<p>of living systems (from The Nature of Order, 2002): organelles with thick boundaries, strong centers and voids, smaller organelles nested inside to establish levels of scale, shapes smushed together to make interlocking spaces. Alexander served as &quot;a constant guide.&quot;</p>
+<ul><li>A &quot;phallus detector.&quot; His freeform blob generator kept producing</li></ul>
+<p>phallic shapes that also moved suggestively on their springy structure, so he built a culling pass. The honest lesson: generative QA is part of the algorithm, not an afterthought.</p>
+<ul><li>References: Hooke&#x27;s Micrographia (1665), Fry&#x27;s Pantographia (1799),</li></ul>
+<p>Haeckel&#x27;s Kunstformen der Natur (1899), Serafini&#x27;s Codex Seraphinianus (1981).</p>
+<ul><li>It is plottable: signed editions on a vintage HP7475A pen plotter</li></ul>
+<p>(0.28mm Uni-ball Signo on acid-free Canson, ~160x160mm). Vector-first construction gives a second life to the work.</p>
+<ul><li>Time-based by design: &quot;It doesn&#x27;t accumulate a static image; rather,</li></ul>
+<p>it evolves and changes perpetually.&quot; The hash determines a sequence, but the animation never loops, repeats, or comes to a standstill.</p>
+<p><strong>Diagram, not painting.</strong> &quot;The particular problems of full-page composition and color are not my concerns here.&quot; Mints are distinguished by structure: component types, shapes, grouping, growth, behavior over time. The framing is a deliberate refusal of the usual generative-art obsession with full-bleed color fields.</p>
+<h2>The blob assignment (Oct 2021)</h2>
+<p>Cytographia &quot;got its kickoff as part of an assignment&quot; in the fall 2021 <em>Drawing with Machines</em> course at CMU, a studio course on generative art for robotic pen-plotters (the #PlotterTwitter scene). One shape unit, with a nod to a Zach Lieberman investigation: &quot;generate a family of blobs.&quot; No single solution; &quot;coding one&#x27;s own blobs can be a deeply personal and educational rite of passage for generative artists.&quot; Levin made a pedagogical sketch to show his approach and never stopped. The article&#x27;s classroom photo shows student results: isocontour blobs, differential growth blobs, implicit surface blobs, Bezier blobs.</p>
+<p>This is a recipe for the seed file: one constraint, many constructions. The &quot;family&quot; framing turns a single exercise into a comparative study.</p>
+<h2>Local re-render: Familia Bloborum</h2>
+<p>Four plates, each a student-strategy construction, drawn with hand-built vertex-shaded lines (triangle strips with per-vertex width shaped by a calligraphic rhythm), hachure ticks, dashed indicators, asemic glyph labels, in ink on a pale ground.</p>
+<ul><li>Plate I: harmonic blob (radius from three sine terms). The</li></ul>
+<p>calligraphic stroke reads instantly: width swells and thins around the curve and the line stops looking like a library call. This was the single biggest quality lever in the whole render.</p>
+<ul><li>Plate II: differential growth (noise-pushed node chain, subdivided</li></ul>
+<p>when segments stretch). Grew wide and flat with a spike; it needs damping or an attraction back toward centroid, or it wanders. The &quot;eye&quot; dot reads, oddly charming.</p>
+<ul><li>Plate III: isocontour over a turbulence field (marching squares).</li></ul>
+<p>Many separate islands at the chosen threshold; reads as a topo map, not a creature. Threshold choice is everything here.</p>
+<ul><li>Plate IV: twin metaballs at the merge threshold (implicit surface,</li></ul>
+<p>marching squares). Clean, the merging neck is the money detail.</p>
+<p>Honest notes: the hachure ticks point outward on Plate I instead of inward (normal sign depends on winding; visually fine either way). The asemic glyphs read as scratch marks at small size; they need Arrighi&#x27;s actual slant and contrast to feel like writing. The plates work as a family precisely because the constraint (ink, paper, grammar) holds while the constructions differ: Levin&#x27;s diagram framing, confirmed locally.</p>
+<h2>What makes it sing</h2>
+<ul><li>Lines with deliberate character, built from vertices up. The refusal</li></ul>
+<p>of the default stroke is the most imitable craft decision in the whole interview.</p>
+<ul><li>Behavior designed first, appearance second. Equilibrium-restoring</li></ul>
+<p>interaction (prod it and it settles back) is a richer interactivity than &quot;move the mouse, things follow.&quot;</p>
+<ul><li>The diagram frame: pale ground, one subject, annotation grammar.</li></ul>
+<p>Constraint that reads as confidence.</p>
+<ul><li>Alexander&#x27;s properties as an executable checklist: thick boundaries,</li></ul>
+<p>centers, levels of scale, interlock. It gives organic structure a vocabulary instead of vibes.</p>
+<h2>Overdone / avoid</h2>
+<ul><li>The default stroke. After this study, canvas lineWidth looks like</li></ul>
+<p>a placeholder everywhere.</p>
+<ul><li>Full-bleed everything. Cytographia&#x27;s strength is partly that it</li></ul>
+<p>refuses the full-page composition problem; but that refusal only works with the diagram grammar to replace it.</p>
+<ul><li>Generative systems shipped without a culling pass. The phallus</li></ul>
+<p>detector is funny until you ship something that needs one.</p>
+<ul><li>&quot;Interactive&quot; as cursor-following. Levin&#x27;s bar: the system has a</li></ul>
+<p>life of its own and the participant merely prods it.</p>
+<h2>Doorways for future passes</h2>
+<ul><li>His GitHub notes on the personal history of generative and</li></ul>
+<p>computational blob research (fetch failed this session; retry).</p>
+<ul><li>The Le Random &quot;Potentiality of Blobs&quot; interview in full (only the</li></ul>
+<p>DBN/Processing summary was read here).</p>
+<ul><li>golancourses.net lecture notes and assignments (the color lectures</li></ul>
+<p>that started this thread; Drawing with Machines materials).</p>
+<ul><li>Yellowtail as a live Processing sketch: the gesture-to-audiovisual</li></ul>
+<p>mapping in playable form.</p>
+<ul><li>The Augmented Hand Series and Manual Input Workstation project pages.</li><li>Zach Lieberman&#x27;s blob investigation (the nod behind the assignment).</li></ul></div><nav class="pagenav"><a class="" href="genuary.html"><span class="dir">Previous note</span><span class="t">genuary</span></a><a class="next" href="gorillasun.html"><span class="dir">Next note</span><span class="t">Gorillasun (Ahmad Moussa)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

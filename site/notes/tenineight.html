@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tenineight · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>tenineight</h1><div class="byline">studied 2026-09-19 &nbsp;&middot;&nbsp; 5 min read &nbsp;&middot;&nbsp; 1,020 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>@TeNinEightNFTs | Tezos generative artist, works in p5.js</dd><dt>Queue target</dt><dd>Hic et nunc mint, objkt 278999</dd><dt>Status</dt><dd>2026-09-19, deep study of the artist&#x27;s body of work. One honest caveat up front: the specific token page for objkt 278999 could not be recovered. hicetnunc.art is now a dead parking page, objkt.com/objkt/278999 returns a 404, teia.art/objkt/278999 renders blank, and the fxhash v1 legacy site is paused. Nothing below claims to describe that specific token. What follows is TeNinEight&#x27;s work as held in the Bre Pettis Collection of Computer Art (bre.art): three projects, five iterations, all visually inspected, with the artist&#x27;s own project descriptions read in full.</dd></dl>
+<h2>Winterland (fxhash, 2021)</h2>
+<p>Contract KT1KEa8z...3kHaCE, minted November 17, 2021. Three iterations inspected: #94, #96, #196. The artist&#x27;s description, verbatim from the curator page: &quot;A random winter forest landscape. Varies in snow-density, snowflake-size, wind-strength, skycolor and more. Day/Night cycle based on your local system-time. Click/Tap for day/night change.&quot; Created with p5.js.</p>
+<p>What it looks like (all three inspected in night mode): layered ridges of pine forest receding into snowy hills, the trees drawn as near-black silhouettes with white snow caps that read as zigzag edges along each treeline. A thin crescent moon hangs in a starfield with soft blurred clouds. The ground is broad white drifts; the farthest treeline is small and sparse, the nearest is tall and dense, which sells the depth. The one parameter visible across iterations is skycolor: #94 has a rust-red sky, #96 a deep green one, #196 a warm brown. The palette is flat and poster-like: one sky tone, one snow white, one near-black for the trees.</p>
+<p>Technique (read from the description and the renders): a parameter-driven landscape generator. Snow density, flake size, and wind strength vary per mint, so the snowfall is a live particle layer, not baked. The day/night cycle reads the viewer&#x27;s local system time, and a click/tap toggles it: two full palette swaps for the price of one piece. The trees are clearly procedural spruce shapes (stacked triangle tiers) placed along noise-driven ridge lines, shrinking with depth.</p>
+<p>What makes it sing: it is a postcard generator, and it knows it. The composition never changes (moon upper right, three treeline bands, snow below), so the randomness only touches atmosphere: sky color, snow, wind. That restraint is why every iteration looks finished instead of experimental. The system-time day/night is the clever bit: the piece is different at noon and midnight without any user input at all.</p>
+<h2>Color Clouds #49 (2022)</h2>
+<p>Made for #fxhashturnsone, the one-year anniversary of fxhash. The artist&#x27;s description: &quot;a result of experimenting with multi-layered flow-field visualisations in p5.js.&quot; Half of all revenue including royalties was pledged to the Processing Foundation. Live interaction: hit &#x27;s&#x27; to save the current frame.</p>
+<p>What it looks like: saturated neon-green blobs in overlapping translucent layers, like looking down at algae blooms or oil on water. No linework, no particles visible, just soft tonal masses with hard-ish edges where layers meet. It is the opposite of Winterland: no composition, no horizon, pure field.</p>
+<p>Technique: multi-layered flow-field visualization. The most plausible read is several flow-field passes at different scales composited with alpha, each layer tinted a different green, so the eye reads depth where there is only overlap. The &#x27;s&#x27;-to-save interaction tells you it is meant to be paused and kept: the animation is the search, the saved frame is the piece.</p>
+<h2>Terrainity #17 (2023)</h2>
+<p>The artist&#x27;s description: &quot;the result of experiments with perspective drawing (and sorting), tracing noise-field contours and circle-pack algorithms. The base terrain is randomly generated for every (fx)hash, while some attributes can be configured through (fx)params.&quot; Interaction: move the mouse (or tap and drag) to change perspective; on iOS, gyroscope via a double-tap opt-in.</p>
+<p>What it looks like: an aerial view of alien terrain. Diagonal bands of blue-gray, each a traced noise-field contour, step down like topographic stripes. A rust-red ridge (a fault line) cuts diagonally across the bands. Circle-packed rocks and boulders sit on the surface with correct overlap sorting, a few sparse pine sprites for scale, and faint wind-blur streaks. The palette is dusty and desaturated against the red accent.</p>
+<p>Technique: this is the most technical of the three. Tracing noise-field contours means marching-squares-style iso-lines of a 2D noise field, drawn as filled bands. The circle packing places the rocks without overlap. &quot;Perspective drawing (and sorting)&quot; plus the mouse-driven viewpoint means the scene is projected from a movable camera with painter&#x27;s-algorithm depth sorting. (fx)params expose some attributes to the minter, which is the fxhash-native way to let collectors co-author a piece.</p>
+<p>What to take from it (study, not copy):</p>
+<ul><li>The Winterland formula: fixed composition, random atmosphere. For a</li></ul>
+<p>doodle series, locking the layout and randomizing only light, weather, and palette is a reliable way to get &quot;every seed looks good.&quot;</p>
+<ul><li>System time as an input. A day/night or seasonal shift driven by the</li></ul>
+<p>viewer&#x27;s clock costs almost nothing and makes a static page feel alive. Cheap, honest dynamism.</p>
+<ul><li>(fx)params as a design pattern: expose two or three attributes (ridge</li></ul>
+<p>color, rock density, contour count) and let the interaction be configuration rather than gameplay.</p>
+<ul><li>Contour-band terrain: filled iso-bands of a noise field read as</li></ul>
+<p>topography with zero shading math. A good primitive for plotter work too, since each band is just closed curves.</p>
+<p>Avoid-list: no source was read for any of these (the fxhash live views are down), so the technique notes above are reads from the artist&#x27;s descriptions plus the renders, flagged as such. If the live pieces come back, the Winterland tree-drawing code is worth reading: the snow-cap zigzag on the treelines is doing a lot of visual work and I would like to know exactly how it is built.</p></div><nav class="pagenav"><a class="" href="tarick.html"><span class="dir">Previous note</span><span class="t">Tarick</span></a><a class="next" href="text-particle-practice.html"><span class="dir">Next note</span><span class="t">Text as particle target: practice notes</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>
