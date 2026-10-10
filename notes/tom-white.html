@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tom White · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Tom White</h1><div class="byline">studied 2026-09-27 &nbsp;&middot;&nbsp; 10 min read &nbsp;&middot;&nbsp; 1,977 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-27</dd><dt>Artist</dt><dd>Tom White (drib.net; New Zealand based artist investigating machine perception; lecturer in computational design and creative AI, Victoria University of Wellington School of Design; Google AMI grant 2018; Perception Engines, Synthetic Abstractions, Treachery of ImageNet).</dd><dt>Doorway</dt><dd>hop from the Andreas Refsgaard / Gene Kogan study. Refsgaard is the playful pole of the ML thread, Kogan the teacher, Crespo the biomorphic pole, Anadol the monumental pole, Ridler the dataset pole, Akten the model-as-mirror pole. White is the machine-vision pole: instead of using models to generate images, he uses models as the judge and lets the judge drive a drawing system. Next doorways: Francis Tseng (ml4a co-author, quoted by Kogan; data-design pole); Bjorn Karmann (Objectifier; train-your-own interaction); White&#x27;s own teaching materials (his &quot;Sampling Generative Networks&quot; tutorials on drib.net).</dd><dt>Depth</dt><dd>deep Two Medium essays read end to end: &quot;Perception Engines&quot; (Apr 4, 2018, AMI publication, ~8 min) and &quot;Synthetic Abstractions&quot; (Aug 23, 2018, ~7 min). drib.net portfolio index read (all 40+ works catalogued). computervisionart.com piece page for Perception Engines read. aiartists.org Tom White profile read. ISEA 2023 artist statement read. The Tom White section of Golan Levin&#x27;s lectures/lecture_cnns_and_gans README read (the Mustard Dream &quot;cannot be shown on the internet&quot; passage). CMU 2021/2022 Machine Learning + Art lecture notes sections read. Eleven artworks visually inspected at the full resolution available to the session: Perception Engines prints starfish, binoculars, cabbage, iron, tick (800px photos of the ink prints), the complete 10-print Riso set photo, and Synthetic Abstractions prints Mustard Dream and Lime Dream (Squarespace crops), plus shark and &quot;Composition with Red Blue and Yellow&quot;. One core technique re-rendered locally in Python/PIL and visually inspected: the three-module perception-engine loop (drawing system + creative objective + random-search planner) with an ensemble of toy template &quot;classifiers&quot; and a held-out template for the generalization check, 900 iterations, 5 frames inspected. Honest gaps: no real classifier was used anywhere in this session (the re-render is a geometric-template analogue; ImageNet models were not run); the Medium interpolation GIF (hammerhead shark to iron) was described, not seen; Google Cloud Vision and AWS Rekognition labels for the cello print were described, not run live; project videos not watched; the Actions series gifs on drib.net not inspected; White&#x27;s engine code is not public, so the planner details come from his essays only.</dd></dl>
+<h2>The architecture (from his own essays)</h2>
+<p>Three submodules, cleanly separated:</p>
+<ol><li><strong>Drawing system.</strong> The constraints of mark-making. Early systems drew</li></ol>
+<p>lines or rectangles on a virtual canvas; later ones targeted physical printing (Riso, then screen printing), with the ink process modeled as part of the system.</p>
+<ol><li><strong>Creative objective.</strong> Maximize a trained classifier&#x27;s response to one</li></ol>
+<p>target class. So far ImageNet pre-trained nets, later the moderation APIs (Google SafeSearch, AWS Rekognition, Yahoo NSFW).</p>
+<ol><li><strong>Planning system.</strong> Blackbox random search, no gradient information.</li></ol>
+<p>Inefficient but simple, hundreds to thousands of iterations, and it finds a <em>local maximum</em>, so every run converges to a different solution. His own phrase for the ensemble version: a &quot;computational ouija board&quot;, several neural networks simultaneously nudging and pushing a drawing.</p>
+<p>The inversion is the conceptual move: instead of using the computer as a tool, the human designs the drawing system and the network drives it. The artist&#x27;s voice lives in the constraint system; the network is the arbiter of content. White is careful about this and it is worth copying the care: he does not claim the machine drew a starfish, he claims the system maximized a starfish response within his drawing vocabulary.</p>
+<h2>Embodiment: modeling the physical print</h2>
+<p>The first Riso target was chosen because it is like screen printing. Every physical uncertainty was modeled as a distribution during optimization:</p>
+<ul><li><strong>Issue 1, layer alignment:</strong> Riso misregisters layers (paper is fed per</li></ul>
+<p>color). Modeled as manual jitter between colors, which stops the design from depending on exact cross-layer placement.</p>
+<ul><li><strong>Issue 2, lighting:</strong> ink on paper looks different under different</li></ul>
+<p>light. Paper and ink colors were photographed under multiple conditions and simulated as possibilities.</p>
+<ul><li><strong>Issue 3, perspective:</strong> viewing angle unknown. Perspective</li></ul>
+<p>transforms added in a final refinement stage.</p>
+<ul><li>Final masters are rendered with all transforms disabled, in canonical</li></ul>
+<p>form: two layers per print (e.g. purple + black for the fan).</p>
+<p>After printing, generalization is tested like a train/test split: the electric fan was &quot;trained&quot; with input from inceptionv3, resnet50, vgg16, vgg19 and then scored on nine other architectures it never saw. The tick print is the famous result: six nets used in the loop (InceptionV3, MobileNet, NASNet, ResNet50, VGG16, VGG19), and it generalizes to nearly everything since, including DenseNet, which did not exist when the print was made. On InceptionResNetV2 weights the photo of the tick print scores higher than all fifty official ImageNet tick validation images. White coined &quot;Synthetic Abstraction&quot; for this: a visual abstraction that represents a class more strongly than any real instance, like a Platonic ideal of a circle drawn from imperfect examples. Amplification through simplification, the cartoonist&#x27;s move, arriving by gradient-free search.</p>
+<h2>Series and captions</h2>
+<ul><li><strong>Treachery of ImageNet</strong> (first prints): each print captioned with its</li></ul>
+<p>target concept, riffing on Magritte. The conceit: the prints evoke the concept in networks the way Magritte&#x27;s pipe evokes a pipe in people. He chose eclectic labels to expose ImageNet&#x27;s arbitrary ontology.</p>
+<ul><li><strong>Perception Engines</strong> (10 Riso prints): cello, cabbage, hammerhead</li></ul>
+<p>shark, iron, tick, starfish, binoculars, hand dryer (blow dryer), measuring cup, jack-o-lantern. Same codebase, nearly identical hyperparameters, so differences between prints come only from the label objective. The hammerhead-shark-to-iron interpolation shows the system expressing global structure independent of surface features or texture.</p>
+<ul><li><strong>Screen printing phase:</strong> Riso&#x27;s ink count and size were limiting, so</li></ul>
+<p>he moved to screen printing (60x60cm prints of cello, hammerhead shark, tick, binoculars shown at Nature Morte gallery, New Delhi, in the &quot;Gradient Descent&quot; show). Screen printing adds overhead: every layer needs its own burned, cleaned, dried screen.</p>
+<ul><li><strong>Synthetic Abstractions (ontology shift):</strong> the pipeline retargeted at</li></ul>
+<p>content-moderation ontologies. Two first results (bright layered screen prints) score as &quot;Explicit Nudity&quot; on AWS Rekognition, &quot;Racy&quot; on Google SafeSearch, and &quot;NSFW&quot; on Yahoo&#x27;s open classifier. White notes he has no intuition for <em>why</em> that arrangement of bright shapes triggers the filters, and prefers the mystery. Mustard Dream is flagged by three services while looking completely innocuous to a human, which is why the Golan Levin lecture notes joke that the print &quot;literally cannot be shown on the internet&quot; and a gallery selfie might get you banned from Instagram. There were also commissioned &quot;Hotdog&quot; prints for THOTCON 0x9 that transferred to the Not Hotdog app, which is much closer to classic adversarial transferability than to the open-ended generalization work.</p>
+<ul><li><strong>Later work on drib.net:</strong> a 2021 Perception Engines series (Racecar,</li></ul>
+<p>Cat, Printer, Bee, Perfume, Jellyfish screen prints, 16x16in), an Actions series of 2023 canvas prints, and text-titled screen prints (&quot;Sunset in the City&quot;, &quot;sticky gooey honey&quot;, &quot;the great wave&quot;, &quot;rain drops on a windshield&quot;, &quot;a jolt of searing pain&quot;, &quot;The loneliness of space&quot;).</p>
+<h2>What the prints look like (visual inspection)</h2>
+<p>Each Perception Engines Riso print: one dominant flat spot-color amoebic mass (usually one to three thick rounded strokes merged into a blob), a handful of thin black curved strokes that hug the blob&#x27;s edges or radiate off it, one or two small satellite marks floating in the corners, large negative space, visible Riso ink grain. Inks are bold single spot colors: hot pink (starfish), purple (binoculars), teal (cabbage), gray (iron), brown (tick). The black linework reads like scribble clusters: starburst scribbles on the starfish, radiating leg-like curves on the tick, an X of curves in the binoculars corner. The tick&#x27;s black strokes genuinely suggest legs around an oval body; the iron&#x27;s strokes hug a tapered capsule; the starfish is a pink blob wearing black asterisks.</p>
+<p>The Synthetic Abstractions prints are denser: Mustard Dream is black amoebic masses plus thick white &quot;bone&quot; strokes and thin black lines on a mustard ground; Lime Dream is lime green plus teal blobs with dark purple thick strokes and thin black lines on off-white. Nothing in either looks remotely explicit to a human eye, which is the entire point.</p>
+<p>Palette note for our own work: the 2-ink discipline is doing a lot of the aesthetic work. One saturated flat color plus black linework on paper grain is a complete visual system; the NSFW series adds a third ink and suddenly the compositions read as tangled and biological. Misregistration (faint ghost layers visible on the tick print) reads as a feature, not a bug, and White&#x27;s jitter modeling effectively bakes it in.</p>
+<h2>The re-render (ouija_engine.py, evidence dir)</h2>
+<p>A toy version of the full loop. Genome: 3 ellipse blobs in brown ink + 10 quadratic-bezier black strokes on off-white. &quot;Classifiers&quot;: normalized cross-correlation against three 64px &quot;ideal tick&quot; templates (ellipse body + 8 legs) at rotations -18, 0, 18 degrees. One more template at 37 degrees is held out and scored only at the end, never used in optimization. Planner: greedy random search, 900 iterations, jitter added during scoring to model production uncertainty. Result: score improved +0.406 (from negative to 0.039); holdout generalization scored 0.019, below the train score, which is honest: a toy template ensemble overfits, the exact failure mode White&#x27;s real ensembles and jitter modeling are designed to avoid. Frames at iterations 0, 120, 400, 900 show the search dragging strokes into radial arrangements around the body mass and merging the blobs into one visual body. All frames and the final inspected; the final reads as a loose echo of the real tick print (compact body + radiating legs + grain).</p>
+<p>What the exercise taught that reading did not: the local-maximum behavior is immediately visible. The search stalls in a composition that is good enough and every run would stall somewhere else, which is why the series has its variety. Also, the two-layer vocabulary (blobs + linework) is doing structural work: blobs carry mass, lines carry the discriminative detail. A single vocabulary would read as texture, not as a creature.</p>
+<h2>What sings</h2>
+<ul><li>The constraint system as authorship. The human never draws; the human</li></ul>
+<p>designs the pen, the paper, the allowed moves. For our own pieces this is a transferable discipline: design the mark vocabulary first, let the objective fill it.</p>
+<ul><li>Generalization as the metric, not the train score. The whole practice</li></ul>
+<p>is built around the held-out check: unknown architectures, unknown datasets, even models that did not exist yet.</p>
+<ul><li>The caption dissonance: &quot;tick&quot; under an image no human would call a</li></ul>
+<p>tick. The title is load-bearing. Any piece we derive from this needs its target word printed on it, Magritte-style.</p>
+<ul><li>Synthetic Abstraction as a named phenomenon: an abstraction stronger</li></ul>
+<p>than any instance. That is a claim our piece seeds can borrow honestly only if we actually measure it (his tick-vs-50-validation-images comparison is the template: compare your abstraction against the real dataset on a held-out judge).</p>
+<h2>Avoid-list additions</h2>
+<ul><li>GAN-chic texture mush presented as machine vision. White&#x27;s work is the</li></ul>
+<p>opposite: hard edges, flat ink, countable marks.</p>
+<ul><li>Claiming the network &quot;drew&quot; something. Say what was optimized and who</li></ul>
+<p>designed the drawing system.</p>
+<ul><li>Adversarial examples as party tricks without the generalization</li></ul>
+<p>question. Transferability to one target is the old game; the interesting game is the unknown judge.</p>
+<h2>Honest gaps (noted above, repeated for the ledger)</h2>
+<p>No real classifier run; interpolation GIF unseen; commercial API labels described-not-verified; videos unwatched; Actions gifs unseen; engine code not public. Mark this study deep on the essays and the print visuals, preliminary on the live systems.</p>
+<h2>Seeds (160-162, appended to FUTURE_PIECES.md)</h2>
+<ol><li>Held-Out Critic.</li><li>Ouija Plotter.</li><li>Two Inks, Three Judges.</li></ol></div><nav class="pagenav"><a class="" href="tksiiii.html"><span class="dir">Previous note</span><span class="t">tksiiii</span></a><a class="next" href="turing-reaction-diffusion.html"><span class="dir">Next note</span><span class="t">Turing 1952: reaction-diffusion, from morphogens to the crescent zone</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

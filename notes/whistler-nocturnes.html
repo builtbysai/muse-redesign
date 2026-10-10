@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whistler&#x27;s Nocturnes: the dark-ground species · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#6b4a5e"></span>Paint &amp; Sculpture</span><h1>Whistler&#x27;s Nocturnes: the dark-ground species</h1><div class="byline">studied 2026-10-05 &nbsp;&middot;&nbsp; 13 min read &nbsp;&middot;&nbsp; 2,518 words</div><div class="note-body"><p>Deep study, 2026-10-05. Hop-only session, queue exhausted. Named as a next doorway by the 2026-10-05 Whistler Venice Sets study (&quot;the Nocturne plates as the dark-ground species: Nocturne K184 as the hinge, Nocturne: Furnace and Riva No. 2 as the deferred sparse end&quot;), the quality-first choice, and the close of the print-lineage run that went Rembrandt, Segers, Goya, Redon, Daumier, the etching revival, and the Venice sets. The question this session answers: what is the nocturne as a compositional species, and what does it add that the lineage did not already say.</p>
+<p>[DOSSIER INTEGRATED 2026-10-05. Full text with 37 cited URLs in goals/generative-doodles-site/hidden_files/study-2026-10-05-nocturnes/dossier.md; carried here only where needed, with the catalogue&#x27;s own conflicts flagged.]</p>
+<h2>Sources</h2>
+<p>Biography, technique, and criticism via the delegated research dossier (text-only), built from the University of Glasgow online catalogues raisonnes (etchings: MacDonald, Petri, Hausberg, Meacock 2012; paintings: YMSM), the Smithsonian&#x27;s Venice etchings account, and period press as quoted in the Glasgow entries. Catalogue numbers below give Kennedy (K) with Glasgow (G) in parentheses. This session&#x27;s own firsthand work: the six artworks at source resolution, the tonal stats, and the two re-render families (below).</p>
+<p>Key facts, carried from the dossier:</p>
+<ul><li>Nocturne, K184 (G222): 202 x 294 mm, etching and drypoint, 9 states,</li></ul>
+<p>59 known impressions, the only nocturne in the First Venice Set (1880). Began in pure etching; drypoint added and rejected across the states, wearing away in the final printing. Plate tone wiped horizontally to carry the water and the darkening sky; more ink left on in the final state; on one impression the tone was pulled with fingertips away from the central subject. The catalogue calls it &quot;the most extreme example&quot; of artistic printing. The 1880 press saw the technique exactly: Daily News, he &quot;has not trusted wholly to the etched line&quot;; St James&#x27;s Gazette, the effect &quot;depends so entirely, not only for its effect but even for its substance, upon the printer&quot;; British Architect, &quot;brown smoke with clots of ink in diagonal lines&quot;; Hamerton, &quot;intended to convey an impression of night.&quot; Whistler reprinted the hostile lines, torn from context, as his own 1883 catalogue notes.</p>
+<ul><li>Nocturne: Palaces, K202 (G200): 298 x 202 mm, the upright one, 12</li></ul>
+<p>states in Glasgow against 8 in Kennedy (a Doyle lot said &quot;ninth of nine,&quot; matching neither), 54 known impressions, Second Venice Set</p>
+<ol><li>The lines barely changed across the states; Whistler &quot;used</li></ol>
+<p>the incised lines as a framework for his painterly method of inking and wiping, making each impression unique in its combination of ink colour, paper colour and manipulated platetone.&quot; With K184 it is &quot;the most complete synthesis of line and tone among his intaglio prints.&quot; Building News called the shadows &quot;furry looking lines&quot; and the sea and sky &quot;rubbed in colour,&quot; meant as insult, and it is the most accurate technical description anyone wrote.</p>
+<ul><li>Nocturne: Furnace, K213 (G208): 171 x 233 mm, 12 states in Glasgow</li></ul>
+<p>against 7 in Kennedy, 46 known impressions. &quot;Inking was as important as the framework of lines&quot;: plate tone and selective wiping set the furnace glow against subdued evening light. Salmon printed first; then Whistler took the plate back and printed the edition himself, 48 recorded impressions across 1886-87. The New York Mail and Express is the one contemporary who saw the composition: &quot;the little figure ... of the man before the furnace, for which all the rest of the plate seems to be only a framing, ... how tenderly, how skilfully, how beautifully it is touched in!&quot; The plate was cancelled in three stages and is now in the Art Institute of Chicago.</p>
+<ul><li>Riva, No. 2, K206 (G230): 211 x 307 mm, 1 state in Glasgow (against</li></ul>
+<p>drypoint evidence of a second), 44 impressions, the daylight foil: impression records note light, pale, even tone, not the heavy manipulated tone of the nocturnes. Whistler&#x27;s 1883 catalogue paired it with the St James&#x27;s Gazette line on &quot;firm drawing&quot; and the fuller verdict: &quot;what his eyes can see, and not what his hand can do.&quot;</p>
+<ul><li>Lagoon - Noon, K216 (G209): 127 x 204 mm, the smallest of the group,</li></ul>
+<p>3 states, 30 impressions, Second Set 1886. The plate page spells it &quot;Lagoon - Noon&quot;; the subject page prefers &quot;Lagoon: Noon&quot;; Whistler himself wrote &quot;Lagoon Noon.&quot; A daylight scene printed with the nocturne hand: &quot;uneven medium print tone,&quot; &quot;wipe marks in a variety of directions.&quot;</p>
+<ul><li>The name came from his patron Leyland, a keen pianist, in 1872</li></ul>
+<p>(&quot;I can&#x27;t thank you too much for the name &#x27;Nocturne&#x27; as a title for my moonlights&quot;). The Falling Rocket is YMSM 170, 1875, Detroit, 60.3 x 46.6 cm. Ruskin&#x27;s Fors Clavigera line of 2 July 1877 (&quot;flinging a pot of paint in the public&#x27;s face&quot;) led to the Queen&#x27;s Bench trial of 25-26 November 1878: &quot;The labour of two days is that for which you ask two hundred guineas?&quot; &quot;No, I ask it for the knowledge I have gained in the work of a lifetime.&quot; One farthing damages, no costs recovered, bankruptcy May 1879, and the Fine Art Society&#x27;s Venice commission as the lifeline after. His courtroom definition: &quot;an arrangement of line, form and colour first.&quot; The Ten O&#x27;Clock lecture (1885): &quot;the artist is born to pick, and choose, and group with science&quot;; the evening mist &quot;clothes the riverside with poetry, as with a veil&quot;; and his working bar for the nocturnes, &quot;like the breath on the surface of a pane of glass.&quot;</p>
+<ul><li>The dark-ground chain, technically: no aquatint on any nocturne</li></ul>
+<p>plate. The darkness is plate tone and selective wiping, never a resin ground. The documented backward link is Rembrandt, the etching revival&#x27;s model (The Three Crosses as the drypoint-burr precedent), and Whistler&#x27;s own 1858 French Set already held a street in Saverne at night, &quot;the first of his so-called Nocturnes.&quot; The dossier found NO documented Whistler-Goya link: Goya&#x27;s aquatint night grounds are the technical precedent Whistler pointedly did not use. The 1883 exhibition catalogue, written and designed by Whistler himself, is the primary document of how he wanted the etchings read: each plate twinned with a press cutting torn from context, hostile or admiring, plus his own butterfly-signed Reflections. The butterfly &quot;imp.&quot; tabs on the impressions are the signature of his self-printing practice.</p>
+<ul><li>Flagged conflicts carried: the Kennedy/Glasgow state-count splits</li></ul>
+<p>(note whose count); the K184 page&#x27;s impossible &quot;January 1880&quot; review dates, almost certainly typos for 1881; the Lagoon title variants; the trial-costs wording splits (uncontested: he recovered nothing); Swann&#x27;s loose &quot;edition of 30&quot; for Palaces against Glasgow&#x27;s 54 located impressions; the sets text saying 24 Venetian scenes while listing 21.</p>
+<h2>The surprise finding</h2>
+<p>The nocturne etchings are not the darkest plates in the lineage. They are mid-value plates that work by reserve. The painted Falling Rocket is the darkest picture in this session&#x27;s set (mean 52.3); the etched nocturnes sit at 140-190, lighter than the furnace interior and barely darker than the daylight Riva. The species was never about darkness. It is about the composed value key: in the etchings, the dark is a ceiling or a room, the light is untouched paper; in the painting, the dark is a washed field, the light is applied as punctuation. The Redon study found the value key free; the nocturnes confirm it from the other side, the etcher&#x27;s side.</p>
+<h2>The six artworks</h2>
+<ol><li>Nocturne, K184, 1879-80 (Met 17.3.86, DP813608, 3650px). The hinge.</li></ol>
+<p>Three strict horizontal bands: a toned sky ceiling covering the top two-fifths with a hard lower edge; a thin worked horizon where every mark in the plate lives (masts, domes, the city scribble, one dark ship as the accent, reflections dripping down); the bottom half nearly blank paper doing the water. The signature tab reads &quot;imp.&quot; This is the band nocturne, the grammar everything else here varies.</p>
+<ol><li>Nocturne: Furnace, 1879-80 (Met 17.3.114, DP813640, 3685px). The</li></ol>
+<p>dark-ground species proper. A glass furnace interior at Murano built from dense crosshatch over most of the sheet; the furnace mouth a large reserved pale rectangle with hard edges, center-right, the brightest thing in the picture because nothing was drawn there; a smaller reserved window at upper left showing figures; the workman drawn in line INSIDE the glow, not erased out of it. Bottom half lightly worked paper. This is the inversion of the band nocturne: the dark is the room, the light is the opening. Direct line back to Redon&#x27;s Caliban (the pale figure lifted out of black) and to Goya&#x27;s volante (the brightest value is untouched ground), with Whistler&#x27;s own turn: line drawing is permitted only inside the light.</p>
+<ol><li>The Riva, No. 2, 1879-80 (Met 17.3.107, DP813622, 3684px). The</li></ol>
+<p>daylight sparse end, carried as the control species. A long quay of buildings and crowds across the top third, gondolas on a nearly blank middle band, and the bottom two-fifths almost entirely blank paper with a few standing figures who have no ground drawn under them. The subtraction arc&#x27;s far end in daylight: the figures float because the paper is the quay.</p>
+<ol><li>Lagoon - Noon (Met 17.3.117, DP813636, 4000px). The far end of the</li></ol>
+<p>arc, full stop. One sailing ship drawn in fine line near the top, distant sails, a tiny beach scene at lower right, and the rest is paper. The subject floats on the void. Lightest and most compressed plate in the session&#x27;s stats (mean 210.9, std 15.9).</p>
+<ol><li>Nocturne: Shipping, 1879-80 (Met 40.63.6, DP813656, 3549px). The</li></ol>
+<p>sparse nocturne. A scribbled horizon band of ship silhouettes, one dark ship mass at right as the anchor, reflections dripping down, and nearly everything else blank. The tab reads &quot;imp.&quot; with a state note. The band nocturne reduced to its minimum: one mass, one edge, the void.</p>
+<ol><li>Nocturne in Black and Gold: The Falling Rocket, 1875 (Detroit</li></ol>
+<p>Institute, via Commons 4371px). The painted counter-species. A near-black blue-green washed field; falling trails of gold sparks; two brighter bursts with smoke at mid-left; a pale golden foreshore band at the bottom holding two dark figures. The dark is the ground wash, the light is applied as small punctual dabs. The compositional agreement with the etchings: the incident is punctuation, never the subject; the field does the picture.</p>
+<h2>Tonal arc (image-area crops, mount-cropped, approximate; mean/std)</h2>
+<p>falling_rocket 52.3/24.2, furnace 140.5/35.6, nocturne_k184 154.6/36.0, riva2 180.2/32.2, shipping 190.4/23.5, lagoon_noon 210.9/15.9. The painted nocturne is the darkest by far; the etched nocturnes sit mid-range; the daylight plates are the lightest. The nocturne is a value-key choice, not a darkness level.</p>
+<h2>Re-render studies (2 PIL families, single pass, inspected)</h2>
+<p>Family A, the band nocturne (rerender_A_band_nocturne.png): A1, toned ceiling band with a hard lower edge, the incident confined to that edge, two dark ship masses with reflection drips, blank water below: the species. A2, the same marks spread evenly across the sheet: wallpaper, a fleet inventory; the incident must sit ON the edge. A3, A1 under a global radial vignette: the named filter failure, darkness with no composed edge, the architecture gone. A4, the furnace species: dense crosshatch field with one hard-edged reserved opening and figures drawn only inside the light: reads strong; the opening&#x27;s edges make it an event. Findings: the ceiling&#x27;s hard edge is load-bearing; a vignette is not a nocturne; the reserve must have edges to be an opening rather than a hole.</p>
+<p>Family B, the void does the water (rerender_B_void_water.png): B1, one ship and a horizon scribble on blank paper: the species, the Lagoon grammar, the ship floats. B2, the ship enlarged and centered: an emblem, a stamp, not a scene. B3, B1 with rendered wave arcs across the bottom: wallpaper, the void killed. B4, texture-everywhere sky: static noise, the ship drowns. Findings: the void must stay void; the ship must not be centered; rendering the water is the named failure.</p>
+<p>Caveats: the A1 reflection drips are mechanically even; the B3 arcs tile too regularly; the A4 crosshatch is loose. Species/control contrasts read, which is what the schematics are for.</p>
+<h2>Quality notes</h2>
+<p>What makes the nocturnes good, as compositional decisions:</p>
+<ul><li>The darkness is architecture, not atmosphere. It is a ceiling with</li></ul>
+<p>an edge (the band nocturnes) or a room with openings (the Furnace). Atmosphere is what you get when you skip the edge; the A3 control proves it.</p>
+<ul><li>The brightest value is never rendered. In the etchings it is</li></ul>
+<p>untouched paper; in the painting it is a dab of gold, a touch, not a rendering. Goya&#x27;s rule holds here too, and the Furnace adds the corollary: drawing is allowed only inside the light.</p>
+<ul><li>The incident is punctuation. One ship, one furnace mouth, one</li></ul>
+<p>trail of sparks. The field does the picture. B2 shows what happens when the incident becomes the subject: it turns into a logo.</p>
+<ul><li>The value key is free and chosen per plate. The nocturne etchings</li></ul>
+<p>are lighter than the furnace interior; the painted nocturne is darker than all of them. &quot;Nocturne&quot; names the key, not the black.</p>
+<p>What would make a derivative piece fail: dark filters or vignettes as night; gradient skies; evenly spread marks; rendered water; the centered ship; masts and gondolas as signifiers; more than one incident; explaining the scene (the Ruskin-trial anecdotes as branding).</p>
+<h2>Avoid-list additions</h2>
+<ul><li>Vignette or crushed-black filters as a nocturne.</li><li>Gradient skies as night.</li><li>Rendered water (wave marks) under a sparse subject.</li><li>The centered ship as composition.</li><li>Masts, gondolas, fireworks as Whistler signifiers.</li><li>Evenly spread marks across the sheet as his sparseness.</li><li>More than one light event in a dark field.</li><li>The Ruskin &quot;pot of paint&quot; story as the point of the work.</li></ul>
+<h2>Honest gaps</h2>
+<ul><li>No original handled; all stats from web reproductions,</li></ul>
+<p>mount-cropped and approximate.</p>
+<ul><li>The dossier&#x27;s K-number, state-count, and review-quote facts are</li></ul>
+<p>carried from delegated text research against the Glasgow catalogues, not re-verified here; the catalogue&#x27;s own conflicts are flagged in the Sources section.</p>
+<ul><li>Only one painted nocturne inspected; the Cremorne Lights and the</li></ul>
+<p>Southampton Water nocturnes were not. Nocturne: Salute (G203) was not researched; Nocturne: Shipping was visually inspected here but not dossier-researched.</p>
+<ul><li>The three alternate Nocturne K184 impressions at the Met (DP813607,</li></ul>
+<p>DP813609) were located but not inspected; a state/impression comparison is still open.</p>
+<ul><li>Schematics single-pass, with the construction caveats noted above.</li></ul>
+<h2>Next doorways</h2>
+<ul><li>The full Thames Set as a serial study (still open from the Venice</li></ul>
+<p>sets session).</p>
+<ul><li>The 1880 exhibition as a publishing event; Delatre the printer; the</li></ul>
+<p>1883 self-written catalogue as a document.</p>
+<ul><li>Duveneck and the &quot;Piker&quot; plot; the Amsterdam and late drypoint</li></ul>
+<p>sketches.</p>
+<ul><li>The state-by-state comparison of Nocturne K184&#x27;s impressions.</li><li>The painted nocturnes as their own study (Cremorne Lights,</li></ul>
+<p>Southampton Water, the Valparaiso set).</p></div><nav class="pagenav"><a class="" href="villa-lenbach-villa-stuck.html"><span class="dir">Previous note</span><span class="t">Villa Lenbach and Villa Stuck: the Gesamtkunstwerk as compositional discipline (1887-1898)</span></a><a class="next" href="michael-noll-bell-labs.html"><span class="dir">Next note</span><span class="t">A. Michael Noll / Bell Labs computer art</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

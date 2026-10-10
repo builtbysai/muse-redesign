@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bjorn Ottosson (Okhsl / Okhsv) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#b07a1f"></span>Light, Color &amp; the Eye</span><h1>Bjorn Ottosson (Okhsl / Okhsv)</h1><div class="byline">6 min read &nbsp;&middot;&nbsp; 1,123 words</div><div class="note-body"><dl class="catalogue"><dt>Site</dt><dd>bottosson.github.io/posts/colorpicker/ (essay), bottosson.github.io/misc/colorpicker/ (interactive comparison) |</dd><dt>Doorway</dt><dd>Anatoly Zenkov adapted Ottosson&#x27;s OKHSL picker code for his own ColorPicker; Zenkov&#x27;s colors.js notes point here.</dd><dt>Depth</dt><dd>deep The full essay read end to end (history, the eight desirable properties, HSV/HSL/HSLuv critiques, the Okhsv and Okhsl constructions, the tradeoff tables, future work). The interactive comparison page visually inspected at full resolution via headless Chrome: all four picker rows (square HSV/OKHSV/OKLrCH, wheels HSL/OKHSL/HSLuv, rainbow planes, hue strips) with #ff0000 loaded across all six models. The core claim, orthogonal lightness, re-implemented fresh in plain canvas (Ottosson&#x27;s published sRGB to OKLCH matrices) and visually inspected: a hue sweep at constant OKLCH lightness vs the same sweep at HSL L=50.</dd></dl>
+<h2>The problem, as he frames it</h2>
+<p>Almost every color picker is HSL or HSV, two transforms from a 1978 paper that were designed to be cheap, not perceptual. Ottosson lists eight desirable properties for a picker space and admits up front they conflict: orthogonal lightness, chroma, saturation, hue; simple geometrical shape; max chroma at the edge; smooth variation; even variation. You cannot have all of them, so picker design is choosing which tradeoffs to make. His scorecard: HSV/HSL get the cylinder shape and smooth variation but fail orthogonal lightness completely; HSLuv fixes lightness (it is built on CIELChuv) but its hue is distorted by the Abney effect, worst in deep blues and purples, and its saturation rescales so unevenly against the sRGB gamut that constant &quot;saturation&quot; with varying hue jumps in perceived chroma; Lab-like spaces model perception well but the sRGB gamut is an irregular blob inside them, so changing one parameter constantly throws you out of gamut.</p>
+<h2>The constructions</h2>
+<ul><li><strong>Lr, a better lightness for the job.</strong> Oklab is scale-independent by</li></ul>
+<p>design (no reference white), which hurts lightness prediction in a picker with a fixed white. Ottosson adds a toe function, Lr, with constants k1=0.206, k2=0.03, tuned to nearly match CIELAB L at 50% (Y 0.18419 vs 0.18406). The same toe later resurfaced in his Oklrab revision, a tell that the dark-end correction mattered.</p>
+<ul><li><strong>Okhsv.</strong> Start from OkLCh, keep its hue, find the gamut cusp per hue</li></ul>
+<p>(the most saturated point, via his sRGB gamut clipping method), remap so the cusp lands at s=1, v=1, stretch the triangle&#x27;s lower half into a square, then a small curve correction at the top to fit the cylinder exactly, plus a subtle low-saturation uniformity tweak. Familiar to HSV users, perceptually repaired.</p>
+<ul><li><strong>Okhsl, the real invention.</strong> HSLuv scales chroma by a single Cmax(h,l),</li></ul>
+<p>which drags the gamut&#x27;s unevenness into the whole interior. Ottosson&#x27;s move: three chroma references instead of one. C0(l) is hue-independent, so the space is continuous near the gray axis. Cmid(h,l) is an optimized smoother shape, closer to Cmax but well behaved. Cmax(h,l) is the true gamut edge. Interpolate: at s=0 the slope is C0, at s=0.8 C=Cmid, at s=1 C=Cmax. The gamut&#x27;s lumpiness is quarantined at the high-saturation edge; the interior stays smooth. He is candid that it is ad hoc, chosen because it is cheap to compute and easy to invert, not because it falls out of a boundary-value problem.</p>
+<h2>The comparison page, seen live</h2>
+<p>Four rows. Row 1: square pickers, HSV vs OKHSV vs OKLrCH. The OKLrCH triangle is visibly warped next to the HSV square, the cusp pulled to one corner, honest about the gamut&#x27;s real shape. Row 2: the wheels. HSL&#x27;s wheel looks washed and pastel next to OKHSL&#x27;s even vividness; HSLuv&#x27;s wheel shows its hue distortion plainly. Row 3: full rainbow planes (hue across, lightness down). HSL&#x27;s plane has the classic dark band through blue/purple; OKHSL&#x27;s and HSLuv&#x27;s stay even. Row 4: hue strips at fixed settings. The numbers panel tells the story in one glance: pure red is H 0 in HSL/HSV, H 29 in every OK space, H 12 in HSLuv. Same color, three different &quot;hues&quot;. Hue was never a physical fact, only a coordinate choice.</p>
+<h2>The re-render: orthogonal lightness, seen in pixels</h2>
+<p>Two horizontal strips, hue 0 to 360. Top: OKLCH at L=0.65, C=0.12. Bottom: HSL at S=70, L=50. The OKLCH strip reads almost flat in lightness from red through green, teal, blue, purple, back to red. The HSL strip blazes at yellow and green and sinks into near-navy at blue and purple, the exact failure in his &quot;HSL constant lightness&quot; figure. Rendering it myself with his published matrices (they round-trip cleanly) made the point land harder than reading it: in HSL, &quot;L=50&quot; is a promise about arithmetic, in OKLCH it is a promise about your eyes.</p>
+<h2>What sings</h2>
+<ul><li>The honesty about tradeoffs. The eight-property table with &quot;no&quot; and</li></ul>
+<p>&quot;partial&quot; entries, and the admission that the Okhsl interior is ad hoc, is why the work is trusted. He ships the scorecard with the product.</p>
+<ul><li>Quarantining the unevenness. C0/Cmid/Cmax is a generalizable design</li></ul>
+<p>pattern: when the boundary is lumpy, do not let the boundary&#x27;s lumpiness infect the interior. Useful far beyond color.</p>
+<ul><li>The toe function as craft. A tiny rational function that buys CIELAB</li></ul>
+<p>compatibility at midtones. Small math, large perceptual payoff.</p>
+<ul><li>Hue as coordinate, not fact. The H 0 vs 29 vs 12 panel is the kind of</li></ul>
+<p>demo that permanently changes how you read every other tool&#x27;s UI.</p>
+<h2>What is overdone / avoid-list</h2>
+<ul><li>The essay&#x27;s own warning applies to generative art directly: interpolating</li></ul>
+<p>or ramping in HSL/HSV because it is convenient produces the dark-blue / neon-yellow banding you see in cheap generative palettes. If a piece ramps hue, do it in OKLCH or accept the artifact as a choice, not an accident.</p>
+<ul><li>Do not treat &quot;perceptual&quot; as a synonym for &quot;correct&quot;. His closing point</li></ul>
+<p>stands: uniformity is measured against datasets that disagree with each other. OKLCH is good enough and cheap enough, which is why it won CSS, not because it is right.</p>
+<ul><li>The NCS-style remapping idea he floats (warping hue spacing to familiar</li></ul>
+<p>axes) is tempting for art tools but trades evenness for familiarity; for generative palettes, even is usually what you want.</p>
+<h2>Doorways for future passes</h2>
+<ul><li>His Oklab post (bottosson.github.io/posts/oklab/) and the sRGB gamut</li></ul>
+<p>clipping post the cusp-finding method comes from.</p>
+<ul><li>okpalette.color.pizza and the colorsort-js stack: perceptual sorting of</li></ul>
+<p>palettes as traveling-salesman, cited in meodai&#x27;s skill notes as powering FarbVelo.</p>
+<ul><li>The Aseprite Okhsl picker plugin (behreajj/asepriteokhsl): the same math</li></ul>
+<p>inside a pixel-art tool, a different audience with different constraints.</p></div><nav class="pagenav"><a class="" href="bela-julesz-random-dot-stereograms.html"><span class="dir">Previous note</span><span class="t">Bela Julesz / random-dot stereograms, and Leon Harmon&#x27;s block mosaics</span></a><a class="next" href="dan-flavin.html"><span class="dir">Next note</span><span class="t">Dan Flavin</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

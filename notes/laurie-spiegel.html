@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laurie Spiegel / Music Mouse and the Intelligent Instrument · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>Laurie Spiegel / Music Mouse and the Intelligent Instrument</h1><div class="byline">studied 2026-09-28 &nbsp;&middot;&nbsp; 12 min read &nbsp;&middot;&nbsp; 2,462 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-28 (study pass)</dd><dt>Artist</dt><dd>Laurie Spiegel (born 1945, Chicago). Composer, programmer, software designer, visual artist, theorist. Lute and banjo player turned Juilliard and Brooklyn College composition student, then Bell Labs from 1973, where she programmed the GROOVE hybrid system Max Mathews built. Also programmed the Hal Alles digital additive synthesizer, the first of its kind. Her realization of Kepler&#x27;s Harmonices Mundi (1977) went on the Voyager Golden Record. In 1986 she shipped Music Mouse, an Intelligent Instrument, first for the Macintosh 512k, later Amiga and Atari. She founded NYU&#x27;s computer music studio in 1981, taught at Cooper Union, and worked as a film composer (one of the very first women to do so). Licensed wildlife rehabilitator in her other life.</dd><dt>Hop path</dt><dd>the Max Mathews / Bell Labs study, which named her as the next doorway. She is the player-side answer to Mathews&#x27; composer-side systems: he built the orchestra and the score, she built the instrument you play.</dd><dt>Depth</dt><dd>deep on text plus visuals, plus two local procedural re-renders visually inspected. Her own 1981 paper &quot;Manipulations of Musical Patterns&quot; (Proceedings of the Symposium on Small Computers and the Arts, IEEE Catalog No. 393, pp. 19-22) read end to end from the archived PDF. MusicRadar&#x27;s 2026 Music Mouse re-release feature with Eventide&#x27;s Tony Agnello read end to end. Mason Mann&#x27;s NYU lecture slides on GROOVE and Spiegel read end to end. The World Radio History 1986 Mix magazine interview (Larry Oppenheimer) partially read. Women of the Hall and Ragnar Digital biographies read. Three images visually inspected at full res: the 1986 Music Mouse screen on a Mac (CDM photo, 1200x900), the 2026 Eventide re-release interface, and her 1971 portrait in front of the Electrocomp modular synth.</dd><dt>Honest gaps</dt><dd>the actual Music Mouse binary was not run (the Eventide re-release is $29 and no 1986 emulator was available in-session), so its behavior is documented from press, the manual preface, and screenshots, not from playing it; her GROOVE-era pieces (Patchwork, Waves, The Orient Express, Expanding Universe) were read about, not heard; the WBAI 1979 interview audio was not listened to; her visual art and video work were not seen; the Harmonic Algorithm was read about in secondary sources, its code not recovered.</dd></dl>
+<h2>The thesis, stated plainly</h2>
+<p>Spiegel&#x27;s doctrine is the opposite of the virtuoso-instrument tradition and also the opposite of the tape-music tradition. Her formulation, from the Music Mouse manual preface: logic, the computer&#x27;s ability to learn and to simulate aspects of our own human intelligence, lets the computer grow into an actively participating extension of a musical person, rather than just another tape recorder or piece of erasable paper. The computer is not a recorder and not a scorewriter. It is a trainable accompanist. She built that idea as a personal instrument on a 512k Macintosh because she wanted one instrument she would never have to compromise on or lose access to. The commercial release was a side effect of friends asking for copies.</p>
+<p>Her career structure matters for stealing: she did the offline algorithmic composition first (GROOVE at Bell Labs, 1973 onward, where Mathews handed out third-shift passes), then moved to interactive instruments when personal computers arrived (Music Mouse, 1986). The thread running through both is that the algorithm handles the part she considers structural, and the human handles the part that needs gesture. In her own terms from the lecture slides: some parts of music can be automated, which leaves the composer more time to focus on the meaningful and creative parts of composition. Example given: maybe we care more about having control over the entropy of an algorithm than the specifics of voice leading within it. Control entropy, not notes. That is a design doctrine you can lift wholesale into any generative piece: give the user a knob over surprise density, not over parameters.</p>
+<h2>The 1981 paper: a transformation library</h2>
+<p>&quot;Manipulations of Musical Patterns&quot; is the most portable thing in this study. She argues music is not made of notes but of larger configurations: chords, motifs, melodies, rhythms, progressions, all the way up to sonatas. The design work of composition is choosing patterns that are recurrent, recombinant, and subject to transformation, plus knowing the transformation processes that can be applied to them. Then she lists thirteen minimal modules, the tried-and-true musical manipulations, as a starter library she hoped would end up in standard compositional tools the way insertion, deletion, and search-and-replace ended up in text editors:</p>
+<ol><li>Transposition: offset of fixed magnitude, not just pitch, also amplitude,</li></ol>
+<p>richness, tempo.</p>
+<ol><li>Reversal: retrograde in time, inversion in pitch, with the honest note</li></ol>
+<p>that reversal implies a pivot point and directionality.</p>
+<ol><li>Rotation: move an element end to end in an ordered group. Her best line:</li></ol>
+<p>what musicians call chord inversions might better be described as rotations, movement of a unique discontinuity through a cyclic group.</p>
+<ol><li>Phase offset: rotation relative to another instance, like a canon. The</li></ol>
+<p>isorhythmic motet example: color and talea of different lengths phasing each other until they meet at the end.</p>
+<ol><li>Rescaling: change distances, keep ratios. Rhythmic augmentation is the</li></ol>
+<p>example; reversal is just rescaling by minus one.</p>
+<ol><li>Interpolation: fill in between established points. Divisions playing,</li></ol>
+<p>the Renaissance practice of improvising variations on a theme, was melodic interpolation.</p>
+<ol><li>Extrapolation: extend beyond what exists while preserving continuity.</li></ol>
+<p>Her line: what is called free evolution of material often consists largely of performing this operation on extant patterns.</p>
+<ol><li>Fragmentation: isolate a subpattern for separate manipulation. Motivic</li></ol>
+<p>development, the Haydn and Beethoven specialty, formalized as an edit operation.</p>
+<ol><li>Substitution: swap one element for an unexpected one inside an</li></ol>
+<p>established group. Deceptive cadence is the example. Her caution: substitution only reads if the original was well established by repetition or striking design.</p>
+<ol><li>Combination: mixing, overdubbing, counterpoint, harmony. The unanswered</li></ol>
+<p>question she flags: how much each combined entity keeps a separately perceivable identity versus merging into texture.</p>
+<ol><li>Sequencing: append, splice, delete, edit out. She separates this from</li></ol>
+<p>combination on purpose, arguing hearing is more sensitive to transitions over time than vision is, so temporal joins deserve their own module.</p>
+<ol><li>Repetition: canon, fugue, passacaglia, sonata, rondo, variations. The</li></ol>
+<p>considerations she lists: the balance between redundancy and new information, the density of new information over time, recognition versus extrapolation as two ways to make a listener predict.</p>
+<ol><li>The Great Unknown: the transformational processes of the future, which</li></ol>
+<p>may more closely express the complex and delicate processes of the mind than any of the above.</p>
+<p>Steal the list as a checklist for any generative piece: if your generator only does rescaling and transposition, you have two of thirteen. She also defines two control-level concepts worth their own knobs: entropy (how unexpected a musical event is, how much information it conveys) and corruption (occurrences of unexpected events within an otherwise deterministic musical system). Imagine a knob in an interactive system that controls the amount of entropy. That sentence is worth more than most synthesizer manuals.</p>
+<h2>Music Mouse: the mechanics</h2>
+<p>The 1986 interface, from the CDM screen photo and the Eventide re-release: the play area is a dotted grid bordered on all four sides by piano-key strips, and the cursor is a crosshair. Three vertical lines represent a chord, one horizontal line a single melody note. As the cursor moves in X, the harmony shifts; as it moves in Y, the melody shifts. Notes trigger as you move, and every note is drawn from the selected harmonic mode (diatonic, pentatonic, Middle Eastern, chromatic), so the output is always musically coherent no matter how recklessly the mouse is wiggled. That is the whole trick: the intelligence is not in the gesture, it is in the constraint set the gesture plays inside of. The 1986 settings panel shows the levers: Harmonic Mode, Treatment (Arpeggio), Transposition, Interval of Transposition, Pattern (6 = ON), Mouse Movement (Contrary), Pattern Movement (Contrary), Articulation (Staccato), Loudness, Sound (Squarewave), Tempo1, Tempo2, Group. The Eventide version adds voicing (Chord-Melody), symmetry (parallel vs contrary movement between voices), tempo pairs, articulation across staccato to legato, and MIDI out to external synths.</p>
+<p>The settings are the composition. Agnello&#x27;s account of the meeting that started the re-release project: she wanted the computer&#x27;s intelligence and logic to enhance performance, the computer as a trainable accompanist. The left-hand hotkeys mean one hand plays the mouse while the other shepherds the output toward musical sense. The design never asks the mouse to be a piano; it asks it to be a new thing. That is the part most gesture interfaces get wrong: they map the hand to the old instrument and call it novel. She built the map the hand deserves.</p>
+<p>The 1971 portrait is worth studying alongside it. She sits in front of an Electrocomp modular: two rack modules of patch bays and knobs above, a keyboard below, a reel-to-reel to the right, cables everywhere. The woman who fifteen years later fit the whole chain of composer, theorist, programmer, and performer into one Macintosh program is shown at the opposite end of the same practice: the room-sized instrument she eventually internalized. The arc of her career is the arc of the gear getting smaller and the instrument getting more personal.</p>
+<h2>What makes it sing, and what is overdone</h2>
+<p>What sings is the constraint architecture. Music Mouse is the proof that an interactive system can be fully playable by a beginner and still musically serious, because the system owns the harmony and the player owns the gesture. Beginners cannot play a wrong note; experts still find new moves, because the constraint set is a musical theory and the gesture space is continuous. Any interactive piece can be tested against this: if the naive user breaks it, the intelligence is in the wrong place. Move the intelligence into the constraint set and let the gesture be free.</p>
+<p>What sings in the paper is the module library as a design tool. Thirteen transformations, each named and exemplified, is a debugging checklist for generative work: when a piece feels thin, run the list and ask which transformations you are actually using. Most generative pieces use three.</p>
+<p>What is overdone, by her own account: the general-purpose system as a virtue. Music Mouse exists because she rejected the general-purpose composition tool; she wanted one small, specialized, well-defined instrument for and by her that she did not have to compromise on. The lesson for tool-building: a specialized instrument with strong opinions outlives the general framework. Also overdone in the field she helped build: algorithmic output treated as composition without the human shaping. Her GROOVE work was always live performance of the algorithms, and Music Mouse is a performance instrument. The algorithm is the accompanist, not the composer.</p>
+<p><strong>Avoid-list additions:</strong> mapping new gestures to old instrument paradigms (the QWERTY-as-piano trap); constraint-free gesture interfaces that mistake novelty for expressiveness; general-purpose frameworks where a single-opinion instrument would serve; offline-only generative workflows that never get performed.</p>
+<h2>Local re-renders (evidence)</h2>
+<p><code>goals/generative-doodles-site/hidden_files/study-2026-09-28-spiegel/</code>: script /tmp/spiegel.py (not committed to the repo). Two sets, all frames visually inspected.</p>
+<p>Set A, music mouse stand-in (mouse_frame0-3.png): a scripted cursor gesture (diagonal sweep, then a slow loop) moves through a four-sided keyboard matrix. Cursor X picks one of four chord slots (I, vi, ii, V); cursor Y picks a diatonic melody degree over two octaves; three voice lines and one melody line track the gesture with contrary motion, exactly the 1986 screen geometry. The final frame carries the triggered-note log: 74 notes across the gesture, every one of them a diatonic degree of C major (the log reads 65 67 67 69 71 72 74 ... with no chromatic strays). The re-render proves the core mechanic: a freely wiggled cursor cannot play a wrong note because the wrong notes do not exist in the instrument. Honest gap: this is a stand-in engine built from documented behaviors, not a port of her code; her actual harmonic navigation (chord voicing rules, the pattern system, the treatment logic) is richer.</p>
+<p>Set B, entropy and corruption ladder (entropy_ladder.png): the same 16-step deterministic diatonic loop repeated four times with corruption probability 0.0, 0.06, 0.18, 0.35, each unexpected event marked red with the original event shown as an outline where it should have been (0, 1, 3, 5 corrupted of 16). What the render teaches: corruption reads as texture at low density and as a new system at high density, which is why her entropy knob is a better compositional control than any parameter the corrupted events carry.</p>
+<h2>What to steal and what to avoid</h2>
+<p>Steal: the constraint set as the instrument. Define the universe of legal moves (a scale, a palette, a grammar), then let the user&#x27;s gesture range freely inside it. The guarantee, no wrong notes, is what makes a piece playable on first touch and still deep on the hundredth.</p>
+<p>Steal: the entropy knob. Rather than exposing ten parameters, expose the density of surprise. Repetition with rising corruption is a complete compositional shape: the loop teaches the listener the pattern, the corruption teaches them the pattern is alive.</p>
+<p>Steal: the transformation library as a design checklist. When a generative piece feels thin, audit which of her thirteen modules it uses, and add one it does not. Rotation (cycling a discontinuity through a cyclic group) and phase offset (two pattern aspects of different lengths meeting at the end) are the least used and the most musical.</p>
+<p>Steal: the small opinionated instrument. One specialized tool with strong opinions about its domain beats the general framework. Music Mouse has been played for forty years; the frameworks it was contemporary with are museum pieces.</p>
+<p>Avoid: mapping new gestures onto old instruments. If your interaction is novel but the output could have been played on the old tool, the novelty is decoration. Avoid: constraint-free play spaces that hand the user freedom and call it expression. Avoid: treating the algorithm as the composer when it should be the accompanist.</p>
+<h2>Next doorways</h2>
+<p>Jean-Claude Risset, the Bell Labs-adjacent sound-illusion pole (Shepard tones, endless glissando, the &quot;Risset rhythm&quot;) and his algorithmic composition work; Hal Alles and the Alles Machine, the hardware Spiegel and Mathews shared in room 2D529; John Pierce and the inharmonic-timbre experiments Mathews cited; Laurie Spiegel&#x27;s own visual art and video work, which this session never saw; the Eventide re-release as a case study in keeping a 1986 instrument alive on modern systems.</p></div><nav class="pagenav"><a class="" href="john-pierce-inharmonic-timbres.html"><span class="dir">Previous note</span><span class="t">John R. Pierce / inharmonic timbres</span></a><a class="next" href="marc-sabat-three-tables-for-bob.html"><span class="dir">Next note</span><span class="t">Marc Sabat / Three Tables for Bob</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

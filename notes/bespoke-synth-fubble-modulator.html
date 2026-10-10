@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bespoke Synth FubbleModule · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>Bespoke Synth FubbleModule</h1><div class="byline">studied 2026-09-26 &nbsp;&middot;&nbsp; 4 min read &nbsp;&middot;&nbsp; 726 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-26</dd><dt>Source</dt><dd>github.com/BespokeSynth/BespokeSynth, Source/FubbleModule.h (149 lines) and Source/FubbleModule.cpp (563 lines), read verbatim.</dd><dt>Doorway</dt><dd>the fubbles hop in the Olivia Jack / Hydra study. Olivia Jack presented &quot;drawing as an interface for live-codeable functions&quot; at the NIME 2020 workshop; Ryan Challinor saw the talk and built the fubble modulator into Bespoke Synth the same year. The module&#x27;s own header bar renders the attribution: <code>(concept by @_ojack_)</code>.</dd><dt>Depth</dt><dd>technique-deep Full source read end to end; the record, playback, mutation, and render mechanics are all confirmed from the code, and the Poll() drift behavior was simulated locally and visually inspected. Honest gap: Bespoke Synth itself was not run (it is a JUCE / openFrameworks desktop app, no headless audio rig here), so the module&#x27;s live UI was not seen in motion; the visuals below are reconstructed from the DrawModule code.</dd></dl>
+<h2>What it is</h2>
+<p>A modulator you draw. Inside a fubble module is a pad; you drag a gesture on it and the gesture becomes a looping function of time, available as two separate modulation outputs, horizontal and vertical. Patch the H output to a filter cutoff and the V output to a reverb send and one drawn squiggle drives two parameters through one shared timeline.</p>
+<h2>The mechanics, from the source</h2>
+<p><strong>Recording.</strong> On mouse-down inside the pad (<code>OnClicked</code>, left button), <code>Clear()</code> wipes the old curves and <code>RecordPoint()</code> starts firing every frame from <code>Poll()</code>. Each frame appends one <code>CurvePoint(time, coord)</code> to the H curve (time, x) and one to the V curve (time, y), with time measured in transport measures from the drag start. The gesture&#x27;s length IS the loop length: <code>mLength</code> is the drag duration. Stop drawing and the loop closes at exactly the duration of your hand.</p>
+<p><strong>Playback.</strong> <code>GetPlaybackTime</code> takes transport time minus the record offset, multiplies by the speed slider (0.1 to 10x), and wraps with fmod over <code>mLength</code>. Each axis&#x27;s <code>Value()</code> evaluates its curve at the playback time and maps 0..1 to the target parameter&#x27;s range. Optionally the length quantizes to a note interval (8n through 64), so the loop snaps to the grid. The draw area renders the combined path as a white line, a playback dot riding it, the per-axis timeline strips below, and a moving lineX playhead over them. The target parameter names are printed rotated along the pad edges.</p>
+<p><strong>Live mode.</strong> Right-drag (<code>mIsRightClicking</code>) skips recording entirely: the axis is active and <code>Value()</code> returns the live pointer position. The pointer becomes the modulator with no loop, no history. Same pad, two instruments: draw-then-loop with the left button, play-it-live with the right.</p>
+<p><strong>The mutate engine.</strong> This is the part that elevates it past a drawn LFO. When you are not drawing, and &quot;mutate amount&quot; is above zero, every frame <code>Poll()</code> walks all recorded points and nudges each one by <code>ofMap(perlin3(x, y, time), 0, 1, -strength, strength) * 0.003</code>, sampling two separate 3D Perlin fields (red channel drives H, blue drives V, shown as a 30x30 colored grid behind the curve when active). Points that drift out of [0, 1] get a spring-back pull. The drawn gesture literally wanders: at strength 1.2 over 20 seconds my simulation showed the loop-the-loop path shearing coherently into a new shape, never repeating, never quite leaving. The &quot;mutate warp&quot; and &quot;mutate noise&quot; sliders set the field&#x27;s spatial scale and time speed; &quot;reseed&quot; picks a new field. This is the fubbles concept in its strongest form: the function is a drawing, and the drawing is alive.</p>
+<p><strong>Persistence.</strong> Curves, recorded flags, length, and record offset all serialize into the save state (rev 3), so a drawn modulation survives reload.</p>
+<h2>What sings</h2>
+<p>The core loop is the oldest livecoding idea made physical: your hand is the function. Recording captures time as well as shape (a slow part of the gesture plays slow), the H/V split means one gesture is two instruments, and the mutate engine means the loop never goes stale. The right-click live mode collapsing record and perform into one pad is the kind of UI decision that only exists because the author performs.</p>
+<h2>Seeds for future pieces</h2>
+<ul><li>106, 107, 108 appended to FUTURE_PIECES.md.</li></ul>
+<p>Evidence: /tmp/stiles/FubbleModule.h, FubbleModule.cpp, rerender script + B_fubble_mutation.png.</p></div><nav class="pagenav"><a class="" href="atari-amy.html"><span class="dir">Previous note</span><span class="t">Atari AMY / the 64-oscillator chip that never shipped</span></a><a class="next" href="chrome-music-lab.html"><span class="dir">Next note</span><span class="t">Chrome Music Lab (Google Creative Lab): sound you can draw, and drawings that sing</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

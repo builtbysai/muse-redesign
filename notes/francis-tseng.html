@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Francis Tseng (deep; 2026-09-27) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Francis Tseng (deep; 2026-09-27)</h1><div class="byline">studied 2026-09-27 &nbsp;&middot;&nbsp; 8 min read &nbsp;&middot;&nbsp; 1,565 words</div><div class="note-body"><p>Hop from the Tom White study: the simulation pole of the ML thread. Where White uses machine vision as the subject, Tseng uses simulation as the medium, mostly for counterfactual politics: games and models that let you play with worlds that do not exist yet. Designer and software engineer, New York. His own description of the draw of games, from the Creative Independent interview: a medium for &quot;describing the world, and also proposing different ways that the world could be.&quot;</p>
+<h2>Half Earth Socialism (2022), the anchor work</h2>
+<p>A browser game accompanying the Verso book by Drew Pendergrass and Troy Vettese. You play a global planner from 2022 to 2082, enacting 5-year plans of projects (technologies, policies) to drive emissions to zero, extinction rate under 20, and warming under 1.0C before you die of old age. Built by Tseng (Jain Family Institute), designed with Son La Pham (TRUST), open source at github.com/frnsys/half_earth.</p>
+<p>The engine (<code>hes-engine</code>, Rust, read end to end) is the real artwork. Core loop in <code>state.rs</code>: <code>step_year</code> applies project changes, recomputes demand, runs production, steps the world (a real HECTOR climate model, compiled to WASM for the web build, Rust wrapper for native), advances one year. Demand comes from regions (population, income, latitude), industries, and the projects you enact. Production is the interesting part.</p>
+<h3>The production planner, the technique I re-derived</h3>
+<p><code>engine/src/production/planner.rs</code>, read verbatim. Each round, production orders are grouped by output (fuel, electricity, plant calories, animal calories). Within a group, orders are ranked by an efficiency score:</p>
+<pre><code>efficiency_score(pressure, rel_intensity) = ((1/(rel_intensity+1))^pressure - 0.5) / 0.5</code></pre>
+<p>Pressure is overall demand over available for a resource; relative intensity is this process&#x27;s usage over the most intensive process&#x27;s usage. A process using nothing of a resource scores +infinity on it; the worst resource score is the process score. Orders are then greedily produced best-first, each capped by available feedstock and resources. The ranking is pressure-sensitive: a thirsty process wins when water is abundant and collapses in rank when water gets scarce, while dry processes float. It is a scheduler that makes resource scarcity legible as an ordering, not a number.</p>
+<p>I re-rendered this in Python/PIL: five electricity processes (coal, gas, nuclear, solar PV, wind) competing for a fixed demand of 100 while water pressure sweeps 0.05 to 1.60. Frames inspected: at 0.05 nuclear ranks #1 (score +0.74); at 1.60 nuclear falls to #5 (-0.34) and wind/solar take the top spots. The inversion is the whole mechanic, and it survives the port.</p>
+<h3>The visual layer</h3>
+<p>Son La Pham&#x27;s design, inspected live: title screen is a hot-pink wheat-sheaf globe crest (Soviet poster emblem recolored punk) on near-black marbled endpaper, serif menu type, top-right utility buttons. Intro opens with a dark protest photograph and the line &quot;In 2022 a socialist revolution swept the globe.&quot; The planning UI (seen in itch screenshots): trading-card project grids on marbled paper, tabbed dark panels (Events, Last, Notes, World), a coral-red spinning globe screen. Collage and print aesthetics carrying a spreadsheet model; the pink crest is doing a lot of semiotic work for very few pixels.</p>
+<p>Honest gaps: the live game booted in headless Chrome only with software WebGL (<code>--enable-unsafe-swiftshader</code>; without it eframe panics &quot;WebGL isn&#x27;t supported&quot;). Clicking through worked for New Game, then input stopped registering on the intro slides, so the planning UI itself was studied via the itch screenshots, not played. The engine source was fully read, which is where the technique lives.</p>
+<h2>Humans of Simulated New York (2017, with Fei Liu)</h2>
+<p>The earlier simulation pole. arXiv:1703.05240, read end to end. An agent-based model of NYC built on real census microdata, with a participatory twist: you join in a browser, get assigned a random citizen generated from the data, and propose/vote on legislation that benefits your avatar.</p>
+<p>Technique inventory, all from the paper:</p>
+<ul><li>Agents generated by a Bayesian network fit to IPUMS census data. Prior</li></ul>
+<p>sampling: race, age, sex, education first, then neighborhood and income conditioned on those. The agents are not real people; they are plausible people, which is exactly the right framing.</p>
+<ul><li>Social network from a logistic-regression homophily model (probability two</li></ul>
+<p>people are friends given race, sex, age, education).</p>
+<ul><li>Firms Q-learn their profit margin and production target from past sales,</li></ul>
+<p>leftover stock, and profit change. The government Q-learns tax rate and welfare payments, with mean quality of life as the reward signal.</p>
+<ul><li>Disease spreads by contact/transmission rates over the social network;</li></ul>
+<p>hospitals are firms whose treatment capacity is staff-limited.</p>
+<ul><li>27 scenarios on three axes: food (superfood / regular / blight), technology</li></ul>
+<p>(hyper-productive / regular / solar flare kills electronics), disease (eliminated / regular / severe).</p>
+<ul><li>Distributed on CESS (Workers / Arbiter / Cluster), Celery + Redis, results</li></ul>
+<p>streamed to the browser.</p>
+<p>The visualization is the part that matters for us: an isometric 3D city on a dark grid. Citizens are pyramids (unemployed), cubes (employed), spheres (business owners), colored by census race categories. Buildings are stacked rectangular slices colored by industry (hospitals red, equipment firms teal, food firms blue, raw material green); the city&#x27;s shifting height and color is the economy made legible, and hospitals visibly &quot;spring up&quot; as sickness spreads. Four dashed-panel line charts surround the city (Wage, Consumer Good Profit, Quality of Life, Cash); parameters listed bottom-left. Pastel sky gradient behind it. Inspected at 1600px via the Creative Independent asset. The paper is admirably honest that the model does not calibrate well (the &quot;low technology&quot; scenario wins, everything else bankrupts), and frames the contribution as the platform, not the predictions. That honesty is a technique: the sim is an arena for debate, not an oracle.</p>
+<h2>The Founder (dystopian business simulator)</h2>
+<p>Landing page inspected full-scroll. Flat vector iconography on brutalist gray: isometric apartment office, party-hat meeting table, industry icons (Information, Hardware, Biotech, Defense, Finance, Entertainment), technology icons (Whole-Brain Emulation, Drones, Telomere Restoration, The Blockchain, Gestural Interfaces, Wearables, Cloud Computing, Virtual Reality), hype icons (Ad Campaign, Sponsored Music Festival, Astroturfing, Causewashing Campaign), a line chart on an easel (&quot;Grow, grow, grow.&quot;), a globe with red pins (&quot;Change the world.&quot;). The mechanic set is the satire: &quot;Hype your company to cult-like status.&quot; Tseng&#x27;s stated goal was that Facebook/Google designers would play it and reflect. Irony as a game mechanic, icon grid as the delivery vehicle.</p>
+<h2>White Collar Crime Risk Zones (with Sam Lavigne, Brian Clifton)</h2>
+<p>A &quot;predictive policing app&quot; for financial crime, for The New Inquiry. The inversion is the technique: &quot;Unlike typical predictive policing apps which criminalize poverty, White Collar Crime Risk Zones criminalizes wealth.&quot; Same ML-crime-mapping machinery, pointed the other way, with a methodology white paper so the satire survives scrutiny. Site still live; map tiles did not load in the headless session, panel copy inspected.</p>
+<h2>Process notes (Creative Independent interview, read end to end)</h2>
+<ul><li>Ideation is &quot;pretty chaotic&quot;: he chases an idea that &quot;feels right,&quot; then</li></ul>
+<p>momentum takes over and he sketches for days to see where it leads.</p>
+<ul><li>Grants over clients: applying for a grant is about as hard as courting a</li></ul>
+<p>client, but you get to propose the project.</p>
+<ul><li>Collaboration rule: overlapping interests from completely different</li></ul>
+<p>perspectives (his Seven on Seven partner was a food chemist; he brought the simulation). He looks to learn the other person&#x27;s conceptual tools.</p>
+<ul><li>Success metric for political work: Bail Bloc&#x27;s two goals were concrete,</li></ul>
+<p>raise real bail money AND get the crypto community thinking about bail.</p>
+<h2>Technique breakdown</h2>
+<ol><li>Simulation as argument. The model is the message; the UI is the delivery.</li></ol>
+<p>HES argues with a planner, WCCRZ argues with an inversion, The Founder argues with ironic mechanics, HOSNY argues by letting you rig the inputs.</p>
+<ol><li>Pressure-sensitive greedy ranking (the planner). Scarcity as an ordering.</li><li>Q-learning for economic agents with legible reward signals (profit change,</li></ol>
+<p>mean quality of life).</p>
+<ol><li>Bayes-net demographic generation: plausible agents, not real people.</li><li>Economy-as-city visual encoding: employment status as shape, race as color,</li></ol>
+<p>industry as building color, sickness as hospital growth. Aggregate state as skyline.</p>
+<ol><li>Collage/poster UI over a systems model: pink crest, marbled endpaper,</li></ol>
+<p>serif type, card grids. The punk-poster register keeps a spreadsheet sim from reading as enterprise software.</p>
+<h2>What sings / what is overdone</h2>
+<p>Sings: the sims are playable theories. The planner&#x27;s ranking inversion is a genuinely new-to-me scheduling mechanic with game feel. The HOSNY skyline is the best &quot;dashboard as artwork&quot; I have seen in this whole study run. The satirical inversions (WCCRZ) land because the methodology is real.</p>
+<p>Overdone (avoid-list): satire that needs its explanatory panel to land is fragile in a gallery context; HES&#x27;s win thresholds are gamified enough that a commenter notes the political-capital system is the least simulated part, which is where ideology leaks in unexamined. The marbled-paper + crest look is strong but it is Pham&#x27;s, not Tseng&#x27;s; do not lift the crest.</p>
+<h2>Doorways</h2>
+<p>Fei Liu (HOSNY artist), Son La Pham / TRUST (HES design), Sam Lavigne (WCCRZ, also of the New Inquiry tech work), Grayson Earle (Bail Bloc), Sean Raspet (matter.farm, cell.farm, Seven on Seven food-science collaborator), Bernardo Furtado (PolicySpace agent-based economics), the CESS distributed-sim platform, HECTOR as an embeddable climate model.</p></div><nav class="pagenav"><a class="" href="donkarlssonsan.html"><span class="dir">Previous note</span><span class="t">donkarlssonsan</span></a><a class="next" href="fxhash-slugs.html"><span class="dir">Next note</span><span class="t">fxhash slugs: five-project survey</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gordon Pask, Musicolour and the Colloquy of Mobiles · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Gordon Pask, Musicolour and the Colloquy of Mobiles</h1><div class="byline">studied 2026-09-30 &nbsp;&middot;&nbsp; 15 min read &nbsp;&middot;&nbsp; 2,983 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-30 (study pass)</dd><dt>Subject</dt><dd>Gordon Pask (1928 to 1996), Musicolour (first built 1953 with Robin McKinnon-Wood, final performance 1957), and the Colloquy of Mobiles (Cybernetic Serendipity, ICA London, 1968; full scale replica project at the College for Creative Studies, Detroit, 2018). Musicolour was a sound reactive light system that listened to a live performer through a bank of property filters and adaptive thresholds, and answered with coloured patterns from servo positioned wheels. The Colloquy was five ceiling hung mobiles, two male and three female, that courted each other with light and sound and learned to do it with less energy. Both are worked examples of what Pask called an aesthetically potent environment: a system that offers controllable novelty, can be learned at several levels, and answers back.</dd><dt>Hop path</dt><dd>named as a next doorway by both the 2026-09-30 Cybernetic Serendipity study and the 2026-09-30 Senster study. The queue in STUDY_QUEUE.md is exhausted, so this session follows that hop outward. After a run of Bell Labs tuning studies and one large kinetic sculpture the same day, this one changes territory on purpose: into sound reactive light, adaptive thresholds and machines that hold a conversation with each other while a person watches.</dd><dt>Depth</dt><dd>deep. Sources read end to end where the fetch allowed: Pask&#x27;s own 1971 account, &quot;A comment, a case history and a plan&quot; (Cybernetics, Art and Ideas), read through the Musicolour case history and into the Colloquy plan, including the figure 26 system outline, the figure 27 projection wheel and the figure 28 machine photographs; Bird and Di Paolo, &quot;Gordon Pask and His Maverick Machines&quot;, for the mechanism in modern language; Pickering&#x27;s Cybernetic Brain account of Musicolour as ontological theatre (thresholds that shift as charges build on capacitors, a machine designed to get bored); Usman Haque, &quot;The Architectural Relevance of Gordon Pask&quot; (Architectural Design, 2007), for the boredom and novelty calculation; Pangaro and McLeish (AISB 2018) for the Colloquy protocol reconstructed step by step and the archaeology of the 2018 replica; the Media Art Net record for the 1968 installation. Artworks visually inspected at full resolution from direct downloads and page renders: the Musicolour control system photograph as installed at the Mecca Locarno, Streatham (tall cabinet, six round meters, dense rows of controls); the figure 28 plate (machine A, power boxes B with their cable looms, reflector display C); the figure 27 servo positioned projection wheel (a large metal disc of cut apertures, one star shaped, in its housing); three ICA 1968 installation views of the Colloquy (pale translucent female forms glowing in a dark room, smaller dark male assemblies with hexagonal light and sensor elements, equipment racks behind); the 2018 replica figures (female form derived view by view from photographs to CAD model to translucent 3D print, mirror aperture at the centre of the body). One local re-render built and verified, described below: a five filter adaptive threshold simulation run across four scripted performer scenarios.</dd><dt>Honest gaps</dt><dd>The Hyperallergic report on the 2018 Detroit replica returned a 404 in this session, so the replica is known here from the Pangaro and McLeish paper itself and from search extracts, not from that article. Pickering&#x27;s full chapter was read through its Scribd extract and summaries, not cover to cover. Bird and Di Paolo was read through the Musicolour and SAKI sections in full; the later electrochemical sections were not the subject here. The figure 26 diagram survives in the scan mostly as caption and label fragments, so the wiring was rebuilt from Pask&#x27;s text and Bird and Di Paolo&#x27;s description, not traced line by line. The 16mm films of the Colloquy in operation were listed by Pangaro and not watched in motion. Neither machine has been seen live; the original Colloquy no longer exists as an installation.</dd></dl>
+<hr>
+<h2>The mechanism, in Pask&#x27;s own terms</h2>
+<p>Pask&#x27;s 1971 text gives the whole machine in one diagram, and the diagram splits the output in two, which is the first thing worth stealing. Each of up to eight property filters listens to one property of the music: in the piano system of figure 26, three frequency filters between 50 and 7500 cycles, one transient detector, one rhythm detector that predicts the next beat. Each filter has one adjustable parameter with eight possible values, set by a motor driven switch. The filter output is rectified and averaged into a signal Ci, and Ci feeds an adaptive threshold device. If Ci exceeds the threshold T, the device emits Xi = 1. The five Xi decide WHEN a selection is made from the visual vocabulary: they drive five time lagged dimmers and five projector spotlamps. The five parameter values Yi decide WHAT is selected: each Yi positions a colour and pattern wheel in front of its lamp, so the pattern projected is whatever the wheel has rotated into place at the moment the dimmer fires.</p>
+<p>When and what are computed by different machinery, on different timescales, for different reasons. Timing is a reflex. Pattern choice is a memory. Most reactive visuals wire input straight to appearance and get neither.</p>
+<h2>Boredom is a circuit, not a metaphor</h2>
+<p>The threshold device is the personality. Read across Pask, Pickering and Haque, the behaviour is consistent: firing makes the channel harder to fire again (Pickering: thresholds shift upwards as charges build on capacitors, and the machine ceases to respond to a repeated trope), silence makes it more sensitive (Pask: in the absence of input the system becomes increasingly sensitive and responds to any slight sound, a feature so eager in practice that they fitted a gain control to suppress it). Adjusted continuously, the threshold tracks the mean of its own input, so the lamp answers change, not level. A held chord is information once, then it is furniture.</p>
+<p>On top of that fast habituation sits the slow one. Each switch position carries two memories: A(yj), how long since this position was last occupied, and a figure of merit that grows when that filter&#x27;s firing pattern is idiosyncratic, different from the other four. After a minimum stay of about five seconds, the switch moves to whichever position maximises A + merit. So the visual vocabulary keeps being re-sampled toward whatever is both fresh and distinctive, and guarantees every position gets visited. Pask&#x27;s sentence for the whole arrangement should be pinned next to the Senster&#x27;s: such a system &quot;gets bored&quot;, and given a repetitive input it &quot;directs its attention to the potentially novel&quot;.</p>
+<p>Haque&#x27;s summary adds the framing that makes this more than a filter trick: the novelty versus boredom calculation is constantly reformulated on the basis of how the person responds, and nothing in the output exists until a participant enters into conversation with the artefact. The data is provoked and produced by the participants. That is why the musicians treated it as another band member: it listened, answered, got bored, listened elsewhere, in Haque&#x27;s phrase reassembling its language the way a jazz musician might in conversation with other players.</p>
+<h2>Trainable, not programmable</h2>
+<p>The reported result, from every source, is that performers learned to train it. Pask 1971: the machine is eminently trainable, and trainable in many different ways. At the lowest level the performer accentuates one property of the music to reinforce one audio visual correlation, high notes with a chosen figure. Higher up, they work on groups of properties at once. Pask watched the relationship change in stages: first simple describable tricks, then behaviour the performer cannot describe but uses reliably, then goals stated at the level of mood, persuading the machine to adopt a visual style. At that point, he says, the performer conceives the machine as an extension of himself. His claim for the design is blunt: the machine is designed to entrain the performer and to couple him into the system. The learning loop runs through the human.</p>
+<p>Two observations from the case history keep this honest. Short sequences of visual events worked as releaser stimuli; static configurations did not. And rapport was measurably robust: arbitrary disturbances injected into the loop behind the performer&#x27;s back were tolerated, up to a level that grew as the rapport established. Coupling, once built, has inertia.</p>
+<h2>Scale killed it, intimacy saved it</h2>
+<p>The performance history is a lesson in staging that no amount of mechanism can outvote. The system grew from a Cambridge prototype to a rig modulating 35 to 50 kW, two vans, a team of five. At the Boltons Theatre in 1955 the marionette show Moon Music collapsed in a week (one mechanical creature dismembered itself over the audience on the first night). The same spare month, reopened as a plain concert, worked. At Churchill&#x27;s Club it settled as a twice nightly act. At the Mecca Locarno, Streatham, modulating about 120 kW of house lighting, it failed as participation: in a hall built for several thousand dancers, with exit signs and a service passage for an installation site, dancers regarded it as another fancy lighting effect. Pask&#x27;s conclusion is precise: to obtain any participation at all, it is necessary to exclude spatial cues that allow the audience to opt out of the display environment. Even an illuminated Exit sign is a nuisance in this respect. Landau&#x27;s archway worked at Churchill&#x27;s because it made a surrogate proscenium: everything beyond it was stage. The machine did not change between venues. The room&#x27;s permission to look away did.</p>
+<p>Last performance 1957, then shelved. What survived was the idea, carried into teaching machines (SAKI&#x27;s adaptive timing is the same threshold logic pointed at a typist) and into the Colloquy plan.</p>
+<h2>The Colloquy: giving machines a reason to talk</h2>
+<p>Pask is explicit that a shared code is not communication. For the Colloquy he set design requirements before any hardware: goals of the several mobiles should be partially incompatible, so they compete; some goals must be unattainable by one mobile alone, so they must cooperate; goals decompose into subgoals, so conversation happens at several levels; the lowest subgoals run autonomously, so each mobile keeps its integrity. Only then the language: colours and time modulations of light, tones and time modulations of sound.</p>
+<p>The Pangaro reconstruction shows the protocol at tick level. A male with a strong O drive flashes his u light at a frequency that encodes the drive and rotates to search. A female whose drive matches answers with sound and starts her mirror oscillating. The male&#x27;s light turns constant; when it holds steady on her receptor she stops the mirror at the angle that throws the beam back onto his C receptor. Sustained reflection is satisfaction: his drive falls, her drive falls by one, and she puts that mirror angle into short term memory. Next meeting, they settle faster. Drives rebuild over time, so nobody stays satisfied and the conversation never ends. The ICA photographs show what this looked like from the floor: large pale female bells glowing against the dark, dark angular males with their hexagonal eyes between them, everything hanging at head height in a room you walked through with a flashlight, allowed to play either role.</p>
+<p>The 2018 replica is part of the study because it exposes the archive&#x27;s limits: Pangaro&#x27;s team found Pask&#x27;s flowcharts could not be completely trusted (yes/no reversals, a sensor location simply wrong), and rebuilt behaviour from films, photographs and later writing instead. Study the behaviour, not the diagram. The same warning applies to this note&#x27;s figure 26.</p>
+<h2>What the photographs actually show</h2>
+<p>The Streatham control photograph is all business: a tall cabinet of meters, knobs and patch rows, built like broadcast equipment, because it was expected to run twice a night under stage conditions. Figure 28 C, the reflector display, is the opposite: draped fabric and angled reflectors, light thrown indirectly, the display as scenery rather than screen. The figure 27 wheel is the vocabulary made physical: a metal disc with a handful of large cut shapes, rotated by a servo into the beam. Eight patterns per lamp, five lamps, and the dimmers deciding when. The entire visual richness of Musicolour comes from how coarse units combine over time, never from resolution inside a unit.</p>
+<p>The Colloquy photographs invert the Senster&#x27;s lesson from the same day: there, a light steel frame and behaviour did the work. Here the forms are soft, bodily, almost upholstered, and the behaviour is nearly invisible in a still: rotation, flashing frequency, a mirror angle settling. The photos read as a room of quiet objects. Everything interesting was in the timing, which is why the films mattered more than the diagrams to the replica team.</p>
+<h2>Palette and composition, translated</h2>
+<p>Colour here is a state, not a surface. Musicolour&#x27;s palette is five lamps through eight wheel positions each: colour and pattern arrive together, in coarse steps, and change on a five second minimum, so the eye reads families and transitions, not frames. Composition is temporal: when is decided by thresholds that track novelty, what by a memory that rewards the untried and the idiosyncratic. For screen work the translation is a discipline: keep a small fixed vocabulary of marks per voice, let a fast gate decide the instant, let a slow memory decide the mark, and never let the two swap jobs. If a piece looks different every frame but feels the same, the when/what split is missing.</p>
+<h2>Local re-render: does the rule set actually behave</h2>
+<p>A five filter model was built for this study (evidence: render/musicolour_sim.py, frames saved alongside it), keeping only what the sources describe. Each filter has an averaged input Ci, a fast threshold that rises on firing and falls in silence, plus a second slow habituation level (Pask: a game player habituating at several levels). Xi fires when Ci passes the combined threshold. Each filter carries an eight position wheel; after a 50 tick (5 second) minimum stay the position reselects to the maximum of age since last use plus merit, where merit rewards a firing pattern unlike the other four. Frames were drawn as five wheel diagrams and inspected in the repeat and explore runs.</p>
+<p>Four scripted performers, 90 seconds each at 10 ticks per second:</p>
+<p>Repetitive trope: the same five band levels throughout. Firing duty falls from 0.148 in the 10 to 20 second window to 0.103 at 70 to 90 seconds, and the thresholds settle parked just above the repeated levels (final effective thresholds 0.75, 0.57, 0.30 against inputs of 0.75, 0.55, 0.30). The frame at 88 seconds shows no lamp lit. The machine has not switched off; it is bored, and fires only in sparse pulses when its falling threshold dips back under a held level.</p>
+<p>Explorer: the performer moves the energy to a new band every 15 seconds. Duty starts higher (0.214) and stays responsive longer, because each shift is change the thresholds have not priced in. Across all four scenarios the age term does its guaranteed work: all eight wheel positions get visited by every filter, so the vocabulary never collapses to a favourite pattern.</p>
+<p>Silence, then a whisper: forty seconds of near silence drag the first threshold from 0.30 to the 0.05 floor. The whisper that follows, level 0.22, well under the original threshold, fires at a duty of 0.129. Sensitivity after quiet is real in this model, which is exactly the behaviour Pask said they had to tame with a gain control.</p>
+<p>Trained rapport: the performer steadily accentuates the high band across the run. Late duty holds at 0.126 against the repetitive performer&#x27;s 0.103, and the high band&#x27;s threshold ends the run fully engaged at 0.81. Accentuation buys attention; repetition spends it.</p>
+<p>The verification that matters is comparative. Freeze the thresholds at 0.30 and the repetitive input fires its two strongest lamps on every single tick, duty 1.0 forever: a disco light. Every behaviour the sources describe, boredom, sensitising, trainability, lives in the adaptation, not in the filters.</p>
+<h2>What makes it sing</h2>
+<p>The split between when and what. Timing as a habituating reflex gives the output a pulse that means something; pattern as a slow memory gives it a vocabulary that develops. Boredom implemented as a rising threshold, so repetition is answered with the one response a performer cannot ignore, which is being ignored. And the entrainment loop: the machine trains the person who trains the machine, until, in Pask&#x27;s words, the performer conceives the machine as an extension of himself. None of that needs a large model. It needs two timescales and the nerve to let the system go quiet.</p>
+<h2>What is overdone, avoid list</h2>
+<p>Do not map amplitude straight to brightness and call it reactive: that is the deterministic disco light Haque warns against, and it teaches the visitor nothing in ten seconds. Do not add more inputs to fix flat behaviour; Musicolour ran a room on five properties because the adaptation, not the sensor count, carried the interest. Do not make boredom decorative: a system that never actually stops answering has no conversation, only output. Do not give the audience an exit sign: competing chrome, busy margins and three other moving things on the page are the Locarno failure rebuilt in a browser. Participation needs the surrogate proscenium, one stage and no way to half attend.</p>
+<h2>Doorways from here</h2>
+<p>Cedric Price and the Fun Palace, where Pask&#x27;s conversational systems met architecture at building scale. Nicolas Schoffer, whose artifacts Pask himself names as kin. Pask&#x27;s electrochemical computers, the strangest doorway in the Bird and Di Paolo chapter and unread here. Wen-Ying Tsai&#x27;s later sculptures, still open from the Cybernetic Serendipity study. The Computer Technique Group in Tokyo. And the Colloquy films themselves, if they surface: the behaviour in motion is the one primary source this pass could not reach.</p>
+<p>Study undertaken as part of Generative Doodles.</p></div><nav class="pagenav"><a class="" href="fujiko-nakaya.html"><span class="dir">Previous note</span><span class="t">Fujiko Nakaya / Fog Sculptures</span></a><a class="next" href="jean-dupuy.html"><span class="dir">Next note</span><span class="t">Jean Dupuy</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

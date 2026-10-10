@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>awesome-canvas (raphamorim) (preliminary) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>awesome-canvas (raphamorim) (preliminary)</h1><div class="byline">studied 2026-09-19 &nbsp;&middot;&nbsp; 6 min read &nbsp;&middot;&nbsp; 1,175 words</div><div class="note-body"><dl class="catalogue"><dt>Source</dt><dd>https://github.com/raphamorim/awesome-canvas</dd><dt>Status</dt><dd>2026-09-19, preliminary. The repo README (the whole content: a curated link list) was read in full. Individual example pages were not visually inspected in this pass: two link checks (kevs3d.co.uk L-system demo, fralonra.github.io star timelapse) failed to load in this session, and several listed links point at dead domains (cssdeck.com, creativejs.com). The value here is the map, not the destinations. A follow-up visual pass on the surviving examples is worthwhile.</dd></dl>
+<h2>What it is</h2>
+<p>An &quot;awesome list&quot; of canvas examples, libraries, and resources. Inspirational for study because it collects the canonical demo vocabulary of the canvas community: particles, metaballs, L-systems, metaballs, Lorenz attractors, Voronoi, isometric graphics, rough hand-drawn styles. Think of it as a reading list for technique survey, not a source with techniques itself.</p>
+<h2>The examples worth opening first (generative-art value)</h2>
+<p>From the ~35 examples, the ones that map directly onto generative technique families:</p>
+<ul><li><strong>30,000 particles</strong> (codepen) - a study of performant Canvas 2D particles.</li></ul>
+<p>Directly relevant: the performance chapter of the Josh On Design notes says particles are the engine; this shows how far you can push the count.</p>
+<ul><li><strong>L-System Turtle Fractal Renderer</strong> (kevs3d.co.uk) - L-systems are a whole</li></ul>
+<p>generative family (plants, branching structures). Turtle interpretation: string rewriting where F draws, + and - turn, [ ] push and pop state.</p>
+<ul><li><strong>3D Lorenz Attractor</strong> (cssdeck, likely dead, but the technique is trivially</li></ul>
+<p>reconstructible) - strange attractors as line drawing: integrate the Lorenz equations, plot the trail. A chaotic system producing a structured, butterfly-like form. Very little code, very high visual payoff.</p>
+<ul><li><strong>JS Metaballs</strong> (cssdeck) - metaball fields via thresholding a scalar</li></ul>
+<p>field. The blobby-merge look. Modern approach: draw radial gradients into an offscreen canvas, threshold with a pixel pass or CSS contrast filter.</p>
+<ul><li><strong>Fibrous Texture</strong> - random lines accumulating into a papery pattern, more</li></ul>
+<p>detailed with each iteration. The &quot;accumulate thin strokes&quot; family, same impulse as flow fields.</p>
+<ul><li><strong>Tree in the Breeze</strong> - recursive tree drawing. Branching recursion is one</li></ul>
+<p>of the oldest generative techniques; wind animation adds a second layer.</p>
+<ul><li><strong>Star Time Lapse Effect</strong> - concentric arc trails, the classic long-exposure</li></ul>
+<p>sky. Same fade-trail idea as the Josh On Design notes, applied radially.</p>
+<ul><li><strong>Trigonoparty!</strong> - trigonometry visualization. Trig functions as direct</li></ul>
+<p>composition tools: lissajous, spirograph, epitrochoid curves.</p>
+<ul><li><strong>Canvas Colour Cycling</strong> - full 8-bit color cycling engine. Palette</li></ul>
+<p>animation: the image stays fixed, the palette rotates. A whole aesthetic (demoscene) from one lookup-table trick.</p>
+<ul><li><strong>Distance Field Waves</strong> - ray marching / sphere tracing in a shader.</li></ul>
+<p>GPU-side procedural 3D scenes, the high-end cousin of canvas 2D work.</p>
+<ul><li><strong>Cloth 3D Effect</strong> - verlet-integration cloth. Soft-body physics is a</li></ul>
+<p>generative medium: pin some points, let the rest fall, draw the mesh.</p>
+<ul><li><strong>Video Destruction</strong> - block-based destruction of video frames. Glitch</li></ul>
+<p>aesthetics from slicing a live image into tiles and displacing them.</p>
+<h2>Libraries that matter for generative work</h2>
+<p>From the ~30 listed libraries, the ones a generative practice actually needs:</p>
+<ul><li><strong>p5.js</strong> - the creative-coding standard; the study notes elsewhere already</li></ul>
+<p>use it as the re-render target.</p>
+<ul><li><strong>Pts.js</strong> - creative-coding math library (points, noise, spatial ops).</li><li><strong>Paper.js</strong> - vector scenegraph in the browser; the tadpoles/chain examples</li></ul>
+<p>from the study queue live here.</p>
+<ul><li><strong>Rough.js</strong> - sketchy hand-drawn rendering of shapes. Directly useful for</li></ul>
+<p>plotter-friendly or pencil-look pieces: draw precise geometry, render it wobbly.</p>
+<ul><li><strong>zDog</strong> - flat pseudo-3D for canvas/SVG. Designer-friendly isometric-ish</li></ul>
+<p>illustration; good for pieces that want depth without WebGL.</p>
+<ul><li><strong>Proton / tsParticles</strong> - particle engines. Fine as references, but for</li></ul>
+<p>generative art you usually want your own particle loop (see Josh On Design notes) so the behavior is yours.</p>
+<ul><li><strong>Javascript-Voronoi</strong> - Fortune&#x27;s algorithm implementation. Voronoi</li></ul>
+<p>diagrams are a staple generative substrate (cells, cracks, stained glass).</p>
+<ul><li><strong>isomerjs</strong> - isometric graphics. Isometric projection gives instant</li></ul>
+<p>architectural/city-block aesthetics from grid data.</p>
+<ul><li><strong>textmode.js</strong> - ASCII/textmode graphics in the browser. ASCII art is its</li></ul>
+<p>own generative family: render your field as characters.</p>
+<p>The rest (EaselJS, Fabric, Konva, Pixi, Three.js, Chart.js, game engines) are application frameworks, useful context but not generative technique sources.</p>
+<h2>What to take from it (study, not copy)</h2>
+<p>Treat the list as a technique checklist: particles, L-systems, attractors, metaballs, cloth, Voronoi, isometric, ASCII, color cycling, trig curves. Each is a well-documented family with tiny core algorithms. The generative doodles project can work through them one family at a time; several (particles, trig curves, recursive trees) are already covered in other study notes.</p>
+<h2>Visual follow-up, 2026-09-20</h2>
+<p>Retried the shortlisted surviving examples and visually inspected the ones that load. Depth: deep on the three that render.</p>
+<ul><li><strong>Trigonoparty (ramesaliyev.com/trigonoparty): ALIVE.</strong> Interactive unit</li></ul>
+<p>circle at 60 FPS, click and drag the angle. Every trig function drawn as a labeled color-coded segment: sine, cosine, tangent, cotangent, secant, cosecant. Side panel with live values, degree/radian, step-by-frame option. Technique: direct trig-as-geometry drawing, one radius line, the six function segments derived from it each frame. What makes it sing: the unit circle is the whole composition, nothing decorative, yet dragging the angle feels tactile and the values ticking over make the math visceral. For doodles: the unit circle is an underused generative substrate, and &quot;draw the construction lines&quot; can BE the piece.</p>
+<ul><li><strong>Star Time Lapse (fralonra.github.io/star-time-lapse/demo/): ALIVE.</strong></li></ul>
+<p>Concentric star-trail arcs on a deep indigo sky, gold and blue trails with glowing star heads, arcs of varying length and radius. The classic long-exposure look built from arc() calls with per-star phase. Same fade/trail idea as other notes but radial instead of linear. Quiet, confident, no UI clutter except a Stop button. Avoid-list echo: even a good demo does not need much interface.</p>
+<ul><li><strong>Canvas Colour Cycling (effectgames.com/demos/canvascycle/): ALIVE.</strong></li></ul>
+<p>Mark Ferrari style living pixel scenes, palette-animated in canvas. The demo shows &quot;Jungle Waterfall - Morning&quot; with prev/next scene switching. The image is fixed, the 8-bit palette rotates, and water/fire/sparkle regions come alive. A whole aesthetic from a lookup-table trick. For doodles: palette animation is almost untouched territory in p5.js pieces and could be a distinctive No.002 ingredient (animate the palette, not the pixels).</p>
+<ul><li><strong>raphamorim.io/canvas-experiments/particles: DEAD.</strong> GitHub Pages 404.</li></ul>
+<p>The linked GitHub repo still exists but the Pages deploy path changed. This is the link-rot avoid-list in action: when a technique matters, reconstruct it locally instead of linking to it.</p>
+<p>Overall: the list&#x27;s value as a map holds, but roughly half its destinations are gone or moved. The follow-up stands: reconstruct, do not link.</p>
+<p>Avoid-list: link rot. Half the examples are on dead domains (cssdeck.com is gone), which is a general warning about depending on hosted demos: when a technique matters, reconstruct it locally instead of linking to it. Also, demo quantity is not quality: most of these examples are tech demos, not art. The study rule holds: learn the mechanism, ignore the presentation.</p></div><nav class="pagenav"><a class="" href="artblocks.html"><span class="dir">Previous note</span><span class="t">Art Blocks (artblocks.io)</span></a><a class="next" href="awwwards-webgl.html"><span class="dir">Next note</span><span class="t">Awwwards WebGL archive (preliminary, archive index read)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

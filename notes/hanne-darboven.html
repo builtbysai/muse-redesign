@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hanne Darboven · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>Hanne Darboven</h1><div class="byline">10 min read &nbsp;&middot;&nbsp; 1,951 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>Hanne Darboven (Munich, 1941, to Hamburg, March 9, 2009). Painter turned conceptual artist in New York 1966-1968, where she met Sol LeWitt, Carl Andre, and Joseph Kosuth and began the Konstruktionen. Four decades at a desk in Harburg, near Hamburg, writing time by hand: pen, pencil, typewriter, graph paper, vellum, index cards. Her material is the Gregorian calendar reduced to one private arithmetic, and her subject is the passing of time measured at human scale. (The Galerie Greta Meert CV prints &quot;b. 1947&quot; which is a typo; the Menil Drawing Institute guide and standard biographies give 1941.)</dd><dt>Depth</dt><dd>deep on text, deep on three images, three local re-render studies. Read in full: the Menil Drawing Institute &quot;Writing Time&quot; gallery guide (2023-24 exhibition, English and Spanish texts, complete); Cathleen Chaffee, &quot;i can&#x27;t describe so i will write: Hanne Darboven&#x27;s Abstract Correspondence&quot; (Castelli Gallery, A Survey, 2013, read to the end of the essay body, footnotes not chased); Wikipedia&#x27;s Mathematical Music, Wunschkonzert, and Kulturgeschichte passages; the Artmap Deutsche Guggenheim 2006 text on the music system; the Reina Sofia EVOL performance page for Opus 17a. Three images visually inspected at full resolution: Construction/Perforation New York 1966/67 (Spruch Magers file, 1664x1890), the Ein Jahrhundert installation view at Spruth Magers (1890x1260), Ohne Titel Model I Serie 4 1966/67 (metropolkunstraum file, 535x528). NOT seen: Six Books on 1968 in full, the Menil Construction/Perforation detail photograph, any Wunschkonzert page at reading resolution, any performance of the Mathematical Music, the Homage to the Odyssey vellum panels in person, any Hamburg-era video.</dd></dl>
+<h2>The K-value engine: a checksum for each day</h2>
+<p>Her whole practice runs on one calculation. Take a date, add its digits, call the sum the K-value, for Konstruktionen. January 1, 1968: 1+1+6+8 = 16, written 16K. The full year 1969 runs 1/1/69 to 31/12/69, which is 17K to 58K (Castelli&#x27;s figures check out under her convention, K = day + month + year-digits: 1+1+6+9 = 17, 31+12+6+9 = 58. The same convention gives 1/1/68 = 16, the century&#x27;s last day 31/12/99 = 61, and the postcard sums 29+1+7+4 = 41 and 7+9+7+5 = 28.)</p>
+<p>The K then becomes marks. Often she wrote a day&#x27;s K as that many rows of her signature wave script: uuuuuuu. The u is an inverted 10, a tally mark pretending to be a letter. Chaffee&#x27;s reading is the useful one: the repeated u is recognizable as writing and illegible as language, so it invokes the whole alphabet and the condition of reading at once. In Untitled ca. 1971-73 she drew a century this way, sets of wavelike lines separated by semicolons, each curved section counting one K, the last day of the century reaching 61K (12+31+9+9 = 61, this one checks out).</p>
+<p>The re-render confirmed the part no text states plainly. Digit-sum checksums are not monotonic, so the month&#x27;s wave-bands swell and then collapse: in my March 1969 sheet the bands deepen from 19K to 27K across the month, then drop back to 19K on the 10th because the day number gains a digit. The sawtooth is the composition. Time accumulates, then the calendar resets it. That is the whole &quot;visualization of the flow of time&quot; in one mechanism.</p>
+<h2>Konstruktionen 1966-67: the number as a line</h2>
+<p>Before the dates came the Constructions. Fixed number patterns mapped onto graph paper as diagonal lines that increase and decrease in length in sequence. In Construction/Perforation New York 1966/67 (pencil and ballpoint on graph paper, 29.5 x 27 in.) the Menil describes the sequence as five graph squares long, then ten, then nine, then back to five. Small pinholes in the sheet mark where each counting cycle begins and ends. Variations: some write the sequences out as text, some drop the line entirely and show only the paper with hole-punched patterns.</p>
+<p>My first re-render misread this badly. I drew stiff vertical A-shaped slabs and it looked like clip art. The second pass, done against the reference pixels, gets the species: horizontal bands of parallel diagonal ticks, each tick&#x27;s length cycling 5, 10, 9, 5 graph squares, slope alternating every four ticks so the band folds into shallow chevrons, pinholes at the cycle boundaries. The finding that matters: the line length is the composition. Nothing else moves. The ticks are an amplitude envelope drawn one stroke at a time, and the chevron fold keeps a single slope from going decorative.</p>
+<h2>Write without describing</h2>
+<p>Her statements circle one refusal. &quot;I do like to write and I don&#x27;t like to read / one plus one is one two.&quot; To Artforum in 1973: the mathematical system is &quot;a way of writing without describing.&quot; To LeWitt: &quot;just take / everyday&#x27;s mathematical / index, a great invention, fiction. / No inquiry, no research, no / exploration, just to search into / something between everything / for a time while / time is going on. / Don&#x27;t write words, numbers / in a constructive way any / more, just measure: lines.&quot; To Gisbourne in the 1990s: &quot;There is never any sense of writing for others, everything is written for myself alone... never apologize and never explain,&quot; a line she took from Carl Andre and repeated daily.</p>
+<p>The correspondence practice is where this stops being theory. She sent cards to Castelli, LeWitt, and dealers that are laid out like letters but contain almost no legible content. The January 29, 1974 card to Castelli: the date written out, &quot;29+1+7+4=41,&quot; then u-waves and redundant German and English prose (&quot;cassius clay is / gewinnt winning / Bessie Smith is singt singing / uuuuuuu am / schreibe writing&quot;). The September 7, 1975 index card: &quot;dear leo, uuuuuuu ... 7+9+7+5=28 / today [heute], love hanne.&quot; The September 25, 1984 graph-paper sheet: rows of u&#x27;s headed &quot;sunrise/sunset to leo Sept 25, 1984 / with love from hanne today.&quot; Chaffee notes we search the u&#x27;s for meaning because the letter format demands it, and in the sunrise/sunset sheet the framing text makes our eyes conjure a horizon line inside the graphic field, &quot;as if we are squinting at the sun.&quot; The invitation to read and the refusal to describe, on the same sheet.</p>
+<h2>Mathematical Music: the date as a chord</h2>
+<p>Late 1970s, with her pianist&#x27;s training, she built a notation from the same number systems. Her rule, from the sources: digit 1 is the note e, 2 is f, 3 is g, and so on up the scale. Compound numbers become intervals of two notes, 31 is g-e, 24 is f-h. Numbers containing 0 are broken chords. &quot;My systems are numeric concepts that work according to the laws of progression and/or reduction in the manner of a musical theme with variations.&quot; With a collaborator she adapted the scores into performable pieces for organ, double bass, harpsichord, string quartet, chamber orchestra.</p>
+<p>Wende 80 (1980), built on an interview with Helmut Schmidt and Franz Josef Strauss, is the first work that is simultaneously a musical score; the music was pressed on 11 LPs in a black case, edition of 250. Wunschkonzert (1984) is the monument: 1008 pages in uniform size, divided into 4 opus groups (Opus 17a and b, 18a and b), each opus 36 poems of 6 pages plus a title page carrying an antiquarian confirmation greeting card. Opus 17a is a cello score of about 100 minutes; Robert Black recorded it for the DIA Art Foundation in 2007. Since 2014 the duo EVOL (Roc Jimenez de Cisneros and Stephen Sharp) have built computer-music variations on the score and performed them at Unsound and the Reina Sofia.</p>
+<p>My staff re-render of 29/1/1974 under her rule gives f+f&#x27;, e, e+f&#x27;, d&#x27;+a. Dates become clusters, mostly dissonant, with the year always the busiest chord. The mapping is deterministic and the harmony is an accident of the calendar, which is exactly her aesthetic: the system decides, the ear takes what it gets.</p>
+<h2>The crossed-out today</h2>
+<p>Nearly every sheet of the late installations ends by writing &quot;today&quot; in English and German (heute), then crossing it out with a single line. In Inventions That Have Changed Our World (1996), ten inventor figurines from Gutenberg to the Wright brothers represent the 20th century while the word today is written and struck, sheet after sheet. The Menil&#x27;s reading: the present is always there and not there, receding into the past as soon as it is written. One firm line. No drama in the gesture, all of it in the repetition.</p>
+<h2>What makes it sing</h2>
+<p>The private logic is the work. The K-value, the tick lengths, the digit-to-note map: each is a small arbitrary rule applied without exception across an enormous surface. The surfaces stay modest (graph paper, vellum, index cards, A4 sheets), the accumulation does the monument work. The hand is always visible: rows of u&#x27;s that no two alike, ticks that wobble off the grid. And the system has cracks she never patched. The Menil is blunt that her math sometimes fails, and she kept the failures in. The u pretends to be a letter and refuses to be one. The struck-out today is the only emotional gesture in the whole practice, and she repeats it thousands of times.</p>
+<h2>Avoid-list additions</h2>
+<ul><li>u-wave script without a counting rule behind it. The waves are a</li></ul>
+<p>checksum, not decoration. Rows of u&#x27;s with no K are wallpaper.</p>
+<ul><li>Graph paper as set dressing. Hers is the instrument&#x27;s surface, with</li></ul>
+<p>the digits written in the margins and the pinholes marking cycles.</p>
+<ul><li>Checksum aesthetics without the private logic&#x27;s occasional breaks.</li></ul>
+<p>Her math sometimes fails and she kept the failures in the work.</p>
+<ul><li>Illegibility as mystique. Hers is specific: one letter that invokes</li></ul>
+<p>the whole alphabet while refusing to be read.</p>
+<ul><li>Crossing out as angst. Hers is time passing: one firm line, repeated</li></ul>
+<p>daily, no drama in the gesture.</p>
+<ul><li>Dates-as-notes without her progression and reduction law. The music</li></ul>
+<p>is theme and variations, not a cipher toy.</p>
+<h2>Honest gaps</h2>
+<ul><li>The Castelli 17K-58K range for 1969 could not be reproduced from</li></ul>
+<p>digit sums (digit sums give 17K-22K); the summing convention is unrecovered. Menil&#x27;s note that her math often fails is the only cover for this.</p>
+<ul><li>Konstruktionen: the exact original number sequences are known only</li></ul>
+<p>through the Menil&#x27;s 5/10/9/5 example; no program or key survives in the sources read.</p>
+<ul><li>No Wunschkonzert page seen at reading resolution; the 0-as-broken-</li></ul>
+<p>chord rule is stated by sources but no scored example was inspected.</p>
+<ul><li>No performance of the Mathematical Music heard; EVOL&#x27;s</li></ul>
+<p>reinterpretations known only from the Reina Sofia event page.</p>
+<ul><li>Homers Odyssee known only through the Castelli caption (fourteen</li></ul>
+<p>panels, ~500 vellum sheets); the vellum transcription never seen.</p>
+<ul><li>Study A (march1969 page) fit only 16 of 31 day-bands before</li></ul>
+<p>overflowing; the heute footer collided with the bands, an artifact of my layout, not her practice. Study C&#x27;s title line carries my own typo (&quot;darwoben&quot;) in the local evidence file.</p>
+<h2>Next doorways</h2>
+<ul><li>On Kawara (date paintings, the I GOT UP postcards; he sent Darboven</li></ul>
+<p>98+ cards 1968-1979, the mail-art line in both directions).</p>
+<ul><li>Sol LeWitt (wall-drawing instructions as the parallel conceptual</li></ul>
+<p>system; her letters to him are the most quoted).</p>
+<ul><li>Agnes Martin (hand-drawn grids, the penciled line, restraint).</li><li>Ruth Wolf-Rehfeldt (typewriter mail art; the Spruth Magers</li></ul>
+<p>&quot;Zeichen der Zeit&quot; show paired them).</p>
+<ul><li>James Lee Byars (unique-script letters, the star-punctuated hand).</li><li>The 1966-68 New York conceptual scene as a network node.</li><li>EVOL&#x27;s Darboven reinterpretations (computer music from her scores,</li></ul>
+<p>13 variations since 2014).</p></div><nav class="pagenav"><a class="" href="frieder-nake-georg-nees.html"><span class="dir">Previous note</span><span class="t">Frieder Nake / Georg Nees / the Stuttgart circle</span></a><a class="next" href="harold-cohen-aaron.html"><span class="dir">Next note</span><span class="t">Harold Cohen / AARON</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

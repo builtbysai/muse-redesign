@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art Blocks (artblocks.io) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Art Blocks (artblocks.io)</h1><div class="byline">studied 2026-10-01 &nbsp;&middot;&nbsp; 8 min read &nbsp;&middot;&nbsp; 1,542 words</div><div class="note-body"><p>Deep study 2026-10-01 (subagent session for the Generative Doodles study program). Local only; nothing pushed.</p>
+<h2>The platform as a machine</h2>
+<p>Art Blocks is a platform for scripted generative art, founded by Erick Calderon (Snowfro), first mints late 2020. The core mechanic: an artist deploys a JavaScript project; each mint derives its parameters from the buyer&#x27;s transaction hash; the script re-runs in the browser every time anyone views the token. The work is the code; the image is a cache.</p>
+<p>Tiers (from the Art Blocks artist FAQ and the late-2022 product update):</p>
+<ul><li><strong>Curated</strong>: curation-board reviewed, released in quarterly sets,</li></ul>
+<p>applications rolling with roughly a 10% acceptance rate. The top standard of the platform.</p>
+<ul><li><strong>Playground</strong> (legacy): for artists already accepted into Curated, a</li></ul>
+<p>place to experiment without full review.</p>
+<ul><li><strong>Factory</strong> (legacy): open to any artist meeting baseline technical and</li></ul>
+<p>quality standards; the on-ramp for new names.</p>
+<ul><li>Late 2022 consolidation: Factory and Playground were folded into</li></ul>
+<p><strong>Art Blocks Presents</strong>, plus <strong>Explorations</strong>, commissioned projects made with the Art Blocks team. Older projects keep a Heritage designation.</p>
+<p>Token-page anatomy (observed on the Ringers #427 and Archetype #302 and #552 token pages): each token lists <strong>Attributes</strong> with collection-wide rarity percentages. These come from a feature script the artist ships, which names the traits of each output. The page also has toggles: &quot;Show artwork in gallery frame&quot; and &quot;Enable live rendering&quot;, which re-runs the generation live in the browser. The trait legend is part of the art, not decoration around it.</p>
+<p>The working method the platform encourages is worth stealing: Cherniak generated a full 1,000-output set on the Rinkeby test network before the mainnet release and examined the trait distribution across the whole set before shipping it. Test the whole edition, not one seed.</p>
+<h2>Ringers — Dmitri Cherniak (project #13, Curated, January 2021)</h2>
+<p>1,000 outputs, 0.1 ETH mint, sold out in about 18 to 20 minutes. Outputs visually inspected at full resolution: #427, #275, #328.</p>
+<p>Cherniak&#x27;s premise, from his own site: &quot;how many ways can a string wrap around a set of pegs?&quot; His own count math: a 4x4 grid of 16 pegs gives 65,519 possible peg selections (2^16 minus single pegs minus the empty set), and that is before any string path is drawn.</p>
+<p>Construction, as read from the pixels and his trait system:</p>
+<ol><li>Pegs laid on a grid (3x3, 4x4, 5x5 layouts).</li><li>A subset of pegs is selected (trait: peg count).</li><li>A string path wraps the selected pegs. Wrap style is Loop or Weave</li></ol>
+<p>(over/under at crossings); wrap orientation is Balanced or Off-center; pegs can be Solid or Bullseye; peg scaling varies.</p>
+<ol><li>The path is stroked as a <strong>wide round ribbon</strong>. The ribbon is so wide</li></ol>
+<p>that it reads as a filled silhouette, not a line: the hull of the wrap becomes the body of the piece.</p>
+<ol><li>Pegs are punched out as holes: discs in the background color with a</li></ol>
+<p>thin dark outline, sitting inside the ribbon. Unwrapped pegs render as rings or solids on the ground.</p>
+<ol><li>Color: a body color (the ribbon), a background, and occasionally a</li></ol>
+<p>rare extra-color flourish. #427 has a single yellow bullseye peg on a black-on-white piece; the signature yellow peg recurs across the series.</p>
+<p>What the three inspected outputs showed:</p>
+<ul><li>#427 (9 pegs, 3x3, Weave, Balanced): a thick black rounded-rectangle</li></ul>
+<p>loop, bullseye peg holes punched inside it, two spare rings outside the ribbon, one yellow bullseye. Spare and dense in one frame.</p>
+<ul><li>#275 (9 pegs, 4x4, Loop): a thin string loop instead of a ribbon, with</li></ul>
+<p>the interior filled yellow on a beige ground. Same system, a completely different picture. This is the Loop/Weave parameter doing visible work.</p>
+<ul><li>#328 (19 pegs, 5x5, Weave): an open zigzag ribbon, black on yellow,</li></ul>
+<p>white peg holes punched along it. The string path does not have to close.</p>
+<p>Cherniak&#x27;s working statements, from his site and the Ringers in Motion essay: automation is his medium; he designed the rules and their limits, and the outputs reveal possibilities inside them. &quot;Looking across the collection is part of the work: its range becomes apparent through the relationships between images.&quot; He released the whole system as a complete series rather than cherry-picking favorites. And the collection surprised him: Ringers #879 &quot;The Goose&quot; reads as a bird in profile through pure chance, was parodied in The Simpsons, and sold at Sotheby&#x27;s in June 2023 for several million dollars. He sweeps parameters as a practice: the LACMA Iterations piece is a nine-frame sweep of peg sampling from 10% to 100% holding the signature yellow peg constant.</p>
+<h2>Archetype — Kjetil Golid (project #23, Curated, February 2021)</h2>
+<p>600 outputs. Outputs visually inspected at full resolution: #302 (Mural palette, Flat scene, framed, Balance layout, Main coloring) and #552 (Cherfi palette, Bright Evening shading).</p>
+<p>Construction:</p>
+<ol><li>An isometric tile packing of variable-size rectangles fills the</li></ol>
+<p>frame edge to edge, with a thin dark frame line.</p>
+<ol><li>Each tile is extruded: the top face carries the tile color and two</li></ol>
+<p>dark side faces give it block depth. The extrusion is the whole depth read; there is no other shading.</p>
+<ol><li>Coloring strategies (Main, Group, Random) decide how the palette is</li></ol>
+<p>distributed; shading variants (Noon, Morning, Bright Evening) control the mood through the side-face darkness; layouts (Balance and others) control the packing.</p>
+<ol><li>Palettes are committed: Mural (green/yellow/red/blue/pink), Cherfi</li></ol>
+<p>(mint/cream/gold/red/salmon), Verena, Warm Duo.</p>
+<p>Golid&#x27;s statement, from the token page: repetition is the counterweight to unruly, random structures. One dumb module, repeated under tight rules, with color doing the variation. Golid co-founded generativeartistry.com, the long-running generative-art tutorials site; the hop leads there.</p>
+<h2>Fidenza and Meridian (covered by earlier deep studies)</h2>
+<ul><li><strong>Fidenza</strong> (Tyler Hobbs, project #78, Curated, June 2021): 999</li></ul>
+<p>outputs, 0.17 ETH mint, sold out in about 28 minutes. Visually studied in study/tyler-hobbs.md (4 outputs inspected). The Hobbs lineage was already absorbed from his site, interviews, and his own QQL-era essays.</p>
+<ul><li><strong>Meridian</strong> (Matt DesLauriers, project #28, Curated, June 2021):</li></ul>
+<p>1,000 outputs. Visually studied in study/matt-deslauriers.md (3 outputs plus a FOLIO output inspected; his tiny-artblocks repo read in full).</p>
+<p>Both studies hold up; no need to re-inspect for this pass.</p>
+<h2>What makes the flagship work sing</h2>
+<ul><li>A deliberately dumb premise, committed all the way: one string and</li></ul>
+<p>some pegs; one block module repeated. The premise fits in a sentence; the range does not.</p>
+<ul><li>Parameters that do visible work. Loop vs Weave is not a checkbox, it</li></ul>
+<p>is the difference between a thin yellow loop and a black ribbon hull. Coloring strategy and shading variant are the difference between two Archetypes.</p>
+<ul><li>The trait system makes every output legible as data. The piece ships</li></ul>
+<p>with its own computed readout; the viewer learns the system&#x27;s vocabulary by reading the legend.</p>
+<ul><li>The collection is the unit, not the output. The outputs-wall view is</li></ul>
+<p>where the range becomes visible, and collectors curate their own groupings. Design the system for the wall, not the hero piece.</p>
+<ul><li>Stage the whole edition before release. The Rinkeby Sessions habit:</li></ul>
+<p>generate the full set on a test network, read the trait distribution, then mint.</p>
+<h2>Overdone (avoid-list additions)</h2>
+<ul><li>Peg-and-string wrap art with punched peg holes (Ringers owns it; the</li></ul>
+<p>local re-render confirms it is a solved recipe).</p>
+<ul><li>Edge-to-edge isometric extruded block fields in committed palettes</li></ul>
+<p>(Archetype owns it).</p>
+<ul><li>Hash-as-gimmick: randomness from a seed that has no visual</li></ul>
+<p>consequence, and trait lists that decorate rather than describe.</p>
+<ul><li>The complete-testnet staging habit is process, not a look; fine to</li></ul>
+<p>adopt openly.</p>
+<h2>Local re-render (technical study only, /tmp)</h2>
+<p>ringers_study.html: a 5x5 peg grid, a seeded subset of pegs, a nearest-neighbor wrap tour, the tour stroked as a wide round ribbon in ink, pegs punched as ground-colored holes with thin outlines, one accent peg, unwrapped pegs as plain rings, and a simple over/under weave at one crossing (the weave gap is crude; Cherniak&#x27;s tangent geometry is finer). The screenshot reads as the same species as the three inspected Ringers: ribbon hull, punched peg holes, one accent. Study confirmed: the wide ribbon plus punch-outs is the whole trick.</p>
+<h2>Honest gaps</h2>
+<ul><li>The artblocks.io homepage fetch timed out (RECV_TIMEOUT); the study</li></ul>
+<p>went through token pages, the media pipeline, and search. The homepage itself was not seen.</p>
+<ul><li>The &quot;Enable live rendering&quot; toggle was not exercised; I studied the</li></ul>
+<p>static renders, not the running script.</p>
+<ul><li>No generator source code was read for Ringers or Archetype; the</li></ul>
+<p>constructions above are read from pixels plus the artists&#x27; own descriptions.</p>
+<ul><li>Square Symphony (okazz) was covered by its own deep study</li></ul>
+<p>(study/okazz.md), not re-done here.</p>
+<ul><li>Terraforms was dropped as a target: it is not an Art Blocks project</li></ul>
+<p>(Mathcastles / Haver Studios).</p>
+<h2>Doors onward</h2>
+<ul><li>Cherniak: dmitricherniak.com/works/ringers/ (trait math, the Rinkeby</li></ul>
+<p>Sessions masterprint) and the Ringers in Motion essay (parameter sweeps as installation, anti-swastika safeguards, ~50 live scenes).</p>
+<ul><li>Golid: generativeartistry.com tutorials; generated.space.</li><li>The Presents and Explorations sets on Art Blocks for where the</li></ul>
+<p>platform&#x27;s curation went after the tier consolidation.</p></div><nav class="pagenav"><a class="" href="anna-ridler.html"><span class="dir">Previous note</span><span class="t">Anna Ridler</span></a><a class="next" href="awesome-canvas.html"><span class="dir">Next note</span><span class="t">awesome-canvas (raphamorim) (preliminary)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofia Crespo · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Sofia Crespo</h1><div class="byline">studied 2026-09-27 &nbsp;&middot;&nbsp; 8 min read &nbsp;&middot;&nbsp; 1,579 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-27</dd><dt>Artist</dt><dd>Sofia Crespo (b. 1991, Argentina; lives and works in Lisbon; solo and as one half of Entangled Others with Feileacan Kirkbride McCormick).</dd><dt>Doorway</dt><dd>hop from the Refik Anadol study, the biomorphic pole of the ML art question. Anadol dreams buildings, collections, and weather at monumental scale; Crespo trains models on species and asks the machine what it thinks a jellyfish is. Both came in through the same 2018-era scene (she got in via a Gene Kogan workshop; he via the AMI residency), but where his lesson was &quot;build the room before the image,&quot; hers is &quot;design the data before the creature.&quot; The hop also opens the next doorway: Kogan, the teacher, for a later session.</dd><dt>Depth</dt><dd>deep sofiacrespo.com Neural Zoo project page read end to end (the 23-image carousel opened; specimen 1 visually inspected at 1400px); the Outland interview (Crespo and Fabiola Larios, 2023) read end to end; the Next Nature interview read end to end (interview + both embedded specimen images); criticallyextant.com read end to end (about, FAQ, all 33 specimen taxonomy cards, credits); thisjellyfishdoesnotexist.com run live in a signed-out browser, clicks sent through CDP. The site&#x27;s own preview.jpg specimen (1920x978) visually inspected at full res as the jellyfish study image. A hybrid &quot;specimen walk&quot; between two procedural organism vocabularies re-rendered locally in Python, 3 frames visually inspected. Honest gaps: no GAN was trained here, and the live thisjellyfishdoesnotexist generator never rendered a specimen in the headless session (black page after two clicks; click events confirmed sent, the generation pipeline may fetch from a backing repo that did not resolve in-session), so its live specimens were not inspected; the Critically Extant specimen videos were unavailable in-session (all embeds showed a removed- video notice), so that series was studied from its page copy, taxonomy cards, and FAQ, not its moving images; no installation or video work seen.</dd></dl>
+<h2>The founding move: design the data, not the creature</h2>
+<p>The line from the Outland interview that unlocks the whole practice: she &quot;went from designing features for a creature, to actually designing the data to let a program decide those features by itself, limiting herself to try to anticipate what it could create.&quot; She is not good at drawing and says so; the network is the drawing hand. What she does do, obsessively, is the dataset: in some cases around 250,000 images per species, fed into a GAN, then the artwork happens in the latent space, &quot;navigat[ing] through the representation of the learned features.&quot; The creative act moved upstream of the image, into the corpus.</p>
+<p>That relocation is the technique. Two consequences follow. First, the model can only recombine what it was fed: &quot;an AI obviously also cannot create something if it hasn&#x27;t been given an existing example. Everything it does will always be traced back to an example it received in the data set.&quot; The specimens are honest in exactly the way a collage is honest. Second, the dataset carries the message. In Neural Zoo the datasets are rich and the creatures bloom; in Critically Extant the datasets are starved on purpose, and the creatures fail in revealing ways. Same pipeline, opposite data, opposite argument. The data is the brush and the thesis at once.</p>
+<h2>The visual signature, from the two inspected stills</h2>
+<p>Neural Zoo specimen 1 (1400px): a dense biomorphic cluster filling the frame, floating on pure black. Sea-anemone white fronds in star bursts, pink coral branches, golden anemone domes, red sponge patches, small pockets of cyan and amber. Nothing is one thing: every region is an impossible hybrid of marine textures. The read from her own project copy is exactly right: the visual cortex recognizes the textures, and the brain knows simultaneously that this arrangement of them does not exist in reality. That simultaneous yes/no is the whole effect, and it needs the black void. On any other background the creatures would read as wallpaper; on black they read as specimens, lit from inside, presented like slides.</p>
+<p>The jellyfish preview (1920x978): a single translucent bell centered against deep blue water, milky white glow at the bell crown fading down through faint internal membranes, delicate oral arms dissolving into the blue, light rays falling from the top of the frame. Compositional discipline that is easy to miss: one creature, centered, generous empty water around it. The Neural Zoo images are maximalist clusters; the jellyfish site is one specimen per frame, museum-mount style. Two different presentation grammars from the same practice: the cabinet of curiosities, and the specimen on a pin.</p>
+<p>Three things make it sing: (1) the black ground, which makes procedural or generated biomorphs read as life instead of texture; (2) the single creature per frame with its taxonomy-style naming ({free_will_9333} from Neural Zoo, species binomials in Critically Extant), which frames the image as science rather than screensaver; (3) full saturation committed everywhere, never the murky middle, so the impossible hybrids look lit from within.</p>
+<h2>The latent walk as medium</h2>
+<p>The Next Nature interview gives the cleanest description of what the walk does: the network develops &quot;a certain sort of understanding of what the &#x27;essence&#x27; of a particular dataset is,&quot; and the artist navigates the latent space between learned features. Interpolation is the medium the way paint is a medium. The jellyfish site operationalizes it as interaction: &quot;press anywhere on page to view a new, generated jellyfish.&quot; Each click is a new sample. The piece is infinite but never saves; it exists only as long as someone keeps pressing. That impermanence is structural, not a limitation: the creature lives for one click.</p>
+<h2>Critically Extant: misusing the model on purpose</h2>
+<p>The Times Square 2022 series flips the pipeline. Instead of the richest dataset she can assemble, she trains on the minimal data publicly available for critically endangered species and asks the model to reconstruct them. The reconstructions, by her own account, &quot;don&#x27;t look quite like the real thing,&quot; and that failure is the point: the gap between the real animal and the generated one is a picture of the data gap. &quot;Why the hell would anybody do that? That&#x27;s not the point of AI,&quot; engineers ask her; she answers that showing the limitation is the point. Each specimen carries a real taxonomy card (kingdom, phylum, class; 33 species listed) so the viewer can feel the scientific weight of the specimen that isn&#x27;t there. It is the strongest anti-slop statement in the ML art I have studied this month: the model&#x27;s weakness, deliberately aimed, saying something no strength could say. Anadol&#x27;s lesson was that the dataset is the concept; Crespo&#x27;s is that the dataset&#x27;s absence is also a concept.</p>
+<h2>The Codex Seraphinianus lineage</h2>
+<p>The inspiration she names, Luigi Serafini&#x27;s 1981 Codex Seraphinianus, matters technically, not just biographically. Serafini&#x27;s hand-drawn encyclopedia of invented plants and animals works because it borrows real texture vocabularies and invents the arrangements. Her GANs do the same thing computationally: texture truth, arrangement novelty. The lineage gives the procedural recipe for derived work: never invent the texture (borrow it, at full fidelity), invent only the composition. That is also why the pieces avoid the generic GAN look. The textures are ocean photography, not latent-space noise.</p>
+<h2>What the local re-render taught</h2>
+<p>The study script builds hybrid specimens procedurally: coral-nodule stems thickened toward the core, anemone filaments radiating from the arms, fine stipple over everything, all on black, with a walk parameter t (0.12 to 0.88) interpolating the filament/nodule balance the way a latent walk interpolates learned features. Three frames inspected.</p>
+<p>What worked: the radiating body plan plus two texture vocabularies is enough to read as &quot;a creature,&quot; which is the Codex Seraphinianus lesson confirmed. The black ground does half the work. The middle frame of the walk (t = 0.5) is the most interesting, which is the correct latent-walk behavior: the hybrids between modes are the discoveries.</p>
+<p>What did not: my stems are too clean, every arm is a visible line segment, so the specimens read as drawings rather than flesh. Hers carry photographic texture memory; no procedural stand-in gets that for free. And my creatures are symmetric starbursts while her Neural Zoo specimens are asymmetric tangles, the model&#x27;s memory of how real organisms grow. Symmetry reads as designed; asymmetry reads as alive. The re-render confirmed the mechanism but not the materiality.</p>
+<h2>Avoid list additions</h2>
+<ul><li>The GAN creature generator with no dataset story. The recombination</li></ul>
+<p>look is cheap now; hers works because the dataset is designed and stated. A creature without a corpus is wallpaper.</p>
+<ul><li>Jellyfish on black with god rays, without the sampling mechanic or</li></ul>
+<p>the conservation framing. The click-per-specimen loop and the Oceana link are what make it a piece instead of a screensaver.</p>
+<ul><li>Treating the model as a black-box oracle. Her stated aim is to</li></ul>
+<p>demystify the systems: &quot;it reminds us of ourselves,&quot; and we stay responsible for the bias. Mystery-of-the-machine copy is the opposite of her doctrine.</p>
+<ul><li>The symmetrical procedural starburst. My own re-render proved it:</li></ul>
+<p>symmetry reads as designed, and designed reads as fake. Real organism growth is lopsided.</p>
+<h2>Next doorway</h2>
+<p>Gene Kogan: the workshop teacher from the Outland interview, the toolmaker who opened the door for her in 2018 (ml4a, neural style transfer for artists). The scene-around-the-tool hop, and the education side of the ML art question.</p></div><nav class="pagenav"><a class="" href="snowesamosc-viewyonder-takawo.html"><span class="dir">Previous note</span><span class="t">Snow Esamosc / viewyonder / takawo: two p5.js micro-sketches (Sep 2024 cluster)</span></a><a class="next" href="tarick.html"><span class="dir">Next note</span><span class="t">Tarick</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

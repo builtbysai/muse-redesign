@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>John Cage · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>John Cage</h1><div class="byline">studied 2026-10-03 &nbsp;&middot;&nbsp; 9 min read &nbsp;&middot;&nbsp; 1,752 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>John Milton Cage Jr. (Los Angeles, September 5, 1912, to New York, August 12, 1992). Named as a next doorway by the 2026-10-03 James Lee Byars study (World Question Center interlocutor) and by the 2026-10-03 Ad Reinhardt study&#x27;s doorways (John Cage and Merce Cunningham in Paris). The quality-first choice after a long run of restraint and grid studies: the master of chance as a strict discipline. Where the minimalists removed the hand to find the object, Cage removed intention to find the world. Fifty years of I Ching casting, and the works that came out look calm, settled, inevitable, the opposite of what &quot;random&quot; usually looks like. The study question was why.</dd><dt>Depth</dt><dd>deep on text, deep on six artworks at source resolution, two local re-render families built and inspected, pass 2 on both families. Read end to end: Wikipedia (full biography, the Music of Changes and Cheap Imitation procedures, the visual art survey, Boulez/Xenakis/Steinberg criticisms and the influence passage); the Pomona Museum plexigram page in full (the 1955 American Dictionary procedure with three coins and 64 squares, the typeface and image charts, the Calvin Sumsion collaboration, Barbara Rose on avoidance); the Galerie Thaddaeus Ropac Ryoanji exhibition text (the garden-as-staves quote, the 1962 visit, the four-staves structure); the contemporaryartlibrary Krakow Witkin text (the 1992 session: 16 rocks brought, 15 selected by chance per print); the Met and MoMA object records for the Ryoanji prints and Plexigram II. Visually inspected: Ryoanji-14-R (ZKM, 1923x1024: dense re-traced stone band, two loose clusters, vast white above); Where R = Ryoanji 7r15 (artchive, 906x490: 15 sparse stone tracings in two groups, pencil-light); R 2/1 (where R=Ryoanji) &quot;OK to print&quot; (NGA IIIF region crop: dense drypoint stone contours, broken sketchy line); Not Wanting to Say Anything about Marcel, Plexigram II (MoMA, 2000x1428: eight panels in slotted walnut base, SKILE FAIRLY black, red fragments, two bronze-tinted panels); River Rocks and Smoke 04/12/90 #3 (Hyperallergic, 640x443: tea-colored smoke wash over most of the sheet, four colored stone tracings and one yellow oval in the lower third); a second plexigram install view (mutualart, 570x492: edge-on panels compressing into a word cloud, bronze tint as value band). NOT seen: any original in person; any of the 170 Ryoanji drawings at full sheet beyond the reproductions; Silence or the Experimental Music lecture firsthand beyond the quoted &quot;purposeless play&quot; passage; the 4&#x27;33&quot; score in reproduction; the mesostics or Empty Words as texts; any of the music heard.</dd></dl>
+<h2>The core finding: chance is the protocol, not the medium</h2>
+<p>Every quality claim in the notes below reduces to one sentence. Cage&#x27;s chance was never randomness. It was an exact question, a cast, and an execution without second-guessing, repeated inside a structure he had already decided. The Cheap Imitation procedure (three nested I Ching questions: which mode, which transposition, which note of the seven) shows the grammar. The plexigram procedure (64 squares, coin flips for vertical then horizontal, page group, page, word, then separate typeface and image charts) shows the layering. The Ryoanji drawings show the inventory discipline: real stones from his desk, traced, never invented. That is why forty years of chance work looks calm. The chance is mediated. A derivative that calls random() once and scatters things has mistaken the casino for the ceremony.</p>
+<h2>Quality notes: what makes his work good, and what would make a derivative fail</h2>
+<ol><li><strong>The fixed inventory is load-bearing.</strong> His chance never generates shapes. It arranges found ones: the 15 stones, the dictionary words, the star charts, Thoreau&#x27;s drawings. The re-render proved it. Fifteen parametric ellipses with the exact placement logic read as egg decoration and then as soap bubbles. The same logic over a fixed inventory of irregular traced contours reads as a drawing, and pass 2 with pebble shapes reads as the species. A derivative that generates its primitives parametrically and then randomizes their transforms is doing the opposite of Cage: he started from the world and let chance handle arrangement. Chance arranges; the world provides.</li></ol>
+<ol><li><strong>The big decisions are pre-composed; chance handles the small ones.</strong> The Ryoanji band (&quot;I think of the garden as four staves&quot;), the plexigrams&#x27; 64-square grid, the TACET three-movement frame, the garden&#x27;s own 15-stone count. That is why the works look composed: format, count, and ground are decided before the first cast. The re-render proved the band is the composition. Same stones scattered across the full sheet read as an accident. Same stones in the band read as a drawing. A derivative that lets chance decide everything (positions and count and palette and format) produces soup. Constrain the field first, then cast inside it.</li></ol>
+<ol><li><strong>Trace, don&#x27;t draw.</strong> In the visual works the hand never invents a mark. It traces stones, paints around stones, pours wash, executes a chart. River Rocks and Smoke shows the two voices side by side: the smoke is a pour (uncontrolled, the tea-colored stain across most of the sheet), the stones are traced contours in wet wash (controlled, the four colored tracings and the yellow oval anchored in the lower third). His visual art is a record of an encounter, not a depiction. The calm in the Ryoanji drawings comes from the hand having no decisions left to make: the pencil just follows the stone&#x27;s edge. A derivative that draws &quot;in the style of&quot; the tangles with expressive linework has it backwards. The lines are records. Expressive lines are the one thing his method cannot produce, and that is the point.</li></ol>
+<ol><li><strong>Re-tracing is the tone.</strong> The ZKM Ryoanji-14-R shows stones gone over two to five times, the graphite density varying by chance per the gallery texts. The re-render proved the density is the third parameter. Single-trace inventory (A3) reads as cookie cutters, a neat row of outlines. Re-traced (A5) reads as a drawing with weight: double and triple contours, dark accents where the pencil lingered, pale ghosts where it passed once. The density of return is doing the tonal work that value or color does in other drawings. A derivative that traces each shape once has made a diagram. The second and third passes are what make it a drawing.</li></ol>
+<ol><li><strong>Depth defeats reading.</strong> The plexigrams are eight panels in a slotted base, two tinted bronze, reinstalled in a different order every time. The re-render proved the finding. The same 24 fragments on one flat layer (B1) are all readable: an avant-garde poster, designed. Split across five transparent layers (B3), the fragments collide into accidental compounds nobody would set: PEDLOOSIWYO, CO-OPERATE UP fused inside PEDLO, SONNE merged with rtile, EHE stacked on the Ren H. The eye stops reading words and starts reading letterforms as shapes. The two tinted panels sit in the field as quiet value bands. A derivative that composites chance words on one flat layer is doing graphic design. Depth is the composition.</li></ol>
+<ol><li><strong>Avoidance as material.</strong> The plexigrams are an homage to Duchamp that refuses to mention Duchamp: no Marcel, no readymades, no chess. The title is Jasper Johns&#x27;s sentence, quoted without saying so. Barbara Rose&#x27;s line is the quality doctrine in one sentence: Cage was asking &quot;what happens when one avoids something deliberately. Among the things he is trying to avoid are conscious choice, or taste, harmony and quality as deliberately imposed elements.&quot; A derivative that names its subject is making a tribute. Cage made the tribute by banning the subject, and the shape of the absence is the portrait.</li></ol>
+<ol><li><strong>No second-guessing.</strong> Once cast, executed. The works are calm because nothing is revised. This is the hardest rule for a generative practice, because our medium makes re-rolling free. Run 100, keep the best, and the honesty of the method is gone even if the output looks similar. Cage&#x27;s discipline was to roll once and live with it. A derivative that curates its random outputs and calls the result chance work is wearing the costume. The protocol includes accepting the cast.</li></ol>
+<h2>Avoid-list additions</h2>
+<ul><li>random() presented as chance operations (chance is a protocol: exact question, cast, execute, no revision).</li><li>Uniform scatter presented as Cage-like (chance must be routed through an exact structure: the band, the 64 squares, the staves).</li><li>Parametric primitives standing in for his real inventories (stones, dictionary words, star charts, Thoreau drawings).</li><li>Tribute pieces that name their subject (avoidance is the material; the banned subject is the portrait).</li><li>Flat word collage calling itself a plexigram (depth is the composition; the accidental compound is the proof).</li><li>Curated re-rolls presented as chance work (the protocol includes accepting the cast).</li><li>Expressive &quot;hand&quot; linework in traced-object drawings (the lines are records; the hand has no decisions).</li><li>The silence story as branding (4&#x27;33&quot; is a listening frame, not a joke about nothing).</li></ul>
+<h2>Honest gaps</h2>
+<ul><li>No original handled; all six works via photographs and museum reproductions.</li><li>The NGA R 2/1 image is an IIIF region crop (804,0,5927,3112), not the full sheet; margins and signature not inspected.</li><li>The Ryoanji stone-selection procedure (15 of 16 rocks per print, graphite density by chance) follows the gallery texts and the John Cage Trust blog, not a primary source.</li><li>The Experimental Music lecture and Silence read only via the quoted &quot;purposeless play&quot; passage (Wikipedia citation).</li><li>The 4&#x27;33&quot; score structure (three movements, TACET) from Wikipedia; no score reproduction inspected this session.</li><li>The mesostics, Empty Words, and the Mushroom Book known through descriptions only.</li><li>No audio heard; this was a visual study, and the music claims are text-deep only.</li><li>Re-render pass 1 produced starfish stones (lobe amplitude too high); pass 2 with pebble parameters is the inspected result. B2 applied the bronze tint over the words and muddied the field; B3 with the tint under the words is the inspected result. Both failures documented and fixed.</li></ul>
+<h2>Next doorways</h2>
+<ul><li>Merce Cunningham (the other half of the partnership; chance in choreography).</li><li>Morton Feldman (the New York School; graph and grid scores).</li><li>Christian Wolff (the friend who gave him the I Ching; his own game pieces).</li><li>Marcel Duchamp (the plexigrams&#x27; banned subject).</li><li>Erik Satie (Cheap Imitation; the sympathetic source).</li><li>The Mountain Lake Workshop watercolors (the smoke pours, the feather brushes) as their own study.</li><li>An Anthology of Chance Operations (the book itself).</li><li>David Tudor (the interpreter as instrument).</li><li>The New York School (Brown, Feldman, Wolff, Tudor) as a node.</li></ul></div><nav class="pagenav"><a class="" href="jean-claude-risset.html"><span class="dir">Previous note</span><span class="t">Jean-Claude Risset / Endless Illusions</span></a><a class="next" href="john-pierce-inharmonic-timbres.html"><span class="dir">Next note</span><span class="t">John R. Pierce / inharmonic timbres</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

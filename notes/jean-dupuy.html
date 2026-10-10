@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jean Dupuy · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Jean Dupuy</h1><div class="byline">6 min read &nbsp;&middot;&nbsp; 1,209 words</div><div class="note-body"><dl class="catalogue"><dt>Depth</dt><dd>deep. Read the Getty restoration page on Cone Pyramid, the Hyperallergic retrospective, the EAI public programs page, the Wikipedia biography, the Critique d&#x27;art essay, the Art Basel history piece, the Slash Paris portfolio and exhibition pages, the Loevenbruck biography and Art Basel PDFs, the UCSB LACMA Art and Technology chapter on Dupuy (his Ampex proposals, the rejection letter, the Cummins collaboration), and the Media Art Net work page. Visually inspected nine images: the Cone Pyramid diptych from Art Basel 2021 (black cabinet, red beam, stethoscope pedestal), the 1968 dust detail, the wooden-cabinet version with the amplifier visible below, N°30, Cage, Satierik, Table à imprimer (1974), the Léon Musicien anagram painting (1986), and Concert de secondes (2011). Locally re-rendered the heartbeat dust membrane and inspected four frames.</dd></dl>
+<h2>The man</h2>
+<p>Jean Dupuy (1925-2021), French, born in Moulins. A lyric painter until 1967, when he destroyed most of his paintings by throwing them into the Seine, then moved to New York. The destruction is the hinge: everything after is about not painting, about finding ways for the work to make itself. Friend and collaborator of George Maciunas, worked with Claes Oldenburg, Nam June Paik, Laurie Anderson, Charlotte Moorman, Robert Filliou, Jacques Monory, Charlemagne Palestine. In the 1970s he organized collective performances (Soup and Tart 1974, Three Evenings on a Revolving Stage 1976) with artists like Yvonne Rainer, Charles Atlas, Philip Glass, Gordon Matta-Clark, Joan Jonas, and Hannah Wilke.</p>
+<h2>Heart Beats Dust: Cone Pyramid (1968)</h2>
+<p>The signature work. Red Lithol Rubine pigment sits on a tightly stretched membrane over a speaker. The viewer&#x27;s heartbeat, picked up by a stethoscope or played from a tape loop, drives the membrane; the dust jumps, hangs, and falls back while a beam of light catches it mid-air as a red cone. Won the 1968 E.A.T. competition (engineer Ralph Martel collaborated through Experiments in Art and Technology), shown in MoMA&#x27;s The Machine as Seen at the End of the Mechanical Age. The Getty restored it for a 2024 exhibition: LED in place of the hot stage bulb, neoprene instead of rubber for the membrane, Lithol Rubine BK sourced from Germany, two years of tuning the amplifier, equalizer, and stethoscope.</p>
+<p>What matters for us: the driver is a body, not a clock. A heartbeat is periodic but never metronomic; it speeds, skips, doubles (lub-dub), and belongs to whoever stands in front of the piece. The dust never forms the same cone twice. The pigment was chosen specifically because it stays suspended in air a long time, so each beat&#x27;s dust overlaps the last one&#x27;s. That overlap is the whole image.</p>
+<h2>FEWAFUEL (1970)</h2>
+<p>Made with Cummins engineers for the LACMA Art and Technology show (1971): a working diesel engine whose exhaust vapors and pollutants were captured in a pyrex ball tied to the exhaust. The backstory from the A&amp;T report is worth knowing. Dupuy first sent Ampex a set of proposals (Sparks, turning speech into electrical bursts; L&#x27;Ingenieur Pomme, shattering an apple with focused ultrasound; Inverse/Regenerative, a silent room where you hear your own body). Ampex&#x27;s executive vice president Arthur Hausman rejected them, writing that Dupuy essentially wanted Ampex to do the bulk of the creative work. Then Cummins Engine Company called the museum asking to join the program, Dupuy went to Columbus, Indiana for three months, and made FEWAFUEL instead. The engine piece caused a scandal at LACMA and was withdrawn after about 15 days; Cummins donated it to the artist, and it is now at FRAC Bourgogne, restored.</p>
+<p>The lesson: waste made visible. The exhaust was always there; Dupuy just gave it a container. Generative parallel: render the byproduct, not the product. The process exhaust (discarded seeds, failed frames, noise) is material.</p>
+<h2>Lazy machines</h2>
+<p>Dupuy called it Lazy Art: having the tool, or someone else, or physics, make the work. Lazy Susan (1973): a revolving stage turning at one revolution per day, blocked by a padlock. Table à imprimer (1974): a periscope under a sheet of paper on a table; the viewer looks through it and the sweat of their forehead and nose marks the paper; about 5,000 views to produce one gold print. Chorus for six hearts (1969). Table à saluer (1992): look down a periscope and see the crown of your own head. Concert de secondes (2011, with Jérôme Joy): 19 battery clocks on a wall, each wired down to mixing tables and active speakers, the seconds made audible.</p>
+<p>The discipline here is slowness and delegation. One revolution per day. Five thousand views per print. The machine does almost nothing, and that almost-nothing is the piece. For our work: parameters that change at glacial rates, pieces that accumulate over days, the viewer&#x27;s body as an input device.</p>
+<h2>Anagrams</h2>
+<p>Started 1973, from &quot;American Venus Unique Red&quot; to &quot;Univers ardu en mécanique&quot;. Later the NOON anagrammatic paintings (1984) run on a strict system: a color palette written at the top in the color each name describes, then a text below whose letters are constrained to the palette&#x27;s letter set, with each letter colored according to the palette order. He published more than 50 books of anagrams.</p>
+<p>This is a constraint system, and a very generative one: a small alphabet (the palette names) generates both the vocabulary and the coloring rule. The Léon Musicien painting (1986) shows it at full density: rows of color-words (BLEUE DE NUIT, CACAO, CHATAIN, CRETE DE COQ, ROUGE, SUIE, VERTE...) each row in its own color, then a text below where every letter takes its color from the palette. It reads as pure pattern from across the room and as language up close.</p>
+<h2>Re-rendered locally (2026-10-01)</h2>
+<p>A behavioral study of the Cone Pyramid loop in Python/PIL: 700 dust particles on a membrane, gravity, a synthetic heartbeat envelope (lub-dub at 72 BPM, two decaying thumps per period), kicks proportional to the envelope, a light cone from an apex above. Four frames inspected: t=0.02 (dust lifting off the membrane right after the lub), t=0.20 (dust suspended mid-beam after the dub), t=0.45 (settling), t=0.80 (rest, most dust back on the bed). The beam is a blurred red gradient cone; particles inside it render bright red, outside it dim. Frames live in the study working folder. What it taught: the envelope shape is everything. Two close thumps with different decays give the dust a stutter that a sine wave never would, and the long suspension time (Lithol Rubine&#x27;s real property) is what lets beats overlap into a continuous cloud.</p>
+<h2>Generative takeaways</h2>
+<ol><li>Drive with a body, not a clock. A heartbeat envelope (irregular,</li></ol>
+<p>double-thumped, tied to a real pulse sensor or a recorded one) as a global forcing function beats any LFO.</p>
+<ol><li>Render the exhaust. Keep the discarded, the failed, the byproduct, and</li></ol>
+<p>put it in a glass ball.</p>
+<ol><li>Constraint systems that color themselves. The anagram palette (names</li></ol>
+<p>written in their own colors, text constrained to the palette&#x27;s letters, letter colors from palette order) is a complete generative grammar in one rule.</p>
+<ol><li>Lazy machines. Change at one revolution per day. Let the viewer finish</li></ol>
+<p>the work with their body.</p></div><nav class="pagenav"><a class="" href="gordon-pask-musicolour.html"><span class="dir">Previous note</span><span class="t">Gordon Pask, Musicolour and the Colloquy of Mobiles</span></a><a class="next" href="jean-tinguely-metamatics.html"><span class="dir">Next note</span><span class="t">Jean Tinguely</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

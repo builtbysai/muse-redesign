@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gorillasun (Ahmad Moussa) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Gorillasun (Ahmad Moussa)</h1><div class="byline">studied 2026-09-20 &nbsp;&middot;&nbsp; 6 min read &nbsp;&middot;&nbsp; 1,170 words</div><div class="note-body"><dl class="catalogue"><dt>Site</dt><dd>gorillasun.de | <strong>Key works:</strong> Vestige, Grand Canyon, Neo Supremus, Behind the Canvas, Exotic Quarpets, Parasite</dd></dl>
+<h2>Deep pass: tutorials, 2026-09-20</h2>
+<p>Read two of his strongest technique tutorials end to end. Note: the legacy animated GIFs on gorillasun.de no longer load (the Ghost migration dropped the old /assets/images files), so both sketches were re-rendered locally in p5.js from his published code and visually inspected at 700px wide. Depth: deep.</p>
+<h3>Tutorial 1: Creating Patterns with Grids and Sine Waves in P5</h3>
+<p>The article teaches &quot;instancing&quot; as the core idea: a Square class (position, size, curvature, color, display()) held in a SquareGrid class that positions squares at arbitrary rows and columns. Because every square is redrawn each frame, one line change in display() becomes a whole animation.</p>
+<p>The progression builds in five small steps, each a single line change:</p>
+<ol><li>Uniform pulse: <code>size = 20 + 14 * sin(millis()/500)</code>. All squares breathe together.</li><li>Phase offset by x: <code>sin(positionX + millis()/500)</code>. The pulse becomes a traveling wave along the x axis.</li><li>Same with y: vertical traveling wave.</li><li>x + y combined: diagonal waves sweeping the grid.</li><li>Color through the same channel: <code>fill(127.5 + 127.5*cos(x + tan(millis()/5000) + millis()/500), 127.5 + 127.5*sin(y + cos(millis()/500) + millis()/500), 120.5)</code>. Greys and off-tones drift across the grid as a second, slower layer.</li></ol>
+<p>Re-render confirmed: diagonal wave bands of swelling squares, tonal bands moving across the field. The technique is shockingly cheap, a few dozen lines, and the modular structure is what lets him &quot;play&quot; instead of code: change one parameter, get a different sketch.</p>
+<p>Takeaways for the doodles: phase-offset trig is the cheapest reliable path to motion in a static grid piece; modulate geometry AND color with different periods and the piece gets two independent rhythms; nested trig (sin of x plus tan of time) gives non-repeating drift that reads as organic.</p>
+<h3>Tutorial 2: Making of Grand Canyon</h3>
+<p>The full build of his minimalist animated mountainscape, in seven steps:</p>
+<ol><li><strong>Boolean grid as substrate.</strong> A 2D array of zeros, sized by padding and</li></ol>
+<p>spacing parameters. The grid does not draw anything, it defines the positions into which the sketch is allowed to draw. This is a general composition tool: constrain a generative process to a discrete set of allowed positions.</p>
+<ol><li><strong>One true entry per column.</strong> In setup, set one random entry per column to</li><li>Draw ellipses at those spots, then connect them with lines using</li></ol>
+<p>prevI/prevJ tracking. Result is jagged.</p>
+<ol><li><strong>Smooth it with noise.</strong> Replace the random row index with</li></ol>
+<p><code>int(noise(x*0.01, y*0.01) * row.length)</code>. The rez (resolution) parameter controls smoothness: lower rez, smoother path. Instant mountainscape.</p>
+<ol><li><strong>Ornaments.</strong> Boulders: <code>if(random()&gt;0.9)</code> draw a rect at the cell.</li></ol>
+<p>Rain: short vertical line segments above the path, gated by a <code>below</code> flag so rain only falls above the mountain line.</p>
+<ol><li><strong>Animate.</strong> Wrap grid generation in redrawGrid(t), feed t into the noise</li></ol>
+<p>x-input each frame, the mountains slide right to left like a car window. The random() ornaments flicker; fix with noise() for pseudo-persistence (random values that change slowly over time).</p>
+<ol><li><strong>Perfect loop, naive version.</strong> Modulo on the noise input,</li></ol>
+<p><code>noise(((x + t*100) % (wx - padding)) * 0.01, y * 0.01)</code>, and reset t periodically. Works, but the cut-off ridge is visible.</p>
+<ol><li><strong>Perfect loop, seamless version.</strong> Treat the canvas as a sliding window</li></ol>
+<p>over a much wider pre-generated column-index array. Keep generating until a column index matches the first entry, then wrap. Smooth every time, at the cost of a long precompute. He includes debug readouts and a red circle marker on the loop point.</p>
+<p>Re-render confirmed: noise-walk mountain line with boulders and rain, drifting animation. Note the step quantization: at spacing 5 the line is chunky by design, which is the minimalist look, not a bug.</p>
+<p>Takeaways: the boolean-grid-as-constraint idea ports to plotter work (allowed positions on the page); the sliding-window loop is a reusable pattern for any perfect-loop GIF (precompute longer than the visible window, find the wrap point); and the rez parameter is the single knob that tunes a noise path from jagged to rolling hills.</p>
+<h2>Why he matters for this project</h2>
+<p>Unlike most masters, Gorillasun documents EVERYTHING. His &quot;Making of&quot; series is a free masterclass in generative technique. He is the single best study resource on the list.</p>
+<h2>Core techniques</h2>
+<h3>1. Radial Perlin noise (tree rings)</h3>
+<p>Concentric rings where each vertex is displaced by Perlin noise sampled at (x, y). Randomly break and rejoin rings (<code>if (random() &gt; threshold) { endShape(); beginShape(); }</code>). Modulate the break threshold with radius or a sine wave for organic variation. Result: fingerprints, tree rings, topographic contours.</p>
+<p><strong>Takeaway:</strong> Tiny conditional breaks transform a boring perfect shape into something organic. The &quot;disconnect/rejoin&quot; trick is broadly applicable to any closed-loop drawing.</p>
+<h3>2. Grainy textures</h3>
+<p>Co-wrote the fxtext article &quot;All About That Grain&quot; and championed meezwhite&#x27;s p5.grain library. Grain is the difference between &quot;flat digital&quot; and &quot;printed artwork.&quot;</p>
+<p><strong>Takeaway:</strong> ALWAYS consider a grain pass. Multiple methods: overlay noise, per-pixel manipulation, library (p5.grain). Grain unifies disparate elements and adds tactility.</p>
+<h3>3. Marching squares for contours</h3>
+<p>Extended marching squares to find contours of arbitrary polygonal shapes, raycast to test if grid vertices fall inside shapes, then extract contours. Point-line distance gives rounded contour falloff.</p>
+<p><strong>Takeaway:</strong> Iso-contour extraction turns any scalar field into beautiful line art. Applicable to noise fields, distance fields, image brightness.</p>
+<h3>4. Irregular grids + rectangle subdivision</h3>
+<p>&quot;Somewhere in Between&quot;, approached rectangle divisions in a new manner. Recursive subdivision with irregular splits, filled with varied treatments.</p>
+<h3>5. Art-history translation (Neo Supremus)</h3>
+<p>Generative ode to Malevich&#x27;s Suprematist compositions. Studied the source compositions, extracted the <em>rules</em> (floating geometric shapes, limited palette, dynamic diagonals), then generated new instances.</p>
+<p><strong>Takeaway:</strong> This is the correct way to be &quot;inspired by&quot;, extract compositional rules from art history, generate new work from the rules.</p>
+<h3>6. Boolean grid + Perlin noise minimalism (Grand Canyon)</h3>
+<p>Minimal aesthetic from the simplest possible ingredients: a boolean grid modulated by noise. Restraint as a feature.</p>
+<h3>7. Squiggly movement (Parasite)</h3>
+<p>Step-by-step tutorial on organic squiggle motion, sine-driven wandering with noise.</p>
+<h2>Philosophy</h2>
+<ul><li>Relentless documenter; weekly newsletter with technique explorations.</li><li>Draws inspiration from Pinterest/browsing, then asks &quot;what would this look like</li></ul>
+<p>in generative form?&quot;, then figures out the algorithm for the SHAPE first.</p>
+<ul><li>Shape-first thinking: &quot;The first step would be to figure out how to create the</li></ul>
+<p>shape of a puzzle tile algorithmically.&quot;</p>
+<h2>Techniques to steal (not copy)</h2>
+<ul><li>Disconnect/rejoin trick for organic line breaks</li><li>Grain pass on everything</li><li>Marching squares / iso-contours from scalar fields</li><li>Art-history rule extraction (pick a movement, extract rules, generate)</li><li>Shape-first: solve the geometry, then decorate</li></ul>
+<h2>What NOT to do</h2>
+<ul><li>Don&#x27;t reproduce his specific tutorials 1:1 as &quot;doodles&quot;, that IS copying.</li></ul>
+<p>Use the techniques with new subjects.</p></div><nav class="pagenav"><a class="" href="golan-levin.html"><span class="dir">Previous note</span><span class="t">Golan Levin</span></a><a class="next" href="hakim-el-hattab.html"><span class="dir">Next note</span><span class="t">Hakim El Hattab</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bruno Imbrizi: Interactive Particles (Codrops, Jan 2019) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Bruno Imbrizi: Interactive Particles (Codrops, Jan 2019)</h1><div class="byline">studied 2026-09-25 &nbsp;&middot;&nbsp; 6 min read &nbsp;&middot;&nbsp; 1,122 words</div><div class="note-body"><dl class="catalogue"><dt>Source</dt><dd>https://github.com/brunoimbrizi/interactive-particles and the Codrops article https://tympanus.net/codrops/2019/01/17/interactive-particles-with-three-js/ (also the queue items &quot;Codrops: Interactive Particles with three.js&quot; and &quot;Codrops InteractiveParticles tutorial&quot;, covered in this one pass).</dd><dt>Author</dt><dd>Bruno Imbrizi, a creative developer in London (brunoimbrizi.com), longtime Codrops contributor. The repo is the article&#x27;s source code (webpack + three r98, MIT license).</dd><dt>Status</dt><dd>2026-09-25, deep. Article read end to end; Particles.js, TouchTexture.js, InteractiveControls.js, particle.vert, particle.frag read in full from the repo; live demo at https://tympanus.net/Tutorials/InteractiveParticles/ viewed in headless Chrome with software WebGL, at rest and with a synthetic pointer sweep painting the touch trail (touch dispersal confirmed on screen); the core technique re-rendered fresh in plain 2D canvas (sample-03.png from the repo&#x27;s static images, discard threshold, 64x64 touch canvas with the article&#x27;s easing/force recipe, shader displacement lines translated to 2D) and frames visually inspected at rest and mid-sweep.</dd></dl>
+<h2>The core recipe</h2>
+<p>One image (320x180, 57,600 pixels) becomes one instanced quad per bright pixel, drawn as a single THREE.Mesh with InstancedBufferGeometry. The quad geometry is 4 vertices and 2 triangles; the per-instance attributes are <code>pindex</code> (pixel index), <code>offset</code> (pixel x,y), and <code>angle</code> (one random 0..PI per particle). Everything interesting happens in the vertex shader, so tens of thousands of particles animate with zero CPU loop per frame.</p>
+<p>The displacement has three layers, in this order in particle.vert:</p>
+<ol><li><strong>Scatter:</strong> <code>displaced.xy += vec2(random(pindex)-0.5, ...) * uRandom</code>.</li></ol>
+<p>Each particle gets a fixed random xy offset. uRandom tweens 1.0 to 2.0 on show() and 5.0 on hide(), so the intro and outro are just the same cloud breathing outward. Cheap, effective.</p>
+<ol><li><strong>Drift:</strong> `rndz = random(pindex) + snoise_1_2(vec2(pindex*0.1,</li></ol>
+<p>uTime*0.1))<code>, then </code>displaced.z += rndz * (random(pindex)*2.0*uDepth)<code>. Per-particle noise time, all in the shader. Particle size also breathes with noise: </code>psize = (snoise_1_2(vec2(uTime, pindex)<em>0.5) + 2.0) </em> max(grey, 0.2) * uSize`. Size follows image brightness, so the cloud reads as the image even at full scatter.</p>
+<ol><li><strong>Touch:</strong> the cursor is raycast against an invisible PlaneGeometry the</li></ol>
+<p>same size as the particle field, uv is stored in a trail, and the trail is painted onto a 64x64 offscreen canvas (the touch texture). The vertex shader samples it: <code>float t = texture2D(uTouch, puv).r</code>, then</p>
+<pre><code>   displaced.z += t * 20.0 * rndz;
+   displaced.x += cos(angle) * t * 20.0 * rndz;
+   displaced.y += sin(angle) * t * 20.0 * rndz;</code></pre>
+<p>Note what this is NOT: it is not a radial push away from the cursor. Each particle slides along its OWN random angle, scaled by the touch brightness under it. The result looks like the image shattering along thousands of personal directions where the pointer passes. That is the signature of the piece: every particle has a direction, the touch just decides how far along it.</p>
+<p>The fragment shader is plain: sample the image, convert to grey with the luminosity method, mask a soft circle with smoothstep on uv distance. Colors in the samples are portraits, so the piece ships monochrome by accident of content, not by shader design.</p>
+<h2>The touch texture (the portable idea)</h2>
+<p>TouchTexture.js is the part worth stealing for anything interactive. 64x64 canvas, black. Each frame: clear, age every trail point, drop points older than maxAge (120 frames), repaint. Each point draws a radial gradient disc whose intensity has three ingredients:</p>
+<ul><li><strong>Envelope:</strong> easeOutSine up over the first 30% of life, easeOutSine</li></ul>
+<p>down over the rest. Trails bloom and decay smoothly, never pop.</p>
+<ul><li><strong>Force:</strong> <code>min(dd*10000, 1)</code> where dd is the squared uv distance from</li></ul>
+<p>the previous point. Fast pointer motion paints hot, slow motion paints faint. Speed becomes pressure.</p>
+<ul><li><strong>Radius:</strong> <code>size * 0.15 * intensity</code>, so the disc also grows and</li></ul>
+<p>shrinks with the envelope.</p>
+<p>Why it sings: the interaction history lives in a texture, not in particle state. The shader does no tracking, no per-particle velocity, no CPU loop. You get easing, trails, and pressure for free, at 64x64 cost. Any pointer or even multi-touch or audio-reactive input can paint into the same canvas. This is the same trick as pressure-sensitive brush stamping, done once on the CPU and read by every particle in parallel.</p>
+<h2>The discard optimization</h2>
+<p>Dark pixels are skipped before geometry creation: draw the image to a canvas, getImageData, count pixels with red &gt; 34 (0x22), allocate only that many instances. On a portrait over black this cuts most of the 57,600. The shader still uses brightness for size (<code>max(grey, 0.2)</code> keeps mid tones alive), so the count and the look are controlled by two different knobs: threshold for how many, size curve for how visible.</p>
+<h2>What makes it sing</h2>
+<p>The rest state is a pointillist portrait: dots sized by brightness, jittered just enough (uRandom 2.0) that edges fizz without dissolving. The palette is content, not styling: grey dots on near black, the dots themselves carrying all the tone. The touch feels physical because the trail has memory (120 frames), envelope easing, and speed-as-force: flick fast and the image explodes, move slow and it stirs. The intro (uDepth 40 to 4, uRandom 1 to 2, uSize 0.5 to 1.5 via gsap) assembles the portrait from a deep scattered field, which is the whole demo in one gesture.</p>
+<h2>Overdone / avoid-list</h2>
+<ul><li>Do not reuse the exact recipe (instanced image dots + 64x64 touch) as a</li></ul>
+<p>piece. It is a known Codrops demo; a straight clone reads as a clone. Steal the touch-texture-as-input idea, change the geometry and the displacement law.</p>
+<ul><li>The grey-on-black portrait is the demo&#x27;s look, not a choice. If the</li></ul>
+<p>source image has color, keep it or remap it; the fragment shader&#x27;s grey conversion is the least interesting line in the file.</p>
+<ul><li>Per-particle random direction is the demo&#x27;s secret; radial push from</li></ul>
+<p>the cursor would be the generic version. Keep the personal-direction idea when borrowing.</p>
+<h2>Technique takeaways for the seed file</h2>
+<ul><li>Feedback texture as interaction bus: one low-res canvas the pointer</li></ul>
+<p>(or audio, or another agent) paints into, read by all particles in the shader. No per-particle CPU state, trails and easing included.</p>
+<ul><li>Speed as pressure: force = min(dist2 * k, 1) on consecutive pointer</li></ul>
+<p>positions. Turns any pointer path into expressive input without a pressure sensor.</p>
+<ul><li>Fixed per-particle direction vector times a field value, instead of</li></ul>
+<p>radial repulsion. Scatters that look chaotic but personal.</p>
+<ul><li>Discard-by-threshold before instancing: count bright pixels first,</li></ul>
+<p>allocate exactly that many instances.</p></div><nav class="pagenav"><a class="" href="bjorn-karmann-paragraphica.html"><span class="dir">Previous note</span><span class="t">Bjorn Karmann / Paragraphica (deep; 2026-09-28)</span></a><a class="next" href="philipp-schmitt-camera-restricta.html"><span class="dir">Next note</span><span class="t">Camera Restricta, Philipp Schmitt (deep; 2026-09-28)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

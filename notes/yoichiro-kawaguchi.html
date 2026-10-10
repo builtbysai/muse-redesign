@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yoichiro Kawaguchi: the Growth Model · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Yoichiro Kawaguchi: the Growth Model</h1><div class="byline">studied 2026-10-01 &nbsp;&middot;&nbsp; 12 min read &nbsp;&middot;&nbsp; 2,369 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-10-01</dd><dt>Subject</dt><dd>One geometric growth law generating shells, branching plants and glossy artificial lifeforms, from the 1982 GROWTH program to the Gemotion bumpy screen</dd><dt>Hop path</dt><dd>Computer Technique Group (2026-10-01 study) named Kawaguchi as the next doorway, the Japanese computer art thread continuing from sixties plotter work into eighties 3D animation</dd><dt>Depth</dt><dd>deep (mechanism re-rendered locally; 6 works visually inspected at full resolution, 7 images)</dd></dl>
+<h2>Who he is</h2>
+<p>Yoichiro Kawaguchi was born on Tanegashima in 1952, a subtropical island that is also Japan&#x27;s main spaceport, and the sources keep pairing those two facts: wildlife on one side, rockets on the other. He studied visual communication design at the Kyushu Institute of Design (graduated 1976), took an MFA at Tokyo University of Education in 1978, and made his first computer images in 1975. From 1976 to 1979 he researched three-dimensional freeform surface modeling at the Industrial Product Research Institute of MITI, and the Ars Electronica 1986 catalogue says that is where he developed the &quot;growth model&quot; for morphogenetic study.</p>
+<p>The recognition came in 1982 with the SIGGRAPH paper &quot;A Morphological Study of the Form of Nature,&quot; which introduced the growth model as a self-organising algorithm for simulating growing branches and cell divisions. He then worked with Professor Koichi Omura at the University of Osaka on a new CG system to make <em>Growth: Mysterious Galaxy</em> (1983), a five-minute animation shown at SIGGRAPH. He appeared in the SIGGRAPH Art Show for the following twelve years by DAM&#x27;s count, showed at the Venice Biennale and EXPO&#x27;86 in Vancouver and Ars Electronica in 1986 and 1991, and researched HDTV from 1986. Later he choreographed dancer interaction in <em>Gemon Dance</em> (2000), designed Cosmo, a keyboard-playing laser robot, for Squarepusher&#x27;s Z-Machines in 2013, and taught at the University of Tokyo until retiring in 2018. The honours run long: Prix Ars Electronica Award of Distinction 1991, SIGGRAPH Distinguished Artist Award for Lifetime Achievement 2010, Medal with Purple Ribbon 2013, Person of Cultural Merit 2023.</p>
+<p>One discrepancy left as found: DAM places him at the 42nd Venice Biennale in 1986, while the SIGGRAPH Asia biography calls him representative artist of Japan for the 46th Venice Biennale in 1990. Both are in the record; this note does not reconcile them.</p>
+<h2>The mechanism: one principle, geometric series</h2>
+<p>The 1982 abstract is the whole doctrine in one paragraph. Shells, horns, tusks, claws and spiral plants are generated &quot;not through the use of object data calculated by measurement, but through the use of an algorithmic structure based on the laws of nature.&quot; The forms rest on one common principle &quot;which can be expressed by means of the same mathematical expressions,&quot; and the software, called GROWTH (Growth Rationale Object Work THeorem), &quot;incorporates the rational, common principle of geometrical series which are found in the structure of biological objects.&quot;</p>
+<p>The cited roots are exact: D&#x27;Arcy Thompson&#x27;s <em>On Growth and Form</em> and Eiichi Izuhara&#x27;s 1978 unified model for the generative process of plants. Thompson&#x27;s shell is the key picture: a surface generated by a closed curve that stays geometrically similar to itself while growing, scale increasing in geometrical progression while the angle of rotation increases in arithmetical progression, around a fixed centre of similitude. Each increment is a gnomon, similar to the whole and larger. Kawaguchi&#x27;s move is to take that one progression and run it through everything: along a spiral it gives the shell and the horn; applied per generation to branch length, diameter and angle it gives ramification, the plant; applied to cell division it gives the multiplying creature.</p>
+<p>His own later essay is strict about control. Creative urge should not be covered over by pre-made software, form and color &quot;have no meaning unless completely controlled by the person at the core,&quot; and &quot;one should never create a structure embodying something developed through easy, wild numbers and chance.&quot; The method is a quasi-reconstruction of the laws of the natural world, tuned toward observed values, after which the law &quot;is self-propagating.&quot; So the Growth Model is deterministic law, not random generation. The artist writes the law; the law does the growing. That is a different contract from the Stuttgart circle&#x27;s pseudo-chance, and worth keeping distinct.</p>
+<h2>The renderer is half the work</h2>
+<p>From 1983 the GROWTH skeleton gets a skin. The SIGGRAPH history page for <em>Growth II: Morphogenesis</em> (1984) credits the &quot;GROWTH model by Y. Kawaguchi&quot; and the &quot;&#x27;Metaball&#x27; algorithm with ray tracing by Osaka University,&quot; produced on the LINKS-1 parallel multi-microprocessor system. The Ars Electronica catalogue describes the same stack: raytracing and metaballs combined with his biological algorithms to render &quot;three-dimensional shaded images of stretched objects with complex characteristics representing organic surface features,&quot; with &quot;multiple texture mapping onto the organic surface of metaballs ... carried out until the desired complexity is achieved.&quot;</p>
+<p>The production numbers matter. On LINKS-1 the designer could control the image interactively through screen step parameters, but final film frames took 5 to 20 minutes each. So the workflow was: grow the form interactively, then commit to a slow, expensive render. The glossy wet look of the stills is not the growth law; it is a rendering decision layered on top of it, and &quot;until the desired complexity is achieved&quot; says the layering was iterated by eye.</p>
+<h2>The works</h2>
+<p><strong>Growth: Mysterious Galaxy (1983).</strong> The first film from the Osaka collaboration, five minutes, the growth model animated: forms growing in progress, not just grown.</p>
+<p><strong>Growth II: Morphogenesis (1984) and Growth III: Origin (1985), Ocean (1986).</strong> The series continues yearly, the same engine pointed at morphogenesis, origin and sea ecology. The 1984 film played the SIGGRAPH Electronic Theater.</p>
+<p><strong>EGGY (1990).</strong> The growth model turned into a character. The V&amp;A record: an animated computer graphic made with the Growth Model, developed since 1988, first presented at SIGGRAPH Dallas 1990. A central artificial organic egg-like form, a malleable metallic ball flanked by reflective tentacles; the lifeforms writhe, split, mutate and evolve, and by the end multiple EGGY appear, toddler-like and asymmetrical, a &quot;friendly ambassador to lifeforms from other planets.&quot; The V&amp;A holds a colour lithograph still, edition 10 of 200, signed.</p>
+<p><strong>NEURAR (1996).</strong> A digital print from HDTV animation, 1452 by 1032 mm. His artist statement in the SIGGRAPH archive: &quot;growth model is created by the recursive structure of the self-organization, thus being the fruit of complexed form of evolutional cells.&quot;</p>
+<p><strong>Gemotion (2000, SIGGRAPH 2001).</strong> Growth plus gene plus emotion: an interactive installation where audiences affect the feelings of a virtual creature by touching the screen, with three projected movies showing the creature&#x27;s state.</p>
+<p><strong>Gemotional Bumpy Screen (2006).</strong> The growth model leaves the screen. A flexible screen reproduces three-dimensional form at speed, so high-definition video carrying 3D information is displayed while &quot;the image and the screen synchronize and react.&quot; The JEF Japan Spotlight cover story describes the participatory version: a participant&#x27;s cell phone number acts as a genetic code, its digits directly setting growth model parameters, and the personal growth model bursts onto the screen and grows moment by moment while the bumpy screen bulges and collapses in sync, as if breathing.</p>
+<p><strong>Cosmo (2013).</strong> A keyboard-playing laser robot designed for Squarepusher&#x27;s Z-Machines. The growth artist ends up building a robot musician; the island kid who watched rockets builds machines that perform.</p>
+<h2>Images inspected</h2>
+<ol><li><strong>EGGY, V&amp;A lithograph still (1990)</strong> via the V&amp;A collection page and the SIGGRAPH archive still: a glossy red and magenta organic mass with green and gold reflective lobes, sitting in a dense green textured field. Saturated, wet, centre-weighted. It reads as an organ, an egg and a toy at once, which is the point.</li><li><strong>NEURAR (1996)</strong> at full resolution: a towering pink and red cellular mass with blue spots and white highlights against acid green, corkscrew tentacle chains rising off the top and sides. The surface is all merged lobes; nothing has an edge it did not grow.</li><li><strong>Untitled (Splash) (1982)</strong> at full resolution: a deep blue crown or ring form seen from slightly above, pink highlights dotted along the raised droplet tips and the hanging beads below, a black oval at the centre. The earliest inspected still and the most restrained: one form, two colours, the splash frozen as geometry.</li><li><strong>Growth I: Mysterious Galaxy still (1983)</strong>: a green and yellow branching form reaching left off a thick trunk at right, purple metallic bead clusters at the branch tips, on black. The ramification engine made visible, beads where the buds would be.</li><li><strong>Growth II: Morphogenesis still (1984)</strong>: soft, low resolution in the archive copy; a red and pink fleshy form with white patterned texture zones against blue. Read for palette and surface only; the archive still is not sharp enough for structure.</li><li><strong>Gemotion (2001) installation view</strong>: hands on a dark undulating surface lit with purple and violet contour patterns, the projection wrapping over fingers and sleeve. The touching is the interface; the creature&#x27;s skin is the screen.</li></ol>
+<h2>Local re-renders (hidden_files/study-2026-10-01-kawaguchi/render/)</h2>
+<p>Three small studies rebuilt from the descriptions, Python and PIL, no external assets.</p>
+<ul><li><strong>growth_panels.png, panel A (spiral shell):</strong> logarithmic spiral, radius growing geometrically while angle steps arithmetically, tube radius also growing geometrically (x1.24 per turn). First version drew the tube too thin and read as a dotted chain; thickened, the overlapping discs read as a shell whorl. Finding: the geometric widening of the gaps between turns is visible even before the tube is drawn. The spacing is the growth.</li><li><strong>growth_panels.png, panel B (ramification):</strong> recursive branching, length and radius multiplied by 0.74 each generation, depth 9. Finding: the geometric falloff is what keeps the crown airy; the same ratio that spaces the shell spaces the tree. One parameter, two kingdoms.</li><li><strong>growth_panels.png, panel C (metaball creature):</strong> 64 blobs on a seven-arm spiral skeleton, field summed as sum of r squared over distance squared. First version used a threshold near 1.0 and produced one featureless disc: the field swallowed the arms. Raising the threshold and thinning the arm blobs produced a lobed creature whose arms neck into one skin. Finding: with metaballs, the threshold is a compositional decision. Kawaguchi&#x27;s &quot;texture mapping until the desired complexity&quot; has a geometric twin: threshold until the desired merging.</li><li><strong>arith_vs_geo.png:</strong> twelve circles, radius growing arithmetically (+4) against geometrically (x1.28). The arithmetic row marches; the geometric row accelerates and collides. This is the same controlled variable CTG isolated in Return to Square (a) and (b), here driving size instead of interpolation.</li><li><strong>growth_ages.png:</strong> the branching plant at recursion depths 3, 5, 7 and 9 side by side. Recording the generation in progress is the animation: the four ages read as one plant at four moments, which is how the Growth films were described as working.</li></ul>
+<h2>What makes it sing</h2>
+<ul><li>One law, honestly applied. Shells, horns, plants and creatures from a single geometric series is a strong claim, and the work keeps proving it by changing only what the series is applied to.</li><li>The growth is the subject, not the grown thing. The films record generation in progress; the stills are frames of a becoming, and they look it: beads at the tips, lobes mid-merge, nothing finished.</li><li>Determinism as authorship. Against the era&#x27;s chance operations, Kawaguchi insists the artist controls form and color completely and writes a law that then propagates itself. The hand is in the law, not in each frame.</li><li>The renderer is treated as a second art. Metaball skin, ray tracing, texture layered &quot;until the desired complexity is achieved&quot;: the organic surface is iterated by eye on top of the grown skeleton, and the gloss is earned, not default.</li><li>The model keeps leaving the screen: into dance, into a bulging physical display, into a robot that plays keyboards. The growth law turns out to be a general way of making things that behave as if alive.</li></ul>
+<h2>What to avoid</h2>
+<ul><li>Do not copy the gloss without the law. A shiny blob that did not grow from a stated principle is decoration; his surfaces are convincing because a skeleton grew underneath them.</li><li>Do not reach for random noise and call it growth. His own text forbids it: easy, wild numbers and chance are exactly what the model replaces.</li><li>Do not set one threshold and accept the disc. The metaball skin has to be tuned against the skeleton; the merging is composed, not automatic.</li><li>Do not finish the forms. Tips, buds and half-merged lobes carry the life; a polished, closed, symmetrical creature is dead on arrival.</li></ul>
+<h2>Honest gaps</h2>
+<ul><li>The 1982 SIGGRAPH paper was read as abstract and references only; the ACM full text was not opened, and no original GROWTH code was seen. The mechanism is reconstructed from the abstract, the catalogues and the re-renders.</li><li>No film was watched in motion. Growth: Mysterious Galaxy, Morphogenesis, EGGY and Ocean are known from stills and descriptions; all motion claims rest on text.</li><li>Growth II was inspected from a soft archive still; its structure could not be read at that resolution.</li><li>The Gemotion participatory version (phone number as genetic code) comes from the JEF cover story summary and the SIGGRAPH archive record, not from a full read of the JEF PDF. Japanese-language sources (the EE.jp and Japan Media Arts Plaza interviews) were not read.</li><li>The Venice Biennale numbering disagreement (42nd in 1986 per DAM, 46th in 1990 per the SIGGRAPH Asia biography) is left as found.</li></ul>
+<h2>Doorways</h2>
+<ul><li>D&#x27;Arcy Thompson, <em>On Growth and Form</em> as a source-text study: the gnomon, the logarithmic spiral and the theory of transformations behind half the names in this study chain.</li><li>The Osaka metaball line: Koichi Omura&#x27;s group and the LINKS-1 machine, where Japanese CG rendering split from American polygon practice.</li><li>Masaki Fujihata: concept-driven computer animation from the same Japanese scene, the other name carried over from the CTG study.</li><li>The Z-Machines robots as a doorway into machine musicianship: growth artist to robot builder.</li><li>Kawaguchi&#x27;s 8K work and the &quot;new traditional artform with traditional craftsmanship&quot; line in his recent statements: the growth model meeting craft and extreme resolution.</li></ul></div><nav class="pagenav"><a class="" href="yohei-nishitsuji.html"><span class="dir">Previous note</span><span class="t">Yohei Nishitsuji</span></a><a class="next" href="yuru-yura.html"><span class="dir">Next note</span><span class="t">yuru yura</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

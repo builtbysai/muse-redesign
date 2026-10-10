@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicolas Schoffer, CYSP 1 and the Cybernetic Towers · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Nicolas Schoffer, CYSP 1 and the Cybernetic Towers</h1><div class="byline">studied 2026-09-30 &nbsp;&middot;&nbsp; 12 min read &nbsp;&middot;&nbsp; 2,484 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-30 (study pass)</dd><dt>Subject</dt><dd>Nicolas Schoffer (born Kalocsa, Hungary, 6 September 1912, died Paris, 8 January 1992), CYSP 1 (1956, with Philips engineer Jacques Bureau), the spatiodynamic tower at Saint-Cloud (built 1954, shown 1955), the Cybernetic Tower of Liege (1961), and the unbuilt Tour Lumiere Cybernetique for Paris La Defense (designed 1963). Schoffer read Wiener, abandoned painting for sculpture, and built the first works that sense a room or a city and answer it. His own summary of the aim: not to create, but to create creation.</dd><dt>Hop path</dt><dd>named as a next doorway by both the 2026-09-30 Cybernetic Serendipity study and the 2026-09-30 Gordon Pask / Musicolour study. The queue in STUDY_QUEUE.md is exhausted, so this session follows that hop outward. After a run of Bell Labs tuning studies and Pask&#x27;s conversational machines, this one changes territory on purpose: from machines that talk to each other, into kinetic light sculpture, feedback sculpture, and light towers at the scale of a city.</dd><dt>Depth</dt><dd>deep. Sources read this session: the Wikipedia and Monoskop records for the hardware counts; the Hyperallergic retrospective of the 2018 LaM show, read in full; Gene LeBlanc&#x27;s 2019 Concordia thesis, &quot;Nicolas Schoffer and the Scattered Origins of Cybernetic Art History&quot;, read across its CYSP 1, Saint-Cloud and Liege case studies and its historiography chapters; the Light Zoom Lumiere account of the robots, composers and spatiodynamic tower; the LaM artist page; the city of Liege brochure for the tower; and the Greisch restoration sheet for the Liege tower. Six artworks were downloaded at full resolution and visually inspected (listed below). A small CYSP 1 model was re-rendered locally in Python and its frames inspected.</dd><dt>Honest gaps</dt><dd>CYSP 1&#x27;s exact response rules are still not documented in any source read here. The only sourced colour rule is the critic Guy Habasque&#x27;s line, quoted in the thesis, that &quot;a red light calms it and causes its movements to slow down.&quot; The often repeated counterpart, that blue excites it, was searched for twice this session and not found in a primary or technical source, so it is not claimed here. How loud a sound had to be, which of the two travel speeds a given input selected, and what the photocells actually measured remain open. Schoffer&#x27;s own books (La ville cybernetique 1969, La Tour Lumiere Cybernetique 1973) were read only through the thesis. The Liege tower&#x27;s mirror count disagrees between sources (66 in Monoskop, 64 mirror plates on 33 turning axes in the Greisch restoration sheet), and CYSP 1&#x27;s dimensions disagree between the Hyperallergic caption (250 x 180 x 170 cm) and a catalogue record (250 x 130 x 170 cm). Both discrepancies are left as found.</dd></dl>
+<h2>The mechanism, as far as the sources take it</h2>
+<p>CYSP 1 stands 2.6 m tall on a base mounted on four rollers. The base holds the mechanism and what Philips called the electronic brain, built by Jacques Bureau. This was the second brain Bureau had made for Schoffer, after the Saint-Cloud tower. Above the base, a black steel grid carries 16 pivoting polychromed plates, each turned by a small motor under its own axis; Monoskop counts 19 micromotors, two photoelectric cells (or phototubes), two microphones, a traction motor and a direction motor. The sculpture had total autonomy of movement: travel in all directions at two speeds, plus axial rotation of the whole frame and eccentric rotation that sets the plates swinging. The cells and microphone caught variations in fields of colour, light intensity and sound intensity, and all of these changes occasioned reactions.</p>
+<p>It was first presented in 1956 at the Sarah Bernhardt Theatre in Paris during the Night of Poetry. The same year, Maurice Bejart&#x27;s dancers performed with it on the roof terrace of Le Corbusier&#x27;s Cite Radieuse in Marseille, to concrete music by Pierre Henry. In Jasia Reichardt&#x27;s 1968 Cybernetic Serendipity at the ICA it was programmed to move in a restricted space in response to hand claps.</p>
+<p>The Saint-Cloud tower came first and was bigger: a 50 m cybernetically programmed spatiodynamic sculpture with sound, built for the 1955 building trade show at the Parc Saint-Cloud. Its brain held a rheostat, a photoelectric cell system and a microphone, and it was programmed to respond to humidity and temperature as well as light, colour and sound. The brain chose among 12 tape sequences by Pierre Henry, composed partly from recordings of the tower&#x27;s own plates being struck and set vibrating. Philips promoted it as a unique robot conductor. The tower was temporary and came down within a year.</p>
+<p>Liege, 1961, is the Saint-Cloud idea made permanent: a 52 m tubular lattice in the Parc de la Boverie on the Meuse, beside the Palais des Congres. The city brochure describes arms of different lengths carrying motorised aluminium vanes, driven by an electronic brain reacting to temperature, wind and city noise, with three kinds of action: movement of the reflective vanes, sound (reworked natural noise and electronic sound, chosen at random), and light (daylight reflected by day, coloured artificial light by night). Monoskop counts 66 revolving mirrors and 120 electronically controlled coloured projectors; the Greisch restoration sheet counts 64 mirror plates of different shapes on 33 motor driven axes with variable speeds. The tower also gained a fourth response channel Saint-Cloud did not have: its parts move. It was classified as a monument in 1997. After restorations it still moves and flashes colours, but it no longer emits audio and no longer responds to environmental data; since 2016 it answers Twitter instead (tweet a colour word to @CyberTower and it flashes that colour and tweets back a song lyric containing it). The conservator Manon D&#x27;haenens argues the best way to respect Schoffer&#x27;s intent is to change and substitute, an open artwork. Schoffer himself said the tower would be permanently modifiable for a century, and that what matters is the idea and its sociocultural impact.</p>
+<p>The Tour Lumiere Cybernetique for La Defense (designed 1963, never built) is the same system at civic scale. Sources give 307 m, 347 m and 360 m for its height at different planning stages. Wikipedia&#x27;s technical list: 14 concave mirrors, 363 mirrors, 144 rotatable motorised axes, 2085 electronic flashes, 2250 partly coloured headlights, and thermometers, hygrometers and anemometers feeding it; 15 light cannons at the top would extend its optical presence by 2 km. Seven visitor platforms were to hold restaurants, a concert hall with an organ, a post office and shops. De Gaulle, Pompidou and Malraux backed it; Pompidou&#x27;s death in April 1974 and the oil crises killed it. Schoffer gave it about 15 years and considered it his magnum opus.</p>
+<h2>The perturbation rule</h2>
+<p>The part of Schoffer that matters most for this project is not the hardware, it is his definition of cybernetics, quoted in the thesis from Le nouvel esprit artistique (1970): cybernetics keeps phenomena in balance through organised control of information, including perturbations, and the result should be &quot;a fluid permanence, in a flexible equilibrium&quot;, where any tendency to periodicity or stagnation triggers an intervention of disturbances to preserve openness. In Perturbation et chronocratie (1978) he sharpened it: the disturbance is an energetic stimulus secreted by any evolutionary process whose program reaches a threshold of redundancy, saturation, periodicity or stagnation; without disturbance the process must regress or disappear; &quot;only the disturbance emerges as permanence.&quot; The Liege brochure shows this shipped in hardware: an &quot;indifference engine&quot; (moteur d&#x27;indifference) intervenes at random to break any monotony in the tower&#x27;s reactions. A Schoffer system does not only answer the room. It watches itself for sameness, and kicks itself when it finds any.</p>
+<h2>Photographs inspected (visually studied, 2026-09-30)</h2>
+<ol><li>CYSP 1 (Hyperallergic image 1-cysp_isized.jpg, 1460 x 2100).</li></ol>
+<p>The black grid is the composition: a strict rectangular cage, and inside it the plates hang like flags. Rectangles split white and blue, white and red, black and yellow; two discs, one large black and white target, one small white disc with a red dot. Nothing is centred; the eye keeps crossing the cage. The base is a plain black cylinder, deliberately dumb, so the colour lives up top where the motion is.</p>
+<ol><li>Spatiodynamique 2, the spatial clock with contrasting</li></ol>
+<p>movements, 1949 to 1950 (4-spatiodynamique_2sized.jpg, 1460 x 2189). Before the electronics: a tall thin mast, a painted clock disc at the top left ringed with blue and yellow ticks, and a small cage of red and black slats tilting off to the right. The whole thing is a sentence about time told with two unbalanced weights. Worth noting how much of CYSP 1 is already here: the mast, the grid, the primary colours, the refusal of a pedestal.</p>
+<ol><li>Tour Lumiere Cybernetique, the La Defense drawing, c. 1970</li></ol>
+<p>(11-dessin_tlcsized.jpg, 1460 x 1902). Monochrome gouache, night. The tower is a lattice of light cannons standing over the parvis, beams crossing the black sky in long fans. The city around it is grey slabs and tiny figures. The drawing sells weather, not architecture: the tower reads as a lighthouse that reports the air.</p>
+<ol><li>Effet prismatique (14-effet_prismatiquesized.jpg, 1460 x</li></ol>
+<p>974). A mirrored kaleidoscope room: coloured light fragments, red and cyan and warm white, broken across faceted mirrors into a field with no floor. This is the luminodynamic line of the work, light as the material itself, and it is the most immediately beautiful image of the six.</p>
+<ol><li>Maquette du Centre de reflexion prismatique, 1975</li></ol>
+<p>(15-centre_reflexion_prismatiquesized.jpg, 1460 x 1996). A model interior with tiny figures under walls of red, blue and black targets and diamonds, lit until the paint glows. The maquette makes the urban ambition legible: a room whose walls are instruments.</p>
+<ol><li>KYLDEX I, 1973 (9-kyldex_isized.jpg, 1460 x 946). Black and</li></ol>
+<p>white photograph, dancers as silhouettes in front of a glowing sculpture with light panels. Five autonomous sculptures danced with the Hamburg ballet, music by Pierre Henry. Even in a still, the hierarchy is clear: the machine glows, the humans are shadows, and the photograph knows which one it is about.</p>
+<h2>Palette and composition, translated</h2>
+<p>The CYSP 1 palette is Mondrian disciplined: red, yellow, blue, black and white, and, per the thesis via Eleonore de Lavandeyra Schoffer, a standing distaste for green. The plates are flat colour, split in halves or bands, never gradient. Composition is a cage plus flags: a rigid grid that never moves as a shape, carrying coloured rectangles that never stop recomposing inside it. The still photograph already contains the piece&#x27;s whole argument, which is rare for kinetic work: fixed armature, restless colour, no front, no pedestal, no privileged view. At tower scale the palette becomes light itself, coloured projectors on aluminium, and the composition becomes the sky.</p>
+<h2>Local re-render (Python model, 2026-09-30)</h2>
+<p>A CYSP 1 model was built in Python (matplotlib, 16 plates on a rotating black frame, 60 seconds per scenario at 10 fps): two photocell channels (light level, redness) and a microphone level drive plate pivot speeds through per plate temperaments; the base picks still, slow or fast gear from sound and light; claps turn the heading; an indifference engine copied from the Liege brochure fires a random kick after 8 seconds of uniform input. Colour balance enters only through the sourced rule: red dominant light calms (a 0.72 damping factor), and the calming releases as redness falls. Four scenarios:</p>
+<ul><li>Quiet room: mean plate speed 0.301, base still 100 percent</li></ul>
+<p>of the time, 7 perturbations in 50 measured seconds. The plates never fully stop: the indifference engine keeps restarting them. A Schoffer piece in an empty room still performs for itself.</p>
+<ul><li>Hand claps every 6 seconds: mean plate speed 0.399, 20 gear</li></ul>
+<p>switches as each clap bumps the drive over the slow gear threshold, 7 perturbations.</p>
+<ul><li>Red wash: mean plate speed 0.178, the slowest of the four,</li></ul>
+<p>base still throughout. Habasque&#x27;s line survives translation into code: red calms, measurably.</p>
+<ul><li>Concert (loud, varying): mean plate speed 0.869, fast gear</li></ul>
+<p>34.5 percent of the time, 15 gear switches, zero perturbations, because the input never stays uniform for 8 seconds. The environment does the disturbing by itself.</p>
+<p>Frames at 8, 30 and 58 seconds per scenario were saved and the concert and red wash mid frames inspected: pivoting red, blue, yellow, black and white bars on the dark rotating frame read clearly as the CYSP 1 family, and the red wash frame sits visibly closer to rest. The model is a study instrument, not an artwork claim.</p>
+<h2>What makes it sing</h2>
+<ul><li>The grammar is two speeds of everything: plates pivot, the</li></ul>
+<p>frame rotates axially, the base travels at two gears. No single rhythm can take over, so the eye never settles.</p>
+<ul><li>The perturbation rule is the soul of it. Most reactive work</li></ul>
+<p>is a mirror with a delay. Schoffer&#x27;s systems audit themselves for monotony and intervene. That is the difference between a response and a temperament.</p>
+<ul><li>The palette does the legibility work. Flat primaries on</li></ul>
+<p>black steel can be read across a theatre, and a colour field can be a sensor input and a picture at the same time.</p>
+<ul><li>Scale ambition without style change: the same brain runs a</li></ul>
+<p>2.6 m sculpture, a 52 m tower and a 300 m civic instrument. The idea survives every scale because the idea is the loop, not the object.</p>
+<h2>Avoid list</h2>
+<ul><li>Do not build a reactive piece whose whole behaviour is a</li></ul>
+<p>lookup table from input level to output level. That is the &quot;black box&quot; the thesis criticises in the early critics, and it reads as a toy within seconds.</p>
+<ul><li>Do not let a self running system settle into a period. If</li></ul>
+<p>the motion can be predicted after ten seconds, it needs its own disturbance, not a longer loop.</p>
+<ul><li>Do not claim colour response rules the sources do not</li></ul>
+<p>support. Red calms is documented; the rest of the CYSP 1 wiring is still an honest gap, and dressing a guess as history would break the study rule.</p>
+<ul><li>Do not copy the Mondrian plate look. The transferable part</li></ul>
+<p>is the loop (sense, respond, self perturb), never the flags.</p>
+<ul><li>City scale light spectacle without the feedback is just</li></ul>
+<p>illumination. The towers earn their size by listening.</p>
+<h2>Doorways</h2>
+<ul><li>Jean Tinguely, the other great kinetic sculptor of the same</li></ul>
+<p>Paris years, whose machines court breakdown instead of equilibrium: the anti Schoffer, and the natural next contrast.</p>
+<ul><li>Piotr Kowalski and Takis, named alongside Schoffer in the</li></ul>
+<p>period&#x27;s science art circles.</p>
+<ul><li>The @CyberTower Liege restoration as a living case: a 1961</li></ul>
+<p>feedback tower now driven by social media input, and the conservation argument that substitution is fidelity.</p>
+<ul><li>Schoffer&#x27;s own La ville cybernetique (1969), still unread</li></ul>
+<p>directly.</p>
+<p>Study undertaken as part of Generative Doodles.</p></div><nav class="pagenav"><a class="" href="jurg-lehni.html"><span class="dir">Previous note</span><span class="t">Jurg Lehni</span></a><a class="next" href="patrick-tresset.html"><span class="dir">Next note</span><span class="t">Patrick Tresset / Paul the Robot</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

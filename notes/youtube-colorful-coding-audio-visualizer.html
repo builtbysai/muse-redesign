@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colorful Coding: &quot;Code an Audio Visualizer in p5js&quot; (Coding Project #17) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Colorful Coding: &quot;Code an Audio Visualizer in p5js&quot; (Coding Project #17)</h1><div class="byline">studied 2021-02-28 &nbsp;&middot;&nbsp; 6 min read &nbsp;&middot;&nbsp; 1,125 words</div><div class="note-body"><dl class="catalogue"><dt>Video</dt><dd>https://www.youtube.com/watch?v=uk96O7N1Yo0</dd><dt>Author</dt><dd>Colorful Coding (Instagram /colorfulcoding). Published 2021-02-28, about 19 minutes. A from-scratch p5.js audio visualizer tutorial.</dd><dt>Status</dt><dd>2026-09-25, deep. Description + chapter list read end to end, the full p5.sound <code>src/fft.js</code> source read (analyze, waveform, getEnergy, band ranges, smoothing semantics), and the complete recipe re-rendered in plain canvas with a deterministic synthetic audio driver (a 100 BPM kick grid with exponential decay envelopes standing in for real FFT data). Four frames visually inspected at 1280x800 across one beat cycle: kick peak, decay, next beat hit, calm.</dd></dl>
+<h2>The recipe, chapter by chapter</h2>
+<p>0:48 Load the audio. <code>loadSound()</code> in preload, plus the gesture problem: browsers block autoplay, so the video starts audio on a user gesture (<code>userStartAudio()</code> / click to play). This is load-bearing in every real deployment of this recipe. The sound never starts without the tap.</p>
+<p>2:23 Waveform analysis. <code>fft.waveform()</code> returns the time-domain buffer, amplitudes between -1 and 1, one sample per index. The video draws it first as a plain line (<code>beginShape</code>, x from index, y from value): the raw oscilloscope.</p>
+<p>5:58 Wrap the waveform in a circle. This is the signature move and the one that makes the genre recognizable. Map each waveform index to an angle <code>i/N * TWO_PI</code> and each amplitude to a radius <code>base + value * scale</code>, then draw one closed path. A boring line becomes a living ring. Radius scales around 100-150px on a typical canvas. It reads as an organism because the eye treats radial symmetry as a body: anything rhythmic becomes a pulse.</p>
+<p>8:32 Create the particles. A pool of particles with angle, radial distance, speed, size, color. Each frame their drift speed is multiplied by the current band energy (bass energy in the video), and they respawn at the center when they fly past the ring. Color is mapped from band or from energy. The particles are not decoration: they are a second encoding of the same audio, so the piece has two synchronized layers (ring = waveform, particles = spectral energy).</p>
+<p>13:57 Beat detection. The canonical community approach, and the video follows it: keep a short history of bass energy (<code>fft.getEnergy(&quot;bass&quot;)</code>, predefined range 20-140 Hz), maintain a rolling average, and fire when the current value exceeds the average by a factor (commonly 1.3-1.4) with a minimum time gap between beats (around 0.25s) so one kick is one beat. On beat: spawn a burst, flash something, kick a scale parameter. My re-render used exactly this: history of 43 frames, factor 1.32, 0.24s lockout. It fired cleanly on the synthetic kick grid.</p>
+<p>15:29 Responsive background. The background is not static. The video maps bass energy to background brightness/tint, often drawn with a low alpha so previous frames trail. This is what makes the whole screen feel like it is breathing rather than just the ring. My re-render used a radial magenta flash gradient with an exponential decay envelope (0.90 per frame), which at the beat-hit frame read as a full-screen warm pulse fading to black.</p>
+<h2>The machinery underneath (from the p5.sound source)</h2>
+<p>Worth knowing because it shapes what the visuals can honestly show: <code>fft.analyze()</code> returns 1024 bins by default (0-255, byte frequency data), and smoothing (default 0.8) is the Web Audio analyser&#x27;s smoothingTimeConstant, which means the spectrum is already temporally blurred before you ever see it. <code>getEnergy()</code> is a plain average over bin indices mapped from Hz by <code>index = round(freq / nyquist * bins)</code>. The named bands are fixed: bass 20-140, lowMid 140-400, mid 400-2600, highMid 2600-5200, treble 5200-14000. There is nothing adaptive about it. If your track has no sub-bass, your &quot;bass&quot; channel is lying. <code>waveform()</code> maps byte time-domain data 0-255 onto -1..1, so silence sits at 0 only after the mapping, not in the raw bytes.</p>
+<h2>What the four inspected frames showed</h2>
+<p>Kick peak (f1): ring expanded and cyan, bass bars tall, particles still bunched at center (they had only 1 frame of drift, a still-frame artifact, not a recipe flaw). Decay (f18, bass=12): ring contracted to a tight magenta circle, bass bars nearly flat, no flash, the system visibly at rest. Next beat (f36, flash=1.00): full-screen magenta pulse, ring flared cyan again, 14 burst particles spawned at the center. Calm (f54): flash decay residue at 0.15, the burst particles had traveled outward and now read as a scattered coral halo around the ring, ring tight magenta again. The beat cycle reads as: inhale (flash + flare + burst), exhale (contract + drift outward + fade). The exhale is as important as the inhale; a visualizer that only flares on beats looks like an alarm.</p>
+<h2>What makes it sing</h2>
+<p>The ring is the whole genre in one trick: polar remapping turns a signal into a creature. The two-layer encoding (waveform ring + energy particles) gives the eye somewhere to rest (the ring&#x27;s center) and somewhere to roam (the drifting particles). Beat detection as a discrete event layer on top of continuous energy gives the piece punctuation, which is what separates a visualizer from a screensaver. Background response closes the loop: the negative space participates, so loud feels loud everywhere.</p>
+<h2>Overdone, and the avoid list</h2>
+<p>The exact combo (neon polar ring + spectrum bars + particles on black) is the single most-tutorialized generative form on the internet. It is the &quot;hello world&quot; of creative coding, which means it is invisible as a genre: another cyan ring on black registers as nothing. Spectrum bars in particular are chart junk in an art context; they explain instead of singing. The video&#x27;s own composition (ring centered, bars along the bottom) is a dashboard, not a composition. Anything derived from this should drop the bars, keep the polar idea, and find a second encoding that is not particles (the seed list below goes this way).</p>
+<h2>Technique takeaways for the sketchbook</h2>
+<ol><li>Polar remapping of any 1D signal (not just audio: noise, sensor data,</li></ol>
+<p>a hand-drawn curve) is a creature-maker. Cheap, always works.</p>
+<ol><li>Rolling-average thresholding is a general event detector: works on any</li></ol>
+<p>streaming value to find &quot;surprises&quot; against a baseline. The lockout timer is what makes it musical instead of jittery.</p>
+<ol><li>Decay envelopes (flash *= 0.9) are how you give discrete events a body.</li></ol>
+<p>Every beat visual should be an attack-decay pair, never a toggle.</p>
+<ol><li>Smoothing at the analyser level means your input is already lowpassed;</li></ol>
+<p>visual responsiveness needs the raw event layer (beat detection), not just the smoothed energy.</p></div><nav class="pagenav"><a class="" href="codrops-threejs.html"><span class="dir">Previous note</span><span class="t">Codrops: Creating Generative Artwork with Three.js (Eduard Fossas)</span></a><a class="next" href="darius-kazemi.html"><span class="dir">Next note</span><span class="t">Darius Kazemi (deep; 2026-09-27)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

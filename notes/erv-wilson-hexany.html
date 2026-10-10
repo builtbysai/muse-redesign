@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erv Wilson / the Hexany and Combination Product Sets · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>Erv Wilson / the Hexany and Combination Product Sets</h1><div class="byline">studied 2026-09-30 &nbsp;&middot;&nbsp; 10 min read &nbsp;&middot;&nbsp; 2,008 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-30 (study pass)</dd><dt>Artist</dt><dd>Erv Wilson (1928-2016). Mexican-born American theorist of tuning, outside every institution, working by hand on graph paper for decades. He worked with Harry Partch, built the Wilson Archives into a hand-drawn map of tonal terrain (anaphoria.com, curated by Kraig Grady), and spent his life drawing structures most theorists only name. His spelling was &quot;Hexany&quot; (the archives keep it; the wider world writes &quot;hexany&quot;).</dd><dt>Hop path</dt><dd>the doorway named by both James Tenney studies on 2026-09-29 (the Meta+Hodos study and the For Ann study), which pointed at Wilson&#x27;s writings on harmonic space as the next place to look. This session went into the Combination Product Sets, the 1967 lattice letters, and the Moments of Symmetry introduction.</dd><dt>Depth</dt><dd>deep on primary sources plus five local procedural re-renders, all visually inspected. Read end to end: Wilson&#x27;s own handwritten &quot;Combination Product Sets&quot; and &quot;The Hexany&quot; papers (hexany.pdf, 39 scanned pages, 1967 onward, including his Pascal-triangle Fig 1 and the original duplex-function table with Hz values at base 44); the full 38-page &quot;LatticesJohn1967&quot; letter series to John Chalmers (hundreds of hand-drawn 2-factor CPS lattice figures for the 1-3-5-7-9-11 sets); Kraig Grady&#x27;s archive introductions to the CPS and to Moments of Symmetry (read end to end, including the letter-to-Chalmers walkthrough of MOS and the Tanabe cycle). Five local re-renders built from the published definitions and visually inspected at full resolution: the hexany as an octahedron with otonal/utonal faces, the hexany star projection, the Pascal-triangle CPS map, the hexany nodes on the 5-limit tonnetz lattice, and the MOS ladder strips for generator 3/2.</dd><dt>Honest gaps</dt><dd>no audio auditioned (this was a silent study session; nothing was played or synthesized); the generalized-keyboard papers and the eikosany papers (eikopapers.html) were located but not read this pass; the 19-tone and larger CPS PDFs (Hebdomekontany, LargerCPS) were located but not opened; Wilson&#x27;s &quot;Some Hexany and Hexany Diamond Lattices&quot; is cited at an old anaphoria.com/hex.PDF URL that now 404s, so the hexany paper read here is the hexany.pdf scan, which the archives present as the same material. No contact with the archive or with performers; no instrument built.</dd></dl>
+<h2>The thesis, stated plainly</h2>
+<p>Wilson&#x27;s move is to build scales that have no center. Take four odd harmonics, 1, 3, 5, 7. Combine them two at a time by multiplication. You get six products: 3, 5, 7, 15, 21, 35. That is the whole hexany: the 2-out-of-4 combination product set, 2*4 CPS. Nothing in it is the tonic. Any member can be called 1/1 and the interval relations hold. Wilson drew it as an octahedron because that is what it is: six vertices, eight triangular faces, and every face is a just-intonation triad. Four faces are otonal (the three products share one common factor, like 5 times (1,3,7)); four are utonal (the inversions sit on the opposite faces). He arrived at this in the late 1960s, saying the moon expeditions gave him the image of weightlessness he wanted in musical form: harmony with no gravity.</p>
+<p>The general machine is Pascal&#x27;s triangle. Entry k)n holds C(n,k) members: the k-out-of-n products. The hexany is the single highlighted cell 2)4 = 6. The dekany is 2)5 = 10, the eikosany 3)6 = 20, the hebdomekontany 4)8 = 70. Grady&#x27;s archive note makes the key technical point: Wilson includes 1 as a combinable member where Euler&#x27;s method does not, and that single inclusion is what lets the uncentered structures exist at all.</p>
+<p>Moments of Symmetry are the melodic twin of the same instinct. A scale built from one generator stacked inside one period (usually the octave), where the whole scale uses exactly two step sizes, large and small, in coprime counts. Stack fifths in the octave and you get the familiar ladder: 2 tones (Ls), 3 (sLL), 5 (LLsLs up to rotation), 7 (LLLsLLs), 12 (all s). Wilson&#x27;s question was why cultures land on 5 and 7 and so rarely on 6 or 8; the MOS ladder is his answer as mechanism. A &quot;constant structure&quot; loosens the rule for multi-limit tunings: every occurrence of a ratio is always the same number of steps, even when the generator varies.</p>
+<h2>The machinery, technique by technique</h2>
+<p><strong>The duplex table (1967).</strong> Wilson&#x27;s original page is a table, not a diagram: duplex function, result, pitch. 1.3 = 3 (132 Hz), 1.5 = 5 (220), 1.7 = 7 (308), 3.5 = 15 (660), 3.7 = 21 (924), 5.7 = 35 (1540), base 44. He notates the tetrad and the hexany in open position for clarity, then in closed position for convenience, then the subharmonic (tutonal) mirror: tetrad, triads, dyads, monads, and the &quot;Kenoad / Nullad / Zeroad&quot; for the empty combination. The arithmetic is always shown next to the music. Nothing is asserted without the numbers.</p>
+<p><strong>The octahedron.</strong> Opposite vertices share no factor: (1.3) opposite (5.7), (1.5) opposite (3.7), (1.7) opposite (3.5). Every face is a triad; every face&#x27;s inversion is the face across the solid. My re-render colors this directly: blue otonal faces, rust utonal faces, and the solid reads as a closed chord world you can walk without ever finding the middle. Wilson&#x27;s own 2D form is the star: two interlocking triangles, the 1-times triad (3,5,7) and the (15,21,35) triad, edges joining dyads that share a factor. It is a hexagram that happens to be a tuning.</p>
+<p><strong>The lattice letters.</strong> The 1967 Chalmers series is the most visually arresting primary material: page after page of small lattice walks, one per dyad set, each annotated with the interval ratios at the margins. A figure labeled &quot;3,7&quot; shows the harmonic hexad&#x27;s 3 and 7 becoming the subharmonic&#x27;s, with a marginal note that the same relation sits inside Partch&#x27;s diamond. The figures are systematic the way a seed catalog is systematic: every 2-factor combination of 1-3-5-7-9-11, drawn as a path through the lattice, so a composer can pick a pitch table by shape. My tonnetz re-render puts the six hexany nodes on the 5-limit lattice (fifths horizontal, thirds diagonal) with the 7-limit nodes (7, 21, 35) lifted off the plane on rust leaders: the diagram shows exactly where the 7-limit lives relative to the familiar 5-limit grid.</p>
+<p><strong>The Pascal map.</strong> Wilson&#x27;s Fig 1 is the whole CPS family in one triangle, each cell labeled k)n. My re-render highlights 2)4 = 6 and shows the family fanning out to 4)8 = 70. As a compositional device it is a menu of structure sizes: pick a cell, you have picked a chord world with known symmetry.</p>
+<p><strong>The MOS ladder.</strong> Five strips for generator 3/2 in the octave, each strip segmented into L and s. The visual point is how little changes between rungs and how completely the character changes: the 5-tone and 7-tone strips are rotations of related patterns, and the ear (or the eye) reads them as wholly different scales. Wilson&#x27;s &quot;constant structure&quot; idea is the pragmatic version: in higher-limit tunings, keep step counts consistent even when the generator breathes.</p>
+<h2>What sings</h2>
+<p>The uncentered structure is the sing. A chord world with no tonic is a genuinely new navigational feeling, and the octahedron gives it a body: you can see the eight triads as faces of one solid, each with its inversion across the middle. For visual work, that is a gift. Six nodes, twelve edges, eight faces, two colors of face: it is a complete compositional object, small enough to hold in the head, symmetric enough to generate endless variation by rotation, re-rooting (any vertex as 1/1), and face-walking.</p>
+<p>The hand-drawn quality of the sources sings too. Wilson&#x27;s pages are graph paper, ink, correction fluid, marginalia. The lattice letters especially read as drawings first and theory second: hundreds of small path figures, each a little walk. That suggests the visual treatment for anything derived: fine ink lines, annotated margins, the arithmetic kept visible next to the figure, nothing airbrushed.</p>
+<p>The Pascal map sings as an interface idea: a triangle of possible worlds where each cell is a structure of known size and symmetry. It wants to be a picker, a zoom, a navigation.</p>
+<h2>What is overdone (avoid-list additions)</h2>
+<p>Do not render the octahedron as glossy 3D chrome. Wilson&#x27;s solid is a paper model, not a product shot. Flat faces, ink edges, visible labels: the diagram is the aesthetic.</p>
+<p>Do not treat &quot;microtonal&quot; as the subject. Wilson&#x27;s structures are about relations (which products, which faces, which steps), not about exotic pitch. A piece that just plays the six hexany pitches as a novelty scale misses the point; a piece that walks the faces, flips otonal to utonal across the solid, and re-roots the 1/1 gets it.</p>
+<p>Do not mix the two colors&#x27; meanings. Otonal and utonal are structural opposites (share a factor vs. share a missing factor), not moods. If both get used decoratively the diagram lies.</p>
+<p>Avoid the trap of the 7-tone ladder&#x27;s familiarity. The MOS strips for 3/2 reproduce the diatonic pattern, which reads as &quot;just the major scale&quot; to most viewers. The interesting MOS work is in unfamiliar generators and periods (Wilson&#x27;s non-octave work), where the L/s patterns stop looking like anything known.</p>
+<h2>Technique seeds for the practice</h2>
+<p>Ideas only, in the same form as the study queue: each names the source mechanism, the visual move, and what would make it sing. Concrete piece seeds derived from this study are appended to FUTURE_PIECES.md as 259-261.</p>
+<ul><li>Face-walking the solid: animate a path across the octahedron&#x27;s faces,</li></ul>
+<p>each face lighting as its triad sounds (in a sounding version) or as its three vertex labels rearrange. The inversion pairs flash across the solid. The tonic never appears because there is not one.</p>
+<ul><li>The 1/1 rotation: the same six vertices, but the root label moves</li></ul>
+<p>from vertex to vertex while all interval relations stay fixed. The diagram does not change; the meaning does. A study in how much context a single highlighted node supplies.</p>
+<ul><li>Lattice walks as line drawings: take one page of the Chalmers</li></ul>
+<p>letters&#x27; logic (a 2-factor CPS path through the lattice) and draw it large, in ink, with the ratio annotations in the margins exactly as Wilson does. The figure is the piece; the margins are the caption.</p>
+<ul><li>Pascal zoom: start at the single cell 2)4 and zoom out through the</li></ul>
+<p>triangle, each cell opening into its structure&#x27;s diagram. A map of possible worlds, navigable.</p>
+<ul><li>MOS strips as weaving: the L/s ladder drawn as horizontal bands,</li></ul>
+<p>segment widths from the step patterns, one band per rung. Animate the generator and watch the bands re-segment. Unfamiliar generators only.</p>
+<h2>Sources</h2>
+<ul><li>Wilson Archives, anaphoria.com/wilson.html (index; sections used:</li></ul>
+<p>wilsoncps.html, wilsonbasic.html). Goal statement: the archives let Wilson&#x27;s work &quot;speak for themselves&quot; and warn against mechanical interpretation without phenomenological development.</p>
+<ul><li>Erv Wilson, &quot;Combination Product Sets&quot; / &quot;The Hexany&quot; (hexany.pdf,</li></ul>
+<p>39-page scan, 1967 onward): Pascal-triangle Fig 1, duplex table, open/closed notation, subharmonic mirror.</p>
+<ul><li>Erv Wilson, letters to John Chalmers, Oct 1967 (LatticesJohn1967.pdf,</li></ul>
+<p>38 pages): hand-drawn 2-factor CPS lattice figures for 1-3-5-7-9-11.</p>
+<ul><li>Kraig Grady, &quot;Comments on the Combination Product Sets of Erv Wilson&quot;</li></ul>
+<p>(anaphoria.com/cpscomment.html): background, the moon-expedition weightlessness remark, the Euler distinction (Wilson includes 1), pointer to eikopapers.html.</p>
+<ul><li>Kraig Grady, &quot;Introduction to Erv Wilson&#x27;s Moments of Symmetry&quot;</li></ul>
+<p>(anaphoria.com/wilsonintroMOS.html, after mos.pdf): cliff-note definition, generator/period mechanics, the Chalmers letter walkthrough, Tanabe cycle and secondary MOS, constant structures.</p>
+<ul><li>Wikipedia, &quot;Hexany&quot; (mechanism summary: 2*4 CPS, octahedron geometry,</li></ul>
+<p>otonal/utonal faces, melodic hexanies).</p></div><nav class="pagenav"><a class="" href="erik-satie.html"><span class="dir">Previous note</span><span class="t">Erik Satie</span></a><a class="next" href="hal-alles-machine.html"><span class="dir">Next note</span><span class="t">Hal Alles / the Alles Machine</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

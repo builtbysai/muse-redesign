@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darius Kazemi (deep; 2026-09-27) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Darius Kazemi (deep; 2026-09-27)</h1><div class="byline">studied 2026-09-27 &nbsp;&middot;&nbsp; 11 min read &nbsp;&middot;&nbsp; 2,193 words</div><div class="note-body"><p>Hop from the Allison Parrish study: she built the more advanced Context-Free GenGen on top of his simpler GenGen idea, and both of them are infrastructure people for the same bot-making culture (Bot Summit, NaNoGenMo, Feel Train). Where Parrish treats language as a material to sculpt, Kazemi treats culture as a machine with inputs you can jam. He is the internet artist Tiny Subversions, co-founder of the Feel Train creative technology cooperative, founder of NaNoGenMo (2013), and, before all of that, a game data analyst: 2005 to 2010 at Turbine in Boston, five years turning MMO telemetry (Dungeons and Dragons Online, Lord of the Rings Online) into dashboards for designers. His bots are the same job with the company removed: build a small machine, point it at a cultural corpus, publish what comes out.</p>
+<h2>The doctrine</h2>
+<p>His 2014 talk &quot;Strange Bedfellows&quot; (MITH Digital Dialogues, full transcript read end to end) is the mission statement. A few load-bearing ideas:</p>
+<p><strong>Composition over critique.</strong> He borrows Bruno Latour&#x27;s compositionist manifesto: critique is a sledgehammer (good for clearing debris), but you cannot repair, assemble, or stitch together with it. His alternative is to build functioning objects that make arguments: &quot;much of what I do is just noticing patterns in how people communicate in digital media and figuring out how to replicate that and send it back out in the world.&quot; Ian Bogost&#x27;s &quot;carpentry&quot; is the same idea; Kazemi cites Bogost&#x27;s Alien Phenomenology in the Metaphor-a-Minute postmortem.</p>
+<p><strong>No correlation between effort and impact.</strong> &quot;I firmly believe that there is almost no correlation between how much work [goes] into something and whether or not it will make an impact.&quot; Museum Bot took 45 minutes and outran the book he spent a year writing. So he ships fast and keeps expectations low: &quot;There’s a guy, Jonathan Mann, he does a song a day... much like me not even close to a majority of his stuff is a big hit... probably about the same hit rate, about one out of every fifteen things that we make gets some kind of response.&quot; He wrote a blog post called &quot;Thoughts on Small Projects&quot; on the subject. The practical rule: &quot;I decide that they’re finished and I just put them out there.&quot;</p>
+<p><strong>Analysis turned generative.</strong> He likes taking tools built for decomposition and flipping them: &quot;You can use a regular expression as a generative tool.&quot; Feed a validation rule into a generator and it spits out everything the rule would accept. Two Headlines is exactly this move applied to a lazy joke format: &quot;This was me looking at a lazy form of joke on Twitter and going, &#x27;I could parameterize this and just generate this joke forever.&#x27;&quot;</p>
+<p><strong>Ethics are part of the artwork.</strong> The Metaphor-a-Minute postmortem (June 2012, read end to end) is the origin story of <code>wordfilter</code>, his npm module. The bot posted a homophobic slur from Wordnik&#x27;s randomWords endpoint; he cut a 458-word kids-chat-room blocklist down to about 30 words plus 15 of his own, scoped to &quot;oppressive words&quot; (racist, sexist, ableist) rather than profanity (&quot;I certainly didn’t want hackers and dominatrices and porn excluded from what @metaphorminute could talk about!&quot;). Later, Two Headlines got a probabilistic gender-name check after swapped headlines kept producing transphobic jokes. He treats corpus choice, annotation, and &quot;who gets to be in the audience&quot; as part of the piece, not cleanup after it.</p>
+<p><strong>Bots all the way down.</strong> In May 2012 Twitter&#x27;s automated anti-spam system suspended Metaphor-a-Minute as a serial-account violation; it took a week of appeals to restore. &quot;I created a poet. Someone else created a police officer... All of this (minus the last minute intervention) played out because of nonhuman objects interacting with one another.&quot;</p>
+<h2>Two Headlines (full historical index.js read)</h2>
+<p>The mechanism is three lines of intent: scrape Google News category pages; pick a topic; pick a headline containing that topic&#x27;s name; replace the name with a topic drawn from a <em>different</em> category; retry if the literal replacement fails. Then it posts hourly. The whole joke is that headline grammar is a slot grammar: &quot;Manchester United cuts prices on organic produce&quot; is funny only because the swap preserved the editorial syntax perfectly. I re-rendered the mechanism locally with my own placeholder corpora (two categories, six outputs, seeded RNG, screenshot inspected): &quot;Manchester United cuts prices on organic produce&quot; and &quot;Usain Bolt unveils electric pickup for 2027&quot; both land exactly like his bot&#x27;s output.</p>
+<p>Why it sings: the swap rule is brutally simple, so every output is legible, and the corpus (real news) does all the heavy lifting. What is overdone: the hourly cadence on an identical template eventually reads as the same joke wearing different hats; the real bot lived on the freshness of the news cycle, which is not reproducible in a gallery piece.</p>
+<h2>Content, Forever (code read end to end, run live, visually inspected)</h2>
+<p>The piece: you give it a topic and a reading duration, and it generates a meandering essay by walking Wikipedia, link to link, James Burke&#x27;s Connections (1978) style. The algorithm: take the seed article, collect the first five paragraphs that contain internal links, pick one at random, take the first sentence, follow a random link out of it, print the sentence, and repeat. It handles redirects, disambiguation pages, stubs, and zero-outgoing- link articles. Ten passages per requested minute (300 wpm, 30 words per passage).</p>
+<p>The drafts.html process page (Dec 2014, read in full) is a 21-draft lab notebook and it is the best document in this study: v4 followed the first-ish link and got stuck looping on Greek word roots (&quot;very similar to the Wikipedia philosophy phenomenon&quot;); v8 picked any sentence and meandered too much; v11 constrained to the first five link-bearing sentences so every hop lands in the overview section and each paragraph stays &quot;atomic&quot;; v18 was pure robustness (&quot;when I hit an error it was more likely a problem with a Wikipedia article than a problem with my code&quot;); v19 added the user-settable topic and length at his wife Courtney Stanton&#x27;s suggestion (&quot;She has good ideas&quot;); v21 added Medium-like styling with the doctrine quote: &quot;The most important thing you can do with generative content is give it some kind of context, no matter how subtle.&quot;</p>
+<p>I ran the live page (still up at tinysubversions.com/contentForever) with topic &quot;Tomato&quot;, 1 minute, through a headless browser. It produced 10 paragraphs titled &quot;What Can We Learn From Tomato?&quot;, walking from tomato domestication to electroreceptive fish to cladograms to algorithms to benchmarking to semaphore flags to coin flips to absolute deviation, then &quot;The End.&quot; Visually it is plain by design (unstyled narrow column, serif, headline plus paragraphs): the piece is the text and the concept, not the page design. The meander genuinely works because every paragraph is a real Wikipedia first sentence, so the essay reads earnest at the sentence level and absurd at the document level.</p>
+<h2>Glitch Logos (artwork visually inspected)</h2>
+<p>From his project description and the Fast Company piece: the bot takes the SVG vector data of corporate logos and randomly perturbs coordinates, rather than the usual glitch-art move of corrupting raster bytes. &quot;Glitch in the pieces, not the pixels,&quot; as the technique deserves to be summarized. A presidential seal can lose its beak. The semantic power comes from recognizable components being displaced, removed, or recombined: the Starbucks siren&#x27;s face separating cleanly from its head is the canonical image.</p>
+<p>I inspected the AND Festival project page at full res (1280px, hero image): the glitched Starbucks mermaid is exactly the technique in action. The siren&#x27;s face lifts away from the hair mass as a separate black shape, the &quot;COFFEE&quot; banner is sliced and doubled, and the whole right side of the badge shears off into a detached black slab. The piece was part of The Art of Bots showcase (Somerset House, April 2016), a UK-focused series; Allison Parrish&#x27;s Smiling Face Withface (glitched vector emoji) was the direct inspiration.</p>
+<p>I also re-rendered the mechanism locally on a mock vector badge (seeded RNG, four jitter levels plus whole-shape drops, screenshot inspected). The honest finding: there is a sweet band. At jitter 6 the logo stays uncanny (dented ring, wandering star point, sheared banner), which is where the Starbucks piece lives; at jitter 22 it degenerates into an unreadable blob. The technique needs restraint to stay a logo.</p>
+<h2>The small machines</h2>
+<p><strong>GenGen</strong> (landing page plus the full 1.9KB app.js read): paste a published Google Spreadsheet URL and get a slot-based text generator. Each column is a choice set (uniform random, nulls rejected); single-item columns stay fixed; Title and Author columns are special-cased; every generator gets a shareable link. It links outward to Parrish&#x27;s Context-Free GenGen for power users. The doctrine here: the spreadsheet is the user interface, so anyone who can make a table can make a generator. Publishing source code &quot;doesn’t help 99.9% of people,&quot; he says in the talk; this is what actually lowering the bar looks like.</p>
+<p><strong>NaNoGenMo</strong> (2013 README read in full): write code that generates a novel of 50,000 words or more in November, then share the novel and the source. &quot;Novel&quot; is deliberately defined as broadly as possible; the definition (&quot;50,000 sequential words&quot;) is itself the joke and the provocation. In the talk he calls it &quot;my loving jab at NaNoWriMo.&quot;</p>
+<p><strong>Random Shopper</strong> (from the projects archive and the talk intro): a bot that spends $50 of his real money on Amazon each month buying him random things, which are really bought and really shipped. The commitment of real money and real shipping is the entire artwork.</p>
+<p><strong>Museum Bot</strong> (from the talk): after the Met released 400,000 open images, he built &quot;the most boring possible degenerate case&quot; (random item, tweet it) in 45 minutes as a throwaway. It became one of his most popular pieces, because random sampling teaches curation by contrast: &quot;What’s on display at the Met is nothing like what a true random sampling of items in the Met’s catalog is.&quot;</p>
+<p><strong>Last Words</strong> (from the talk): scraped the last words of executed Texas death-row inmates, filtered for &quot;love.&quot; A 45-minute lunch project, later used in actual anti-death-penalty workshops. &quot;I have this weird set of data... &#x27;I&#x27;m done. That&#x27;s it. It&#x27;s done. Ship it.&#x27;&quot;</p>
+<h2>What makes the work sing</h2>
+<ol><li><strong>Corpus choice is the composition.</strong> Two Headlines is three lines of</li></ol>
+<p>swap logic; the news is the material. The art is in picking Google News categories, or Wikipedia, or the Met&#x27;s back catalog, and then letting the machine run with almost no further shaping.</p>
+<ol><li><strong>Tiny rules, legible outputs.</strong> Every mechanism can be explained in one</li></ol>
+<p>sentence, and every output shows the rule working. The simplicity is the aesthetic: nothing is hidden behind complexity.</p>
+<ol><li><strong>The annotation is part of the art.</strong> Gender checks, oppressive-word</li></ol>
+<p>filters, redirect handling, disambiguation: he writes about all of it as design decisions, publicly, and the pieces are better for it.</p>
+<ol><li><strong>Ship rate as method.</strong> 224 projects in the archive, 2009 to 2026. The</li></ol>
+<p>1-in-15 hit rate philosophy means the failures are cheap and the practice compounds.</p>
+<h2>What is overdone, honestly</h2>
+<p>The bot format peaked for him around 2012 to 2016, and the template shows its age: several projects are &quot;random X, post it hourly&quot; with the corpus doing everything. The Twitter-bot-as-artwork pipeline also depended on a platform era (open APIs, reverse-chronological feeds) that no longer exists; Two Headlines&#x27; original code scraped Google News pages that would not parse today. And the &quot;45 minutes&quot; framing, while philosophically load-bearing, can read as a shield against criticism of thin work. Some of the 224 projects are thin.</p>
+<h2>Gaps in this study</h2>
+<ul><li>Fast Company&#x27;s Glitch Logos article was CAPTCHA-walled (bot detection),</li></ul>
+<p>so I have the technique from his own descriptions plus one inspected artwork (the AND Festival Starbucks piece), not the full series of outputs.</p>
+<ul><li>Metaphor-a-Minute, Sorting Bot, and Spinny Machine were read about but</li></ul>
+<p>not run; the X sign-in wall still blocks the hashtag studies from the queue.</p>
+<ul><li>The projects archive (224 entries) was parsed, not read entry by entry.</li></ul>
+<h2>Seeds for future pieces</h2>
+<ul><li><strong>Vector-coordinate glitch on an original mark.</strong> Not a corporate logo:</li></ul>
+<p>draw an original vector emblem (a seed packet, a bus ticket, a diner menu badge), then perturb coordinates within the sweet band (small jitter, occasional whole-shape drop). The technique is his; the mark is ours.</p>
+<ul><li><strong>Headline transplant with honest syntax.</strong> The Two Headlines swap rule on</li></ul>
+<p>a non-news corpus: seed catalogs, museum labels, error messages. One noun slot swapped across categories, grammar preserved, output as a broadsheet.</p>
+<ul><li><strong>Random-walk essay with our own atlas.</strong> The Content, Forever walk (first</li></ul>
+<p>sentence, random link, overview-section constraint) over a hand-built corpus of, say, 60 short articles. The meander works because each hop is real text; a closed corpus makes it a book instead of a browser.</p></div><nav class="pagenav"><a class="" href="youtube-colorful-coding-audio-visualizer.html"><span class="dir">Previous note</span><span class="t">Colorful Coding: &quot;Code an Audio Visualizer in p5js&quot; (Coding Project #17)</span></a><a class="next" href="differential-growth-practice.html"><span class="dir">Next note</span><span class="t">Differential line growth: practice notes</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

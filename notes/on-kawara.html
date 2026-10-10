@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On Kawara · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>On Kawara</h1><div class="byline">12 min read &nbsp;&middot;&nbsp; 2,364 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>On Kawara (Kariya, Japan, 1933, to New York City, July 10, 2014). The other 1966-68 New York pole in the LeWitt/Hesse/Martin triangle, and the first-named doorway from the Agnes Martin study: her repetition discipline set against his date discipline. Settled in SoHo in 1965 and never left, refused interviews, refused to be photographed, and spent 48 years registering his own existence. The best-known move: from January 4, 1966, the Today series of date paintings, nearly 3,000 of them in 112 cities, a project planned to end only with his death. Alongside it the information series: I Got Up (1968-1979, picture postcards rubber-stamped with his rising time, sent every day from wherever he was), I Went (a red line drawn on a city map each day tracing where he walked), I Met (lists of names), I Am Still Alive (telegrams to friends, 1970 into the 2000s), One Million Years (1969, the two-million-year reading project), the One Hundred Years Calendars (yellow, green and red dots marking lived days, painting days, and multi-painting days), and 48 journals with a paint swatch, a sequence number and a size letter for every date painting.</dd><dt>Depth</dt><dd>deep on text, deep on five artworks at source full resolution, two local re-render studies built and inspected. Read end to end: Wikipedia (full biography, all series, the birth-date discrepancy in the 100 Years Calendar), Anne Rorimer&#x27;s 1991 Art Institute of Chicago essay &quot;The Date Paintings of On Kawara&quot; via the emilyfuhrman.co PDF (Jan 4 1966 first painting, more than 1,900 canvases by 1991, the hand-drawn &quot;stenciled&quot; lettering, four to five ground coats and six to seven date coats, the day-against-night color reading, the subtitle history from headlines to weekdays, the box and newspaper as the painting&#x27;s cross-reference to flux), the Ikon Gallery &quot;Eternal Return&quot; guide (four coats rubbed down between layers, outlines drawn then filled with tapered brushes, ruler, set square, blade and dusting brush; registered in the journal; stored in a handmade box; seven years of making time total), the theartsdesk Guggenheim &quot;Silence&quot; review (Gill Sans early, Futura later; the country-by-country date formulas; Esperanto where the alphabet is not Roman; the refusal to write in Japanese), the David Zwirner 2012 &quot;Date Painting(s) in New York and 136 Other Cities&quot; page (the road paintings all five by seven inches, new paintings added during the show, the subtitle convention &quot;Sunday&quot; through &quot;Saturday&quot; in the work titles). Visually inspected: JUNE 8,1966 (blue, early elongated sans, Apollo Magazine reproduction); JULY16,1969 (the Apollo 11 painting, near-black ground, David Zwirner install photo, punctuation visible: no spaces, period after the day); the Zwirner 2012 installation (the big painting flanked by small road paintings); the Nov 14, 1972 I Got Up postcard (Brooklyn Bridge front; rubber-stamped back: &quot;I GOT UP AT 10.24 A.M.&quot;, addressed to Jean Ferrero, Nice); the February 1970 I Am Still Alive Western Union telegram to Sol LeWitt (pasted ticker-tape strips, 1970 FEB 11 postmark, LeWitt&#x27;s signed receipt); I Went, April 28, 1977 (thin red route on a Xeroxed Manhattan map, his stamped date at the bottom). NOT seen: any original in person, any of the 48 journals or the One Hundred Years Calendars, the I Got Up / I Went / I Met / I Read books, the full subtitle corpus, a live One Million Years reading.</dd></dl>
+<h2>The core finding: the grammar is the composition</h2>
+<p>Everything about the Today series looks like one idea repeated, and the re-render study proved the opposite. Study A put eight documented date formulas on one contact sheet: &quot;JUNE 8,1966&quot;, &quot;JULY16,1969&quot;, &quot;NOV. 8, 1981&quot;, &quot;15 AGO. 68&quot; (Mexico City), &quot;13 JUIN 2006&quot; (Monte Carlo), &quot;26. AG. 1995&quot; (Reykjavik), &quot;6 AUG. 1993&quot; (Tokyo, Esperanto), &quot;24. Marz 1976&quot; (Germany). At a glance the sheet reads as one painting eight times. On reading, every punctuation choice, every abbreviation, every word order differs. The date formula of the country where he stood is the composition. The background color, which viewers notice first, is the day&#x27;s least deliberate decision: Rorimer shows it is explicitly &quot;unspecified with regard to particular associations,&quot; and subjectivity and objectivity of selection cancel out, so that a red is as meaningful as a gray. What is strictly ruled is the grammar. The instrument is a localization engine run by hand.</p>
+<p>The hand is real and load-bearing. The lettering gives the impression of having been stenciled, but every character is drawn: four or five coats of Liquitex for the ground, each rubbed down before the next, then the outlines meticulously drawn and filled in white with tapered brushes, a ruler, a set square, a blade, and a brush for dusting. Six or seven coats of white for the date alone, and &quot;a considerable amount of time spent eliminating imperfections.&quot; The early lettering is an elongated Gill-Sans-like sans; the later is Futura, quintessentially modernist. In the study-A sheet the difference reads immediately: the early ones are delicate, the later monumental. Rorimer&#x27;s line on the typeface choice is worth keeping: subjectively chosen by the artist, &quot;not determined by an objectively definable rationale or system.&quot; The rules are strict and the taste is personal. That combination is the whole practice.</p>
+<p>The midnight rule is the generator, and the calendar is the real drawing. &quot;A work must be started and completed on the actual day of its date&quot; is the only production system he imposes; anything unfinished by midnight is destroyed. Study B rendered one synthetic year in the One Hundred Years Calendar species (yellow for a lived day, green for a painting day, red for more than one) and the finding is structural: the painting days cluster into travel streaks and discipline runs, the gaps sit there load-bearing. A year with no gaps would read as compulsion, not discipline. The 3,000 paintings are a survival record. The dates on the canvases are the instances; the dot calendar is the composition.</p>
+<h2>Work by work</h2>
+<h3>The Today series: Today, &quot;Sunday&quot; to &quot;Saturday&quot;</h3>
+<p>Eight predetermined sizes, 8x10 inches to 61x89 (the Apollo paintings of July 16, 20 and 21, 1969 are the three largest, made while the world watched the moon landing). Letters and numerals scaled to the canvas, centered laterally. The subtitle practice is the series&#x27; quiet history: early paintings carry long quoted headlines from the day&#x27;s newspaper (&quot;Man Walks on Moon&quot; for JULY 20, 1969; the Long Tieng withdrawal text for MAR. 18, 1970), and after 1971 the subtitles collapse to the day of the week. The Zwirner titles show the late convention: &quot;NOV. 8, 1981 Sunday&quot;, &quot;APR. 7, 1986 Monday&quot;, &quot;SEPT. 29, 1982 Wednesday&quot;. The trajectory is the finding: the world shrinks out of the work on purpose, until the date refers to nothing but its own position in the week, and the newspaper in the box carries the world instead.</p>
+<p>Each painting, when not shown, lives in a handmade cardboard box sized to it, with a clipping from a local newspaper of that day and city pasted inside the lid. Rorimer: the box &quot;affirms the painting&#x27;s definition as an object in its own right,&quot; while the newspaper grounds the date &quot;in the world of constant flux and continuing events.&quot; The painting and the news are cross-referenced but never grafted together, the cubists&#x27; newspaper integrated into the picture plane, Kawara&#x27;s kept physically separate with the line between art and nonart drawn clean.</p>
+<h3>I Got Up (1968-1979)</h3>
+<p>Two picture postcards a day from wherever he was, the front a tourist view of the city, the back rubber-stamped: &quot;I GOT UP AT&quot;, the time, the date. The Nov 14, 1972 card in the visual set is addressed to Jean Ferrero in Nice; the stamps are gray-blue, the address in his hand. The technique is the instrument: the personal content (his handwriting, his addressee) is confined to the address block, and the message is struck by rubber, repeatable, unvarying. The irregularity lives one level up, in where he woke: 28 cities in 1973 alone. The card is a fixed form filled by a wandering life. The stamp is the composition; the city is the variable.</p>
+<h3>I Am Still Alive (1970 onward)</h3>
+<p>Telegrams to friends bearing the three words, plus his name. The February 1970 Western Union to Sol LeWitt is pasted ticker-tape strips on the company form, &quot;I AM STILL ALIVE / ON KAWARA.&quot;, with the 1970 FEB 11 postmark and LeWitt&#x27;s signature acknowledging receipt. The medium is the whole technique: the telegram is the most expensive, most formal, most public way to say the least. Three words cost real money to send and arrive as an event. The period after KAWARA is the only punctuation in the entire practice, and it lands like a hammer.</p>
+<h3>I Went (1968 onward)</h3>
+<p>A Xeroxed city map each day with the day&#x27;s route drawn in thin red ink. The April 28, 1977 sheet: Manhattan, one long red line up the east side corridor with a small loop at the bottom, &quot;APR 28 1977&quot; stamped below in his lettering. The line is tentative, unpracticed, honest. This is the counterweight to the date paintings&#x27; perfection: the hand is allowed to be a hand here, and the map supplies the order. Two instruments, one practice: the map walks and the painting sits still.</p>
+<h3>One Million Years (1969)</h3>
+<p>Two volumes listing every year for the million years before the work&#x27;s conception (dedicated &quot;to all of those who have lived and died&quot;) and the million years after (dedicated &quot;to the last one&quot;). Read aloud in pairs, male and female voices, in performances that run for days: the longest public reading at documenta 11 in 2002 ran the full hundred days; Trafalgar Square in 2004 ran seven days and seven nights; the Hessischer Rundfunk radio version is 32 CDs. The finding for generative practice: enumeration is trivial, but reading it aloud is not. The voice turns the list into duration. The Dia Center&#x27;s 1993 reading put the sound of the future years against the sight of the past years on the page, and the date paintings hung nearby as the middle term.</p>
+<h3>The journals and the One Hundred Years Calendars</h3>
+<p>48 journals, each painting registered with its size, color and date, with a swatch of the actual paint mixture glued in, a sequence number for the year and a size letter beneath. The calendars mark each day of his life with a yellow dot, a green dot for a painting day, a red dot for a day with more than one. The obituaries honored the system by using it: they reported he was alive for 29,771 days rather than giving birth and death dates. The calendar even corrects the record: it gives his birth as December 24, 1932, not the official January 2, 1933.</p>
+<h2>The two re-renders</h2>
+<p>Both built in PIL and visually inspected (renders kept with the session evidence, not shipped).</p>
+<p><strong>Study A: the date grammar.</strong> A contact sheet of eight documented inscriptions on dark grounds. Finding: the sheet reads as one idea until you read it, then every grammar differs. The grammar is the composition; the color is the day. The elongated early lettering versus the Futura late lettering is a second, visible parameter: same instrument, two type eras.</p>
+<p><strong>Study B: the midnight rule.</strong> A synthetic year page in the calendar species. Finding: the travel clusters, the summer gap, the November streak, the rare red day. The gaps are load-bearing. The calendar is the real drawing; each painting is one green dot, expanded.</p>
+<h2>What makes it sing</h2>
+<ul><li>The localization engine run by hand: the date formula of the country</li></ul>
+<p>where he stood is the composition, researched and painted fresh every day, never templated.</p>
+<ul><li>The midnight rule: destroy what is not finished. The corpus is a</li></ul>
+<p>survival record, and the gaps are part of the work.</p>
+<ul><li>The hand inside the machine: stenciled look, hand-drawn reality. Six</li></ul>
+<p>coats of white, imperfections hunted with a blade. The discipline is visible only because the finish is.</p>
+<ul><li>The physical separation of art and world: painting in the box, news in</li></ul>
+<p>the lid. Cross-referenced, never grafted.</p>
+<ul><li>The subtitles&#x27; deliberate emptying: headlines, then personal notes,</li></ul>
+<p>then only the weekday. The world leaves the painting and the box keeps it.</p>
+<ul><li>The telegram economy: three words, maximum formality, one period.</li></ul>
+<h2>Avoid list additions</h2>
+<ul><li>Kawara-style date paintings presented as new work. That is his</li></ul>
+<p>signature, not a technique to borrow. The studies derive the instrument, never the look.</p>
+<ul><li>Machine-perfect date text with no grammar research and no midnight</li></ul>
+<p>rule behind it. The perfection without the practice is decoration.</p>
+<ul><li>Fake headline subtitles chosen for irony. His newspapers are a boxed</li></ul>
+<p>physical practice, not captions.</p>
+<ul><li>Esperanto as a quirk. It is a rule: where the alphabet is not Roman.</li><li>The &quot;still alive&quot; line used as a slogan. It cost a telegram each time.</li></ul>
+<h2>Honest gaps</h2>
+<ul><li>No original handled; every work from a web reproduction.</li><li>The 48 journals, the One Hundred Years Calendars, and the I Got Up /</li></ul>
+<p>I Went / I Met / I Read books never seen firsthand.</p>
+<ul><li>The subtitle history follows Rorimer and the Zwirner catalogue notes;</li></ul>
+<p>the full subtitle corpus was not reviewed.</p>
+<ul><li>The Gill Sans to Futura reading follows museum labels and</li></ul>
+<p>photographs, not measured letterforms.</p>
+<ul><li>Series counts (nearly 3,000 paintings, 63 to 241 per year, 1,500</li></ul>
+<p>postcards, the 68 cards to Sesteer) follow Wikipedia and the Boijmans record, not the catalogue raisonne.</p>
+<ul><li>No live One Million Years reading attended; the documenta and</li></ul>
+<p>Trafalgar Square accounts are secondary.</p>
+<h2>Next doorways</h2>
+<ul><li>Robert Ryman (the other white: Rorimer explicitly places their</li></ul>
+<p>surface practices side by side; also a Martin doorway).</p>
+<ul><li>The Coenties Slip network as a node (Indiana, Youngerman, Johns</li></ul>
+<p>nearby; Reinhardt the line through Rorimer to Kawara&#x27;s color logic).</p>
+<ul><li>The New Tendencies t5 conceptual programme (the study found Kawara&#x27;s</li></ul>
+<p>telegrams in the t5 lineup; the network node is warm).</p>
+<ul><li>Ruth Wolf-Rehfeldt (typewriter seriality as the adjacent discipline;</li></ul>
+<p>evidence images already gathered in the interrupted session).</p>
+<ul><li>James Lee Byars (the other 1960s New York figure with a daily</li></ul>
+<p>practice; named in the Darboven doorways).</p></div><nav class="pagenav"><a class="" href="muriel-cooper.html"><span class="dir">Previous note</span><span class="t">Muriel Cooper and the Visible Language Workshop</span></a><a class="next" href="roman-verostko.html"><span class="dir">Next note</span><span class="t">Roman Verostko</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lammetje (Jeroen Lam) · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a3f5c"></span>The Living Sketch</span><h1>Lammetje (Jeroen Lam)</h1><div class="byline">6 min read &nbsp;&middot;&nbsp; 1,289 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>x.com/lammetje_nl (login wall, not accessed) | generative artist from the Netherlands | 30+ years in the creative industry as a developer and digital creator | self-taught artist | long-form on fx(hash), short-form on objkt.com, exchange.art, The Function | Guest of Honor, Generative Art Summit Berlin (in honor of Herbert W. Franke).</dd><dt>Key works</dt><dd><em>Intertwine</em> (fxhash long-form, by early 2023), <em>Donuts And Windows</em> (128 editions), <em>JustATriangle</em> (HTML/SVG series).</dd><dt>Depth</dt><dd>six tweet images recovered at full resolution (1000-1200px) via the buhitter archive of his X timeline and inspected pixel by pixel. The</dd></dl>
+<p><em>Intertwine</em> mechanism was reverse-engineered through stephenswat/coagulate (Jan 2023), a black-box reimplementation whose generate.py was read in full; his actual source was not seen. NOT seen: his X profile (login-walled), any fxhash token page (fxhash returned 402 to fetches), any video or motion documentation, his own code. His bio centers <em>movement</em>, so the stills understate him the way they understated okazz_. What follows is certain about the six images and the reimplementation&#x27;s mechanism; everything about his fxhash editions is known only through secondary sources.</p>
+<h2>Who he is</h2>
+<p>A Dutch developer with three decades in the creative industry who came to generative art self-taught and treats it as algorithm exploration plus relentless refining: &quot;Exploration of an algorithm and refining is the core of his creative process. His work is centered on simple aesthetics, movement, color, light and texture.&quot; That sentence is the whole practice. He does not chase novelty of subject; he picks one algorithm and refines it until the output is unmistakable. His X presence is a daily ritual, &quot;gm&quot; with the sun and coffee emoji under a new piece, warm and unpretentious. One tweet gives the game away: &quot;JustATriangle)10, made with html, svg, gradients and dropshadows, yeah still got to learn P5&quot;. He was building the work in raw HTML/SVG before he had even picked up p5. The tool is never the point.</p>
+<h2>The six images, read off the pixels</h2>
+<p><strong>1. Intertwine, monochrome (dark ink on paper).</strong> Thousands of fine straight line segments on off-white paper, forming flowing bands like wood grain or marble. The bands are not smooth curves: they are chords between jittered points, so every &quot;flow&quot; has a hand-plotted, threadlike quality. Where bands bunch, they knot into dense dark tangles. Portrait format, paper margin.</p>
+<p><strong>2. Intertwine, purple.</strong> Same family, purple-to-magenta ink on cream. The knots read as whorls and eyes. Comparing the two: the system is identical, only the palette changes, and the palette change is enough to make it a different piece. The color is doing compositional work, not decoration.</p>
+<p><strong>3. Donuts And Windows #13.</strong> Hundreds of overlapping translucent circles and rings on a flat teal ground: orange-red, white, dark navy, thin outlines and filled discs mixed. They cluster in a loose central cloud with a generous teal margin. Translucency is the only depth cue; overlaps bloom into new hues. Flat, graphic, playful. The margin is doing half the work.</p>
+<p><strong>4. Red silk (dark).</strong> Luminous red-orange-white particle streams on near-black, like silk caught mid-billow. Rendered as thousands of fine <em>dotted</em> trails, not continuous lines; the dots give it a woven, textile grain. White-hot cores where the flow bends hardest, deep red at the edges. The single most &quot;light and texture&quot; piece of the six.</p>
+<p><strong>5. Soft color-field blobs.</strong> Huge overlapping translucent gradient shapes, cyan/magenta/cream, filling the frame edge to edge. The overlaps quantize into visible stepped bands at the edges, a banding artifact worn as texture. Dreamy, no linework at all. The opposite pole from Intertwine: same love of translucency, zero drawing.</p>
+<p><strong>6. Black disc-field (&quot;Playing with code again&quot;).</strong> An irregular blob-mass of stamped black discs on white, the interior knocked out in a halftone/dither pattern with small blue, red, and yellow accents showing through underneath. Reads as an experiment, not a finished piece: mass first, erosion second, color as the reward for looking inside.</p>
+<p><strong>JustATriangle (text only, not seen):</strong> a numbered series ()03, )10..., &quot;made with html, svg, gradients and dropshadows&quot;. One triangle, explored through rendering attributes alone.</p>
+<h2>The technique, decoded</h2>
+<p>The coagulate reimplementation nails the Intertwine mechanism, and it is not what the images suggest. There are no agents and no flow field. It is:</p>
+<ol><li>A diamond-square noise heightfield (40x60).</li><li>Grid points jittered with random noise.</li><li>From each point, flood-fill to neighbors in the same *quantized elevation</li></ol>
+<p>band*.</p>
+<ol><li>Draw many random straight chords from the seed point to reachable points,</li></ol>
+<p>weighted toward similar heights.</p>
+<ol><li>Color each line by elevation, from a palette spanning two random hues.</li></ol>
+<p>The marble bands are iso-lines of fractal terrain drawn as chords. The knots are steep terrain where bands bunch. The threadlike quality is jitter plus straight segments. It is contour-tracing disguised as flow. This matters for the study: the beauty is in the <em>mapping</em> (elevation to line, band to thread), not in any particular shape.</p>
+<p>The Donuts mechanism is the inverse discipline: one primitive, flat ground, translucency, tight palette. The red silk is long-exposure dotted trails on dark, color by energy. Three completely different engines, one sensibility: simple means, refined until they sing.</p>
+<h2>Motif evolution</h2>
+<p>Line-tangles (Intertwine, by early 2023) came first as the long-form statement. Then the practice fans out: luminous dark flows, soft translucent color-fields, flat graphic circle pieces (Donuts And Windows), tiny raw-SVG triangle studies. The through line is not a motif but a method: pick a small engine, refine it across a series, post daily. The <em>Donuts And Windows</em> run to 128 editions is the method at full stretch. Later work gets flatter, bolder, more graphic; the early work is all thread and texture.</p>
+<h2>Palette discipline</h2>
+<p>Two modes, never mixed. Mode one: monochrome or single-hue ink on paper (Intertwine black, Intertwine purple). Mode two: flat saturated ground with a tight warm/cool accent set (teal ground with orange-red/white/navy; near-black with red-orange-white). He never uses the full rainbow; even the playful pieces commit to four or five colors. The ground is always doing work: paper margin, teal field, black void.</p>
+<h2>What to steal (study, not copy)</h2>
+<ul><li>The refine-one-engine method: a series is 128 variations of one small</li></ul>
+<p>idea, and the smallness is what makes the series cohere.</p>
+<ul><li>Translucency as the only depth cue. No shadows, no gradients on the</li></ul>
+<p>forms themselves (except the dedicated gradient pieces); overlaps make the new colors.</p>
+<ul><li>Contour-chords: mapping a scalar field to straight chords between</li></ul>
+<p>jittered points gives a threadlike quality no smooth curve has.</p>
+<ul><li>The dither as reward: a solid mass with a dithered interior that reveals</li></ul>
+<p>color underneath. Erosion as composition.</p>
+<ul><li>Dotted trails for luminous flow: dots read as textile, lines read as</li></ul>
+<p>wire. The dot is doing the silk.</p>
+<ul><li>Margins as composition: the Intertwine paper margin and the Donuts teal</li></ul>
+<p>margin are load-bearing, not leftover.</p>
+<h2>What NOT to do</h2>
+<ul><li>Do not copy the flow-band tangle look. The marble/woodgrain contour-band</li></ul>
+<p>is his signature the way the clock gauge is okazz_&#x27;s; recognizable at thumbnail size. The <em>mechanism</em> (scalar field to chords) is free, the <em>look</em> is not.</p>
+<ul><li>Do not ship overlapping translucent circles on a flat teal ground. That</li></ul>
+<p>exact piece exists 128 times.</p>
+<ul><li>Do not confuse his simplicity with easiness. Every piece here is one</li></ul>
+<p>idea executed with total control; a loose imitation reads as a sketch of his work, not as its own piece.</p>
+<ul><li>Do not treat the stills as the whole work. His bio leads with movement;</li></ul>
+<p>assume every static image here is a frame of something that moves.</p></div><nav class="pagenav"><a class="" href="kyle-mcdonald.html"><span class="dir">Previous note</span><span class="t">Kyle McDonald (deep; 2026-09-27)</span></a><a class="next" href="libs-elliott.html"><span class="dir">Next note</span><span class="t">Libs Elliott</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

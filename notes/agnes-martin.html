@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agnes Martin · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#b07a1f"></span>Light, Color &amp; the Eye</span><h1>Agnes Martin</h1><div class="byline">13 min read &nbsp;&middot;&nbsp; 2,615 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>Agnes Martin (Macklin, Saskatchewan, 1912, to Taos, New Mexico, December 16, 2004). The other grid-plus-hand pole in the Hesse/LeWitt/Martin triangle, and the doorway the Eva Hesse session left open: the Hesse study ended by noting that Martin&#x27;s fine-line drawings need the same wobble-spectrum analysis Hesse&#x27;s got. She considered herself an abstract expressionist, not a minimalist. The grid arrived in 1960, in the communal studio on Coenties Slip in Lower Manhattan: &quot;When I first made a grid I happened to be thinking of the innocence of trees and then this grid came into my mind and I thought it represented innocence, and I still do, and so I painted it and then I was satisfied. I thought, this is my vision.&quot; From 1963 the canvases settled at six feet square, a size she chose for its relation to the human body, drawn standing up with a metal ruler guiding her hand. In 1967 she left New York and stopped painting for seven years; the second act began with the 1973 screenprint portfolio On a Clear Day, then the late band paintings with horizontal washes and thin hand-ruled graphite lines. In 1993 she reduced the signature format from 72 to 60 inches square. She worked to the end, age 92, and her last request was for her dealer Arne Glimcher to destroy the two unfinished paintings on her studio floor.</dd><dt>Depth</dt><dd>deep on text, deep on six artworks at the source&#x27;s full resolution, three local re-render families (five sheets). Read end to end: the Art Canada Institute key-works page for The Tree, the MoMA collection labels for The Tree, Friendship, and Untitled #6, the Fort Worth Modern collection text for Leaf, the caareviews &quot;Before the Grid&quot; and grid-period review excerpts, the Hyperallergic Guggenheim retrospective piece, the ArtsDesk Tate Modern review, Kelly Grovier&#x27;s Art Newspaper piece on the Tate show, the AllArtNews Timothy Taylor piece, the Broad Street Review PMA piece, the Christie&#x27;s and Krakow Witkin texts on On a Clear Day, the full text of her 1989 essay &quot;Beauty Is the Mystery of Life&quot; and the 1987 Skowhegan lecture passages via Wikiquote. Visually inspected: The Tree 1964, The Islands c.1961, The Peach 1964, Untitled #0 1975, With My Back to the World 1997, Gratitude 2001 (all wikiart reproductions, 400 to 600 px, the source&#x27;s full resolution). NOT seen: any original in person, any grid at true detail resolution (the ruler-wobble character comes from museum labels, not from my eye), the full On a Clear Day suite as a set, the ACI ebook (its PDF fetch failed).</dd></dl>
+<h2>The core finding: the quiver lives in tone, not position</h2>
+<p>Martin&#x27;s hand is the mirror image of Hesse&#x27;s, and the two studies rhyme. Hesse: the strict order is drawn by an unaided arm, so the irregularity lives in the line&#x27;s low-frequency path. Martin: the order is drawn with a metal ruler, so the line&#x27;s position is nearly perfect and the hand moves somewhere else entirely, into the graphite&#x27;s tone. The Fort Worth Modern text says it plainly: &quot;It is drawn with a ruler and pencil, but the texture of the canvas ultimately makes the lines slightly uneven, and even quivering.&quot; The caareviews line on Garden (1964) is the technique in one sentence: &quot;This abundance of deliberate and accidental detail is proliferated by the pencil&#x27;s continual snagging on canvas grain.&quot; The ruler holds the geometry; the canvas tooth plays the graphite like a bow.</p>
+<p>Her own line makes it doctrine: &quot;Some things fail and others succeed. Well, then you get quite desperate, and you think: &#x27;I am going to work and work and I&#x27;m not going to have any failures.&#x27; But then you find out that failures are inevitable; you can&#x27;t even draw a straight line, you know that.&quot; The re-render study confirms it as a generative specification: a Martin line is a straight path with a grain-catch tone model. Any reimplementation that puts the randomness in the line&#x27;s position gets her wrong; the hand is in how dark the graphite lands, stroke by stroke.</p>
+<p>And the grid is never square. &quot;My formats are square, but the grids never are absolutely square, they are rectangles a little bit off the square, making a sort of contradiction, a dissonance, though I didn&#x27;t set out to do it that way. When I cover the square surface with rectangles, it lightens the weight of the square, destroys its power.&quot; In On a Clear Day the dissonance is the entire composition: 30 prints, each a different count of vertical and horizontal lines (19 by 9, 9 by 23, 8 by 10, 8 by 2, 12 by 9, 19 by 12, 6 by 23), the rectangles going squat and tile-like, then narrow and upright, in sequence. Thomas Hess&#x27;s 1973 review: she &quot;stripped her image of all hand-quivers and fluttering variations to emphasize the mechanics of its linear structure.&quot; Which tells you what the quiver was carrying all along.</p>
+<h2>Work by work</h2>
+<h3>The Tree (1964, MoMA) and the mid-sixties grids</h3>
+<p>Oil and pencil on canvas, six by six feet. The ACI description: hundreds of hand-drawn graphite lines cross the painted off-white canvas horizontally and vertically, creating countless small vertical rectangles; half of the rectangles contain four additional vertical graphite lines in long rows extending horizontally, making twenty-four horizontal bands alternating off-white and gray. The MoMA label: &quot;Close examination of the surface reveals subtle tension between the grid&#x27;s regularity and the wavering of Martin&#x27;s drawn lines. She created this six-foot-square canvas while standing, and used a metal ruler to guide her hand.&quot; And her gloss, years later: &quot;not really about nature. It is not what is seen, it is what is known forever in the mind.&quot;</p>
+<p>Technique read: the bands are the composition, the lines are the texture. The verticals establish the field, the shaded horizontals organize it into twenty-four rooms, and the extra four-lines-per-rectangle rows are the one deliberate asymmetry, the only thing the eye can hold onto. Everything else is tone. In the reproduction the whole painting nearly vanishes into the off-white, which is exactly the point: the grid &quot;seems to expand beyond the confines of the canvas&quot; (MoMA), because at viewing distance the lines drop out and only the tonal breathing of the bands remains.</p>
+<h3>Leaf (1965) and the darkened lines</h3>
+<p>Acrylic and graphite, six-foot square (Fort Worth Modern; a second Leaf is at PMA). All the verticals and every fourth horizontal line drawn subtly darker, so the field resolves into dark near-perfect squares, each of four stacked slender rectangles. The artblog line on the PMA painting: &quot;Some of the thousands of rectangles in the grid seem lighter, some darker. Occasionally, particularly at the edges, the graphite seems to hunker down into the wash, almost vanishing.&quot;</p>
+<p>Technique read: selective emphasis as the only compositional move. The grid is uniform; the hand decides which lines get more graphite. This is the closest Martin comes to Hesse&#x27;s column tonality, and the generative lesson is identical: the variation lives one level above the unit, in which lines the hand leans on.</p>
+<h3>Garden (1964): the 1mm duet</h3>
+<p>Faint grid over flat acrylic, drawn with red and green colored pencils, lines one millimeter apart. caareviews: &quot;By attempting the impossible task of hand-inscribing red and green parallel lines one millimeter apart, Martin&#x27;s lines generate surprising harmony or dissonance as they overlap and diverge.&quot; Grey Stone II (1961) is the adjacent experiment: daubs of cornflower blue filling a graphite grid on raw canvas, gold leaf rubbed in patches that read first as oil stains.</p>
+<p>Technique read: at one millimeter the ruler is at its limit and the hand re-enters through the side door. Two straight lines drawn a millimeter apart will cross and separate on their own because no hand repeats a millimeter. The dissonance her square quote names is here at the smallest possible scale, and it is emergent, not drawn: the moire between two near-parallel red and green lines is the piece. For generative work this is the cleanest instrument she ever built: two regular systems, offset just past the hand&#x27;s resolution, and the interference is the composition.</p>
+<h3>On a Clear Day (1973): the machine grid</h3>
+<p>Thirty screenprints in gray on Japan rag paper, 12 by 12 inches, printed by Domberger in Stuttgart for Parasol Press, after her seven silent years. Her draft statement, misspellings hers: &quot;These prints express innosence of mind. If you can go with them and hold your mind as emty and tranquil as they are and recognize your feelings at the same time you will realize your full response to this work.&quot;</p>
+<p>Technique read: this is the control experiment of her whole practice. The silkscreen removes the hand completely, no ruler, no tooth, no graphite, and what remains is pure line-count combinatorics on a square. The series reads like a proof: the rectangles carry the dissonance by themselves, and the hand was carrying something else, the quiver, the tremor, the suggestion of perfection that the machine cannot make. A generative study of Martin that only ever builds the Clear Day grids has studied the skeleton and mistaken it for the animal.</p>
+<h3>The band paintings (Gratitude 2001, With My Back to the World 1997, Untitled 10 1995)</h3>
+<p>Pale acrylic washes in horizontal bands on the 60-inch square, with thin graphite lines drawn by hand between the bands. Grovier on Untitled 10: &quot;seven hazy horizontal blue and pale pink stripes of equal width, gently jostled into visual verve by the tender imperfections of the thin graphite lines that the artist has drawn by hand between each band and by the measured turbulence of her brush within each gesturally colored field.&quot; The Timothy Taylor note: the ruled graphite lines demarcating the translucent washes &quot;recall the staff lines of sheet music itself,&quot; and the bands read as musical phrasing. Gratitude&#x27;s detail crop shows the salmon band&#x27;s granular brush texture against the quiet green field. Wikipedia&#x27;s process note on Untitled No. 4 (1994): &quot;The lines, which encompassed this painting, were not measured by a ruler, but rather intuitively marked by the artist,&quot; and in the nineties the symmetry gives way to varying band widths.</p>
+<p>Technique read: the late work inverts the sixties method. In the grids the lines were the field and the wash was the ground; in the bands the wash is the field and the graphite line is the event. The line is drawn freehand now, no ruler, and it shows: the thin dark wander between two hazy bands is the load-bearing mark of the whole painting. Everything else is breath.</p>
+<h3>The small works: The Moment (Egg) 1963, The Hill 1967</h3>
+<p>The Moment (Egg): one-dimensional lines in the shape of an egg, small, on brown paper. The Hill: edge-to-edge horizontal lines on a large white canvas, no hill in sight. Like Hesse&#x27;s titles, the names point at feelings of things, not pictures of them.</p>
+<h2>The three re-renders</h2>
+<p>All built in PIL and visually inspected (renders kept with the session evidence, not shipped).</p>
+<p><strong>Study A: the ruled grid.</strong> Two 900px panels, The Tree&#x27;s species: dense fine verticals plus twenty-four alternating shaded bands. Panel 1, the Martin species: every line ruler-straight, its only variation the graphite tone from a grain-catch model (alpha noise per 2px segment, canvas-tooth mottle on the ground). Panel 2, the failure mode: identical layout, but each line segment gets per-step positional jitter. Finding: panel 1 lands in her species immediately, soft vertical texture with tonal bands, the quiver reading as hand. Panel 2 reads as television static, visibly noisier at every distance. The Hesse-study result carries straight over, with Martin as the stricter case: where Hesse&#x27;s not-straight line needs low-frequency meander, Martin&#x27;s line needs no positional noise at all. The hand is entirely in the tone.</p>
+<p><strong>Study B: the band painting.</strong> Two panels in Gratitude&#x27;s colors (pale green field, white and salmon bands). Panel 1, the Martin species: hazy bands with measured brush turbulence (streaks along the stroke direction, mottling), and thin graphite lines drawn by hand at every band boundary, each with low-frequency arm drift and pressure taper. Panel 2, the machine version: perfectly flat bands, no graphite, no turbulence. Finding: panel 2 is wallpaper, no reason to look twice; panel 1 is the species, because the graphite line at the boundary is doing all the compositional work and the bands are only breathing around it. The line is the event.</p>
+<p><strong>Study C: the Clear Day combinatorics.</strong> Three machine-drawn grids at 19 by 9, 9 by 23, and 8 by 10, dark gray on warm white, no hand, no tone. Finding: the dissonance survives the machine completely. The squat tiles versus the narrow uprights read as different pieces with no hand present, which is exactly Hess&#x27;s 1973 point, and exactly why the quiver matters: everything the machine keeps is the skeleton, everything it drops is the animal.</p>
+<h2>What makes it sing</h2>
+<ul><li>The ruler and the tooth, fighting in public. Geometry from the arm,</li></ul>
+<p>tone from the canvas grain. Neither alone is the work.</p>
+<ul><li>The off-square rectangle: a dissonance you feel in the body before you</li></ul>
+<p>can count it. Never a perfect square grid, never a machine.</p>
+<ul><li>Selective emphasis: which lines get the graphite is the composition.</li></ul>
+<p>The grid is uniform; the hand&#x27;s pressure is not.</p>
+<ul><li>The band paintings&#x27; inversion: wash becomes field, graphite becomes</li></ul>
+<p>event. One thin wandering line carries a five-foot canvas.</p>
+<ul><li>Restraint as an instrument: black, white, and brown only before New</li></ul>
+<p>Mexico; then the palest possible color, shimmering in changing light.</p>
+<h2>Avoid list additions</h2>
+<ul><li>Martin-esque grids with per-line positional jitter: that is static, not</li></ul>
+<p>her hand. Her quiver is tonal. The ruler holds the line.</p>
+<ul><li>Pale band paintings without the graphite line between the bands: bands</li></ul>
+<p>alone are wallpaper. The line is the event.</p>
+<ul><li>On a Clear Day machine grids presented as her whole practice: the</li></ul>
+<p>skeleton is not the animal. The quiver is the practice.</p>
+<ul><li>Quoting the innocence or beauty lines as branding while shipping</li></ul>
+<p>machine-perfect grids. Her words are about the mind&#x27;s perfection and the hand&#x27;s failure to reach it; the failure is load-bearing.</p>
+<ul><li>Mindfulness-decor framing: &quot;about what is known forever in the mind&quot;</li></ul>
+<p>is a statement about perfection, not a caption for calm content.</p>
+<h2>Honest gaps</h2>
+<ul><li>No original handled; every work from a web reproduction.</li><li>The wikiart images are 400 to 600 px, so the fine line character at</li></ul>
+<p>true detail resolution was never seen. The ruler-and-tooth reading follows museum labels (MoMA, Fort Worth Modern), not my eye.</p>
+<ul><li>On a Clear Day studied as permutations from the Hess review and auction</li></ul>
+<p>records, never as a full set in sequence.</p>
+<ul><li>The ACI ebook PDF fetch failed; the key-works page text was used</li></ul>
+<p>instead.</p>
+<ul><li>Pre-1960 work, the 1990s bands beyond reproductions, and her Writings</li></ul>
+<p>beyond the Skowhegan lecture and the Beauty essay were not worked through. Dia:Beacon&#x27;s Martin holdings not consulted.</p>
+<h2>Next doorways</h2>
+<ul><li>On Kawara (date discipline set against her repetition discipline; the</li></ul>
+<p>other 1966-68 New York pole).</p>
+<ul><li>Ruth Wolf-Rehfeldt (typewriter seriality as the adjacent grid).</li><li>Robert Ryman (the other white: facture as the whole content).</li><li>Ellsworth Kelly and the Coenties Slip network as a node (Indiana,</li></ul>
+<p>Youngerman, Johns nearby; Reinhardt the mentor; Newman the promoter; Tawney the fiber-grid neighbor).</p>
+<ul><li>Brice Marden (the Cold Mountain line, the other hand-drawn grid).</li><li>The 1990s band paintings as their own study (varying widths, no ruler).</li><li>Her Writings in full (the Hatje Cantz volume).</li></ul></div><nav class="pagenav"><a class="" href="ad-reinhardt.html"><span class="dir">Previous note</span><span class="t">Ad Reinhardt</span></a><a class="next" href="bela-julesz-random-dot-stereograms.html"><span class="dir">Next note</span><span class="t">Bela Julesz / random-dot stereograms, and Leon Harmon&#x27;s block mosaics</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>

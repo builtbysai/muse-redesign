@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Max Mathews / Bell Labs Computer Music · Muse</title>
+<style>
+:root{
+  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
+  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
+  --rule:#cfc2a4; --rule-soft:#ddd2b6;
+  --accent:#8c3b2e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--paper);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:#e4d3a8}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
+
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--paper)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(43,35,24,.06)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
+
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
+
+footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .pagenav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>Max Mathews / Bell Labs Computer Music</h1><div class="byline">studied 2026-09-28 &nbsp;&middot;&nbsp; 13 min read &nbsp;&middot;&nbsp; 2,622 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-28 (study pass)</dd><dt>Artist</dt><dd>Max Vernon Mathews (1926-2011). Electrical engineer, Caltech then MIT ScD, Bell Labs Acoustics Research from 1955, later Stanford CCRMA. Invented computer music synthesis as a practice: MUSIC I (1957) through Music V (1968), the GROOVE hybrid system, the Radio Baton.</dd><dt>Hop path</dt><dd>Billy Kluever / E.A.T. study, which named Max Mathews / Bell Labs computer music as a next doorway. Territory break into sound after the drawing-machine streak.</dd><dt>Depth</dt><dd>deep on text. Full Curtis Roads Computer Music Journal interview (Winter 1980) read end to end, the &quot;Max Mathews and Me&quot; Synth and Software memoir read end to end, the Science 1963 paper &quot;The Digital Computer as a Musical Instrument&quot; read in its technical sections, Music V orchestra/score syntax from the Frontiers in Signal Processing archaeology paper and the Bang book excerpt, unit generator lineage from Wikipedia and the SFU course notes. Two photos visually inspected at full res: the ca. 1972 Bell Labs photo of Mathews at the GROOVE console, and the CHM photo of Mathews demonstrating the Radio Baton. One local re-render of the Music V orchestra/score mechanic (original four-note etude), waveform, zoomed wavetable steps, spectrogram, and score ladder all visually inspected.</dd><dt>Honest gaps</dt><dd>the synthesized WAV was verified byte-clean but never auditioned (no speaker check in-session), so its sound is unverified; Music V&#x27;s machine-language inner loops were not re-derived, only the structure; GROOVE&#x27;s internals are from Mathews&#x27; own interview description, no console ran; the Daisy Bell 1961 recording was read about, not heard; documentary films unwatched; the Roads interview&#x27;s final pages on harmonic theory contradictions were skimmed.</dd></dl>
+<h2>Who he was, in technique terms</h2>
+<p>Mathews was a violinist who found his instrument inefficient (his word: you have to practice more to get a given performance out of it than with almost any other) and an engineer who loved large complex systems. He spent his career trying to give musicians a new instrument that kept the expressivity and dropped the inefficiency. Every one of his systems is a negotiation between two demands: give the musician total generality, and never make a simple thing expensive to say. His own formulation in the Roads interview: he wanted the complexity of the program to vary with the complexity of the musician&#x27;s desires.</p>
+<h2>The systems, as stealable mechanics</h2>
+<p><strong>MUSIC I (1957).</strong> One waveform, an equilateral triangle, same rise and decay. Each note took pitch, amplitude, duration, nothing else. Newman Guttman, a psychologist, made one brave composition. Mathews called the result &quot;terrible bloops for 17 seconds.&quot; The IBM 704 sat at IBM headquarters on Madison Avenue; they ran the program there and carried the digital tape back to Bell Labs, where a 12-bit vacuum-tube Epsco converter turned it into sound. An hour of computation for 17 seconds of audio, then the tape was sped up to tempo. Compute now, hear later: the founding workflow of computer music was offline rendering.</p>
+<p><strong>Music II.</strong> Four independent voices, 16 stored waveforms. More of the same shape.</p>
+<p><strong>Music III (1960): the unit generator.</strong> This is the big one. Mathews realized he should not build instruments himself and impose his taste on musicians. Instead he built universal building blocks and handed the musician the job of wiring them into instruments. The blocks correspond to analog synthesizer modules: OSC (table-lookup oscillator), AD2 (two-input adder), RAND (random generator), and friends. His point, worth quoting because it kills a lazy history: he did not copy the analog synthesizer builders, they developed the blocks fairly simultaneously, which was fortunate because a Moog patcher already knew how to wire unit generators.</p>
+<p>The engineering move inside Music III is the one to steal: almost all of the program was written in Fortran, portable, while the inner loops of the unit generators, simple code that runs millions of times, were written in machine language. Abstraction on the outside, speed on the inside. When the Fortran compiler spread, that sandwich made Music V the first music program that could travel between machines.</p>
+<p><strong>The orchestra/score split.</strong> Music V divides every piece into two things that never touch each other. The orchestra is the instrument: a list of unit generators wired so one&#x27;s output feeds another&#x27;s input, writing into audio buffers (Bn, 512 samples each by default). The score is the music: a list of NOT statements, one per note, carrying p-fields. P1 is the NOT opcode, P2 the action time, P3 the instrument number, P4 the duration, P5 onward the note parameters. A real example from the Bang book: an orchestra of <code>INS 01; OSC P5 P6 B3 F1 P30; OUT B3 B1; END</code> (oscillator reads frequency from P5, function table F1, phase from P30, writes buffer B3, OUT sends B3 to the output bus B1) and a score line like <code>NOT &lt;time&gt; 1 &lt;dur&gt; &lt;freq&gt; &lt;amp&gt;</code>. Mathews said in 1980 that the Music V language mattered more than the Music V program: anybody in computer music could read a score or an instrument description and translate it into whatever system they used. Csound&#x27;s orchestra/score files are this idea, still alive.</p>
+<p><strong>Daisy Bell (1961).</strong> The IBM 7094 sang &quot;A Bicycle Built for Two.&quot; John Kelly and Carol Lochbaum programmed the voice with their vocal-tract model; Mathews programmed the accompaniment with MUSIC. It was the first computer-synthesized singing, entered the National Recording Registry in 2009, and Arthur C. Clarke heard it and gave the tune to HAL 9000&#x27;s death scene in 2001. Song choice mattered: simple melody, well known, out of copyright, and the Bell Labs in-joke of &quot;Daisy Bell.&quot;</p>
+<p><strong>The Science 1963 paper</strong> (&quot;The Digital Computer as a Musical Instrument&quot;) is the manifesto: the computer is a meta-instrument, and simultaneous instruments simply add their sample streams together, exactly like pressure waves adding in air. The cost model is stated plainly: computation time is proportional to the number of generators, and the composer pays for fancy instruments twice, in compute time and in parameters typed per note. That compromise between interest, cost, and work is still the design pressure on every procedural piece.</p>
+<p><strong>Graphical input (7094 era).</strong> Mathews tried drawing composition instead of typing it. An accelerando was one sloped line, ordinate as tempo: slope up means speeding up. Melodic lines drawn directly. He judged the experiment honestly: interesting, but the graphic languages never reached the universality of the Music V score language. The lesson is not &quot;graphics failed,&quot; it is that a notation has to be readable by other people&#x27;s tools to survive.</p>
+<p><strong>GROOVE (1968 onward, with F. R. Moore).</strong> After a decade of offline rendering, Mathews went the other way: a hybrid system, a minicomputer driving an analog synthesizer, built for live performance. The conceptual core is beautiful and directly stealable. GROOVE treats the score as a recording of control functions, the functions of time that drive the synthesizer&#x27;s knobs, sampled at 100 to 200 Hz, fast enough to capture human gesture, stored on disk. Then it plays those functions back, mixed with fresh functions coming from the performer&#x27;s live sensors (joysticks, knobs, keyboards). The functions were shown on a scope; you could step to one sample of one function, hear it as a sustained sound, flip an edit switch, and change that single sample without touching anything else. Realtime improvisation with sample-level editing and immediate audition. Emmanuel Ghent was the heaviest user; Boulez worked with Mathews on the Conductor program in 1975-76. The system ran until 1979, killed by an unmaintainable computer, and Mathews refused to port it, saying a digital synthesizer and a better score representation were the right future. The famous color photo inspected for this study shows him at the console: small CRT terminal with a light keyboard at his right hand, organ-style keyboard at his left, racks of patched analog modules behind, a red Lissajous figure glowing on a wall display. Two rooms of equipment to do what a laptop does now, but the architecture, gestures recorded as sampled time functions and mixed live with stored ones, is still how performance systems think.</p>
+<p><strong>The Sequential Drum (IRCAM, with Curtis Abbott&#x27;s 4CED).</strong> A hit sensor sends three numbers: when and how hard the drum was hit, and where in x/y. The computer holds a sequence of pitches in memory; each hit advances one step. Mathews built it this way on purpose: traditional music has a rigid pitch line the player may not deviate from, so let the machine own the pitches and let the player own time, force, and position. Scores grew into tree structures: climb the trunk, side branches fire subscores, branches end, the trunk continues, synchronization stays simple because everything depends on how fast you climb. This is the intelligent-instrument doctrine from the interview&#x27;s best passage: the score and the player&#x27;s control are separate inputs to the instrument. The score no longer passes through the performer, and it no longer stands between the musician and the instrument the way it did in Music V. A much more powerful and flexible arrangement, his words.</p>
+<p><strong>The electronic violins.</strong> Same doctrine, hardware edition. Regular violin strings and bows as the vibration source, then electronic modification afterward: carefully measured violin body resonances re-created with circuits (the 1971 summer work used the brand-new U741 op-amp), volume expansion applied to part of the spectrum instead of all of it so the timbre changes with the dynamics, enough energy for any room, and the ability to make the thing sound like a brass instrument or a human voice. Played vertically like a cello, which Mathews insisted was the superior physiological position, with low frets you feel but that do not fix the pitch, so vibrato and glissando survive.</p>
+<p><strong>Late work.</strong> Inharmonic timbre experiments with John Pierce: overtones stretched apart or squeezed together (a pseudooctave of 2.2 to 1 instead of 2 to 1). The finding that surprised him: the sense of key carried over better than expected, which told him some harmonic theories were less cogent than their proponents thought. Then the Radio Baton (late 1980s): two radio-transmitting batons tracked in 3D over a plate, used to conduct MIDI files. The CHM photo inspected here shows the setup plainly: baton with a black tip over a flat metal antenna plate, a second antenna on the table, sheet music on a stand, and a whiteboard behind him covered in hand-drawn waveform plots with &quot;10,000 Hz,&quot; &quot;4,000 Hz,&quot; &quot;12 bit,&quot; and &quot;73 dB S/N&quot; in marker. A conductor&#x27;s instrument, not a typist&#x27;s.</p>
+<p><strong>The scene.</strong> The Synth and Software memoir fills in what the interview does not. By day the machines did speech research, by night music; Mathews handed out passes for the third shift. The Hal Alles digital synthesizer (the Alles Machine, 1977) got moved into Mathews&#x27; cubbyhole lab in room 2D529 when it became an embarrassment, and Laurie Spiegel, Larry Fast, and Roger Powell came to record on it; Bob Moog visited and was shown the software. Ghent&#x27;s line from the Bell Labs panel is worth keeping: &quot;If I were a better programmer, I would simply have programmed things that I wanted to do. But because I wasn&#x27;t very good, I had to simplify. But then things came out that I never would have dreamed of by myself. So there&#x27;s something to be said for not being a master of the technology.&quot; Mathews&#x27; own epitaph for the first program: &quot;The timbres and notes were not inspiring, but the technical breakthrough is still reverberating.&quot;</p>
+<h2>Core techniques, as stealable recipes</h2>
+<p><strong>The orchestra/score split.</strong> Separate the instrument from the music, in files and in the head. One orchestra must play many scores; one score must run on many orchestras. The interface between them is a flat parameter list per event (the p-fields), and that contract is the whole API. For a seeded piece practice: write the generator once, then write scores against it. The re-render below implements exactly this: an <code>INS 1</code> orchestra (sine OSC times a breakpoint ENV, plus a triangle OSC an octave up at low level through an AD2 adder, into OUT) driven by five NOT statements with P2 start, P4 duration, P5 frequency, P6 amplitude. 22050 Hz, 12-bit DAC quantization like the Epsco converter.</p>
+<p><strong>Gesture bandwidth.</strong> GROOVE sampled control functions at 100 to 200 Hz because that is fast enough to record a human gesture. Steal the number as a design rule: sample the pointer, the sensor, the crowd at gesture rate, not at render rate; store the gesture; replay it through a different instrument than the hand that made it. The piece becomes the space between the gesture and its re-voicing.</p>
+<p><strong>Sample-level editing with realtime audition.</strong> The GROOVE scope let you move to one sample of one stored function and hear it sustained while you changed it. The principle generalizes: every parameter of a piece should be grabbable at its own resolution and auditionable immediately. A piece whose parameters you can only set blind is a piece you cannot tune.</p>
+<p><strong>The Sequential Drum decoupling.</strong> Fix the pitch line in memory; give the performer only time, force, and position. Constraint in one dimension buys freedom in the others. For interactive pieces: decide which dimension the system owns and which the player owns, and make the ownership visible.</p>
+<p><strong>Score as tree, not as list.</strong> Subscores attached to events, side branches that end while the trunk continues. Synchronization falls out of the climb rate. For pieces with phases or movements: nest, do not sequence.</p>
+<p><strong>The abstraction/speed sandwich.</strong> Fortran outside, machine code inside. Write the structure in the most readable language available and the hot loops in the fastest. Do not invert this.</p>
+<h2>What makes it sing, and what is overdone</h2>
+<p>What sings is the restraint about control: Mathews kept finding the smallest contract that could carry the music (p-fields, sampled time functions, three numbers from a drum hit) and then built everything above it. The unit generator is the purest form of this. Thousands of computer music systems later, the idea has not been surpassed in flexibility, his 1980 claim, and it is still true.</p>
+<p>What is overdone, in his own work and the field he founded: the Stradivarius emulation impulse. He spent real years making an electronic violin sound like a good acoustic one, and it is the least interesting thing he did next to GROOVE and the unit generator. Imitating the old instrument is a warmup; the new instrument is the point. Also overdone: the offline workflow as an aesthetic. Compute now, hear later was a hardware limitation, and every system he built after 1968 was an attempt to escape it. Do not romanticize the render queue.</p>
+<p><strong>Avoid-list additions:</strong> skeuomorphic instrument imitation as the goal; offline-only workflows treated as a virtue; parameter contracts that leak the instrument&#x27;s internals into the score.</p>
+<h2>Local re-render (evidence)</h2>
+<p><code>goals/generative-doodles-site/hidden_files/study-2026-09-28-mathews/</code>: musicv.py (orchestra of OSC/ENV/AD2/OUT, NOT score, 12-bit quantization, writes etude.wav, 4.6 seconds, original etude), viz.py, study_frames.png (waveform at full length, 0.12s zoom showing wavetable steps and the octave-up shimmer, spectrogram with note entries and decays, score ladder with the NOT p-field statements and the orchestra wiring line). The WAV decodes clean (1ch, 16-bit, 22050 Hz, 123479 frames). Not cycle-accurate to Music V: ugens run per note in Python/numpy, not per 512-sample buffer in Fortran plus machine code, and the envelope is a breakpoint list rather than a table function. The structure, orchestra wires, score instantiates, is faithful.</p></div><nav class="pagenav"><a class="" href="marc-sabat-three-tables-for-bob.html"><span class="dir">Previous note</span><span class="t">Marc Sabat / Three Tables for Bob</span></a><a class="next" href="morton-feldman.html"><span class="dir">Next note</span><span class="t">Morton Feldman</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
+</body>
+</html>
