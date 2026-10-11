@@ -3,236 +3,134 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: Laurie Spiegel / Music Mouse and the Intelligent Instrument</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>Laurie Spiegel / Music Mouse and the Intelligent Instrument · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=sound">SOUND &amp; MUSIC SYSTEMS</a> / Laurie Spiegel / Music Mouse and the Intelligent Instrument</p><article class="note"><h1>Laurie Spiegel / Music Mouse and the Intelligent Instrument</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(152 72% 62%)"></span>Sound &amp; Music Systems</dd></div><div><dt>Studied</dt><dd>2026-09-28</dd></div><div><dt>Words</dt><dd>2462</dd></div><div><dt>Read</dt><dd>~12 min</dd></div><div><dt>Sections</dt><dd>7</dd></div><div><dt>Contains</dt><dd>Techniques, Doorways</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-sings" href="#the-thesis-stated-plainly">The thesis, stated plainly</a><a class="g-x" href="#the-1981-paper-a-transformation-library">The 1981 paper: a transformation library</a><a class="g-x" href="#music-mouse-the-mechanics">Music Mouse: the mechanics</a><a class="g-sings" href="#what-makes-it-sing-and-what-is-overdone">What makes it sing, and what is overdone</a><a class="g-x" href="#local-re-renders-evidence">Local re-renders (evidence)</a><a class="g-techniques" href="#what-to-steal-and-what-to-avoid">What to steal and what to avoid</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><dl class="spec"><div><dt>Date</dt><dd>2026-09-28 (study pass)</dd></div><div><dt>Artist</dt><dd>Laurie Spiegel (born 1945, Chicago). Composer, programmer, software designer, visual artist, theorist. Lute and banjo player turned Juilliard and Brooklyn College composition student, then Bell Labs from 1973, where she programmed the GROOVE hybrid system Max Mathews built. Also programmed the Hal Alles digital additive synthesizer, the first of its kind. Her realization of Kepler&#x27;s Harmonices Mundi (1977) went on the Voyager Golden Record. In 1986 she shipped Music Mouse, an Intelligent Instrument, first for the Macintosh 512k, later Amiga and Atari. She founded NYU&#x27;s computer music studio in 1981, taught at Cooper Union, and worked as a film composer (one of the very first women to do so). Licensed wildlife rehabilitator in her other life.</dd></div><div><dt>Hop path</dt><dd>the Max Mathews / Bell Labs study, which named her as the next doorway. She is the player-side answer to Mathews&#x27; composer-side systems: he built the orchestra and the score, she built the instrument you play.</dd></div><div><dt>Depth</dt><dd>deep on text plus visuals, plus two local procedural re-renders visually inspected. Her own 1981 paper &quot;Manipulations of Musical Patterns&quot; (Proceedings of the Symposium on Small Computers and the Arts, IEEE Catalog No. 393, pp. 19-22) read end to end from the archived PDF. MusicRadar&#x27;s 2026 Music Mouse re-release feature with Eventide&#x27;s Tony Agnello read end to end. Mason Mann&#x27;s NYU lecture slides on GROOVE and Spiegel read end to end. The World Radio History 1986 Mix magazine interview (Larry Oppenheimer) partially read. Women of the Hall and Ragnar Digital biographies read. Three images visually inspected at full res: the 1986 Music Mouse screen on a Mac (CDM photo, 1200x900), the 2026 Eventide re-release interface, and her 1971 portrait in front of the Electrocomp modular synth.</dd></div><div><dt>Honest gaps</dt><dd>the actual Music Mouse binary was not run (the Eventide re-release is $29 and no 1986 emulator was available in-session), so its behavior is documented from press, the manual preface, and screenshots, not from playing it; her GROOVE-era pieces (Patchwork, Waves, The Orient Express, Expanding Universe) were read about, not heard; the WBAI 1979 interview audio was not listened to; her visual art and video work were not seen; the Harmonic Algorithm was read about in secondary sources, its code not recovered.</dd></div></dl>
-<h2 id="the-thesis-stated-plainly">The thesis, stated plainly</h2>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>Laurie Spiegel / Music Mouse and the Intelligent Instrument</h1><div class="byline">studied 2026-09-28 &nbsp;&middot;&nbsp; 12 min read &nbsp;&middot;&nbsp; 2,462 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-28 (study pass)</dd><dt>Artist</dt><dd>Laurie Spiegel (born 1945, Chicago). Composer, programmer, software designer, visual artist, theorist. Lute and banjo player turned Juilliard and Brooklyn College composition student, then Bell Labs from 1973, where she programmed the GROOVE hybrid system Max Mathews built. Also programmed the Hal Alles digital additive synthesizer, the first of its kind. Her realization of Kepler&#x27;s Harmonices Mundi (1977) went on the Voyager Golden Record. In 1986 she shipped Music Mouse, an Intelligent Instrument, first for the Macintosh 512k, later Amiga and Atari. She founded NYU&#x27;s computer music studio in 1981, taught at Cooper Union, and worked as a film composer (one of the very first women to do so). Licensed wildlife rehabilitator in her other life.</dd><dt>Hop path</dt><dd>the Max Mathews / Bell Labs study, which named her as the next doorway. She is the player-side answer to Mathews&#x27; composer-side systems: he built the orchestra and the score, she built the instrument you play.</dd><dt>Depth</dt><dd>deep on text plus visuals, plus two local procedural re-renders visually inspected. Her own 1981 paper &quot;Manipulations of Musical Patterns&quot; (Proceedings of the Symposium on Small Computers and the Arts, IEEE Catalog No. 393, pp. 19-22) read end to end from the archived PDF. MusicRadar&#x27;s 2026 Music Mouse re-release feature with Eventide&#x27;s Tony Agnello read end to end. Mason Mann&#x27;s NYU lecture slides on GROOVE and Spiegel read end to end. The World Radio History 1986 Mix magazine interview (Larry Oppenheimer) partially read. Women of the Hall and Ragnar Digital biographies read. Three images visually inspected at full res: the 1986 Music Mouse screen on a Mac (CDM photo, 1200x900), the 2026 Eventide re-release interface, and her 1971 portrait in front of the Electrocomp modular synth.</dd><dt>Honest gaps</dt><dd>the actual Music Mouse binary was not run (the Eventide re-release is $29 and no 1986 emulator was available in-session), so its behavior is documented from press, the manual preface, and screenshots, not from playing it; her GROOVE-era pieces (Patchwork, Waves, The Orient Express, Expanding Universe) were read about, not heard; the WBAI 1979 interview audio was not listened to; her visual art and video work were not seen; the Harmonic Algorithm was read about in secondary sources, its code not recovered.</dd></dl>
+<h2>The thesis, stated plainly</h2>
 <p>Spiegel&#x27;s doctrine is the opposite of the virtuoso-instrument tradition and also the opposite of the tape-music tradition. Her formulation, from the Music Mouse manual preface: logic, the computer&#x27;s ability to learn and to simulate aspects of our own human intelligence, lets the computer grow into an actively participating extension of a musical person, rather than just another tape recorder or piece of erasable paper. The computer is not a recorder and not a scorewriter. It is a trainable accompanist. She built that idea as a personal instrument on a 512k Macintosh because she wanted one instrument she would never have to compromise on or lose access to. The commercial release was a side effect of friends asking for copies.</p>
 <p>Her career structure matters for stealing: she did the offline algorithmic composition first (GROOVE at Bell Labs, 1973 onward, where Mathews handed out third-shift passes), then moved to interactive instruments when personal computers arrived (Music Mouse, 1986). The thread running through both is that the algorithm handles the part she considers structural, and the human handles the part that needs gesture. In her own terms from the lecture slides: some parts of music can be automated, which leaves the composer more time to focus on the meaningful and creative parts of composition. Example given: maybe we care more about having control over the entropy of an algorithm than the specifics of voice leading within it. Control entropy, not notes. That is a design doctrine you can lift wholesale into any generative piece: give the user a knob over surprise density, not over parameters.</p>
-<h2 id="the-1981-paper-a-transformation-library">The 1981 paper: a transformation library</h2>
+<h2>The 1981 paper: a transformation library</h2>
 <p>&quot;Manipulations of Musical Patterns&quot; is the most portable thing in this study. She argues music is not made of notes but of larger configurations: chords, motifs, melodies, rhythms, progressions, all the way up to sonatas. The design work of composition is choosing patterns that are recurrent, recombinant, and subject to transformation, plus knowing the transformation processes that can be applied to them. Then she lists thirteen minimal modules, the tried-and-true musical manipulations, as a starter library she hoped would end up in standard compositional tools the way insertion, deletion, and search-and-replace ended up in text editors:</p>
 <ol><li>Transposition: offset of fixed magnitude, not just pitch, also amplitude,</li></ol>
 <p>richness, tempo.</p>
@@ -261,40 +159,27 @@ footer a{color:var(--dim)}
 <ol><li>The Great Unknown: the transformational processes of the future, which</li></ol>
 <p>may more closely express the complex and delicate processes of the mind than any of the above.</p>
 <p>Steal the list as a checklist for any generative piece: if your generator only does rescaling and transposition, you have two of thirteen. She also defines two control-level concepts worth their own knobs: entropy (how unexpected a musical event is, how much information it conveys) and corruption (occurrences of unexpected events within an otherwise deterministic musical system). Imagine a knob in an interactive system that controls the amount of entropy. That sentence is worth more than most synthesizer manuals.</p>
-<h2 id="music-mouse-the-mechanics">Music Mouse: the mechanics</h2>
+<h2>Music Mouse: the mechanics</h2>
 <p>The 1986 interface, from the CDM screen photo and the Eventide re-release: the play area is a dotted grid bordered on all four sides by piano-key strips, and the cursor is a crosshair. Three vertical lines represent a chord, one horizontal line a single melody note. As the cursor moves in X, the harmony shifts; as it moves in Y, the melody shifts. Notes trigger as you move, and every note is drawn from the selected harmonic mode (diatonic, pentatonic, Middle Eastern, chromatic), so the output is always musically coherent no matter how recklessly the mouse is wiggled. That is the whole trick: the intelligence is not in the gesture, it is in the constraint set the gesture plays inside of. The 1986 settings panel shows the levers: Harmonic Mode, Treatment (Arpeggio), Transposition, Interval of Transposition, Pattern (6 = ON), Mouse Movement (Contrary), Pattern Movement (Contrary), Articulation (Staccato), Loudness, Sound (Squarewave), Tempo1, Tempo2, Group. The Eventide version adds voicing (Chord-Melody), symmetry (parallel vs contrary movement between voices), tempo pairs, articulation across staccato to legato, and MIDI out to external synths.</p>
 <p>The settings are the composition. Agnello&#x27;s account of the meeting that started the re-release project: she wanted the computer&#x27;s intelligence and logic to enhance performance, the computer as a trainable accompanist. The left-hand hotkeys mean one hand plays the mouse while the other shepherds the output toward musical sense. The design never asks the mouse to be a piano; it asks it to be a new thing. That is the part most gesture interfaces get wrong: they map the hand to the old instrument and call it novel. She built the map the hand deserves.</p>
 <p>The 1971 portrait is worth studying alongside it. She sits in front of an Electrocomp modular: two rack modules of patch bays and knobs above, a keyboard below, a reel-to-reel to the right, cables everywhere. The woman who fifteen years later fit the whole chain of composer, theorist, programmer, and performer into one Macintosh program is shown at the opposite end of the same practice: the room-sized instrument she eventually internalized. The arc of her career is the arc of the gear getting smaller and the instrument getting more personal.</p>
-<h2 id="what-makes-it-sing-and-what-is-overdone">What makes it sing, and what is overdone</h2>
+<h2>What makes it sing, and what is overdone</h2>
 <p>What sings is the constraint architecture. Music Mouse is the proof that an interactive system can be fully playable by a beginner and still musically serious, because the system owns the harmony and the player owns the gesture. Beginners cannot play a wrong note; experts still find new moves, because the constraint set is a musical theory and the gesture space is continuous. Any interactive piece can be tested against this: if the naive user breaks it, the intelligence is in the wrong place. Move the intelligence into the constraint set and let the gesture be free.</p>
 <p>What sings in the paper is the module library as a design tool. Thirteen transformations, each named and exemplified, is a debugging checklist for generative work: when a piece feels thin, run the list and ask which transformations you are actually using. Most generative pieces use three.</p>
 <p>What is overdone, by her own account: the general-purpose system as a virtue. Music Mouse exists because she rejected the general-purpose composition tool; she wanted one small, specialized, well-defined instrument for and by her that she did not have to compromise on. The lesson for tool-building: a specialized instrument with strong opinions outlives the general framework. Also overdone in the field she helped build: algorithmic output treated as composition without the human shaping. Her GROOVE work was always live performance of the algorithms, and Music Mouse is a performance instrument. The algorithm is the accompanist, not the composer.</p>
 <p><strong>Avoid-list additions:</strong> mapping new gestures to old instrument paradigms (the QWERTY-as-piano trap); constraint-free gesture interfaces that mistake novelty for expressiveness; general-purpose frameworks where a single-opinion instrument would serve; offline-only generative workflows that never get performed.</p>
-<h2 id="local-re-renders-evidence">Local re-renders (evidence)</h2>
+<h2>Local re-renders (evidence)</h2>
 <p><code>goals/generative-doodles-site/hidden_files/study-2026-09-28-spiegel/</code>: script /tmp/spiegel.py (not committed to the repo). Two sets, all frames visually inspected.</p>
 <p>Set A, music mouse stand-in (mouse_frame0-3.png): a scripted cursor gesture (diagonal sweep, then a slow loop) moves through a four-sided keyboard matrix. Cursor X picks one of four chord slots (I, vi, ii, V); cursor Y picks a diatonic melody degree over two octaves; three voice lines and one melody line track the gesture with contrary motion, exactly the 1986 screen geometry. The final frame carries the triggered-note log: 74 notes across the gesture, every one of them a diatonic degree of C major (the log reads 65 67 67 69 71 72 74 ... with no chromatic strays). The re-render proves the core mechanic: a freely wiggled cursor cannot play a wrong note because the wrong notes do not exist in the instrument. Honest gap: this is a stand-in engine built from documented behaviors, not a port of her code; her actual harmonic navigation (chord voicing rules, the pattern system, the treatment logic) is richer.</p>
 <p>Set B, entropy and corruption ladder (entropy_ladder.png): the same 16-step deterministic diatonic loop repeated four times with corruption probability 0.0, 0.06, 0.18, 0.35, each unexpected event marked red with the original event shown as an outline where it should have been (0, 1, 3, 5 corrupted of 16). What the render teaches: corruption reads as texture at low density and as a new system at high density, which is why her entropy knob is a better compositional control than any parameter the corrupted events carry.</p>
-<h2 id="what-to-steal-and-what-to-avoid">What to steal and what to avoid</h2>
+<h2>What to steal and what to avoid</h2>
 <p>Steal: the constraint set as the instrument. Define the universe of legal moves (a scale, a palette, a grammar), then let the user&#x27;s gesture range freely inside it. The guarantee, no wrong notes, is what makes a piece playable on first touch and still deep on the hundredth.</p>
 <p>Steal: the entropy knob. Rather than exposing ten parameters, expose the density of surprise. Repetition with rising corruption is a complete compositional shape: the loop teaches the listener the pattern, the corruption teaches them the pattern is alive.</p>
 <p>Steal: the transformation library as a design checklist. When a generative piece feels thin, audit which of her thirteen modules it uses, and add one it does not. Rotation (cycling a discontinuity through a cyclic group) and phase offset (two pattern aspects of different lengths meeting at the end) are the least used and the most musical.</p>
 <p>Steal: the small opinionated instrument. One specialized tool with strong opinions about its domain beats the general framework. Music Mouse has been played for forty years; the frameworks it was contemporary with are museum pieces.</p>
 <p>Avoid: mapping new gestures onto old instruments. If your interaction is novel but the output could have been played on the old tool, the novelty is decoration. Avoid: constraint-free play spaces that hand the user freedom and call it expression. Avoid: treating the algorithm as the composer when it should be the accompanist.</p>
-<h2 id="next-doorways">Next doorways</h2>
-<p>Jean-Claude Risset, the Bell Labs-adjacent sound-illusion pole (Shepard tones, endless glissando, the &quot;Risset rhythm&quot;) and his algorithmic composition work; Hal Alles and the Alles Machine, the hardware Spiegel and Mathews shared in room 2D529; John Pierce and the inharmonic-timbre experiments Mathews cited; Laurie Spiegel&#x27;s own visual art and video work, which this session never saw; the Eventide re-release as a case study in keeping a 1986 instrument alive on modern systems.</p></div><section class="related"><h2>More in Sound &amp; Music Systems</h2><div class="relgrid"><a href="hal-alles-machine.html"><span class="rt">Hal Alles / the Alles Machine</span><span class="rm">2026-09-29 &middot; 10 MIN</span></a><a href="jean-claude-risset.html"><span class="rt">Jean-Claude Risset / Endless Illusions</span><span class="rm">2026-09-29 &middot; 12 MIN</span></a><a href="algorave-tidalcycles.html"><span class="rt">Algorave / TidalCycles</span><span class="rm">2026-09-26 &middot; 7 MIN</span></a><a href="atari-amy.html"><span class="rt">Atari AMY / the 64-oscillator chip that never shipped</span><span class="rm">2026-09-29 &middot; 8 MIN</span></a></div></section><nav class="pn"><a class="prev" href="max-mathews-bell-labs.html"><span class="dir">&larr; Newer</span><span class="t">Max Mathews / Bell Labs Computer Music</span></a><a class="next" href="jean-tinguely-homage.html"><span class="dir">Older &rarr;</span><span class="t">Jean Tinguely - Homage to New York (1960)</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<h2>Next doorways</h2>
+<p>Jean-Claude Risset, the Bell Labs-adjacent sound-illusion pole (Shepard tones, endless glissando, the &quot;Risset rhythm&quot;) and his algorithmic composition work; Hal Alles and the Alles Machine, the hardware Spiegel and Mathews shared in room 2D529; John Pierce and the inharmonic-timbre experiments Mathews cited; Laurie Spiegel&#x27;s own visual art and video work, which this session never saw; the Eventide re-release as a case study in keeping a 1986 instrument alive on modern systems.</p></div><nav class="pagenav"><a class="" href="john-pierce-inharmonic-timbres.html"><span class="dir">Previous note</span><span class="t">John R. Pierce / inharmonic timbres</span></a><a class="next" href="marc-sabat-three-tables-for-bob.html"><span class="dir">Next note</span><span class="t">Marc Sabat / Three Tables for Bob</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>

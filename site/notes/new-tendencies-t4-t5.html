@@ -3,242 +3,140 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973) · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=scenes">SCENES &amp; GATHERINGS</a> / New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</p><article class="note"><h1>New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(4 72% 62%)"></span>Scenes &amp; Gatherings</dd></div><div><dt>Studied</dt><dd>undated</dd></div><div><dt>Words</dt><dd>3262</dd></div><div><dt>Read</dt><dd>~16 min</dd></div><div><dt>Sections</dt><dd>10</dd></div><div><dt>Contains</dt><dd>Avoid, Doorways, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#the-shape-of-t4-two-stages-189-works">The shape of t4: two stages, 189 works</a><a class="g-x" href="#the-information-aesthetics-arc-inside-t4">The information-aesthetics arc inside t4</a><a class="g-x" href="#vladimir-bona-i-the-galois-fields">Vladimir Bonačić: the Galois fields</a><a class="g-x" href="#the-graphics-picelj-s-poster-and-bit-international">The graphics: Picelj&#x27;s poster and bit international</a><a class="g-x" href="#tendencies-5-1973-the-political-end">Tendencies 5 (1973): the political end</a><a class="g-x" href="#the-re-renders-what-the-polynomials-look-like">The re-renders: what the polynomials look like</a><a class="g-sings" href="#what-makes-it-sing">What makes it sing</a><a class="g-avoid" href="#avoid-list-additions">Avoid-list additions</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><dl class="spec"><div><dt>Profile</dt><dd>Nove tendencije / New Tendencies, Zagreb, 1961 to 1978. Five exhibitions organized with the Galerija suvremene umjetnosti (Gallery of Contemporary Art, today the Museum of Contemporary Art Zagreb): t1 1961 (concrete and constructive art, ZERO, GRAV, Gruppo N), t2 1963, t3 1965 (cybernetics and art, Moles already in the catalog), t4 1968/69 &quot;Computers and Visual Research&quot; (Kompjutori i vizuelna istraživanja), t5 1973. Key organizers: art historians Matko Meštrović, Radoslav Putar, Božo Bek, Boris Kelemen; artists Ivan Picelj and Almir Mavignier, whose chance meeting in Zagreb in autumn 1960 launched the network. The journal <strong>bit international</strong> (1968 to 1972, nine numbers) made Zagreb a point of initiation for information aesthetics and media theory. This study is the capstone node of the information-aesthetics arc: Bense, Moles, Franke, Nees, Nake, Kawano, Barbadillo, and Sýkora were all studied before it, and their next-doorway lists all named Tendencies 4/5 as the political end of the line. The movement lost its thrust in 1973, ran a t6 symposium &quot;Art and Society&quot; in October 1978, and ended there.</dd></div><div><dt>Depth</dt><dd>deep on text, deep on images for the Bonačić material, medium on the rest. Read in full: Darko Fritz, &quot;The Work of Vladimir Bonačić&quot; (Monoskop PDF, the complete illustrated essay); Eric Engle&#x27;s &quot;Computer Art in the (Former) Soviet Bloc&quot; (arxiv PDF, read via text extraction, used for the Bonačić installation facts and the mama.mi2.hr image leads, its Maoist polemic not adopted); the New East Archive &quot;Behind the Yugoslav art movement&quot; feature in full (Fritz interview, the movement&#x27;s aims and end); Picelj&#x27;s &quot;Concrete Utopia&quot; essay, sections I through III (lines 0 to 129 of 387, the EXAT 51 and programmed-art background); the bibliofil.hr t4 poster listing (full participant roster, poster description, exhibition dates). A research subagent read the Monoskop New Tendencies page, the DADA movement and exhibition entries (t4 1968/69, t5 1973), Kluetsch&#x27;s &quot;London/Zagreb&quot; computer-art history PDF, and the digitalna-umjetnost-u-hrvatskoj.eu Bonačić author page, and returned verbatim facts with attributions; those facts are marked [subagent] below. Six images visually inspected at full resolution: four from the Fritz monograph (oscilloscope loop, twelve-panel dot-pattern contact sheet, Nama facade night photo with the dot-matrix band, Ilica street night photo with the vertical light columns), the t4 install view of Benthall before Milojević&#x27;s plotter sheets, and the t5 install view of the Zottl/Rase computer graphics wall. Three local PIL re-renders built and visually inspected: four degree-10 maximal-period rasters, the successive-state strip for x^10+x^3+1, and a 160-state window of the DIN.PR18 degree-18 sequence.</dd></div></dl>
-<h2 id="the-shape-of-t4-two-stages-189-works">The shape of t4: two stages, 189 works</h2>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5e5648"></span>Scenes &amp; Gatherings</span><h1>New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</h1><div class="byline">16 min read &nbsp;&middot;&nbsp; 3,262 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>Nove tendencije / New Tendencies, Zagreb, 1961 to 1978. Five exhibitions organized with the Galerija suvremene umjetnosti (Gallery of Contemporary Art, today the Museum of Contemporary Art Zagreb): t1 1961 (concrete and constructive art, ZERO, GRAV, Gruppo N), t2 1963, t3 1965 (cybernetics and art, Moles already in the catalog), t4 1968/69 &quot;Computers and Visual Research&quot; (Kompjutori i vizuelna istraživanja), t5 1973. Key organizers: art historians Matko Meštrović, Radoslav Putar, Božo Bek, Boris Kelemen; artists Ivan Picelj and Almir Mavignier, whose chance meeting in Zagreb in autumn 1960 launched the network. The journal <strong>bit international</strong> (1968 to 1972, nine numbers) made Zagreb a point of initiation for information aesthetics and media theory. This study is the capstone node of the information-aesthetics arc: Bense, Moles, Franke, Nees, Nake, Kawano, Barbadillo, and Sýkora were all studied before it, and their next-doorway lists all named Tendencies 4/5 as the political end of the line. The movement lost its thrust in 1973, ran a t6 symposium &quot;Art and Society&quot; in October 1978, and ended there.</dd><dt>Depth</dt><dd>deep on text, deep on images for the Bonačić material, medium on the rest. Read in full: Darko Fritz, &quot;The Work of Vladimir Bonačić&quot; (Monoskop PDF, the complete illustrated essay); Eric Engle&#x27;s &quot;Computer Art in the (Former) Soviet Bloc&quot; (arxiv PDF, read via text extraction, used for the Bonačić installation facts and the mama.mi2.hr image leads, its Maoist polemic not adopted); the New East Archive &quot;Behind the Yugoslav art movement&quot; feature in full (Fritz interview, the movement&#x27;s aims and end); Picelj&#x27;s &quot;Concrete Utopia&quot; essay, sections I through III (lines 0 to 129 of 387, the EXAT 51 and programmed-art background); the bibliofil.hr t4 poster listing (full participant roster, poster description, exhibition dates). A research subagent read the Monoskop New Tendencies page, the DADA movement and exhibition entries (t4 1968/69, t5 1973), Kluetsch&#x27;s &quot;London/Zagreb&quot; computer-art history PDF, and the digitalna-umjetnost-u-hrvatskoj.eu Bonačić author page, and returned verbatim facts with attributions; those facts are marked [subagent] below. Six images visually inspected at full resolution: four from the Fritz monograph (oscilloscope loop, twelve-panel dot-pattern contact sheet, Nama facade night photo with the dot-matrix band, Ilica street night photo with the vertical light columns), the t4 install view of Benthall before Milojević&#x27;s plotter sheets, and the t5 install view of the Zottl/Rase computer graphics wall. Three local PIL re-renders built and visually inspected: four degree-10 maximal-period rasters, the successive-state strip for x^10+x^3+1, and a 160-state window of the DIN.PR18 degree-18 sequence.</dd></dl>
+<h2>The shape of t4: two stages, 189 works</h2>
 <p>Tendencies 4 ran in two stages. First, an informational exhibition of computer graphics and programmed works at the Centar za kulturu i informacije, 2 to 8 August 1968, around the international colloquium &quot;Computers and Visual Research&quot; of 3 to 4 August 1968. Then the full program, May to August 1969: &quot;tendencije 4&quot; (retrospective of NT1 to NT3 plus Latest Examples of Visual Research, Muzej za umjetnost i obrt), &quot;Computers and Visual Research&quot; (Galerija suvremene umjetnosti), &quot;typoezija&quot; (Galerija Studentskog Centra), and an exhibition of publications and books. An informational seminar followed 10 to 12 January 1969 and an international symposium 5 to 6 May 1969 [subagent: Monoskop, Kluetsch]. The computer section showed 189 works.</p>
 <p>The roster, from the t4 poster listing [bibliofil.hr]: Kurd Alsleben and Cord Passow, Ars intermedia (Otto Beckmann, Alfred Grassl), Vladimir Bonačić, California Computer Products (Kerry Strand, Larry Jenkins, Doyle Cavin, Dee Hudson, Jane Moon), Compos 68 (Jan Baptist Bedaux, Jeroen Clausman, Arthur Veen), Waldemar Cordeiro, Charles Csuri, Darel D. Eschbach, William Allan Fetter, Alan Mark France, David R. Garrison, Jens Harke, Leon D. Harmon and Kenneth C. Knowlton, Hiroshi Kawano, Auro Lecci, Robert Mallary, Gustav Metzger (with D. E. Evans, Beverly Rowe, R. J. Stibbs), Leslie Mezei, Petar Milojević, Frieder Nake, Georg Nees, A. Michael Noll, Michael Palyka, Ivan Picelj, the Rechenzentrum of the Boris Kidrič Institute at Vinča, Manfred Robert Schroeder, Lloyd Quinton Sumner, Alan Sutcliffe, Zdeněk Sýkora, Evan Harris Walker, Edward Zajec.</p>
 <p>Cross-checked against the earlier studies: Nees and Nake present (both also spoke at the August 1968 colloquium). Kawano present, showing his 1964 OKITAC 5090A rectangle designs, the family from the Kawano study, line-printer output hand-colored by assistants [subagent: DADA]. Sýkora present. Franke present in the movement but not in the computer show: he opened the accompanying exhibition at the August 1968 colloquium. Molnár absent from both t4 and t5 lists. Morellet at t4 only through the retrospective. Barbadillo and Manfred Mohr absent from t4, both present in the t5 computer section.</p>
-<h2 id="the-information-aesthetics-arc-inside-t4">The information-aesthetics arc inside t4</h2>
+<h2>The information-aesthetics arc inside t4</h2>
 <p><strong>bit international 1 (1968), &quot;The Theory of Informations and the New Aesthetics,&quot;</strong> carried a text by Max Bense alongside Meštrović, three texts by Moles, and Putar [subagent: Monoskop]. Bense&#x27;s contribution to t4 was textual; no source confirms he attended or lectured in Zagreb, and he is not among the colloquium papers.</p>
 <p><strong>Moles</strong> gave the introductory speech at the 3 to 4 August 1968 colloquium: &quot;...But the machines already approached the man, faster than the man approached the machines...&quot; [subagent: bit international 2 via the arxiv/Fritz paper]. After him, Marc Adrian read &quot;notizen zu t-4,&quot; asking whether New Tendencies after six years &quot;could be considered to be dead.&quot; Moles was already in the t3 (1965) catalog.</p>
 <p><strong>Franke</strong> opened the accompanying exhibition at the colloquium, published in bit 3 as &quot;Einführung zur Ausstellung &#x27;Computergrafik&#x27;.&quot; His opening argument [subagent: Kluetsch]: the computer is capable of three kinds of information processing, creation of order, transformation of order, and destruction of order; because evaluating computer art is hard, he proposed a cybernetic art theory grounded in a scientific theory of perception. In bit 7 (1971) his &quot;Social aspects of computer art&quot; imagined households connected by television screens to central computer units, &quot;as it is nowadays the case with the phones,&quot; making screen-presented computer graphics possible, &quot;that possibility seems today utopian.&quot;</p>
 <p>Leslie Mezei, who did not attend in person, divided computer art into seven categories for the colloquium: mathematical curves (Milojević, Sumner, Citron, Whitney, Mason, Mitchell), random abstract design (Nees, Nake), representational art (Csuri, Mezei), designs with letters (Mezei), scanned photographs (Knowlton, Harmon), computer generated movies (Knowlton, Noll), computer graphics (Fetter), plus a computer-controlled animation stand and camera (Liang, McLaren) [search-result excerpt of Kluetsch]. The colloquium committee (Eco, Gerstner, Krampen, Horvat-Pintarić, Kelemen) closed with the line that would haunt the field: &quot;There should be no computer art.&quot;</p>
-<h2 id="vladimir-bona-i-the-galois-fields">Vladimir Bonačić: the Galois fields</h2>
+<h2>Vladimir Bonačić: the Galois fields</h2>
 <p>The deepest vein of the session. Bonačić (1938 to 1999), a research scientist at the Ruđer Bošković Institute, treated art as an extension of his technological experiments. The organizers found him at the institute during t4 preparations; he used visual research in his scientific work on the roots of polynomial equations, and the finite fields of Évariste Galois became his instrument [Fritz].</p>
 <p><strong>IRB series (1968 colloquy):</strong> eight computer-generated pictures, photo reproductions of oscilloscope screenshots, made on a self-constructed light-pen system hooked to a PDP-8, programmed in Assembler. &quot;IRB&quot; is the institute; numbers distinguish the works. One, IRB 9-9, outlines a female figure and was never publicly exhibited. His Mondrian reference in the texts was a critique of A. Michael Noll&#x27;s computer-generated Mondrian-like drawing. Noll exhibited at t4; Bonačić&#x27;s position was that the computer &quot;must not remain merely a tool for the simulation of what exists in a new form. It should not be used for painting in the way that Piet Mondrian did.&quot;</p>
 <p><strong>PLN series (1969):</strong> visualizations of Galois fields. The exact language of the work IR. PLNS. 0044. 7714. 7554. 7744: &quot;IR&quot; means irreducible, &quot;PLN&quot; polynomial, &quot;S&quot; symmetry, and the numbers are linked to the polynomial properties. Bonačić described it as a &quot;successive depiction of generating a maximal period in four irreducible polynomials of the tenth degree, x^10 + x^3 + 1 (0044), 7714, 7554, 7744.&quot; The visualized combinations, thousands or millions depending on the degree, were shown in rasters of 16x16, 32x32, or 64x64 elements; some works were collaged by hand from multiple screenshots for higher &quot;resolution.&quot; PLN 5 through 9 are single photographs with a long-exposure look, achieved through hardware and software parameters with photographer Marija Braut. Of RS. PLNS. 0374. 1024. 0064, a two-dimensional tenth-degree polynomial, he noted &quot;a rare symmetrical structure in a polynomial of tenth degree (it cannot be expressed by means of the existing mathematical apparatus) 0374, 1024, 0064. Symmetry cannot be disrupted by a change of starting number.&quot;</p>
@@ -246,43 +144,30 @@ footer a{color:var(--dim)}
 <p><strong>DIN.PR18 (1969):</strong> 36 meters on the Nama department store facade, Eugen Kvaternik Square. Eighteen elements, each a 3x5 grid light matrix, performing 262,143 patterns, the maximal period of the irreducible 18th-degree polynomial x^18 + x^5 + x^2 + x + 1, clocked at 200 milliseconds, adjustable &quot;to the border of the perception of the observer and frequency clock.&quot; The square was dark; the installation doubled as street lighting. Replaced in 1971 by DIN.PR16, a triple frieze with a spatial extension around the building. DIN.PR10 (1969 to 1971) went on the Ilica Street Nama: 100 elements of 88x48x25 cm. A further object stood on the Kreditna Banka facade on Ban Jelačić Square. None of the outdoor works survive.</p>
 <p><strong>Random 63 (1969):</strong> 76x76x7 cm electronic object on a PDP-8. Sixty-three independent true random generators, each driving one lamp; the geometric bulb placement computed with the pseudorandomness of Galois fields. His only true-randomness work, built as a critique: &quot;I am especially sceptical of the attempts to produce computer art through play with randomness and the deliberate introduction of errors in programs prepared for nonartistic purposes&quot; (1974). The Dynamic Objects otherwise all use pseudorandom Galois-field algebra, programmed on an SDS-930 in Real-Time FORTRAN with Assembler for bit manipulation (co-programmer Miro A. Cimerman), viewer-adjustable rhythm, and in the GF.E 32-S object (1969/70, a 32x32 grid of square aluminum tubes, 1024 bulb-pixels) 32 indicator lights and 32 keys so that &quot;with the binary notation, any pattern from the sequence can be read or set.&quot; At a 2-second rhythm the same pattern repeats in about 274 years [subagent].</p>
 <p><strong>The Pollock passage</strong> (his longer statement on randomness): &quot;the random generator creates the accidental and unique presentation, which has neither value nor importance for human beings... However, a computer used in such a way lags far behind the human being. Even if the expressive potentialities of the computer were equal to those of a human being, the essence of Pollock&#x27;s world and creation would not be surpassed, regardless of the complexity of future computers or peripheral units. That, of course, does not mean that a man (or a monkey or other animal) aided by a computer could not create an aesthetically relevant object if they act consciously or unconsciously obeying the law of accident.&quot;</p>
-<h2 id="the-graphics-picelj-s-poster-and-bit-international">The graphics: Picelj&#x27;s poster and bit international</h2>
+<h2>The graphics: Picelj&#x27;s poster and bit international</h2>
 <p>Picelj designed the t4 visuals, posters, and catalogue layout, and the bit international pages. The t4 poster (49.5x97 cm screenprint, in the MoMA and Tate collections): black ground, a raster of circles and rings printed in silver-gray, the exhibition title in Croatian and English below, then four blocks of informational text separated by vertical lines, all white [bibliofil.hr description]. The dotted design reads as perforated computer-programming paper, the punch card as ornament. The poster itself was not visually inspected this session (see gaps).</p>
-<h2 id="tendencies-5-1973-the-political-end">Tendencies 5 (1973): the political end</h2>
+<h2>Tendencies 5 (1973): the political end</h2>
 <p>t5 ran 1 June to 1 July 1973 at the Tehnički muzej (Technical Museum) Zagreb, in three sections: Constructive Visual Research, Computer Visual Research, and Conceptual Art [subagent: DADA]. The computer section included Alexanco, Barbadillo, Beckmann, Bonačić, Cordeiro, Franke, Garrison, Hertlein, Huitric, Lecci, Mohr, Nees, Rase, Lillian Schwartz, the Seguís, Whitney, Zajec, Zöttl, and others. The conceptual section: Baldessari, Buren, Dimitrijević, Gilbert and George, Huebler, Kounellis, Latham, Sol LeWitt, Paolini, Penone, Trbuljak, the Hungarian Anonymous Collective, and more. LeWitt&#x27;s Wall Painting was executed by the exhibition workforce from a one-sentence textual instruction, described as a programme, &quot;the algorithm of descriptive geometry, expressed by text&quot;; On Kawara&#x27;s &quot;I am still Alive&quot; arrived as five identical telegrams sent in advance to Putar [subagent: oris.hr].</p>
 <p>The accompanying AICA symposium, 2 June 1973 at the Hotel Esplanade, was titled &quot;The Rational and Irrational in Visual Research Today, Match of Ideas.&quot; Participants included Argan, Cordeiro, Franke, Moles, Nake, Milojević, Putar. Putar&#x27;s t5 catalog framing asked whether the constructive fields were &quot;exhausted or whether there were sufficient remaining tasks to be accomplished; and also whether there was a real need for the solution of these tasks or whether commercial demand was giving the illusion that efforts of this kind were needed.&quot; The symposium was &quot;a unique place where participants from all three artist groups and accompanying theoreticians were engaged in an open dialogue, that was however characterized by mutual misunderstanding&quot; [subagent: oris.hr].</p>
 <p>Nake&#x27;s break gives the political end its dates. On 16 April 1970 (PAGE 8) he announced &quot;I stop exhibiting for the present&quot;: &quot;It looks as if the capitalist art market is trying to get hold of computer production.&quot; In October 1971 (PAGE 18) he published &quot;There Should Be No Computer-Art&quot;: computer artifacts had not changed the structure of aesthetic behavior and formed no separate category of art; artists must not &quot;become silent servants of the ruling classes by reconciling high technology with the masses of the poor and suppressed&quot; [subagent]. He then sat on the t5 symposium.</p>
 <p>Fritz&#x27;s verdict on the stall: &quot;The art world was changed in a manner they had not foreseen. New types of art were coming into the world: body art, performance art, land art, conceptual art. Much of this seemed to be in conflict with what New Tendencies had proclaimed: a rational approach to art, the idea of art as research, and the idea of art as collective work. Mystification had become respectable again.&quot; And on t4&#x27;s place in the arc: &quot;The fourth Tendencies exhibition (1968/69) was marked by a further penetration of the idea of a theory of information and exact aesthetics. The artistic use of computers was a &#x27;last try&#x27; of the Tendencies movement to synchronize its goals as the &#x27;scientification of art&#x27; and &#x27;bettering the society&#x27; and historical movement of 1968&quot; [subagent: Fritz via Kluetsch].</p>
-<h2 id="the-re-renders-what-the-polynomials-look-like">The re-renders: what the polynomials look like</h2>
+<h2>The re-renders: what the polynomials look like</h2>
 <p>Three PIL sheets, all white dots on black, the oscilloscope aesthetic of the PLN works.</p>
 <p><strong>Panel A, four polynomials:</strong> four primitive degree-10 polynomials, each maximal output stream (1,023 bits) laid row-major into a 32x32 raster, one cell left empty. The finding is Bonačić&#x27;s own, confirmed on the pixels: the four panels look genuinely different. One reads blotchy and clustered, one even and fine, one carries horizontal banding, one dense. &quot;The different visual appearance of the patterns resulting from the polynomials that had not been noted before by mathematicians&quot; holds. The polynomial is the composition.</p>
 <p><strong>Panel B, successive depiction:</strong> all 1,023 states of x^10+x^3+1 as rows of 10 dots. The shift register shows itself as diagonal drift, the feedback bit entering at the left of each row. The generation is visible as texture.</p>
 <p><strong>Panel C, DIN.PR18 window:</strong> 160 successive 18-bit states of x^18+x^5+x^2+x+1 as rows of 18 dots. Reads as woven textile, diagonal bands from the register shift. Both of Bonačić&#x27;s own polynomials verified maximal in code: periods exactly 1,023 and 262,143. At the installation&#x27;s 200 ms clock the full DIN.PR18 cycle runs 14.6 hours, a number worth printing on the wall label.</p>
 <p>Two implementation notes, kept honest. The first LFSR build used the wrong shift direction and produced period 21 for x^10+x^3+1; fixed to the standard right-shift Fibonacci form, both polynomials went maximal. The strip tops show the register filling from the seed, a transient, not the cycle; the cycle is what repeats.</p>
-<h2 id="what-makes-it-sing">What makes it sing</h2>
+<h2>What makes it sing</h2>
 <p>The t4 computer room&#x27;s throughline, read off the works: the machine&#x27;s output presented as a document of its own process. Bonačić titles his works with the exact algebra (IR. PLNS. 0044.</p>
 <ol><li>7554. 7744). Milojević pins plotter sheets like lab notes</li></ol>
 <p>next to the formulas. Picelj sets the punch card as ornament. The honesty is structural: nothing is dressed up as more than the computation, and the computation turns out to be enough. Bonačić&#x27;s deeper move is the one to steal: he uses pseudorandomness with complete deliberateness, a maximal-period sequence is the opposite of &quot;play with randomness,&quot; and his one true-randomness piece exists to make that point. Determinism, fully committed, reads as more designed than randomness ever does.</p>
-<h2 id="avoid-list-additions">Avoid-list additions</h2>
+<h2>Avoid-list additions</h2>
 <p>Punch-card dot ornament as a period signifier without a generative rule behind it; true-random scatter presented as profundity (Bonačić&#x27;s critique stands: the accidental has neither value nor importance until someone commits to it); Mondrian-like computer pastiches, the exact thing he called out Noll for; shift-register strips shown without acknowledging the seed transient at the top; calling any maximal sequence &quot;random,&quot; it is the most unrandom thing in the room.</p>
-<h2 id="honest-gaps">Honest gaps</h2>
+<h2>Honest gaps</h2>
 <p>The t4 poster never seen at full resolution: described from the bibliofil.hr text only, one image-search hit excluded as a misattributed pharma advertisement. The mama.mi2.hr image set of t4 works (France, Kawano, Milojević, Schroeder, Nake, Nees) all 404; the domain is dead. The 189-work list names artists, not titles; which exact works each exhibitor showed is unrecovered except Bonačić, Kawano&#x27;s 1964 rectangles, and Milojević&#x27;s mathematical curves. Bense&#x27;s physical presence at t4 unconfirmed; his role was textual (bit 1). The Rosen 2011 sourcebook &quot;A Little-Known Story about a Movement, a Magazine, and the Computer&#x27;s Arrival in Art&quot; not opened; no full translated t4 catalog essay read. t5 symposium transcripts not found beyond Putar&#x27;s framing and the &quot;mutual misunderstanding&quot; summary. The DADA entries, Kluetsch PDF, and digitalna-umjetnost-u-hrvatskoj.eu Bonačić page came through the research subagent&#x27;s verified report, not my own reading; the Fritz monograph, the Engle paper, the New East Archive feature, and the Picelj essay sections I read directly. No original handled; the outdoor DIN.PR installations survive only in photographs.</p>
-<h2 id="next-doorways">Next doorways</h2>
+<h2>Next doorways</h2>
 <p>Margit Rosen&#x27;s 2011 sourcebook as the translations node; bit international as its own study, nine issues, the magazine as the movement&#x27;s real monument; Darko Fritz&#x27;s &quot;Digitalna umjetnost u Hrvatskoj 1968 to 1984&quot; digital exhibition; the t5 conceptual section as the programme line (LeWitt&#x27;s one-sentence wall painting, Kawara&#x27;s telegrams); Waldemar Cordeiro, the Brazilian computer-art pioneer at both t4 and t5; Joan Shogren (still open from the Bense study); Rul Gunzenhaeuser (still open); Elisabeth Walther (still open); the CCUM seminar network node (still open).</p>
-<p>Evidence: goals/generative-doodles-site/hidden_files/study-2026-10-02-tendencies/</p></div><section class="related"><h2>More in Scenes &amp; Gatherings</h2><div class="relgrid"><a href="robert-rehfeldt.html"><span class="rt">Robert Rehfeldt</span><span class="rm">2026-10-03 &middot; 11 MIN</span></a><a href="cavs-mit-circle.html"><span class="rt">CAVS at MIT</span><span class="rm">undated &middot; 11 MIN</span></a><a href="cybernetic-serendipity-1968.html"><span class="rt">Cybernetic Serendipity, 1968</span><span class="rm">2026-09-30 &middot; 14 MIN</span></a><a href="signals-london.html"><span class="rt">Signals London</span><span class="rm">undated &middot; 8 MIN</span></a></div></section><nav class="pn"><a class="prev" href="muriel-cooper.html"><span class="dir">&larr; Newer</span><span class="t">Muriel Cooper and the Visible Language Workshop</span></a><a class="next" href="on-kawara.html"><span class="dir">Older &rarr;</span><span class="t">On Kawara</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<p>Evidence: goals/generative-doodles-site/hidden_files/study-2026-10-02-tendencies/</p></div><nav class="pagenav"><a class="" href="cybernetic-serendipity-1968.html"><span class="dir">Previous note</span><span class="t">Cybernetic Serendipity, 1968</span></a><a class="next" href="robert-rehfeldt.html"><span class="dir">Next note</span><span class="t">Robert Rehfeldt</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>

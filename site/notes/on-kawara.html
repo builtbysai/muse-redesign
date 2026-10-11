@@ -3,255 +3,153 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: On Kawara</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>On Kawara · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=pioneers">THE FIRST PROGRAMMERS</a> / On Kawara</p><article class="note"><h1>On Kawara</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(212 72% 62%)"></span>The First Programmers</dd></div><div><dt>Studied</dt><dd>undated</dd></div><div><dt>Words</dt><dd>2364</dd></div><div><dt>Read</dt><dd>~12 min</dd></div><div><dt>Sections</dt><dd>13</dd></div><div><dt>Contains</dt><dd>Avoid, Doorways, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#the-core-finding-the-grammar-is-the-composition">The core finding: the grammar is the composition</a><a class="g-x" href="#work-by-work">Work by work</a><a class="g-x" href="#the-today-series-today-sunday-to-saturday">The Today series: Today, &quot;Sunday&quot; to &quot;Saturday&quot;</a><a class="g-x" href="#i-got-up-1968-1979">I Got Up (1968-1979)</a><a class="g-x" href="#i-am-still-alive-1970-onward">I Am Still Alive (1970 onward)</a><a class="g-x" href="#i-went-1968-onward">I Went (1968 onward)</a><a class="g-x" href="#one-million-years-1969">One Million Years (1969)</a><a class="g-x" href="#the-journals-and-the-one-hundred-years-calendars">The journals and the One Hundred Years Calendars</a><a class="g-x" href="#the-two-re-renders">The two re-renders</a><a class="g-sings" href="#what-makes-it-sing">What makes it sing</a><a class="g-avoid" href="#avoid-list-additions">Avoid list additions</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><dl class="spec"><div><dt>Profile</dt><dd>On Kawara (Kariya, Japan, 1933, to New York City, July 10, 2014). The other 1966-68 New York pole in the LeWitt/Hesse/Martin triangle, and the first-named doorway from the Agnes Martin study: her repetition discipline set against his date discipline. Settled in SoHo in 1965 and never left, refused interviews, refused to be photographed, and spent 48 years registering his own existence. The best-known move: from January 4, 1966, the Today series of date paintings, nearly 3,000 of them in 112 cities, a project planned to end only with his death. Alongside it the information series: I Got Up (1968-1979, picture postcards rubber-stamped with his rising time, sent every day from wherever he was), I Went (a red line drawn on a city map each day tracing where he walked), I Met (lists of names), I Am Still Alive (telegrams to friends, 1970 into the 2000s), One Million Years (1969, the two-million-year reading project), the One Hundred Years Calendars (yellow, green and red dots marking lived days, painting days, and multi-painting days), and 48 journals with a paint swatch, a sequence number and a size letter for every date painting.</dd></div><div><dt>Depth</dt><dd>deep on text, deep on five artworks at source full resolution, two local re-render studies built and inspected. Read end to end: Wikipedia (full biography, all series, the birth-date discrepancy in the 100 Years Calendar), Anne Rorimer&#x27;s 1991 Art Institute of Chicago essay &quot;The Date Paintings of On Kawara&quot; via the emilyfuhrman.co PDF (Jan 4 1966 first painting, more than 1,900 canvases by 1991, the hand-drawn &quot;stenciled&quot; lettering, four to five ground coats and six to seven date coats, the day-against-night color reading, the subtitle history from headlines to weekdays, the box and newspaper as the painting&#x27;s cross-reference to flux), the Ikon Gallery &quot;Eternal Return&quot; guide (four coats rubbed down between layers, outlines drawn then filled with tapered brushes, ruler, set square, blade and dusting brush; registered in the journal; stored in a handmade box; seven years of making time total), the theartsdesk Guggenheim &quot;Silence&quot; review (Gill Sans early, Futura later; the country-by-country date formulas; Esperanto where the alphabet is not Roman; the refusal to write in Japanese), the David Zwirner 2012 &quot;Date Painting(s) in New York and 136 Other Cities&quot; page (the road paintings all five by seven inches, new paintings added during the show, the subtitle convention &quot;Sunday&quot; through &quot;Saturday&quot; in the work titles). Visually inspected: JUNE 8,1966 (blue, early elongated sans, Apollo Magazine reproduction); JULY16,1969 (the Apollo 11 painting, near-black ground, David Zwirner install photo, punctuation visible: no spaces, period after the day); the Zwirner 2012 installation (the big painting flanked by small road paintings); the Nov 14, 1972 I Got Up postcard (Brooklyn Bridge front; rubber-stamped back: &quot;I GOT UP AT 10.24 A.M.&quot;, addressed to Jean Ferrero, Nice); the February 1970 I Am Still Alive Western Union telegram to Sol LeWitt (pasted ticker-tape strips, 1970 FEB 11 postmark, LeWitt&#x27;s signed receipt); I Went, April 28, 1977 (thin red route on a Xeroxed Manhattan map, his stamped date at the bottom). NOT seen: any original in person, any of the 48 journals or the One Hundred Years Calendars, the I Got Up / I Went / I Met / I Read books, the full subtitle corpus, a live One Million Years reading.</dd></div></dl>
-<h2 id="the-core-finding-the-grammar-is-the-composition">The core finding: the grammar is the composition</h2>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>On Kawara</h1><div class="byline">12 min read &nbsp;&middot;&nbsp; 2,364 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>On Kawara (Kariya, Japan, 1933, to New York City, July 10, 2014). The other 1966-68 New York pole in the LeWitt/Hesse/Martin triangle, and the first-named doorway from the Agnes Martin study: her repetition discipline set against his date discipline. Settled in SoHo in 1965 and never left, refused interviews, refused to be photographed, and spent 48 years registering his own existence. The best-known move: from January 4, 1966, the Today series of date paintings, nearly 3,000 of them in 112 cities, a project planned to end only with his death. Alongside it the information series: I Got Up (1968-1979, picture postcards rubber-stamped with his rising time, sent every day from wherever he was), I Went (a red line drawn on a city map each day tracing where he walked), I Met (lists of names), I Am Still Alive (telegrams to friends, 1970 into the 2000s), One Million Years (1969, the two-million-year reading project), the One Hundred Years Calendars (yellow, green and red dots marking lived days, painting days, and multi-painting days), and 48 journals with a paint swatch, a sequence number and a size letter for every date painting.</dd><dt>Depth</dt><dd>deep on text, deep on five artworks at source full resolution, two local re-render studies built and inspected. Read end to end: Wikipedia (full biography, all series, the birth-date discrepancy in the 100 Years Calendar), Anne Rorimer&#x27;s 1991 Art Institute of Chicago essay &quot;The Date Paintings of On Kawara&quot; via the emilyfuhrman.co PDF (Jan 4 1966 first painting, more than 1,900 canvases by 1991, the hand-drawn &quot;stenciled&quot; lettering, four to five ground coats and six to seven date coats, the day-against-night color reading, the subtitle history from headlines to weekdays, the box and newspaper as the painting&#x27;s cross-reference to flux), the Ikon Gallery &quot;Eternal Return&quot; guide (four coats rubbed down between layers, outlines drawn then filled with tapered brushes, ruler, set square, blade and dusting brush; registered in the journal; stored in a handmade box; seven years of making time total), the theartsdesk Guggenheim &quot;Silence&quot; review (Gill Sans early, Futura later; the country-by-country date formulas; Esperanto where the alphabet is not Roman; the refusal to write in Japanese), the David Zwirner 2012 &quot;Date Painting(s) in New York and 136 Other Cities&quot; page (the road paintings all five by seven inches, new paintings added during the show, the subtitle convention &quot;Sunday&quot; through &quot;Saturday&quot; in the work titles). Visually inspected: JUNE 8,1966 (blue, early elongated sans, Apollo Magazine reproduction); JULY16,1969 (the Apollo 11 painting, near-black ground, David Zwirner install photo, punctuation visible: no spaces, period after the day); the Zwirner 2012 installation (the big painting flanked by small road paintings); the Nov 14, 1972 I Got Up postcard (Brooklyn Bridge front; rubber-stamped back: &quot;I GOT UP AT 10.24 A.M.&quot;, addressed to Jean Ferrero, Nice); the February 1970 I Am Still Alive Western Union telegram to Sol LeWitt (pasted ticker-tape strips, 1970 FEB 11 postmark, LeWitt&#x27;s signed receipt); I Went, April 28, 1977 (thin red route on a Xeroxed Manhattan map, his stamped date at the bottom). NOT seen: any original in person, any of the 48 journals or the One Hundred Years Calendars, the I Got Up / I Went / I Met / I Read books, the full subtitle corpus, a live One Million Years reading.</dd></dl>
+<h2>The core finding: the grammar is the composition</h2>
 <p>Everything about the Today series looks like one idea repeated, and the re-render study proved the opposite. Study A put eight documented date formulas on one contact sheet: &quot;JUNE 8,1966&quot;, &quot;JULY16,1969&quot;, &quot;NOV. 8, 1981&quot;, &quot;15 AGO. 68&quot; (Mexico City), &quot;13 JUIN 2006&quot; (Monte Carlo), &quot;26. AG. 1995&quot; (Reykjavik), &quot;6 AUG. 1993&quot; (Tokyo, Esperanto), &quot;24. Marz 1976&quot; (Germany). At a glance the sheet reads as one painting eight times. On reading, every punctuation choice, every abbreviation, every word order differs. The date formula of the country where he stood is the composition. The background color, which viewers notice first, is the day&#x27;s least deliberate decision: Rorimer shows it is explicitly &quot;unspecified with regard to particular associations,&quot; and subjectivity and objectivity of selection cancel out, so that a red is as meaningful as a gray. What is strictly ruled is the grammar. The instrument is a localization engine run by hand.</p>
 <p>The hand is real and load-bearing. The lettering gives the impression of having been stenciled, but every character is drawn: four or five coats of Liquitex for the ground, each rubbed down before the next, then the outlines meticulously drawn and filled in white with tapered brushes, a ruler, a set square, a blade, and a brush for dusting. Six or seven coats of white for the date alone, and &quot;a considerable amount of time spent eliminating imperfections.&quot; The early lettering is an elongated Gill-Sans-like sans; the later is Futura, quintessentially modernist. In the study-A sheet the difference reads immediately: the early ones are delicate, the later monumental. Rorimer&#x27;s line on the typeface choice is worth keeping: subjectively chosen by the artist, &quot;not determined by an objectively definable rationale or system.&quot; The rules are strict and the taste is personal. That combination is the whole practice.</p>
 <p>The midnight rule is the generator, and the calendar is the real drawing. &quot;A work must be started and completed on the actual day of its date&quot; is the only production system he imposes; anything unfinished by midnight is destroyed. Study B rendered one synthetic year in the One Hundred Years Calendar species (yellow for a lived day, green for a painting day, red for more than one) and the finding is structural: the painting days cluster into travel streaks and discipline runs, the gaps sit there load-bearing. A year with no gaps would read as compulsion, not discipline. The 3,000 paintings are a survival record. The dates on the canvases are the instances; the dot calendar is the composition.</p>
-<h2 id="work-by-work">Work by work</h2>
-<h3 id="the-today-series-today-sunday-to-saturday">The Today series: Today, &quot;Sunday&quot; to &quot;Saturday&quot;</h3>
+<h2>Work by work</h2>
+<h3>The Today series: Today, &quot;Sunday&quot; to &quot;Saturday&quot;</h3>
 <p>Eight predetermined sizes, 8x10 inches to 61x89 (the Apollo paintings of July 16, 20 and 21, 1969 are the three largest, made while the world watched the moon landing). Letters and numerals scaled to the canvas, centered laterally. The subtitle practice is the series&#x27; quiet history: early paintings carry long quoted headlines from the day&#x27;s newspaper (&quot;Man Walks on Moon&quot; for JULY 20, 1969; the Long Tieng withdrawal text for MAR. 18, 1970), and after 1971 the subtitles collapse to the day of the week. The Zwirner titles show the late convention: &quot;NOV. 8, 1981 Sunday&quot;, &quot;APR. 7, 1986 Monday&quot;, &quot;SEPT. 29, 1982 Wednesday&quot;. The trajectory is the finding: the world shrinks out of the work on purpose, until the date refers to nothing but its own position in the week, and the newspaper in the box carries the world instead.</p>
 <p>Each painting, when not shown, lives in a handmade cardboard box sized to it, with a clipping from a local newspaper of that day and city pasted inside the lid. Rorimer: the box &quot;affirms the painting&#x27;s definition as an object in its own right,&quot; while the newspaper grounds the date &quot;in the world of constant flux and continuing events.&quot; The painting and the news are cross-referenced but never grafted together, the cubists&#x27; newspaper integrated into the picture plane, Kawara&#x27;s kept physically separate with the line between art and nonart drawn clean.</p>
-<h3 id="i-got-up-1968-1979">I Got Up (1968-1979)</h3>
+<h3>I Got Up (1968-1979)</h3>
 <p>Two picture postcards a day from wherever he was, the front a tourist view of the city, the back rubber-stamped: &quot;I GOT UP AT&quot;, the time, the date. The Nov 14, 1972 card in the visual set is addressed to Jean Ferrero in Nice; the stamps are gray-blue, the address in his hand. The technique is the instrument: the personal content (his handwriting, his addressee) is confined to the address block, and the message is struck by rubber, repeatable, unvarying. The irregularity lives one level up, in where he woke: 28 cities in 1973 alone. The card is a fixed form filled by a wandering life. The stamp is the composition; the city is the variable.</p>
-<h3 id="i-am-still-alive-1970-onward">I Am Still Alive (1970 onward)</h3>
+<h3>I Am Still Alive (1970 onward)</h3>
 <p>Telegrams to friends bearing the three words, plus his name. The February 1970 Western Union to Sol LeWitt is pasted ticker-tape strips on the company form, &quot;I AM STILL ALIVE / ON KAWARA.&quot;, with the 1970 FEB 11 postmark and LeWitt&#x27;s signature acknowledging receipt. The medium is the whole technique: the telegram is the most expensive, most formal, most public way to say the least. Three words cost real money to send and arrive as an event. The period after KAWARA is the only punctuation in the entire practice, and it lands like a hammer.</p>
-<h3 id="i-went-1968-onward">I Went (1968 onward)</h3>
+<h3>I Went (1968 onward)</h3>
 <p>A Xeroxed city map each day with the day&#x27;s route drawn in thin red ink. The April 28, 1977 sheet: Manhattan, one long red line up the east side corridor with a small loop at the bottom, &quot;APR 28 1977&quot; stamped below in his lettering. The line is tentative, unpracticed, honest. This is the counterweight to the date paintings&#x27; perfection: the hand is allowed to be a hand here, and the map supplies the order. Two instruments, one practice: the map walks and the painting sits still.</p>
-<h3 id="one-million-years-1969">One Million Years (1969)</h3>
+<h3>One Million Years (1969)</h3>
 <p>Two volumes listing every year for the million years before the work&#x27;s conception (dedicated &quot;to all of those who have lived and died&quot;) and the million years after (dedicated &quot;to the last one&quot;). Read aloud in pairs, male and female voices, in performances that run for days: the longest public reading at documenta 11 in 2002 ran the full hundred days; Trafalgar Square in 2004 ran seven days and seven nights; the Hessischer Rundfunk radio version is 32 CDs. The finding for generative practice: enumeration is trivial, but reading it aloud is not. The voice turns the list into duration. The Dia Center&#x27;s 1993 reading put the sound of the future years against the sight of the past years on the page, and the date paintings hung nearby as the middle term.</p>
-<h3 id="the-journals-and-the-one-hundred-years-calendars">The journals and the One Hundred Years Calendars</h3>
+<h3>The journals and the One Hundred Years Calendars</h3>
 <p>48 journals, each painting registered with its size, color and date, with a swatch of the actual paint mixture glued in, a sequence number for the year and a size letter beneath. The calendars mark each day of his life with a yellow dot, a green dot for a painting day, a red dot for a day with more than one. The obituaries honored the system by using it: they reported he was alive for 29,771 days rather than giving birth and death dates. The calendar even corrects the record: it gives his birth as December 24, 1932, not the official January 2, 1933.</p>
-<h2 id="the-two-re-renders">The two re-renders</h2>
+<h2>The two re-renders</h2>
 <p>Both built in PIL and visually inspected (renders kept with the session evidence, not shipped).</p>
 <p><strong>Study A: the date grammar.</strong> A contact sheet of eight documented inscriptions on dark grounds. Finding: the sheet reads as one idea until you read it, then every grammar differs. The grammar is the composition; the color is the day. The elongated early lettering versus the Futura late lettering is a second, visible parameter: same instrument, two type eras.</p>
 <p><strong>Study B: the midnight rule.</strong> A synthetic year page in the calendar species. Finding: the travel clusters, the summer gap, the November streak, the rare red day. The gaps are load-bearing. The calendar is the real drawing; each painting is one green dot, expanded.</p>
-<h2 id="what-makes-it-sing">What makes it sing</h2>
+<h2>What makes it sing</h2>
 <ul><li>The localization engine run by hand: the date formula of the country</li></ul>
 <p>where he stood is the composition, researched and painted fresh every day, never templated.</p>
 <ul><li>The midnight rule: destroy what is not finished. The corpus is a</li></ul>
@@ -263,7 +161,7 @@ footer a{color:var(--dim)}
 <ul><li>The subtitles&#x27; deliberate emptying: headlines, then personal notes,</li></ul>
 <p>then only the weekday. The world leaves the painting and the box keeps it.</p>
 <ul><li>The telegram economy: three words, maximum formality, one period.</li></ul>
-<h2 id="avoid-list-additions">Avoid list additions</h2>
+<h2>Avoid list additions</h2>
 <ul><li>Kawara-style date paintings presented as new work. That is his</li></ul>
 <p>signature, not a technique to borrow. The studies derive the instrument, never the look.</p>
 <ul><li>Machine-perfect date text with no grammar research and no midnight</li></ul>
@@ -271,7 +169,7 @@ footer a{color:var(--dim)}
 <ul><li>Fake headline subtitles chosen for irony. His newspapers are a boxed</li></ul>
 <p>physical practice, not captions.</p>
 <ul><li>Esperanto as a quirk. It is a rule: where the alphabet is not Roman.</li><li>The &quot;still alive&quot; line used as a slogan. It cost a telegram each time.</li></ul>
-<h2 id="honest-gaps">Honest gaps</h2>
+<h2>Honest gaps</h2>
 <ul><li>No original handled; every work from a web reproduction.</li><li>The 48 journals, the One Hundred Years Calendars, and the I Got Up /</li></ul>
 <p>I Went / I Met / I Read books never seen firsthand.</p>
 <ul><li>The subtitle history follows Rorimer and the Zwirner catalogue notes;</li></ul>
@@ -282,7 +180,7 @@ footer a{color:var(--dim)}
 <p>postcards, the 68 cards to Sesteer) follow Wikipedia and the Boijmans record, not the catalogue raisonne.</p>
 <ul><li>No live One Million Years reading attended; the documenta and</li></ul>
 <p>Trafalgar Square accounts are secondary.</p>
-<h2 id="next-doorways">Next doorways</h2>
+<h2>Next doorways</h2>
 <ul><li>Robert Ryman (the other white: Rorimer explicitly places their</li></ul>
 <p>surface practices side by side; also a Martin doorway).</p>
 <ul><li>The Coenties Slip network as a node (Indiana, Youngerman, Johns</li></ul>
@@ -292,20 +190,7 @@ footer a{color:var(--dim)}
 <ul><li>Ruth Wolf-Rehfeldt (typewriter seriality as the adjacent discipline;</li></ul>
 <p>evidence images already gathered in the interrupted session).</p>
 <ul><li>James Lee Byars (the other 1960s New York figure with a daily</li></ul>
-<p>practice; named in the Darboven doorways).</p></div><section class="related"><h2>More in The First Programmers</h2><div class="relgrid"><a href="computer-technique-group.html"><span class="rt">Computer Technique Group, Tokyo</span><span class="rm">2026-10-01 &middot; 9 MIN</span></a><a href="darcy-thompson-on-growth-and-form.html"><span class="rt">D&#x27;Arcy Thompson: On Growth and Form</span><span class="rm">2026-10-01 &middot; 16 MIN</span></a><a href="elena-asins.html"><span class="rt">Elena Asins</span><span class="rm">undated &middot; 10 MIN</span></a><a href="hanne-darboven.html"><span class="rt">Hanne Darboven</span><span class="rm">undated &middot; 10 MIN</span></a></div></section><nav class="pn"><a class="prev" href="new-tendencies-t4-t5.html"><span class="dir">&larr; Newer</span><span class="t">New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</span></a><a class="next" href="pro-color-harmonies.html"><span class="dir">Older &rarr;</span><span class="t">Pro Color Harmonies</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<p>practice; named in the Darboven doorways).</p></div><nav class="pagenav"><a class="" href="muriel-cooper.html"><span class="dir">Previous note</span><span class="t">Muriel Cooper and the Visible Language Workshop</span></a><a class="next" href="roman-verostko.html"><span class="dir">Next note</span><span class="t">Roman Verostko</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>

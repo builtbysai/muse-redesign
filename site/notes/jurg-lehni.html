@@ -3,238 +3,136 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: Jurg Lehni</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>Jurg Lehni · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=kinetic">MACHINES IN MOTION</a> / Jurg Lehni</p><article class="note"><h1>Jurg Lehni</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(188 72% 62%)"></span>Machines in Motion</dd></div><div><dt>Studied</dt><dd>2026-09-19</dd></div><div><dt>Words</dt><dd>3758</dd></div><div><dt>Read</dt><dd>~19 min</dd></div><div><dt>Sections</dt><dd>15</dd></div><div><dt>Contains</dt><dd>Techniques, Avoid, Doorways</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#hektor-2002-with-uli-franke">Hektor (2002, with Uli Franke)</a><a class="g-x" href="#the-kinematics-reconstructed">The kinematics, reconstructed</a><a class="g-x" href="#scriptographer-and-paper-js">Scriptographer and Paper.js</a><a class="g-x" href="#viktor-empty-words-and-the-communication-drawings">Viktor, Empty Words, and the communication drawings</a><a class="g-techniques" href="#technique-takeaways">Technique takeaways</a><a class="g-avoid" href="#avoid-list-additions">Avoid-list additions</a><a class="g-x" href="#visual-pass-2026-09-28-the-works-seen">Visual pass 2026-09-28: the works, seen</a><a class="g-x" href="#hektor-finally-seen">Hektor, finally seen</a><a class="g-x" href="#where-the-loops-come-from-his-own-account">Where the loops come from (his own account)</a><a class="g-x" href="#viktor-seen-four-belts-and-a-voice">Viktor, seen: four belts and a voice</a><a class="g-x" href="#the-anti-wysiwyg-stated-plainly">The anti-WYSIWYG, stated plainly</a><a class="g-x" href="#teaching-notes-for-the-practice-s-own-pedagogy">Teaching notes (for the practice&#x27;s own pedagogy)</a><a class="g-techniques" href="#technique-takeaways-visual-pass-additions">Technique takeaways (visual pass additions)</a><a class="g-avoid" href="#avoid-list-additions-visual-pass">Avoid-list additions (visual pass)</a><a class="g-doorways" href="#doorways-for-next-sessions">Doorways for next sessions</a></nav><div class="nbody"><p><strong>Artist / designer / programmer:</strong> Jurg Lehni, born 1978 in Lucerne, Switzerland. Studied at ETH Zurich, HyperWerk Basel, and ECAL Lausanne. Doorway: a two-hop from the studied interactive classics. The paper.js tadpoles and chain pieces (studied 2026-09-19) were built on his library, and Zach Lieberman (studied 2026-09-24) described Paper.js as feeling like &quot;coding directly inside a vector graphics program such as Adobe Illustrator.&quot; This session goes upstream of the library to the drawing machines and the Illustrator plugin that produced it. Territory: plotter kinematics, hardware, typography, mechanical installation.</p>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Jurg Lehni</h1><div class="byline">studied 2026-09-19 &nbsp;&middot;&nbsp; 19 min read &nbsp;&middot;&nbsp; 3,758 words</div><div class="note-body"><p><strong>Artist / designer / programmer:</strong> Jurg Lehni, born 1978 in Lucerne, Switzerland. Studied at ETH Zurich, HyperWerk Basel, and ECAL Lausanne. Doorway: a two-hop from the studied interactive classics. The paper.js tadpoles and chain pieces (studied 2026-09-19) were built on his library, and Zach Lieberman (studied 2026-09-24) described Paper.js as feeling like &quot;coding directly inside a vector graphics program such as Adobe Illustrator.&quot; This session goes upstream of the library to the drawing machines and the Illustrator plugin that produced it. Territory: plotter kinematics, hardware, typography, mechanical installation.</p>
 <p><strong>Depth: deep (visual pass 2026-09-28).</strong> Preliminary text pass 2026-09-24 (see kinematics section below) plus this visual pass: full SFMOMA essay &quot;Jurg Lehni and the Poetic Potential of Drawing Machines&quot; read end to end, full 2020 postdigitalgraphicdesign interview read in the Hektor/Scriptographer/ Paper.js sections, and 8 images visually inspected at full res, 7 of them Lehni works: Hektor installed on a gallery wall drawing a spray rosette (SFMOMA, 1024px), Hektor live at the Swiss Institute 2007 (Core77), Hektor writing &quot;Design and the Elastic Mind&quot; at MoMA 2008 (1000px), Viktor drawing on a black ICA-style wall (Makezine), Viktor&#x27;s chalk mind-map at SOMArts 2014 (SFMOMA, 1024px), Lehni training Viktor&#x27;s gondola by hand (SFMOMA, 1024px), and the Scriptographer palette/console inside Adobe Illustrator (SFMOMA, 1024px). One image-search hit for Viktor turned out to be Tinguely&#x27;s Metamatic No. 13 (SIK-ISEA); excluded, not Lehni. lehni.org is dead and archive.org was offline in-session, so no pages from his own site were seen.</p>
-<h2 id="hektor-2002-with-uli-franke">Hektor (2002, with Uli Franke)</h2>
+<h2>Hektor (2002, with Uli Franke)</h2>
 <p>A portable spray-paint output device for computers. The whole machine fits in a suitcase: two electric motors, a spray-can holder, toothed belts, cables, a strong battery, and a circuit board wired to a laptop. The two motors are mounted on the wall; they suspend the can holder and define its position by changing the lengths of the two belts. It is driven directly from Adobe Illustrator: the spray can follows the paths of the vector graphic on the wall. The Swiss Institute&#x27;s description of a 2007 live performance nails the concept: Hektor &quot;replicates the motion of a graffiti artist&#x27;s hand, making lo-fi graphics with digital brains.&quot;</p>
 <p>The important part is the machine&#x27;s inaccuracy. A survey of drawing machines notes that the fragility of the installation gives the system a less accurate but poetic quality, and Lehni leans into it rather than engineering it out. Wikipedia&#x27;s polar plotter entry lists Lehni and Franke (2002) first among the artists who used the form; the plotter community calls Hektor &quot;the original cable-based drawbot from 2002.&quot;</p>
 <p>From the SFPC 2013 talk notes, in his own framing: he ran Hektor &quot;as a service&quot; at events (take home your portrait and a film of how it was made), he is &quot;not so much interested in delegating work in the machine,&quot; his earliest work was test patterns, and his working diagrams were &quot;mathematical diagrams depicting harmonic frequencies&quot; and &quot;a system of two changing values.&quot; He wrote the Hektor control software with Scriptographer. When other people started building the same machines he found it hard to accept at first, then concluded: the idea is bigger than you, and the idea also visits other people.</p>
-<h3 id="the-kinematics-reconstructed">The kinematics, reconstructed</h3>
+<h3>The kinematics, reconstructed</h3>
 <p>The machine thinks in belt lengths, not in x and y. With motors at (-600, 0) and (600, 0), a target point (x, y) needs cable lengths L1 = hypot(x + 600, y) and L2 = hypot(x - 600, y); position is pure triangulation. The controller interpolates linearly in (L1, L2) cable space between vector vertices and quantizes to motor steps.</p>
 <p>I simulated this (script: hidden_files/study-renders/lehni_sim.py) with a test pattern of the kind he describes: circle, square, lissajous figure, line grid. Findings, all read off the rendered frames:</p>
 <ul><li>A Cartesian straight chord is curved in cable space, so linear</li></ul>
@@ -246,15 +144,15 @@ footer a{color:var(--dim)}
 <ul><li>The two-changing-values diagram is the payoff. Plot L1(t) and L2(t)</li></ul>
 <p>while the machine draws one Cartesian circle and you get two near-sine waves, phase-shifted (panel 4, inspected). A circle in our space is harmonic motion in the machine&#x27;s space. This is exactly the &quot;mathematical diagram depicting harmonic frequencies&quot; from his talk notes: the machine&#x27;s native language is sinusoidal, and the drawing is a projection of it.</p>
 <p>Honesty note: this is a reconstruction of the documented principle, not his firmware. I did not verify his actual interpolation scheme, belt versus cable construction, or motor model.</p>
-<h2 id="scriptographer-and-paper-js">Scriptographer and Paper.js</h2>
+<h2>Scriptographer and Paper.js</h2>
 <p>Scriptographer was a scripting plugin for Adobe Illustrator, written in C++ and Java: it embedded a JVM in Illustrator, wrapped the Adobe SDK in Java classes, and exposed it all to JavaScript through the Rhino engine. Lehni called it a counterproposal: confront a closed piece of software built by a large industry-defining company with an open-source attitude. What if designers, not programmers, built their own tools and made Illustrator do things it cannot do on its own? The idea was to blur the boundary between the creative process and the tools design education teaches.</p>
 <p>It was also a community: a script exchange site organized in three categories, 43 General Scripts (generate or modify objects), 41 Interactive Tools (mouse-controlled drawing tools), 11 Raster Scripts (pixel-data based). The beloved examples: a Voronoi tool, a maze generator, sketchy structural objects, rhythms and patterns derived from typography. Jonathan Puckey built a drawing tool that places the letters of a designed typeface and lets the user tune each letter&#x27;s parameters: half automated, half manual design.</p>
 <p>It broke every time Adobe shipped a new Creative Suite, and CS6 (2012) finally killed it: Lehni calculated that even with Kickstarter money it would take months of full-time work to revive, and he would still be at Adobe&#x27;s mercy at the next update. Meanwhile the ECAL workshops he ran with Puckey had been streamlining the API and writing real documentation, so the two built Paper.js instead: the open &quot;Swiss army knife of vector graphics scripting&quot; on HTML5 canvas. The lesson he took: never build your practice on someone else&#x27;s closed platform if you can help it.</p>
-<h2 id="viktor-empty-words-and-the-communication-drawings">Viktor, Empty Words, and the communication drawings</h2>
+<h2>Viktor, Empty Words, and the communication drawings</h2>
 <p>Viktor (2006-2016) is the large-scale chalk-drawing machine: an adapted version of ordinary design software driving small industrial motors. It was the centerpiece of the 2008 ICA show &quot;A Recent History of Writing and Drawing&quot; (with graphic designer Alex Rich), drawing on the gallery walls during Thursday evening talks and leaving the work up for the following week. At SFMOMA&#x27;s &quot;Typeface to Interface&quot; it performed &quot;A Taxonomy of Communication&quot; with Jenny Hirons: a series charting the history of visual language, from smoke signals to the gestures we use with handheld devices, drawn live through the run of the exhibition. The drawings mirror the show&#x27;s objects: an IBM Selectric typewriter ball, Susan Kare&#x27;s 1984 MacPaint toolbar icons.</p>
 <p>Empty Words is the removal piece: posters consisting of holes, made with a machine for hole-punched posters (also in the ICA show). The ancestor is Rauschenberg&#x27;s Erased de Kooning: erasure as mark-making, the drawing defined by what is taken away.</p>
 <p>Rita is the third drawing machine in the Hektor/Rita/Viktor trio; details are thin in the sources I could reach and it needs a follow-up pass. Flood Fill and Apple Talk are named as software projects with no technique recovered. Later work: &quot;Typeface as Program&quot; (ECAL book with Peter Bilak and Erik Spiekermann, type-design workshops), &quot;Four Transitions&quot; (for the HeK Basel collection: four displays unveiling the current time, each unit taking one minute), &quot;Moving Picture Show&quot; (Chaumont poster festival installation).</p>
-<h2 id="technique-takeaways">Technique takeaways</h2>
+<h2>Technique takeaways</h2>
 <ul><li>Design the tool, inherit its aesthetic. The machine&#x27;s interpolation</li></ul>
 <p>space IS the style: cable-space interpolation bows every long chord, and that bow is Hektor&#x27;s handwriting. The general principle: figure out what space your renderer natively thinks in, and compose in that space instead of fighting it.</p>
 <ul><li>Plot the control signals, not just the output. The L1/L2 diagram</li></ul>
@@ -267,34 +165,34 @@ footer a{color:var(--dim)}
 <p>define the composition by what is taken away, holes and erasures as first-class marks.</p>
 <ul><li>Half automated, half manual. Puckey&#x27;s type tool and the Hektor-as-a-</li></ul>
 <p>service performances: the tool proposes, the hand disposes. Do not delegate the work to the machine and walk away (his own SFPC warning).</p>
-<h2 id="avoid-list-additions">Avoid-list additions</h2>
+<h2>Avoid-list additions</h2>
 <ul><li>Do not clone the cable-plotter bow. It is his handwriting, from his</li></ul>
 <p>hardware. Derive the principle (compose in the actuator&#x27;s native space) instead of imitating the artifact.</p>
 <ul><li>Do not fetishize the machine at the expense of the drawing. His own</li></ul>
 <p>warning: he is not interested in delegating the work to the machine. The machine is a means; the drawing still has to sing.</p>
-<h2 id="visual-pass-2026-09-28-the-works-seen">Visual pass 2026-09-28: the works, seen</h2>
-<h3 id="hektor-finally-seen">Hektor, finally seen</h3>
+<h2>Visual pass 2026-09-28: the works, seen</h2>
+<h3>Hektor, finally seen</h3>
 <p>The SFMOMA install photo is the single most informative image of Hektor in the wild. The machine hangs on a gallery wall drawing on a taped-up paper sheet: a black spray rosette of short dashes spiraling outward, the spray-can gondola caught mid-drawing at the rosette&#x27;s right edge, two belts running up to small motors at the wall&#x27;s top corners, the &quot;HEKTOR OUTPUT DEVICE&quot; suitcase on the floor, and a laptop beside it showing the same rosette as clean blue vector lines. Screen and wall in one frame: this is the anti-WYSIWYG as a photograph. The dashes are Hektor&#x27;s test-pattern vocabulary (his earliest work was test patterns), and each dash has soft spray edges, slightly uneven density, the line carried by dot accumulation rather than a continuous stroke.</p>
 <p>The Core77 photo (Hektor live at the Swiss Institute, New York, 2007) shows the performance mode: red spray on a white wall, a large looping harmonic form of interlaced ovals, the can in its cardboard holder at bottom right, belts and cables, laptops and cable spaghetti on the floor. The loops read as &quot;mathematical diagrams depicting harmonic frequencies,&quot; the phrase from his SFPC talk notes. A machine that draws sine waves because its native language is sinusoidal.</p>
 <p>The MoMA 2008 photo (&quot;Hektor writes out the name of the exhibition Design and the Elastic Mind&quot;) shows the handwriting at full strength: four lines of black spray capitals, every letter wrapped in big round overshoot loops, a diagonal transit line crossing the whole text. You can read &quot;DESIGN AND THE ELASTIC MIND&quot; through the loops. The gondola hangs mid-word at top right; belts run to the top corners.</p>
-<h3 id="where-the-loops-come-from-his-own-account">Where the loops come from (his own account)</h3>
+<h3>Where the loops come from (his own account)</h3>
 <p>The 2020 interview gives the origin story, and it is better than the reconstruction. Hektor was supposed to have FOUR motors, like Viktor later did: two lower motors for stability. But the stepper motors kept blocking each other and losing steps, and with two weeks left before the ECAL thesis deadline, Lehni and Franke cut the lower pair. The only fix available was software: make the motion careful and smooth. His mental model: &quot;what if this were a car, and I was driving without brakes and reaching out of the window with a brush, with the car moving at a constant speed and I was trying to steer at the same time. How would you draw a square in these circumstances? You would drive away on circles in the corners and come back to the next line and then push the brush again.&quot;</p>
 <p>He thought of it purely visually; when it became actual movement it turned into Hektor&#x27;s identity, &quot;a lucky accident.&quot; People watching said it was like a painter &quot;anticipating or planning their next stroke.&quot; The signature was a deadline workaround. He also confirms the copy story from the other side: hundreds of versions of the two-string principle now exist, &quot;you can&#x27;t own the simplicity of such an elemental idea,&quot; and he and Franke deliberately did not publish the recipe: &quot;we wanted to explore Hektor&#x27;s potential on our own, give it an identity and create a body of work around it.&quot;</p>
 <p>I re-rendered this locally (script in the evidence dir): a test square plus the word HEKTOR in a stick font, driven at constant speed with corners replaced by tangent circular arcs, then through quantized two-cable kinematics with a spring pendulum gondola and spray dots. Two passes at the render: the first was too faint and polite, the second (R_TURN larger, denser spray) shows the signature clearly. Square corners become loops, letter corners become loops, chords bow in cable space, the line wobbles from the pendulum. Next to the MoMA photo the mechanism reads as confirmed: constant speed plus no-brake cornering IS the handwriting. Honest note: my arcs are clean; his are messier (belt stretch, wall friction, stepper loss). Both renders visually inspected.</p>
-<h3 id="viktor-seen-four-belts-and-a-voice">Viktor, seen: four belts and a voice</h3>
+<h3>Viktor, seen: four belts and a voice</h3>
 <p>The Makezine photo: Viktor on a black wall, white chalk spirals and rectangular loop motifs, the aluminum cross gondola with its motor mounts visible mid-wall, chalk dust on the strokes. Four belts, not two: &quot;a lot of math involved in solving the geometric calculations, for example to always keep tension on all four belts.&quot;</p>
 <p>The SOMArts 2014 photo (the &quot;mind map&quot; for All Possible Futures): a huge chalk concept map on a black wall, hand-lettered nodes connected by sweeping arcs. XEROX PARC, MENLO PARK, AMPEX, INTERNET, DOUGLAS ENGELBART, DARPA, IVAN SUTHERLAND, MILITARY INDUSTRIAL COMPLEX, VANNEVAR BUSH, NASA, ATOMIC BOMB, SPACESHIP EARTH, MOON LANDING, STEWART BRAND, BUCKMINSTER FULLER, WHOLE EARTH CATALOG, CYBERNETICS, PERSONAL COMPUTER, FREE MARKET, MIND EXPANSION, THE WELL, PSYCHEDELIA, COUNTERCULTURE, COMMUNES, FREE SPEECH MOVEMENT, DECENTRALIZED ORGANISATION. The map charts exactly the cyberculture-meets-counterculture marriage he talks about: &quot;hippies, back-to-the-landers... versus the military industrial complex, researchers, and scientists, all connected way more tightly than you might think.&quot; Four motor modules visible at the wall&#x27;s corners, cables, the gondola hanging at bottom center. Chalk dust, uneven letterforms, the hand of the machine.</p>
 <p>The training photo: Lehni in an orange sweater holding Viktor&#x27;s gondola against the wall mid-draw (&quot;SPACEWAR =&quot; in chalk behind his hands). The machine needs training like an instrument needs tuning; the human hand is part of the performance.</p>
 <p>Technique detail from the essay: Lehni and Jenny Hirons selected the photographs and drawings for A Taxonomy of Communication through a long research process, then re-traced them in Illustrator to convert analog sketches into line-based vector instructions. &quot;The focus isn&#x27;t so much on the final result as on the dance of the machine. Each sequence is carefully choreographed.&quot; The machine reenacts hand drawings; the choreography is the artwork. And the naming is deliberate: &quot;By choosing the drawings that it will execute, the machine gains a voice and topics to &#x27;talk&#x27; about.&quot; The &quot;Frankenstein moment&quot;: when the machine first works it is different than imagined, then you discover its character.</p>
 <p>New facts: SFMOMA first wanted Hektor, then chose Viktor, partly practical (chalk has no fumes, works during public hours) and partly conceptual (chalk&#x27;s associations with lecturing and education). The essay dates the acquisition to 2016 (other sources say 2014; SFMOMA&#x27;s own essay wins). Viktor broke during the Typeface to Interface run, which raised the conservation questions (who fixes him, what can be replaced). Otto, the Long Now Foundation commission, is the workhorse version: every component chosen for long-term use, maintained and programmed by someone other than Lehni. Viktor is the delicate prototype.</p>
-<h3 id="the-anti-wysiwyg-stated-plainly">The anti-WYSIWYG, stated plainly</h3>
+<h3>The anti-WYSIWYG, stated plainly</h3>
 <p>&quot;Viktor and Hektor have their own handwriting. Whatever you see on the screen will definitely not be what you see on the wall in chalk or spray paint. It&#x27;s both a critical position and a playful one.&quot; The desktop publishing revolution promised WYSIWYG; his machines are a counter proposal to the whole promise. Scriptographer was the same move in software: &quot;a Trojan Horse, a parasite, but not in a negative sense,&quot; a way to blunt the dependency on Adobe. Paper.js is &quot;a new escape route... like the Japanese Ise shrine, where every twenty years they take it apart, move it to a new location, and rebuild it.&quot;</p>
 <p>The Scriptographer screenshot shows the idea working: Illustrator&#x27;s familiar document window (&quot;Clouds.ai @ 100%&quot;) with the Scriptographer palette tree (Examples, Rasters, Scripts, Tools: Clone Brush.js, Clouds.js, Dripping Brush.js, Fancy Brush.js, Friction.js, Grid.js, Growth.js), a console (&quot;print(&#x27;Hello World!&#x27;); Hello World!&quot;), and a CLOUDS parameter dialog (Minimum Size: 20, Fixed Size, Flip) drawing scalloped clouds in the document. A designer building their own tools inside the tool they were taught to obey.</p>
-<h3 id="teaching-notes-for-the-practice-s-own-pedagogy">Teaching notes (for the practice&#x27;s own pedagogy)</h3>
+<h3>Teaching notes (for the practice&#x27;s own pedagogy)</h3>
 <p>His teaching vocabulary: &quot;making drawing tools that have some sort of autonomy or behavior which you still use by hand. You go back and forth between being the engineer or craftsperson of your tool, and also the user of that tool.&quot; That is the half-manual principle, stated as curriculum. And the Bret Victor &quot;immediate connection&quot; reference: the shorter the feedback loop between modifying a program and seeing its effect, the better. Scriptographer won on this because Illustrator&#x27;s document model is &quot;almost physical&quot;: an emulated sheet of paper with layers of visual objects, so the programmer can reason by analogy with hand processes. Paper.js keeps the object model (paths, points, handles) while Processing/p5 tell the machine what to draw every frame; the object model is &quot;closer to the way a designer thinks.&quot;</p>
 <p>On p5&#x27;s dominance in schools: &quot;a massive library... a patchwork of sorts... I went in the opposite direction with Paper.js. There, the aim was to have a high level of control of the tool; a clear sense of design and of how elements are named, how things are structured, that follows a consistent methodology throughout the library.&quot; On tool monoculture: &quot;real diversity means we have lots of tools, and we use all of them.&quot;</p>
 <p>On machine learning (2020, worth keeping because the ML thread ran long in this study queue): &quot;A few years back, it was data visualization, now it&#x27;s machine learning until the next new thing. The fact that you&#x27;re using code is not enough. You have to have a really good reason for using it.&quot; And: &quot;this whole narrative about how machine learning will replace the artists is kind of defeating... I remain very suspicious of this celebration of the complexity, romanticizing the complexity of the machine, of its ability to process massive amounts of data.&quot; And the kicker for the whole practice: &quot;I don&#x27;t think it is our place as artists and designers to be in awe of technology.&quot;</p>
-<h2 id="technique-takeaways-visual-pass-additions">Technique takeaways (visual pass additions)</h2>
+<h2>Technique takeaways (visual pass additions)</h2>
 <ul><li>The deadline signature: Hektor&#x27;s entire handwriting came from a</li></ul>
 <p>two-weeks-to-deadline constraint (four motors down to two, fix it in software). Constraint-forced invention, kept because it sang. When a limitation produces a beloved artifact, the limitation becomes the medium. Compare Hoff&#x27;s grain discipline, Molnar&#x27;s 1 percent.</p>
 <ul><li>Choreography over image: for Viktor, the drawing sequence is composed</li></ul>
@@ -307,12 +205,12 @@ footer a{color:var(--dim)}
 <p>showing blue vectors next to the black spray rosette is the whole anti-WYSIWYG thesis as an image. Show both states when documenting machine work.</p>
 <ul><li>Prototype vs workhorse: Viktor the delicate prototype (breaks, raises</li></ul>
 <p>conservation questions) versus Otto the workhorse (built for strangers to maintain). Design the maintenance model with the machine.</p>
-<h2 id="avoid-list-additions-visual-pass">Avoid-list additions (visual pass)</h2>
+<h2>Avoid-list additions (visual pass)</h2>
 <ul><li>Do not draw loopy cable-plotter lettering as a style. The loops are</li></ul>
 <p>Hektor&#x27;s handwriting from his hardware and his deadline. Derive the principle (compose in the actuator&#x27;s motion constraints) instead.</p>
 <ul><li>Do not romanticize the machine&#x27;s complexity. His own warning, aimed at</li></ul>
 <p>the ML moment but general: awe at the technology is the wrong message; the work has to earn it some other way.</p>
-<h2 id="doorways-for-next-sessions">Doorways for next sessions</h2>
+<h2>Doorways for next sessions</h2>
 <ul><li>Uli Franke (Hektor co-builder); Jonathan Puckey and Studio Moniker</li></ul>
 <p>(half-manual tool design); Alex Rich (the ICA collaboration); Jenny Hirons (Taxonomy of Communication); Dexter Sinister (the 2007 Swiss Institute Hektor performance).</p>
 <ul><li>The polargraph community: Sandy Noble&#x27;s Polargraph, Der Kritzler,</li></ul>
@@ -324,20 +222,7 @@ footer a{color:var(--dim)}
 <ul><li>Jonathan Puckey and Studio Moniker: half-manual tool design, the</li></ul>
 <p>engineer-craftsperson-user loop as curriculum. Conditional Design as a method (Luna Maurer, Edo Paulus, Puckey, Roel Wouters).</p>
 <ul><li>Dexter Sinister and the 2007 Swiss Institute Hektor performance.</li><li>Follow-up: Rita, Flood Fill, Apple Talk.</li><li>COMPLETED 2026-09-28: full visual pass on Hektor and Viktor works</li></ul>
-<p>(SFMOMA essay, 2020 interview, 8 images, no-brakes re-render). lehni.org still dead, archive.org offline in-session; his own site&#x27;s pages and the Vimeo films remain unseen.</p></div><section class="related"><h2>More in Machines in Motion</h2><div class="relgrid"><a href="jean-tinguely-metamatics.html"><span class="rt">Jean Tinguely</span><span class="rm">2026-09-28 &middot; 9 MIN</span></a><a href="sandy-noble-polargraph.html"><span class="rt">Sandy Noble&#x27;s Polargraph</span><span class="rm">undated &middot; 8 MIN</span></a><a href="billy-kluver-eat.html"><span class="rt">Billy Kluever / 9 Evenings / E.A.T. and the Pepsi Pavilion</span><span class="rm">2026-09-28 &middot; 10 MIN</span></a><a href="david-bowen.html"><span class="rt">David Bowen</span><span class="rm">2026-09-26 &middot; 8 MIN</span></a></div></section><nav class="pn"><a class="prev" href="tarick.html"><span class="dir">&larr; Newer</span><span class="t">Tarick</span></a><a class="next" href="josh-on-design-canvas-deep-dive.html"><span class="dir">Older &rarr;</span><span class="t">Josh On Design: HTML Canvas Deep Dive (deep)</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<p>(SFMOMA essay, 2020 interview, 8 images, no-brakes re-render). lehni.org still dead, archive.org offline in-session; his own site&#x27;s pages and the Vimeo films remain unseen.</p></div><nav class="pagenav"><a class="" href="jean-tinguely-homage.html"><span class="dir">Previous note</span><span class="t">Jean Tinguely - Homage to New York (1960)</span></a><a class="next" href="nicolas-schoffer-cysp1.html"><span class="dir">Next note</span><span class="t">Nicolas Schoffer, CYSP 1 and the Cybernetic Towers</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>

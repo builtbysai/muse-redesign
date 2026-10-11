@@ -3,277 +3,162 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: Muriel Cooper and the Visible Language Workshop</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>Muriel Cooper and the Visible Language Workshop · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=pioneers">THE FIRST PROGRAMMERS</a> / Muriel Cooper and the Visible Language Workshop</p><article class="note"><h1>Muriel Cooper and the Visible Language Workshop</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(212 72% 62%)"></span>The First Programmers</dd></div><div><dt>Studied</dt><dd>undated</dd></div><div><dt>Words</dt><dd>3252</dd></div><div><dt>Read</dt><dd>~16 min</dd></div><div><dt>Sections</dt><dd>10</dd></div><div><dt>Contains</dt><dd>Avoid, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#what-the-workshop-was">What the Workshop was</a><a class="g-x" href="#books-without-pages-and-the-1978-proposal">Books without Pages, and the 1978 proposal</a><a class="g-x" href="#intelligent-graphics-layout-as-search">Intelligent graphics: layout as search</a><a class="g-x" href="#information-landscapes-the-mechanism-in-full">Information Landscapes: the mechanism in full</a><a class="g-x" href="#the-virtual-shakespeare-rendering-model">The Virtual Shakespeare rendering model</a><a class="g-x" href="#the-wider-landscape-family">The wider landscape family</a><a class="g-x" href="#re-rendered-locally-2026-10-01">Re-rendered locally (2026-10-01)</a><a class="g-x" href="#generative-takeaways">Generative takeaways</a><a class="g-avoid" href="#what-to-avoid">What to avoid</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a></nav><div class="nbody"><dl class="spec"><div><dt>Depth</dt><dd>deep. Read David Reinfurt&#x27;s &quot;Soft Copy (1974-1994)&quot; in full (35 pages of the 2017 MIT Press volume, proof PDF, all notes included), David Small&#x27;s &quot;Navigating Large Bodies of Text&quot; in the IBM Systems Journal Vol 35 Nos 3 and 4 (1996) in full, Henry Lieberman&#x27;s &quot;Intelligent Graphics: Artificial Intelligence at the Visible Language Workshop&quot; in full, the MoMA record for Information Landscapes (1994, object 1078.2015, 27 min video, gift of Lisa Strausfeld and David Small) and the MoMA exhibition page for Inbox: Muriel Cooper&#x27;s Information Landscapes, and the Visible Language vocabulary survey (Cooper, Small, Ishizaki, Strausfeld, Wong, Maeda lineage). Visually inspected seven source images at full resolution: two frames of Small&#x27;s Virtual Shakespeare title spread (perspective columns of Midsummer Night&#x27;s Dream on black, Act 2 / Act 3 / Act 4 titles looming over the text), Small Figure 1 four-scale views (from about 100 words to several hundred thousand words, greeking visible at mid scale), Small Figure 6 Titania filter at two distances, the 6000 by 2000 pixel Genesis display mock (Figure 1 in the paper&#x27;s earlier section), Lieberman&#x27;s automatic-layout Perspectives cover grid (six rule-generated variants), Lieberman&#x27;s 3D program representation (colored boxes for Alpha, Beta modules), and the hand-sketched layout constraint diagram. Built two local re-renders and inspected them: a four-panel greeking scale model and a perspective Act-column model.</dd></div></dl>
-<h2 id="what-the-workshop-was">What the Workshop was</h2>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>Muriel Cooper and the Visible Language Workshop</h1><div class="byline">16 min read &nbsp;&middot;&nbsp; 3,252 words</div><div class="note-body"><dl class="catalogue"><dt>Depth</dt><dd>deep. Read David Reinfurt&#x27;s &quot;Soft Copy (1974-1994)&quot; in full (35 pages of the 2017 MIT Press volume, proof PDF, all notes included), David Small&#x27;s &quot;Navigating Large Bodies of Text&quot; in the IBM Systems Journal Vol 35 Nos 3 and 4 (1996) in full, Henry Lieberman&#x27;s &quot;Intelligent Graphics: Artificial Intelligence at the Visible Language Workshop&quot; in full, the MoMA record for Information Landscapes (1994, object 1078.2015, 27 min video, gift of Lisa Strausfeld and David Small) and the MoMA exhibition page for Inbox: Muriel Cooper&#x27;s Information Landscapes, and the Visible Language vocabulary survey (Cooper, Small, Ishizaki, Strausfeld, Wong, Maeda lineage). Visually inspected seven source images at full resolution: two frames of Small&#x27;s Virtual Shakespeare title spread (perspective columns of Midsummer Night&#x27;s Dream on black, Act 2 / Act 3 / Act 4 titles looming over the text), Small Figure 1 four-scale views (from about 100 words to several hundred thousand words, greeking visible at mid scale), Small Figure 6 Titania filter at two distances, the 6000 by 2000 pixel Genesis display mock (Figure 1 in the paper&#x27;s earlier section), Lieberman&#x27;s automatic-layout Perspectives cover grid (six rule-generated variants), Lieberman&#x27;s 3D program representation (colored boxes for Alpha, Beta modules), and the hand-sketched layout constraint diagram. Built two local re-renders and inspected them: a four-panel greeking scale model and a perspective Act-column model.</dd></dl>
+<h2>What the Workshop was</h2>
 <p>Muriel Cooper (1925 to 1994) ran MIT Press design first: the colophon of seven vertical bars standing for the letters m, i, t, p as books on a shelf, the 1969 Bauhaus volume rebuilt in Helvetica on a grid, the first edition of Learning from Las Vegas in 1972, and File Under Architecture in 1974 set on a computer in Courier. In 1967 she sat in on Nicholas Negroponte&#x27;s Computers and Design class and, by her own admission, was bewildered. The bewilderment became the program. With Ron MacNeil she founded the Visible Language Workshop around 1974 (the name varies between Visible and Visual in the sources; MIT uses Visible). She never learned to program. She worked in the room with programmers, in real time, looking at the screen and saying what was wrong: oh, it is too red. In 1985 the Workshop merged with the Architecture Machine Group and the Center for Advanced Visual Studies to form the MIT Media Lab. At her death she was the first and only woman to hold tenure in the Media Lab.</p>
 <p>The through-line is one sentence she repeated in different forms: the line between reproduction tools and design would blur when information became electronic. Design Quarterly no. 142, Computers and Design (1989), which she guest-edited, put it as a claim about the future job: the primary interaction with information will be visual, and a new profession will organize and filter information growing at an exponential rate. The filing cabinet and advent calendar metaphors of early personal computing were, to her, a failure of nerve. The computer should not mimic old tools. It should become a new medium with its own grammar.</p>
-<h2 id="books-without-pages-and-the-1978-proposal">Books without Pages, and the 1978 proposal</h2>
+<h2>Books without Pages, and the 1978 proposal</h2>
 <p>In 1978 Cooper, Negroponte and Richard Bolt wrote Books without Pages, a proposal to the National Science Foundation. The NSF declined it. The Office of Naval Research and later DARPA funded parts of it. The document already contains the whole later program in compressed form. Hard copy is fixed. Soft copy can modulate in real time as a function of where the reader is looking. A word may change in size, shape, color, luminosity. They named five reasons text should move or change: to convey information that itself is changing, to pace the observer, to save real estate, to amplify, and to be attention getting. The kinds of change listed are 2D and 3D translation and rotation, color changes, shape transformations, transparency, and transfigurations between icons and symbols. The Spatial Data Management System Media Room (Eames chair, wall projection, joystick and touch input) and the Rotch Library videodisc of 54,000 stills are the hardware ancestors: location remembered as the third pile from the left with the red cover, not as a filename.</p>
-<h2 id="intelligent-graphics-layout-as-search">Intelligent graphics: layout as search</h2>
+<h2>Intelligent graphics: layout as search</h2>
 <p>Lieberman&#x27;s account names the second strand. Because digital data arrives too fast for every screen to be designed by hand, layout itself had to become computable. The Workshop tried every then-available AI technique on the problem, and the variety is the point:</p>
 <ul><li>Rule-based systems (Shea, Amari, Badshah) encoding design knowledge as IF-THEN rules, tested on IBM corporate publications with Joan Musgrave: if overall color dominance is not similar and has the desired relation of contrast, then keep the selected image, else reject the least popular or change its color. The computer produced as many cover mockups as requested, and the design problem flipped from scarcity to too many alternatives.</li><li>Sketch-driven generation (Greenlee): a hand sketch of principal elements constrains a generator that proposes sequences of layouts.</li><li>Best-first search (Lieberman) for over-constrained space allocation, and case-based reasoning (Colby) reusing prior solutions.</li><li>Grammar parsing (Weitzman) enforcing geometric and temporal constraints during generation.</li><li>Learning by example (from about 1986): record both the solution and further attempts, so the tool personalizes. Mondrian for layout, Tinker for programming by demonstration (a Pong game taught by showing configurations). Ishizaki&#x27;s recording engine ran under existing layout software and collected typeface choices, color selections, arrangement and scaling into a user profile.</li><li>Visual representation of knowledge in the other direction: 3D program structures built as the program runs (boxes like cereal cartons and buildings, color and translucency carrying state), MacNeil&#x27;s TYRO spider webs of constraints, storyboard states in Mondrian and VIA.</li></ul>
 <p>Cooper&#x27;s role in this strand was not code. It was the insistence that the feedback loop had to be tight enough to feel like a medium, not a batch job, and that examples teach better than rules because examples are multidimensional. Any student who had only the rules still missed the principle embedded in the example.</p>
-<h2 id="information-landscapes-the-mechanism-in-full">Information Landscapes: the mechanism in full</h2>
+<h2>Information Landscapes: the mechanism in full</h2>
 <p>On the flight back from TED in Kobe in spring 1993, Cooper, David Small and Suguru Ishizaki conceived collapsing the strands into one real-time information space. A loaned Silicon Graphics Onyx with RealityEngine2 (a quarter-million-dollar workstation) made dynamic 3D typography renderable. Over one month of shift work they built Typographic Space, submitted to CHI &#x27;94 in Cambridge, Massachusetts, in April 1994. Cooper named it Information Landscapes. She presented it at TED 5 in Monterey in February 1994: she joined Richard Saul Wurman on stage, sipped water, removed her shoes, and improvised. She died on May 26, 1994, the day after returning from presenting the work in Cambridge, England. Nicholas Negroponte&#x27;s eulogy line is exact: she has broken the flatland of overlapping opaque rectangles with the idea of a galactic universe.</p>
 <p>The interface has no interface. No buttons, no menus, no control panels, no trash can. The data is presented as a concrete three-dimensional landscape and the reader navigates it directly, in first person. Information hangs like constellations. The reader flies. The journey itself can become as meaningful as the destination. Two design problems dominate, and Small&#x27;s 1996 paper is the technical record of both.</p>
 <p><strong>Problem one: legibility without a yardstick.</strong> In print, density is known from the object: spine width tells you length. In an unbounded electronic space, scale is unlimited and that cue vanishes. Kevin Lynch&#x27;s Image of the City supplies the replacement criterion: a legible landscape is one whose districts, landmarks and pathways are easily identifiable and easily grouped into an overall pattern. Structure must mirror the structure of the material. A city you can read, not a warehouse you search.</p>
 <p><strong>Problem two: type was designed flat, for one size.</strong> Letters assume a plane. In perspective they distort. Small if you are far, but is it small-and-near or large-and-far? A billboard that always faces the camera restores legibility and destroys the spatial structure you built the landscape to get. Constrain the camera and you constrain the reading. As type shrinks, the stems wriggle, the serifs clog, the counters fill. Perceived color shifts: in the Virtual Shakespeare rendering engine, text becomes darker as it gets smaller, which breaks any coding that uses brightness to distinguish speakers. The fix Small asks for does not yet exist as a product: a dynamic multimaster typeface that adjusts its form to its environment, the way lead type was drawn independently at each size. Wong&#x27;s contemporary work in the same lab pushed the other direction: dynamic forms, type that appears to speak like an actor performing a role.</p>
-<h2 id="the-virtual-shakespeare-rendering-model">The Virtual Shakespeare rendering model</h2>
+<h2>The Virtual Shakespeare rendering model</h2>
 <p>Small&#x27;s test corpus is the complete plays, about one million words. The layout encodes structure before any interaction begins. Each character has a color. Typefaces distinguish stage direction, names, dialog and commentary. A scene is a single column aligned at the top. The gutter is larger between acts than between scenes. Acts run left to right. Plays stack vertically. Four rendering stages carry the reader from overview to reading without a jump cut:</p>
 <ol><li>Close: full text, fully rendered.</li><li>Mid: greeking. Each line becomes a simplified texture that keeps the overall shape of the line (its length, its word breaks as density) while individual words are lost.</li><li>Farther: each block of text becomes a simple rectangle of the same size and overall density. Breaks between the dialog of different characters delineate the larger blocks, so even at a great distance the reader can follow who was speaking and how much was said.</li><li>Farthest: each scene renders as a single rectangle.</li></ol>
 <p>All transitions are smooth cross-fades, as inconspicuous as possible, so the reader believes all the information is there on the screen at all times. Highlighting is a visual filter that works at every scale simultaneously. Figure 6 in the paper applies the filter to Titania, Queen of the Fairies: close up, her lines brighten against Oberon; pulled back to the whole play, the same brightness reads as a thread, and you can see she is introduced in Act 2, carries long soliloquies, and where her thread runs through the narrative. A filter that only works at reading distance would be a search box. This one is an analytic instrument.</p>
 <p>Footnotes show the same thinking in miniature. Two placements were tried: tiny type next to the text at one tenth size (readable only on approach, the dot-of-the-i problem), versus same size at 90 degrees, invisible head-on, revealed by twisting the viewpoint. The second wins because the note occupies space rather than shrinking into it. Both can be displayed simultaneously, which print cannot do.</p>
 <p>Navigation hardware completed the argument that this is reading, not browsing. Three rigs: a handle with a magnetic Flock of Birds sensor plus a helicopter camera sensor giving implicit orientation (rotor, tail, windshield); a LEGO stage on wheels (left, right, up, down, rotate) with resistor feet and actor figures, where stepping on a figure lights that character&#x27;s text; and a handheld balsa and LEGO display with a clutch button: tip forward to move down, push away to zoom out, pull close to zoom in, tilt to slide, exponential motion throughout. The conclusion of the paper is the sentence the whole Workshop points at: it is impossible to separate visual design from interface design. The screen should not emulate paper. Legible, inviting, comfortable, with exploration as delight.</p>
-<h2 id="the-wider-landscape-family">The wider landscape family</h2>
+<h2>The wider landscape family</h2>
 <p>Information Landscapes was an umbrella, not one demo. Under it at TED and CHI: Strausfeld&#x27;s Financial Viewpoints (1993) and her thesis Embodying Virtual Space, with the famous approach sequence quoted by Reinfurt: you fly toward your portfolio as an object whose form already says it is doing well, pass through an atmosphere of net assets and return statistics, stop, look around, and the portfolio is no longer an object but a space you inhabit. Ishizaki&#x27;s Dynamic News Display: an analog watch face over a world map, stories anchored to geography and appearing as they happen, tethered to a sped-up clock, blur pushing the less immediate into the background, dynamic line spacing for nesting, color for temporal shift. A NYNEX spatialized videoconferencing node map, an air-traffic constellation of adjustable views, and the maps-first Typographic Space spaces (geographic information as the familiar ground, abstract typographic information layered over it) before the spaces turned assertively abstract: constellations of colored type with architectural hierarchy on an ink-black ground, translucency, dynamic color and blur as graphic filters. Suguru Ishizaki named the endpoint Improvisational Design and, in his dissertation, a Model of Dynamic Design: a display as a performance of active design agents, each responsible for one aspect (a headline, a story), the composition closer to dance than to graphic design. Small&#x27;s rendering trick made the population possible: letters as one-color texture maps on regular polygons, approximations of geometric primitives instead of Bezier outlines, computed fast enough in Silicon Graphics Performer to fly through. Processing later inherited this scheme, down to the .vlw font file extension, which is the Workshop&#x27;s initials persisting in a file format.</p>
-<h2 id="re-rendered-locally-2026-10-01">Re-rendered locally (2026-10-01)</h2>
+<h2>Re-rendered locally (2026-10-01)</h2>
 <p>Two studies in Python and PIL, frames in the study working folder.</p>
 <p>R1, four-panel greeking model: a 16-line Midsummer exchange (Titania, Oberon, Bottom, Quince, Puck, each with a fixed color) rendered at three scales plus a filter view. Panel A close: full text in speaker color, directly readable. Panel B mid: each line as word-length rectangles in speaker color, gaps preserved, words gone but line shape and speaker sequence fully legible. Panel C far: consecutive lines by the same speaker merged into solid blocks with speaker and count labeled; at this distance only who spoke, and how much, remains, which is exactly Small&#x27;s claim. Panel D filter: Titania&#x27;s lines in full text and bright pink, all other lines dimmed to grey greeking; the thread reads across the whole exchange in one glance. What it taught: the scale chain is honest. Nothing in panel C is invented; it is panel A with information removed in a fixed order (words first, then lines, then everything but speaker changes). The naive 0.5 cross-fade between panels B and C ghosts badly (double image, muddy mid-tones), which is why Small specifies blur in the transition and why brightness compensation matters: uncorrected, the far view darkens and the speaker colors collapse toward each other. With darkening uncorrected in this render, Oberon&#x27;s cyan and Quince&#x27;s green are already close at block scale; a production version needs the luminance lift Small describes.</p>
 <p>R2, perspective Act-column model: three Act columns (Act 2, Act 3, Act 4 titles large at top, text shrinking and converging below) on the ink-black ground, after the title spread of Small&#x27;s paper. What it taught: flat-designed serif type becomes texture within about fifteen lines of perspective shrink, and it becomes texture unevenly: horizontal strokes survive, counters clog first, the pink Titania lines stay separable by color long after they are unreadable as words. That ordering (color outlives letterform) is the empirical reason the Shakespeare layout leads with color per character and treats the typeface distinction (dialog versus stage direction) as the secondary channel. Billboard-facing the text would keep every line readable and delete the depth the columns exist to provide. The landscape pays for its space with legibility, and the greeking chain is how it pays honestly.</p>
-<h2 id="generative-takeaways">Generative takeaways</h2>
+<h2>Generative takeaways</h2>
 <ol><li>Remove information in a fixed order as the reader backs away. Full rendering, then line shape without words (greeking with word gaps as density), then blocks delineated by the structural break that matters (here, speaker change), then one rectangle per scene. Never jump scales. Cross-fade with blur, and lift luminance as things shrink or your color coding dies at distance.</li><li>Encode structure in the layout before any interaction. Color per agent, typeface per role, alignment at scene tops, gutter size for act versus scene, left-to-right for acts, vertical stack for works. The landscape is legible because the print logic survived the move into space, not because space replaced it.</li><li>A filter must work at every scale at once. Highlight one agent bright across the whole field so its thread can be followed from a single line to the entire corpus. If the highlight only works close up, it is find, not analysis.</li><li>Perspective is a cost, not a decoration. Letters were designed flat and for a narrow size range. If type travels in depth, it needs size-dependent form (sturdier stems, open counters when small) and a camera that is constrained on purpose. If you billboard everything to stay readable, you have a list with a camera, not a landscape.</li><li>No interface chrome over the data. No buttons, menus or panels sitting on top of the landscape. Navigation is movement through the material itself (tip to dive, pull to rise, tilt to slide), and annotation lives in the space at 90 degrees until you turn to read it.</li><li>Let the display be a performance of agents, not a fixed page. Ishizaki&#x27;s endpoint: each element responsible for one aspect of the information, rearranging as the data and the reader&#x27;s intent change, blur and color carrying urgency. Design the choreography rules, not the final frame.</li></ol>
-<h2 id="what-to-avoid">What to avoid</h2>
+<h2>What to avoid</h2>
 <ul><li>Dark 3D text dioramas that borrow the ink-black constellation look with no scale chain underneath. If backing away does not change the rendering stage, it is a poster in space.</li><li>Color as decoration. In this work color is the primary structural channel and it is budgeted accordingly (one hue per agent, held constant across every scale and view). Rainbow labels that reshuffle per view break the one thread the reader can follow.</li><li>Zoom as a magnifying glass. The point of the landscape is that overview and detail are the same material at different densities, with context retained during the move. A zoom that crops, or a minimap that duplicates, concedes the problem Cooper named in 1978.</li><li>Simulating paper more faithfully. Window stacks of infinitely thin rectangles were the 1996 complaint and they are still the default failure. The screen is not a desk; text can change size, color and luminosity as a function of where the reader is looking, and should when the information itself is changing.</li></ul>
-<h2 id="honest-gaps">Honest gaps</h2>
-<p>The 27-minute Information Landscapes video (MoMA 1078.2015) was not watched in this session; all motion claims rest on Small&#x27;s paper, Reinfurt&#x27;s account, and the still frames reproduced in the IBM journal, which were inspected. No SVG or original SGI material survives in any source consulted. Strausfeld&#x27;s Financial Viewpoints is known from her thesis passage quoted by Reinfurt and the MoMA label, not from inspected frames; no full-resolution still was obtained. Wong&#x27;s Temporal Typography (1995) is known from Small&#x27;s description and the vocabulary survey only. The Bauhaus volume and Learning from Las Vegas spreads were not visually inspected in this session; print claims about Cooper rest on Reinfurt&#x27;s text. The Visible versus Visual spelling of the Workshop name differs across sources (Wikipedia, the vocabulary survey, Reinfurt); MIT&#x27;s own pages use Visible, and that spelling is used here. The local re-renders use 16 lines standing in for one million words, so the density claims are verified at toy scale only, and the cross-fade ghosting was observed in a naive PIL blend, not in Small&#x27;s Performer pipeline.</p></div><section class="related"><h2>More in The First Programmers</h2><div class="relgrid"><a href="computer-technique-group.html"><span class="rt">Computer Technique Group, Tokyo</span><span class="rm">2026-10-01 &middot; 9 MIN</span></a><a href="darcy-thompson-on-growth-and-form.html"><span class="rt">D&#x27;Arcy Thompson: On Growth and Form</span><span class="rm">2026-10-01 &middot; 16 MIN</span></a><a href="elena-asins.html"><span class="rt">Elena Asins</span><span class="rm">undated &middot; 10 MIN</span></a><a href="hanne-darboven.html"><span class="rt">Hanne Darboven</span><span class="rm">undated &middot; 10 MIN</span></a></div></section><nav class="pn"><a class="prev" href="max-bense.html"><span class="dir">&larr; Newer</span><span class="t">Max Bense</span></a><a class="next" href="new-tendencies-t4-t5.html"><span class="dir">Older &rarr;</span><span class="t">New Tendencies: Tendencies 4 (1968/69) and Tendencies 5 (1973)</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<h2>Honest gaps</h2>
+<p>The 27-minute Information Landscapes video (MoMA 1078.2015) was not watched in this session; all motion claims rest on Small&#x27;s paper, Reinfurt&#x27;s account, and the still frames reproduced in the IBM journal, which were inspected. No SVG or original SGI material survives in any source consulted. Strausfeld&#x27;s Financial Viewpoints is known from her thesis passage quoted by Reinfurt and the MoMA label, not from inspected frames; no full-resolution still was obtained. Wong&#x27;s Temporal Typography (1995) is known from Small&#x27;s description and the vocabulary survey only. The Bauhaus volume and Learning from Las Vegas spreads were not visually inspected in this session; print claims about Cooper rest on Reinfurt&#x27;s text. The Visible versus Visual spelling of the Workshop name differs across sources (Wikipedia, the vocabulary survey, Reinfurt); MIT&#x27;s own pages use Visible, and that spelling is used here. The local re-renders use 16 lines standing in for one million words, so the density claims are verified at toy scale only, and the cross-fade ghosting was observed in a naive PIL blend, not in Small&#x27;s Performer pipeline.</p></div><nav class="pagenav"><a class="" href="max-bense.html"><span class="dir">Previous note</span><span class="t">Max Bense</span></a><a class="next" href="on-kawara.html"><span class="dir">Next note</span><span class="t">On Kawara</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>
