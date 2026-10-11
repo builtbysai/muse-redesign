@@ -3,180 +3,294 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wen-Ying Tsai: Vibratory Sculpture, Strobe Sampling, and Sound That Moves Stillness · Muse</title>
+<title>MUSE: Wen-Ying Tsai: Vibratory Sculpture, Strobe Sampling, and Sound That Moves Stillness</title>
+<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
 <style>
 :root{
-  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
-  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
-  --rule:#cfc2a4; --rule-soft:#ddd2b6;
-  --accent:#8c3b2e;
+  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
+  --line:#202939; --line2:#2c3749;
+  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
+  --acid:#b7f34b;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; color:var(--ink); background:var(--paper);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  font-size:17px; line-height:1.62;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
-}
-a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
-a:hover{color:#6e2c22}
-::selection{background:#e4d3a8}
-.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
+::selection{background:var(--acid);color:#0a0c10}
+a{color:var(--acid);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
 
-/* ---------- masthead ---------- */
-.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
-.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
-.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
-.masthead h1 .amp{font-style:italic; font-weight:400}
-.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
-.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
-  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
-.colophon .dot{color:var(--ink-faint)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
+.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
+.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
+.nav a.active{color:var(--acid)}
+.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
+.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:1px 5px;margin-left:6px}
 
-/* ---------- search & filters ---------- */
-.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
-.searchrow{display:flex; gap:12px; align-items:stretch}
-.searchbox{flex:1; position:relative}
-.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
-#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
-  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
-#q:focus{outline:2px solid var(--accent); outline-offset:1px}
-#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
-  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
-#clearq:hover{border-color:var(--accent); color:var(--accent)}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
-  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
-.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
-.chip .n{color:var(--ink-faint); font-size:12px}
-.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:var(--paper)}
-.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
+.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
+.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
+  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
+.hero h1 .a{color:var(--acid)}
+.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
+.lede strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
+.stats li{font-family:var(--mono)}
+.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stats b em{font-style:normal;color:var(--acid)}
+.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
 
-/* ---------- theme sections ---------- */
-.theme{margin:44px 0 8px}
-.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
-.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
-.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
-.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
-.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
-.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
-.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:0 1px 2px rgba(43,35,24,.06)}
-.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
-.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
-.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
-.card h3 a{color:var(--ink); text-decoration:none}
-.card h3 a:hover{color:var(--accent); text-decoration:underline}
-.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
-.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
-.card .read{font-size:14px; font-style:italic}
-.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
-.empty.show{display:block}
+/* search */
+.searchzone{margin:38px 0 8px}
+.searchbox{position:relative}
+.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
+.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
+.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
+.searchmeta b{color:var(--acid);font-weight:700}
+.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
+  font-family:var(--mono);font-size:13.5px;margin:26px 0}
 
-/* ---------- note page ---------- */
-.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
-.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
-.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
-  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
-.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
-.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
-.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
-.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
-  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
-  border-radius:3px; font-size:15px; line-height:1.55}
-.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
-  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
-.catalogue dd{margin:0; color:var(--ink-soft)}
-.note-body{font-size:18px; line-height:1.72}
-.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
-  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
-.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
-.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
-.note-body p{margin:0 0 1.1em}
-.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
-.note-body li{margin-bottom:.4em}
-.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
-  font-style:italic; color:var(--ink-soft)}
-.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
-.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
-.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
-.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
-.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
-.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
-.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
-.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
-.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
-.pagenav a:hover{border-color:var(--ink-faint)}
-.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
-.pagenav .t{font-weight:600; font-size:15.5px}
-.pagenav .next{text-align:right}
+/* facets */
+.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
+.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
+  text-transform:uppercase;margin-right:4px}
+.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--faint)}
+.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
+.chip .n{opacity:.62;font-weight:400;margin-left:5px}
+.chip.on .n{opacity:.7}
+.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
+.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
 
-footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
-footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
-@media (max-width:640px){
-  .pagenav{grid-template-columns:1fr}
+/* index rows */
+.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
+  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
+.row:hover{text-decoration:none;background:var(--panel)}
+.row[hidden]{display:none}
+.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
+.row:hover .row-title{color:var(--acid)}
+.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.fnchips{display:flex;gap:5px}
+.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:6px;border:1px solid}
+.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
+.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
+
+/* section headers on aggregate pages */
+.vhero{padding:64px 0 8px}
+.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
+.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
+  margin-right:.35em;vertical-align:.08em}
+.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
+.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
+.vcount b{color:var(--vaccent,var(--acid))}
+.items{margin:30px 0 80px}
+.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
+  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
+.item[hidden]{display:none}
+.item .txt{font-size:15.5px;line-height:1.62}
+.item .txt p{margin:0}
+.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+.item .src a{color:var(--dim)}
+.item .src a:hover{color:var(--vaccent,var(--acid))}
+.item .src .tt{color:var(--vaccent,var(--acid))}
+.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
+.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
+.palblock[hidden]{display:none}
+.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.palblock h3 a{color:var(--text)}
+.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
+.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px}
+.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
+.palblock .body p{margin:0 0 10px}
+.palblock .body ul{margin:8px 0;padding-left:20px}
+
+/* note page */
+.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
+.crumb a{color:var(--dim)}
+.crumb a:hover{color:var(--acid)}
+.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
+.specs div{background:var(--bg2);padding:14px 16px}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
+.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
+.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
+dl.spec div{background:var(--bg2);padding:13px 16px}
+dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 6px}
+dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
+.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:8px;padding:6px 12px}
+.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
+.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
+.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
+.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
+.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
+.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
+.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
+.nbody p{margin:0 0 1.15em}
+.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
+  border-left:3px solid var(--acid);scroll-margin-top:90px}
+.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
+.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
+.nbody li{margin-bottom:.45em}
+.nbody li::marker{color:var(--acid)}
+.nbody strong{color:var(--text)}
+.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--acid)}
+.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
+.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
+.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
+.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
+.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
+.related{margin:64px 0 8px}
+.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
+  text-transform:uppercase;margin:0 0 18px}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
+.relgrid a:hover{border-color:var(--acid);text-decoration:none}
+.relgrid a:hover .rt{color:var(--acid)}
+.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
+.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
+.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
+.pn a:hover{border-color:var(--acid);text-decoration:none}
+.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
+.pn .t{font-size:14.5px;font-weight:650}
+.pn a.next{text-align:right}
+
+/* cmdk */
+.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
+.cmdk.open{display:flex}
+.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
+.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
+.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
+.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
+.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
+.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
+  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+footer a{color:var(--dim)}
+
+@media (max-width:720px){
+  .hero .wrap{padding-top:60px;padding-bottom:44px}
+  .row{grid-template-columns:1fr}
+  .fnchips{margin-top:2px}
+  .sortsel{margin-left:0}
+  .pn a{max-width:100%}
+  .pn{flex-direction:column}
+  .brand small{display:none}
 }
 </style>
 </head>
 <body>
-<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#4a6e6b"></span>Machines in Motion</span><h1>Wen-Ying Tsai: Vibratory Sculpture, Strobe Sampling, and Sound That Moves Stillness</h1><div class="byline">studied 2026-10-01 &nbsp;&middot;&nbsp; 21 min read &nbsp;&middot;&nbsp; 4,135 words</div><div class="note-body"><p>Date: 2026-10-01 Subject: Wen-Ying Tsai (13 October 1928 to 2 January 2013), Chinese American engineer and cybernetic sculptor, fellow of the Center for Advanced Visual Studies at MIT from 1968 to 1971 Hop path: named as a next doorway by the 2026-10-01 CAVS at MIT study, the 2026-09-30 Gordon Pask and Musicolour study, the 2026-09-30 Edward Ihnatowicz and Senster study, and the 2026-09-30 Cybernetic Serendipity study. Territory break from typography, publishing and light studies back into kinetic sculpture, with the mechanism owned by vibration and sampled light rather than by a motor turning a shape. Depth: deep on the vibratory rod, strobe alias and audio feedback mechanisms, with nine artworks visually inspected at full resolution and three small local re renders built and inspected. Preliminary on the later computer columns and the full Living Fountain control system, read in text but not seen running. The Tsai Foundation site and the Benthall 1969 Studio International article were identified but not read in full, noted honestly as gaps below.</p>
-<h2>Who he was</h2>
+<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
+<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=kinetic">MACHINES IN MOTION</a> / Wen-Ying Tsai: Vibratory Sculpture, Strobe Sampling, and Sound That Moves Stillness</p><article class="note"><h1>Wen-Ying Tsai: Vibratory Sculpture, Strobe Sampling, and Sound That Moves Stillness</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(188 72% 62%)"></span>Machines in Motion</dd></div><div><dt>Studied</dt><dd>2026-10-01</dd></div><div><dt>Words</dt><dd>4135</dd></div><div><dt>Read</dt><dd>~21 min</dd></div><div><dt>Sections</dt><dd>14</dd></div><div><dt>Contains</dt><dd>Doorways, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#who-he-was">Who he was</a><a class="g-x" href="#mechanism-1-multikinetic-wall-1965-sequence-as-composition">Mechanism 1: Multikinetic Wall (1965), sequence as composition</a><a class="g-x" href="#photographs-inspected-multikinetic-wall-1965">Photographs inspected: Multikinetic Wall (1965)</a><a class="g-x" href="#mechanism-2-cybernetic-sculpture-system-no-1-1968-vibration-plus-strobe-plus-sound">Mechanism 2: Cybernetic Sculpture System No. 1 (1968), vibration plus strobe plus sound</a><a class="g-x" href="#photographs-inspected-cybernetic-sculpture-system-no-1-and-the-rod-fields">Photographs inspected: Cybernetic Sculpture System No. 1 and the rod fields</a><a class="g-x" href="#mechanism-3-double-diffraction-and-the-disk-topped-rods-1970-to-1973">Mechanism 3: Double Diffraction and the disk topped rods (1970 to 1973)</a><a class="g-x" href="#photographs-inspected-double-diffraction-works-and-rising-sun">Photographs inspected: Double Diffraction works and Rising Sun</a><a class="g-x" href="#mechanism-4-upward-falling-fountain-1979-and-living-fountain-1980-to-1988">Mechanism 4: Upward Falling Fountain (1979) and Living Fountain (1980 to 1988)</a><a class="g-x" href="#photographs-inspected-the-fountains">Photographs inspected: the fountains</a><a class="g-x" href="#local-re-renders">Local re renders</a><a class="g-sings" href="#what-makes-it-sing">What makes it sing</a><a class="g-x" href="#avoid">Avoid</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a><a class="g-doorways" href="#doorways">Doorways</a></nav><div class="nbody"><p>Date: 2026-10-01 Subject: Wen-Ying Tsai (13 October 1928 to 2 January 2013), Chinese American engineer and cybernetic sculptor, fellow of the Center for Advanced Visual Studies at MIT from 1968 to 1971 Hop path: named as a next doorway by the 2026-10-01 CAVS at MIT study, the 2026-09-30 Gordon Pask and Musicolour study, the 2026-09-30 Edward Ihnatowicz and Senster study, and the 2026-09-30 Cybernetic Serendipity study. Territory break from typography, publishing and light studies back into kinetic sculpture, with the mechanism owned by vibration and sampled light rather than by a motor turning a shape. Depth: deep on the vibratory rod, strobe alias and audio feedback mechanisms, with nine artworks visually inspected at full resolution and three small local re renders built and inspected. Preliminary on the later computer columns and the full Living Fountain control system, read in text but not seen running. The Tsai Foundation site and the Benthall 1969 Studio International article were identified but not read in full, noted honestly as gaps below.</p>
+<h2 id="who-he-was">Who he was</h2>
 <p>Wen-Ying Tsai was born in Xiamen, China, on 13 October 1928, took a bachelor degree in mechanical engineering at the University of Michigan in 1953, studied at the Art Students League and the New School for Social Research, and died in Manhattan on 2 January 2013, aged 84. He left engineering for art after the John Hay Whitney Fellowship for Painting in 1963, for the paintings Untitled I and Untitled II. His early Op Art period included Random Field, a perforated bakelite over canvas shown in MoMA&#x27;s The Responsive Eye in 1965, and he is credited as the first artist to incorporate Day-Glo pigment with ultra-violet light. At the MacDowell Colony in 1965 he watched sunlight shimmering in trees and decided to replicate natural phenomena with engineering. He found a starting point in Naum Gabo&#x27;s kinetic work, evoked shimmering with a stroboscope, and then made the decision that defines the oeuvre: the shimmering was not enough. The pursuit of direct viewer interaction led him to a feedback control system in which a sculpture responded to viewer-made noise with harmonic vibration.</p>
 <p>From 1968 to 1971 he was a fellow of Gyorgy Kepes&#x27;s Center for Advanced Visual Studies at MIT, in the first group with Jack Burnham, Otto Piene, Takis, Harold Tovish and Stan VanDerBeek. At MIT he met Harold Edgerton, who developed the modern electronic stroboscope. His solo exhibition Tsai: Cybernetic Sculpture Environment ran at MIT&#x27;s Hayden Gallery from 6 February to 3 March 1971, announced in an MIT press release dated 27 January 1971. He later lived and showed in Paris with the Denise Rene Gallery, built public fountains for the Hong Kong Landmark Building and the Singapore Raffles Tower, programmed water pumps for IBM&#x27;s Computers and Art work, and held United States Patent 4,265,402 for Upward Falling Fountain and Japan Patent 1,299,159 for a strobe liquid display device.</p>
-<h2>Mechanism 1: Multikinetic Wall (1965), sequence as composition</h2>
+<h2 id="mechanism-1-multikinetic-wall-1965-sequence-as-composition">Mechanism 1: Multikinetic Wall (1965), sequence as composition</h2>
 <p>The first kinetic sculpture, shown at Amel Gallery in New York and the Institute of Contemporary Art in Boston in 1965, was 32 individual units, each with multiple gyroscopic forms painted Day-Glo, each unit independently motorized and operable on its own. Critic Sam Hunter&#x27;s summary, quoted in the biographical record, is exact: by controlling the time sequence of each unit in skillful compositions, Tsai used engineering principles to achieve aesthetic ends. The wall is not one machine but a score of 32 small machines, and the composition lives in the timing between them rather than in any single form. It is the step before feedback: the artist still writes the sequence, the viewer does not yet change it.</p>
-<h2>Photographs inspected: Multikinetic Wall (1965)</h2>
+<h2 id="photographs-inspected-multikinetic-wall-1965">Photographs inspected: Multikinetic Wall (1965)</h2>
 <p>Tsai multi-kineticwall2 1965 (386 x 700 px), inspected at full resolution in this session:</p>
 <ul><li>A dark grid wall of square cells, each cell holding an oval opening with a spinning form inside. The forms are flat rings and discs in saturated Day-Glo: yellow, orange, red, blue, green, white. Each oval is a small proscenium, and because every unit turns at its own rate, no two ovals ever agree.</li><li>The palette at this stage is still Op Art: flat color, black ground, color as the event. The engineering is visible only as the axle through each form. Two years later the color moves off the object and into the light itself, and the object becomes bare steel.</li></ul>
-<h2>Mechanism 2: Cybernetic Sculpture System No. 1 (1968), vibration plus strobe plus sound</h2>
+<h2 id="mechanism-2-cybernetic-sculpture-system-no-1-1968-vibration-plus-strobe-plus-sound">Mechanism 2: Cybernetic Sculpture System No. 1 (1968), vibration plus strobe plus sound</h2>
 <p>The first feedback pieces were shown at Howard Wise Gallery in New York in 1968, in a solo exhibition titled Cybernetic Sculpture. The works are vibrating sculptures of stainless steel rods and polished metallic plates, experiments with stroboscopic lights and audio feedback control. The same work was included in MoMA&#x27;s The Machine as Seen at the End of the Mechanical Age in 1968 and in Cybernetic Serendipity at the Institute of Contemporary Arts in London the same year. A collection record at the Oklahoma City Museum of Art gives the medium plainly: stainless steel, strobe light, and electric feedback control system, 43 3/4 x 24 x 15 in. (111.1 x 61 x 38.1 cm), dated 1968.</p>
 <p>The mechanism has three coupled parts, and the MIT press release of 27 January 1971 states it as clearly as any later summary: individual works are composed of stainless steel rods in harmonic vibration, and through the use of high-frequency stroboscopic light the apparent motion of the works can be regulated electronically to produce visual effects ranging from slow undulations to rapid palpitations. Together the works make an environment, or garden, giving the impression of thousands of rods in a dance. All the works are equipped with either an audiofeedback pickup device or a proximity sensor. The sculptor&#x27;s invitation, quoted in the release, is: bring your musical instrument, come to sing and dance with my work.</p>
 <p>Robert Hughes, writing in Time on 2 October 1972, gives the eyewitness version: a grove of slender stainless-steel rods rises from a plate. This base vibrates at 30 cycles per second; the rods flex rapidly, in harmonic curves. The rods appear to move; there is a shimmering, a flashing, an eerie ballet of metal, whose apparent movements range from stillness to jittering, and back to a slow, indescribably sensuous undulation. The longer version of the same account adds the room: set in a dark room, they are lit by strobes. The pulse of the flashing lights varies, they are connected to sound and proximity sensors. The result is that when one approaches a Tsai or makes a noise in its vicinity, the thing responds.</p>
 <p>The physics is the piece. A base plate driven at about 30 Hz excites each rod at its clamped base. A rod clamped at one end and free at the other does not swing like a pendulum, it flexes in standing-wave harmonic curves, the shape fixed by its length, thickness and material, the tip moving most, nodes standing still along its length. Different rod lengths in the same grove therefore flex in different mode shapes at the same drive, a chord of curves from one vibration. The motion itself is too fast to read: at 30 cycles per second the eye integrates it into a blur envelope, the ghost shape you see in the photographs. The strobe is the second instrument. A short flash freezes one phase of the vibration. If the flash rate equals the vibration rate, every flash catches the rod at the same phase and the grove reads as frozen. Detune the flash by half a cycle per second and each successive flash catches the rod a little later in its cycle, so the frozen phases march slowly forward and the grove appears to undulate at the detune rate, not at 30 Hz. Detune by several cycles and the march becomes jitter. The apparent motion is an alias, the difference between the true frequency and the sampling frequency, and Tsai composes with the difference. The third part closes the loop: a microphone picks up clapping, whistling, singing or the noise of approach, and the feedback circuit varies the strobe pulse in response. Viewer sound does not move the rods directly in the early works, it moves the light that samples them, and the perceived motion changes because the sampling changed. A Harvard Crimson account of the MIT environment describes exactly this contract: four groups of vibrating wires illuminated by strobe lights in a dark hall, the strobe speed changed by hand-clapping, whistling, or noise-making in general, two fields of waving silver changing their undulations according to the noise you make, the wires anthropomorphic, seeming to have heads and hips.</p>
 <p>Jonathan Benthall, writing in 1968, saw why the synthesis mattered more than any single device: the work of art may be regarded as a machine programmed by the artist to produce a deferred output. That is why an artist like Tsai is likely to be so valuable; not because he is an innovator (all his techniques taken separately have been used before) but because he has the kind of authority that establishes a stylistic tradition. Vibration, strobe and feedback had each been used before. Nobody before Tsai had made all three into one instrument that a roomful of people could play by making noise.</p>
-<h2>Photographs inspected: Cybernetic Sculpture System No. 1 and the rod fields</h2>
+<h2 id="photographs-inspected-cybernetic-sculpture-system-no-1-and-the-rod-fields">Photographs inspected: Cybernetic Sculpture System No. 1 and the rod fields</h2>
 <p>Tsai system1MoMA (431 x 700 px), inspected at full resolution in this session:</p>
 <ul><li>Vertical rods fill the frame edge to edge against black, lit cyan blue and white with red fringes low in the frame. Each rod reads not as a line but as a luminous spindle, wide in the middle, pinching to points, because the photograph integrates many vibration cycles: the bright core is where the rod spends time near center, the soft edge is the limit of its swing.</li><li>Two dark horizontal bands cross at left and center, the polished plates of the base seen edge on. The grove reads as a field of flames or reeds, entirely without mechanical detail, which is the point: the drive is hidden in the base and the light does the drawing.</li></ul>
 <p>Tsai cyberneticsculpture79 (632 x 600 px), inscribed here as a 1979 rod field, inspected at full resolution:</p>
 <ul><li>Twelve or so bare rods on a black ground, each drawn by its vibration as a paired golden curve, crossing at nodes like a bowstring doubled. The curves braid up the full height of the frame, tips crossing at the top. No caps, no color, only the standing wave itself in warm light. This is the cleanest statement of the rod mechanism in the session: the shape is the mode shape, and two rods beating against each other make a woven column from a single frequency.</li></ul>
 <p>Square Tops (1969) and Umbrella (1971), Tate holdings, read from the Tate records and the Icon conservation account in this session. Tate acquired Umbrella in 1972 and acquired two further works in 2022, Square Tops (1969) and Upward Falling Fountain (1986). Umbrella has required conservation treatment for mechanical failure since 2003, in collaboration between the Tsai Art and Science Foundation and Tate conservation teams. The Tate Umbrella image (128 x 85 px thumbnail, the only size served) shows a dark umbrella canopy form over radiating rods, too small to inspect honestly, and is recorded here as identified, not inspected. The Crimson account supplies the Square Tops field in words: a field of three foot wires capped with squares like mortarboards, with a taller field behind carrying tinted silver disks on their tops. The caps matter mechanically and visually: a square or a disk at the free end adds tip mass, lowers the rod&#x27;s natural frequency, and gives the strobe something broad to catch, so the tip path reads as a flashing plate rather than a point.</p>
-<h2>Mechanism 3: Double Diffraction and the disk topped rods (1970 to 1973)</h2>
+<h2 id="mechanism-3-double-diffraction-and-the-disk-topped-rods-1970-to-1973">Mechanism 3: Double Diffraction and the disk topped rods (1970 to 1973)</h2>
 <p>In the early 1970s Tsai moved to Paris, showed at Denise Rene Gallery, and extended the rod works with disks, perforated and iridescent, that catch and split light as they vibrate. Multi-Chromatic No. 1 (1970) is metal with iridescent disks at 24 x 24 in., issued in an edition with Howard Wise Gallery provenance. The diffraction works of 1972 and 1973 put a small grating or iridescent disc at each rod tip, so that vibration moves the disc through the light and the color, not just the position, oscillates.</p>
-<h2>Photographs inspected: Double Diffraction works and Rising Sun</h2>
+<h2 id="photographs-inspected-double-diffraction-works-and-rising-sun">Photographs inspected: Double Diffraction works and Rising Sun</h2>
 <p>Tsai doublediffisetan72 (843 x 700 px), inspected at full resolution:</p>
 <ul><li>Some twenty five slender rods lean at varied angles from a low base against a pale ground, each tipped with a small disc. The larger discs are perforated with a fine dot grid and read pink, green, blue and purple, iridescent rather than pigmented: the color changes with angle, so vibration becomes hue oscillation. Smaller polished discs lower in the field flash silver and black. The rods themselves are bright threads, nearly straight in this daylight photograph, the motion carried by the discs instead of by a blur envelope. Palette: steel silver, pale grey ground, and color only at the tips, each tip a different channel, the same economy as the rod groves with color moved from light into matter.</li></ul>
 <p>Tsai doublediffraction1973 (917 x 700 px), inspected at full resolution:</p>
 <ul><li>A teal green haze fills a black room, lit from center. Rod tips float at many depths, each a small blurred flower or cross of light, blue, pink, white, some doubled where the vibration smears them. Thin vertical threads drop from each tip out of focus. The center blooms white where the strobe and the density of rods coincide. Where the 1972 photograph explains the construction, this one shows the intended night effect: a meadow of small lights whose positions tremble, depth read from blur size alone.</li></ul>
 <p>Tsai risingsun (591 x 650 px), inspected at full resolution:</p>
 <ul><li>One saturated red disc at center on black, with about twenty six pale rods radiating outward and curving gently, each rod a single fine arc from center to edge. The rods are not vibrating visibly here, they are drawn as rays. It is the grove flattened into an emblem: a sun whose rays are the rods themselves, the one image in the session that works as a still without any strobe at all.</li></ul>
-<h2>Mechanism 4: Upward Falling Fountain (1979) and Living Fountain (1980 to 1988)</h2>
+<h2 id="mechanism-4-upward-falling-fountain-1979-and-living-fountain-1980-to-1988">Mechanism 4: Upward Falling Fountain (1979) and Living Fountain (1980 to 1988)</h2>
 <p>The fountain works move the same strobe alias from steel to water. In Upward Falling Fountain (1979, with a 1986 version later acquired by Tate), a fountainhead attached to a motor is suspended from the ceiling, and stroboscopic light creates the illusion of a slow-moving spiral column of water. The audio feedback control lets a visitor make the droplets rise by clapping, yelling or stomping. Water droplets fall at a regular spacing set by the nozzle vibration. A strobe flashing at a period slightly longer than the time between successive droplets at a fixed height catches each droplet a little below where the previous droplet was caught, no, read carefully, catches the next droplet a little above the position of the last, so the sampled pattern climbs while every physical droplet falls. It is the rod alias rotated ninety degrees: apparent frequency becomes apparent velocity, and the sign of the detune decides whether the column falls slowly, hangs, or rises. The mechanism is patented, United States Patent 4,265,402 for the fountain and Japan Patent 1,299,159 for the strobe liquid display device, which is itself a statement about the work: the invention is not the nozzle, it is the sampling.</p>
 <p>Living Fountain (1980 to 1988), shown at the IBM Gallery in New York in 1988, scales the system up: a showerhead three feet in diameter, three concentric circles of water jets, a basin twelve by sixteen feet. The strobe is designed to respond to combinations of changes in audible music, random sensors, audio-feedback controls, and a computer program. By 1980 the first Computer Column had also appeared, built from flap units recycled from defunct train and airport announcement boards, painted Day-Glo, flipped to reveal choreographed patterns and rhythmic sound, the same feedback thinking moved from continuous vibration to discrete mechanical states.</p>
-<h2>Photographs inspected: the fountains</h2>
+<h2 id="photographs-inspected-the-fountains">Photographs inspected: the fountains</h2>
 <p>Tsai upwardfallingftn (357 x 650 px), inspected at full resolution:</p>
 <ul><li>Two ceiling discs at the top of a black frame, each pouring a dense cylindrical curtain of droplets. The curtains glow amber and violet, banded horizontally where the strobe sampling concentrates droplets into apparent rings. The left curtain is warmer and denser, the right cooler and more violet, both dissolving into spray at the bottom. No basin, no plumbing is visible. The water reads as two hanging columns of light, solid enough to look architectural, which is exactly the upward-falling claim: the eye believes the column before it believes the droplets.</li></ul>
 <p>Tsai livingfountain (421 x 650 px), inspected at full resolution:</p>
 <ul><li>A single bright white pink jet rises at center against a curtain of fine falling droplets lit blue. In the foreground, large clear domes catch red reflections, the top of the basin furniture. The rising jet is the strobe illusion staged inside the real fountain: one column goes up while the rain around it comes down, both made of the same water, separated only by sampling.</li></ul>
-<h2>Local re renders</h2>
+<h2 id="local-re-renders">Local re renders</h2>
 <p>Built in the session evidence folder, render/tsai_sim.py, four frames, all inspected:</p>
 <ul><li>Grove instant and overlay. Twelve rods with natural frequencies spread from 28.1 to 31.9 Hz around the documented 30 Hz base drive, each rod drawn as its clamped-free harmonic curve (mode shapes built from the first, third and fifth spatial harmonics with increasing envelope), sampled by a 29.5 Hz strobe. The single instant frame (800 x 600 px, non-background fraction 0.024) shows twelve discrete frozen curves with square and disc caps alternating, the Square Tops and disk fields reduced to their rule. The eight-sample overlay (non-background fraction 0.108) fills each rod into a spindle envelope densest where the rod lingers, reproducing the luminous spindle of the MoMA photograph by accumulation rather than by blur. The lesson matches Hughes: stillness, jitter and undulation are one mechanism at three detunes, not three effects.</li><li>Apparent frequency triptych (1200 x 500 px). Three panels of six rods each under strobe detunes of 0, plus 0.5, and plus 3 Hz. At zero detune the six sampled phases coincide and each rod is a single line. At plus 0.5 Hz the samples march slowly and each rod becomes a narrow woven band, period two seconds. At plus 3 Hz the band opens into a wide braid. The panel is the whole compositional system in one image: the artist tunes the difference, the viewer hears it as tempo.</li><li>Fountain alias (800 x 600 px, redrawn once after a first version collapsed to a single column of dots). Eight strobe flashes side by side, each flash catching a stream of droplets 28 px higher than the last, droplet size shrinking up the stream. Physical droplets fall at constant speed throughout. Read left to right, the pattern climbs steadily, which is the Upward Falling Fountain with the plumbing removed: reverse the sign of the detune and the same figure drains downward.</li></ul>
-<h2>What makes it sing</h2>
+<h2 id="what-makes-it-sing">What makes it sing</h2>
 <ul><li>The motion is perceived, not performed. The rods never undulate slowly, the water never rises. Both happen only inside the sampling relationship among vibration, light and eye, so the work lives in the viewer&#x27;s perceptual system as much as on the base plate. That is the cybernetic claim made literal: the loop closes through the person watching.</li><li>One drive, many voices. A single base vibration at about 30 Hz produces a grove of different curves because each rod answers with its own length, tip mass and mode shape. Tsai composes by choosing lengths and caps, then lets physics harmonize them. The garden in the MIT release, thousands of rods in a dance, is an accurate description of a small number of rods multiplied by sampling.</li><li>Sound moves the light, the light moves the world. In the early feedback works the visitor does not push the sculpture, the visitor retunes the instrument that reveals it. Clapping to change an undulation teaches the feedback idea faster than any diagram, and it makes the room&#x27;s noise a material rather than a disturbance.</li><li>Color is information about angle and phase. In the grove photographs the red and cyan fringes mark where a rod is in its cycle, and in the Double Diffraction fields the iridescent discs turn vibration into hue. Color is never applied decoration in the mature work, it is a readout.</li><li>Scale without changing the sentence. A tabletop grove, the Hayden Gallery garden, a twelve by sixteen foot Living Fountain, and public fountains in Hong Kong and Singapore all run the same three-term system: a periodic source, a sampling light, a listener in the loop.</li></ul>
-<h2>Avoid</h2>
+<h2 id="avoid">Avoid</h2>
 <ul><li>Faking vibration with a slow sine sway. A rod nodding at two hertz is an animation of a Tsai, not the mechanism. The speed must be real or honestly sampled, and the apparent slowness must come from the sampling relationship so that detune, not a timeline, controls the tempo.</li><li>Driving every element with its own motor or timeline. The grove sings because one drive propagates through bodies with different natural answers. Per-element choreography turns a field into a display and loses the chord.</li><li>Strobe as atmosphere. A flashing light over static objects borrows the look and misses the event. The flash is only interesting when it samples a true periodic motion it can alias, freeze or reverse.</li><li>Hiding the feedback path. Tsai leaves the invitation explicit, sing and dance with the work, and the Crimson account shows visitors understood the contract at once. If the visitor cannot tell that their sound changed the sampling, the loop is broken even if the circuit works.</li><li>Rainbow diffraction as decoration. The iridescent discs work because hue tracks tip angle during vibration. Static rainbow tips on still rods read as craft fair, not as an instrument.</li></ul>
-<h2>Honest gaps</h2>
+<h2 id="honest-gaps">Honest gaps</h2>
 <ul><li>No Tsai sculpture was seen running in this session. Motion is known from the Hughes, MIT and Crimson accounts, from installation photographs, and from the local sampling models, not from video or live encounter. The conservation history of Umbrella (mechanical failure, treatments since 2003) underlines that these are machines that can stop, and nothing here verifies present running condition of any original.</li><li>The Tate Umbrella photograph was served only at 128 x 85 px and could not be inspected. Square Tops was read from the Tate acquisition record, the Icon conservation account, and the Crimson description, not from a full resolution Tate photograph. The 1979 rod field photograph is used as found with its file name date, not independently dated.</li><li>The Benthall Studio International article of March 1969, the Flusser Art International essay of March 1974, and the Popper Art Action and Participation passages are known from quotation in the biographical record and on Wikiquote, not read in full. The tsaifoundation.org site listed in the external links was not opened in this session.</li><li>The Living Fountain control system (music, random sensors, audio feedback and computer program combined) is taken from the exhibition record summary. No schematic, code or running footage was examined, and the Computer Column flap works are read in text only.</li><li>Dimensions and prize wording carry small disagreements between sources as found: the Cybernetic Sculpture medium record gives 43 3/4 x 24 x 15 in. for a 1968 work, while the Hughes description and the MoMA photograph are not dimensioned in the sources read; the Wikipedia infobox and main text differ on whether the 1968 E.A.T. prize was first or second. They are left as found, not harmonized.</li></ul>
-<h2>Doorways</h2>
+<h2 id="doorways">Doorways</h2>
 <p>The Tsai Art and Science Foundation and its conservation work with Tate on Umbrella and Square Tops is the closest next doorway, mechanism preservation as a practice. Within the CAVS circle, Otto Piene&#x27;s light works and the Centerbeam drawings remain open beside him, as do the Espaces musicaux rooms from the Takis study. The Doc Edgerton strobe lineage at MIT is its own technical doorway, and the Computer Technique Group in Tokyo, named beside Tsai in the Senster and Pask studies, is the geographic one. The Double Diffraction fields also point back to the random-dot and diffraction grating studies from the Bell Labs sessions, where sampling and correspondence were first treated as compositional materials.</p>
-<p>Study undertaken as part of Generative Doodles.</p></div><nav class="pagenav"><a class="" href="takis.html"><span class="dir">Previous note</span><span class="t">Takis: Magnetism as Material, the Gap as the Work</span></a><a class="next" href="adam-and-eve-ensor-1887.html"><span class="dir">Next note</span><span class="t">Adam and Eve Expelled from Paradise, Ensor 1887: the expulsion as weather</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
-<script></script>
+<p>Study undertaken as part of Generative Doodles.</p></div><section class="related"><h2>More in Machines in Motion</h2><div class="relgrid"><a href="piotr-kowalski.html"><span class="rt">Piotr Kowalski: Force, Light, and Time Made Visible</span><span class="rm">2026-09-30 &middot; 10 MIN</span></a><a href="takis.html"><span class="rt">Takis: Magnetism as Material, the Gap as the Work</span><span class="rm">2026-09-30 &middot; 20 MIN</span></a><a href="david-bowen.html"><span class="rt">David Bowen</span><span class="rm">2026-09-26 &middot; 8 MIN</span></a><a href="edward-ihnatowicz-senster.html"><span class="rt">Edward Ihnatowicz and the Senster, 1970</span><span class="rm">2026-09-30 &middot; 13 MIN</span></a></div></section><nav class="pn"><a class="prev" href="yoichiro-kawaguchi.html"><span class="dir">&larr; Newer</span><span class="t">Yoichiro Kawaguchi: the Growth Model</span></a><a class="next" href="turing-reaction-diffusion.html"><span class="dir">Older &rarr;</span><span class="t">Turing 1952: reaction-diffusion, from morphogens to the crescent zone</span></a></nav></article></div>
+<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
+<script>
+(function(){
+  var btn = document.getElementById('cmdkBtn');
+  function go(q){
+    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
+    location.href = u;
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
+  });
+  if (btn) btn.addEventListener('click', function(){ go(''); });
+})();
+</script>
 </body>
 </html>

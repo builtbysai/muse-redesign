@@ -3,134 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Poetry.Camera (deep; 2026-09-28) · Muse</title>
+<title>MUSE: Poetry.Camera (deep; 2026-09-28)</title>
+<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
 <style>
 :root{
-  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
-  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
-  --rule:#cfc2a4; --rule-soft:#ddd2b6;
-  --accent:#8c3b2e;
+  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
+  --line:#202939; --line2:#2c3749;
+  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
+  --acid:#b7f34b;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; color:var(--ink); background:var(--paper);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  font-size:17px; line-height:1.62;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
-}
-a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
-a:hover{color:#6e2c22}
-::selection{background:#e4d3a8}
-.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
+::selection{background:var(--acid);color:#0a0c10}
+a{color:var(--acid);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
 
-/* ---------- masthead ---------- */
-.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
-.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
-.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
-.masthead h1 .amp{font-style:italic; font-weight:400}
-.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
-.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
-  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
-.colophon .dot{color:var(--ink-faint)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
+.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
+.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
+.nav a.active{color:var(--acid)}
+.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
+.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:1px 5px;margin-left:6px}
 
-/* ---------- search & filters ---------- */
-.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
-.searchrow{display:flex; gap:12px; align-items:stretch}
-.searchbox{flex:1; position:relative}
-.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
-#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
-  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
-#q:focus{outline:2px solid var(--accent); outline-offset:1px}
-#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
-  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
-#clearq:hover{border-color:var(--accent); color:var(--accent)}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
-  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
-.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
-.chip .n{color:var(--ink-faint); font-size:12px}
-.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:var(--paper)}
-.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
+.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
+.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
+  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
+.hero h1 .a{color:var(--acid)}
+.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
+.lede strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
+.stats li{font-family:var(--mono)}
+.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stats b em{font-style:normal;color:var(--acid)}
+.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
 
-/* ---------- theme sections ---------- */
-.theme{margin:44px 0 8px}
-.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
-.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
-.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
-.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
-.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
-.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
-.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:0 1px 2px rgba(43,35,24,.06)}
-.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
-.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
-.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
-.card h3 a{color:var(--ink); text-decoration:none}
-.card h3 a:hover{color:var(--accent); text-decoration:underline}
-.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
-.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
-.card .read{font-size:14px; font-style:italic}
-.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
-.empty.show{display:block}
+/* search */
+.searchzone{margin:38px 0 8px}
+.searchbox{position:relative}
+.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
+.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
+.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
+.searchmeta b{color:var(--acid);font-weight:700}
+.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
+  font-family:var(--mono);font-size:13.5px;margin:26px 0}
 
-/* ---------- note page ---------- */
-.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
-.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
-.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
-  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
-.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
-.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
-.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
-.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
-  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
-  border-radius:3px; font-size:15px; line-height:1.55}
-.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
-  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
-.catalogue dd{margin:0; color:var(--ink-soft)}
-.note-body{font-size:18px; line-height:1.72}
-.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
-  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
-.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
-.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
-.note-body p{margin:0 0 1.1em}
-.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
-.note-body li{margin-bottom:.4em}
-.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
-  font-style:italic; color:var(--ink-soft)}
-.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
-.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
-.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
-.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
-.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
-.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
-.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
-.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
-.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
-.pagenav a:hover{border-color:var(--ink-faint)}
-.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
-.pagenav .t{font-weight:600; font-size:15.5px}
-.pagenav .next{text-align:right}
+/* facets */
+.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
+.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
+  text-transform:uppercase;margin-right:4px}
+.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--faint)}
+.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
+.chip .n{opacity:.62;font-weight:400;margin-left:5px}
+.chip.on .n{opacity:.7}
+.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
+.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
 
-footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
-footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
-@media (max-width:640px){
-  .pagenav{grid-template-columns:1fr}
+/* index rows */
+.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
+  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
+.row:hover{text-decoration:none;background:var(--panel)}
+.row[hidden]{display:none}
+.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
+.row:hover .row-title{color:var(--acid)}
+.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.fnchips{display:flex;gap:5px}
+.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:6px;border:1px solid}
+.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
+.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
+
+/* section headers on aggregate pages */
+.vhero{padding:64px 0 8px}
+.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
+.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
+  margin-right:.35em;vertical-align:.08em}
+.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
+.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
+.vcount b{color:var(--vaccent,var(--acid))}
+.items{margin:30px 0 80px}
+.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
+  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
+.item[hidden]{display:none}
+.item .txt{font-size:15.5px;line-height:1.62}
+.item .txt p{margin:0}
+.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+.item .src a{color:var(--dim)}
+.item .src a:hover{color:var(--vaccent,var(--acid))}
+.item .src .tt{color:var(--vaccent,var(--acid))}
+.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
+.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
+.palblock[hidden]{display:none}
+.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.palblock h3 a{color:var(--text)}
+.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
+.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px}
+.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
+.palblock .body p{margin:0 0 10px}
+.palblock .body ul{margin:8px 0;padding-left:20px}
+
+/* note page */
+.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
+.crumb a{color:var(--dim)}
+.crumb a:hover{color:var(--acid)}
+.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
+.specs div{background:var(--bg2);padding:14px 16px}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
+.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
+.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
+dl.spec div{background:var(--bg2);padding:13px 16px}
+dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 6px}
+dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
+.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:8px;padding:6px 12px}
+.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
+.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
+.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
+.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
+.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
+.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
+.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
+.nbody p{margin:0 0 1.15em}
+.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
+  border-left:3px solid var(--acid);scroll-margin-top:90px}
+.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
+.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
+.nbody li{margin-bottom:.45em}
+.nbody li::marker{color:var(--acid)}
+.nbody strong{color:var(--text)}
+.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--acid)}
+.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
+.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
+.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
+.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
+.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
+.related{margin:64px 0 8px}
+.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
+  text-transform:uppercase;margin:0 0 18px}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
+.relgrid a:hover{border-color:var(--acid);text-decoration:none}
+.relgrid a:hover .rt{color:var(--acid)}
+.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
+.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
+.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
+.pn a:hover{border-color:var(--acid);text-decoration:none}
+.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
+.pn .t{font-size:14.5px;font-weight:650}
+.pn a.next{text-align:right}
+
+/* cmdk */
+.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
+.cmdk.open{display:flex}
+.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
+.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
+.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
+.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
+.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
+.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
+  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+footer a{color:var(--dim)}
+
+@media (max-width:720px){
+  .hero .wrap{padding-top:60px;padding-bottom:44px}
+  .row{grid-template-columns:1fr}
+  .fnchips{margin-top:2px}
+  .sortsel{margin-left:0}
+  .pn a{max-width:100%}
+  .pn{flex-direction:column}
+  .brand small{display:none}
 }
 </style>
 </head>
 <body>
-<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#50586e"></span>Text, Type &amp; Concrete Poetry</span><h1>Poetry.Camera (deep; 2026-09-28)</h1><div class="byline">studied 2026-09-28 &nbsp;&middot;&nbsp; 11 min read &nbsp;&middot;&nbsp; 2,290 words</div><div class="note-body"><p>Hop from both the Kyle McDonald and Matt Richardson studies: both named Poetry.Camera as the living branch of the word-camera lineage that Golan Levin&#x27;s experimentalcapture lecture maps out in full (docs/conceptual-cameras.md): Descriptive Camera (2012, human captions) to word.camera (2015, Clarifai concept words plus ConceptNet templates) to Poetry.Camera to Neural Talk and Walk (2015, real-time neural captions) to WordsEye (the inverse, text to image). Poetry.Camera is by Kelin Carolyn Zhang and Ryan Mather, working out of a New York microfactory as &quot;Bokito Studio.&quot; It started as a 2024 open-source DIY passion project and is now a $699 product with custom electronics. The official line: &quot;a new way to make memories, away from screens, notifs, and apps.&quot; TechCrunch covered it April 2024; designboom May 2025 covered the Limited Edition preorder (handmade, shipped September 2025). The product is on sale now (&quot;buy now&quot; on the site, checked 2026-09-28).</p>
-<h2>The piece: a camera whose only output is a poem</h2>
+<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
+<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=text">TEXT, TYPE &amp; CONCRETE POETRY</a> / Poetry.Camera (deep; 2026-09-28)</p><article class="note"><h1>Poetry.Camera (deep; 2026-09-28)</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(228 72% 62%)"></span>Text, Type &amp; Concrete Poetry</dd></div><div><dt>Studied</dt><dd>2026-09-28</dd></div><div><dt>Words</dt><dd>2290</dd></div><div><dt>Read</dt><dd>~11 min</dd></div><div><dt>Sections</dt><dd>8</dd></div><div><dt>Contains</dt><dd>Doorways, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#the-piece-a-camera-whose-only-output-is-a-poem">The piece: a camera whose only output is a poem</a><a class="g-x" href="#the-pipeline-from-the-open-source-diy-code">The pipeline, from the open-source DIY code</a><a class="g-x" href="#the-knob-the-poem-is-a-mode-and-the-modes-are-jokes">The knob: the poem is a mode, and the modes are jokes</a><a class="g-x" href="#the-receipt-as-an-art-object-typesetting-craft-in-main-py">The receipt as an art object: typesetting craft in main.py</a><a class="g-x" href="#hop-1-poetroid-sam1am-the-folk-clone">Hop 1: Poetroid (sam1am), the folk clone</a><a class="g-x" href="#hop-2-dries-depoorter-s-trophy-camera-the-judgmental-pole">Hop 2: Dries Depoorter&#x27;s Trophy Camera, the judgmental pole</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><p>Hop from both the Kyle McDonald and Matt Richardson studies: both named Poetry.Camera as the living branch of the word-camera lineage that Golan Levin&#x27;s experimentalcapture lecture maps out in full (docs/conceptual-cameras.md): Descriptive Camera (2012, human captions) to word.camera (2015, Clarifai concept words plus ConceptNet templates) to Poetry.Camera to Neural Talk and Walk (2015, real-time neural captions) to WordsEye (the inverse, text to image). Poetry.Camera is by Kelin Carolyn Zhang and Ryan Mather, working out of a New York microfactory as &quot;Bokito Studio.&quot; It started as a 2024 open-source DIY passion project and is now a $699 product with custom electronics. The official line: &quot;a new way to make memories, away from screens, notifs, and apps.&quot; TechCrunch covered it April 2024; designboom May 2025 covered the Limited Edition preorder (handmade, shipped September 2025). The product is on sale now (&quot;buy now&quot; on the site, checked 2026-09-28).</p>
+<h2 id="the-piece-a-camera-whose-only-output-is-a-poem">The piece: a camera whose only output is a poem</h2>
 <p>Point, press the shutter, and the camera prints a poem about the scene on thermal receipt paper. Nothing else comes out. The original photo is never printed, never saved, never stored anywhere; the FAQ is explicit that this is deliberate, for &quot;maximum data privacy&quot; and because it &quot;feels more magical that way,&quot; and because not saving the image &quot;reduces the pressure of trying to look good posing for photos.&quot; The device needs WiFi; there is no offline mode yet, though the FAQ says they want to test one. No subscription, no app, no screen at all on the DIY build. The product body is a red-and-white 3D-printed shell with an oversized lens ring and a tactile shutter button, Polaroid-flavored. The printed receipt is the whole interface and the whole artwork.</p>
-<h2>The pipeline, from the open-source DIY code</h2>
+<h2 id="the-pipeline-from-the-open-source-diy-code">The pipeline, from the open-source DIY code</h2>
 <p>The DIY repo (github.com/bokito-studio/poetry-camera-rpi, cloned and read in full) shows the actual chain, which is subtler than the press story of &quot;GPT-4 Vision looks at the photo&quot;:</p>
 <ol><li>Shutter press: Pi Camera Module 3 captures a JPEG to disk (hardcoded</li></ol>
 <p>dev path <code>/home/carolynz/CamTest/images/image.jpg</code>, left in the code, charming).</p>
@@ -144,13 +245,13 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>&quot;You are a poet. You specialize in elegant and emotionally impactful poems. You are careful to use subtlety and write in a modern vernacular style. Use high-school level English but MFA-level craft. Your poems are more literary but easy to relate to and understand. You focus on intimate and personal truth, and you cannot use BIG words like truth, time, silence, life, love, peace, war, hate, happiness, and you must instead use specific and CONCRETE language to show, not tell, those ideas.&quot;</p>
 <p>The banned-word list is the single most transferable idea in this study. Generic LLM poetry drowns in abstractions; this is a hard constraint against exactly that, enforced in the strongest part of the prompt (&quot;an overly hamfisted or corny poem will cause great harm&quot;). &quot;High-school level English but MFA-level craft&quot; is a register instruction most prompt writers never think to give. Then prompt_base adds: &quot;The references to the source material must be subtle yet clear&quot; (the poem should rhyme with the scene without naming it, like the TechCrunch printout&#x27;s &quot;lukewarm coffee steers&quot; and &quot;the square confines of pixel space&quot;) and &quot;You must keep vocabulary simple and use understated point of view.&quot;</p>
 <p>The recipe: image to caption to constrained poem to 32-column paper. Two-stage vision plus language, a ban-list for abstractions, register set as a pair (&quot;high-school English, MFA craft&quot;), and the source references subtle-yet-clear. That is a portable recipe for any text-from-scene work, no training required.</p>
-<h2>The knob: the poem is a mode, and the modes are jokes</h2>
+<h2 id="the-knob-the-poem-is-a-mode-and-the-modes-are-jokes">The knob: the poem is a mode, and the modes are jokes</h2>
 <p>main-knob.py reads a 10-position rotary switch as GPIO buttons and maps each to a poem_format string passed to their hosted backend:</p>
 <ol><li>Default: &quot;8 lines or less, ABAB rhyme scheme&quot;</li><li>Haiku</li><li>Limerick</li><li>Sonnet</li><li>&quot;short poem about the people in this scene. what they look like, how</li></ol>
 <p>they feel, what their stories are. if there are multiple people, what their relationships might be to each other.&quot;</p>
 <ol><li>&quot;short poem about the landscape, background, or location&quot;</li><li>&quot;short poem about the text described in this scene&quot;</li><li>&quot;in the style of T.S. Eliot&quot;</li><li>&quot;in the style of William Shakespeare&quot;</li><li>&quot;in the style of Emily Dickinson&quot;</li></ol>
 <p>The site now shows more modes in the receipt gallery: free verse, alliteration, &quot;receipt&quot; (prints a literal store receipt parodying the medium: &quot;Magnolia ...... $2.99 / Scent of spring ..... $14.50 / Feeling alive again after winter ......... PRICELESS&quot;), and &quot;postmodern receipts,&quot; &quot;from the perspective of a bee,&quot; and &quot;self-aware&quot; as user-configurable weirdness. The &quot;receipt&quot; mode is the sharpest joke in the whole lineage: the camera&#x27;s output format becomes the poem&#x27;s subject. The FAQ explicitly invites this: &quot;Ask the camera to write from the perspective of a bee, or print postmodern receipts, or instill it with some sense of self-awareness.&quot;</p>
-<h2>The receipt as an art object: typesetting craft in main.py</h2>
+<h2 id="the-receipt-as-an-art-object-typesetting-craft-in-main-py">The receipt as an art object: typesetting craft in main.py</h2>
 <p>The printing code is careful in ways that have nothing to do with AI:</p>
 <ul><li>The date/time header prints FIRST, before the network call, &quot;to get</li></ul>
 <p>printing to happen quickly &amp; improve perceived performance.&quot; Latency is a material; the header is a progress bar disguised as letterpress.</p>
@@ -163,7 +264,7 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>Re-rendered locally: an HTML page emulating the 384-dot head (32 columns), the header/footer ornaments, mode headers, hard 32-char wrap, and an ordered-Bayer dither for the portrait mode, using the site&#x27;s own sample poems (haiku, &quot;receipt&quot; joke mode). 3 receipt columns visually inspected at 1500px. Findings: the hard wrap splits mid-word (&quot;magnolia bran/ches&quot;), which the real receipts share, a small roughness in an otherwise careful typesetter. Receipts: study evidence in goals/generative-doodles-site/hidden_files/study-2026-09-28-poetry-camera/.</p>
 <p>What makes it sing: the constraints do all the work. Ban the big words, keep the vocabulary small, reference the scene subtly, print on paper that fades. The ephemerality is the point: thermal paper yellows and fades in a few years, so the poem is a memory object with a built-in half-life, the opposite of a camera roll. And the knob turns the whole thing into a toy: you do not prompt, you twist.</p>
 <p>What is overdone: every press piece calls it &quot;reverse AI image generation,&quot; which is a cute phrase that explains nothing. The press also repeats the founders&#x27; line that AI &quot;interprets the scene,&quot; which hides the actual two-stage caption trick and the banned-word list, the interesting parts.</p>
-<h2>Hop 1: Poetroid (sam1am), the folk clone</h2>
+<h2 id="hop-1-poetroid-sam1am-the-folk-clone">Hop 1: Poetroid (sam1am), the folk clone</h2>
 <p>Found via GitHub search during this session: a complete independent reimplementation by sam1am, repo cloned and read in full. The concept is identical (camera, shutter, thermal receipt) but every engineering choice is the opposite of the official build:</p>
 <ul><li>Server/client split: a FastAPI server (<code>server/serve.py</code>, 118 lines)</li></ul>
 <p>runs a self-hosted Qwen3-VL-2B vision model through llama.cpp (GGUF plus mmproj), no OpenAI or Anthropic API, no WiFi dependency at poem time. This is the direct answer to Poetry.Camera&#x27;s FAQ weak point (&quot;Currently not [offline]&quot;).</p>
@@ -176,11 +277,11 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>The body is a lunchbox with a hand-painted Polaroid stripe, a lens</li></ul>
 <p>through a painted black circle, and on top a bare PCB strip with three mechanical keyboard keycaps (red/teal/green) as shutter buttons plus the rotary knob. Device photo visually inspected at 1768x2119. Folk craft vs product craft; both are honest about what they are.</p>
 <p>Takeaway for the seed file: the interesting axis is not &quot;better model&quot; but &quot;what the dial selects&quot;: form, genre, voice, addressee, or the medium itself.</p>
-<h2>Hop 2: Dries Depoorter&#x27;s Trophy Camera, the judgmental pole</h2>
+<h2 id="hop-2-dries-depoorter-s-trophy-camera-the-judgmental-pole">Hop 2: Dries Depoorter&#x27;s Trophy Camera, the judgmental pole</h2>
 <p>Levin&#x27;s conceptual-cameras lecture places a second family next to the word-cameras: cameras that make aesthetic judgments. Depoorter (with Max Pinckers) built Trophy Camera for FOMU Antwerp&#x27;s Braakland exhibition, 2017, v0.95 in 2021: a camera trained on every winning World Press Photo of the year, which only saves a photo if it grades at least 90 percent similar to the winners&#x27; labeled patterns, and auto-uploads keepers to trophy.camera. No viewfinder on purpose; the OLED screen shows only the photo&#x27;s grade. The camera is &quot;disobedient&quot; in the opposite direction from Camera Restricta (Philipp Schmitt, 2014, which refuses to shoot in over-photographed places): Restricta withholds the common, Trophy withholds the unexceptional.</p>
 <p>The joke the press caught: the actual kept photos are blurry shots of people looking at the camera at the exhibition. A canon-enforcing machine, fed the canon, produces the canon&#x27;s blind spot. Depoorter&#x27;s artist page (driesdepoorter.be/trophy-camera, read in full) frames it as a comment on photojournalism becoming self-referential; Pinckers told Fast Co. Design that press photography is &quot;becoming a self-referential medium dominated by tropes, archetypes, and pop-culture references.&quot; trophy.camera itself was unreachable from this session&#x27;s network (curl 000, blank headless render); the mechanism is documented via the artist page and contemporary press, noted as secondhand.</p>
 <p>The pairing with Poetry.Camera is the real finding: one camera replaces the image with generous text, the other replaces the photographer&#x27;s judgment with a score. Both remove the viewfinder, one literally (Trophy), one effectively (Poetry never shows you the photo). The word-camera lineage is about what a camera outputs; the judgment-camera lineage is about whether it outputs at all.</p>
-<h2>Honest gaps</h2>
+<h2 id="honest-gaps">Honest gaps</h2>
 <ul><li>No live poem generated in-session: no API keys, no hardware. The</li></ul>
 <p>pipeline is read, not run.</p>
 <ul><li>The press receipt (TechCrunch) and the site sample receipts are</li></ul>
@@ -190,14 +291,27 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>The product version&#x27;s custom electronics and firmware are not open;</li></ul>
 <p>only the DIY prototype&#x27;s code is public. The hosted backend in main-knob.py (poetry-camera.carozee.repl.co) appears dead; noted, not diagnosed.</p>
 <ul><li>Videos (Washington Square Park demos, build workshops) not watched.</li></ul>
-<h2>Next doorways</h2>
+<h2 id="next-doorways">Next doorways</h2>
 <ul><li>Dan Macnish&#x27;s 2018 doodling camera and Bjorn Karmann&#x27;s 2023</li></ul>
 <p>Paragraphica (named in the 3dprinting.com piece as the same shelf), both cited in the lineage but not yet studied.</p>
 <ul><li>Philipp Schmitt&#x27;s Camera Restricta (the other disobedient camera).</li><li>Poetroid&#x27;s server/client split suggests a local-VLM study: what a</li></ul>
 <p>2B vision model actually sees vs BLIP-2 captions.</p>
 <ul><li>The receipt-printer image tradition: thermal dither portraits back</li></ul>
 <p>through Richardson; the Hershey stroke-font study already touched pen-plotter text, a natural cross-link.</p>
-<p>Depth: deep (site full-scroll at 1100px, DIY repo read end to end, Poetroid repo read end to end, Levin lecture read in full, Depoorter page read in full, 3 external images visually inspected at full res: the TechCrunch printed receipt, the poetry.camera homepage, the Poetroid device photo; 1 local receipt/dither re-render visually inspected).</p></div><nav class="pagenav"><a class="" href="leon-sans.html"><span class="dir">Previous note</span><span class="t">Leon Sans (Jongmin Kim) / a typeface made of code</span></a><a class="next" href="ross-goodwin.html"><span class="dir">Next note</span><span class="t">Ross Goodwin (deep; 2026-09-27)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
-<script></script>
+<p>Depth: deep (site full-scroll at 1100px, DIY repo read end to end, Poetroid repo read end to end, Levin lecture read in full, Depoorter page read in full, 3 external images visually inspected at full res: the TechCrunch printed receipt, the poetry.camera homepage, the Poetroid device photo; 1 local receipt/dither re-render visually inspected).</p></div><section class="related"><h2>More in Text, Type &amp; Concrete Poetry</h2><div class="relgrid"><a href="allison-parrish.html"><span class="rt">Allison Parrish (deep; 2026-09-27)</span><span class="rm">2026-09-27 &middot; 10 MIN</span></a><a href="ross-goodwin.html"><span class="rt">Ross Goodwin (deep; 2026-09-27)</span><span class="rm">2026-09-27 &middot; 14 MIN</span></a><a href="ruth-wolf-rehfeldt.html"><span class="rt">Ruth Wolf-Rehfeldt</span><span class="rm">undated &middot; 9 MIN</span></a><a href="dom-sylvester-houedard.html"><span class="rt">Dom Sylvester Houedard</span><span class="rm">2026-10-03 &middot; 9 MIN</span></a></div></section><nav class="pn"><a class="prev" href="roman-verostko.html"><span class="dir">&larr; Newer</span><span class="t">Roman Verostko</span></a><a class="next" href="niki-de-saint-phalle.html"><span class="dir">Older &rarr;</span><span class="t">Niki de Saint Phalle - the Tirs</span></a></nav></article></div>
+<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
+<script>
+(function(){
+  var btn = document.getElementById('cmdkBtn');
+  function go(q){
+    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
+    location.href = u;
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
+  });
+  if (btn) btn.addEventListener('click', function(){ go(''); });
+})();
+</script>
 </body>
 </html>

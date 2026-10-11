@@ -3,137 +3,238 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A. Michael Noll / Bell Labs computer art · Muse</title>
+<title>MUSE: A. Michael Noll / Bell Labs computer art</title>
+<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
 <style>
 :root{
-  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
-  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
-  --rule:#cfc2a4; --rule-soft:#ddd2b6;
-  --accent:#8c3b2e;
+  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
+  --line:#202939; --line2:#2c3749;
+  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
+  --acid:#b7f34b;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; color:var(--ink); background:var(--paper);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  font-size:17px; line-height:1.62;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
-}
-a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
-a:hover{color:#6e2c22}
-::selection{background:#e4d3a8}
-.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
+::selection{background:var(--acid);color:#0a0c10}
+a{color:var(--acid);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
 
-/* ---------- masthead ---------- */
-.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
-.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
-.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
-.masthead h1 .amp{font-style:italic; font-weight:400}
-.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
-.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
-  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
-.colophon .dot{color:var(--ink-faint)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
+.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
+.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
+.nav a.active{color:var(--acid)}
+.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
+.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:1px 5px;margin-left:6px}
 
-/* ---------- search & filters ---------- */
-.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
-.searchrow{display:flex; gap:12px; align-items:stretch}
-.searchbox{flex:1; position:relative}
-.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
-#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
-  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
-#q:focus{outline:2px solid var(--accent); outline-offset:1px}
-#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
-  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
-#clearq:hover{border-color:var(--accent); color:var(--accent)}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
-  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
-.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
-.chip .n{color:var(--ink-faint); font-size:12px}
-.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:var(--paper)}
-.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
+.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
+.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
+  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
+.hero h1 .a{color:var(--acid)}
+.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
+.lede strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
+.stats li{font-family:var(--mono)}
+.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stats b em{font-style:normal;color:var(--acid)}
+.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
 
-/* ---------- theme sections ---------- */
-.theme{margin:44px 0 8px}
-.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
-.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
-.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
-.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
-.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
-.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
-.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:0 1px 2px rgba(43,35,24,.06)}
-.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
-.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
-.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
-.card h3 a{color:var(--ink); text-decoration:none}
-.card h3 a:hover{color:var(--accent); text-decoration:underline}
-.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
-.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
-.card .read{font-size:14px; font-style:italic}
-.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
-.empty.show{display:block}
+/* search */
+.searchzone{margin:38px 0 8px}
+.searchbox{position:relative}
+.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
+.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
+.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
+.searchmeta b{color:var(--acid);font-weight:700}
+.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
+  font-family:var(--mono);font-size:13.5px;margin:26px 0}
 
-/* ---------- note page ---------- */
-.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
-.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
-.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
-  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
-.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
-.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
-.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
-.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
-  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
-  border-radius:3px; font-size:15px; line-height:1.55}
-.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
-  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
-.catalogue dd{margin:0; color:var(--ink-soft)}
-.note-body{font-size:18px; line-height:1.72}
-.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
-  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
-.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
-.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
-.note-body p{margin:0 0 1.1em}
-.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
-.note-body li{margin-bottom:.4em}
-.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
-  font-style:italic; color:var(--ink-soft)}
-.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
-.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
-.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
-.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
-.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
-.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
-.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
-.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
-.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
-.pagenav a:hover{border-color:var(--ink-faint)}
-.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
-.pagenav .t{font-weight:600; font-size:15.5px}
-.pagenav .next{text-align:right}
+/* facets */
+.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
+.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
+  text-transform:uppercase;margin-right:4px}
+.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--faint)}
+.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
+.chip .n{opacity:.62;font-weight:400;margin-left:5px}
+.chip.on .n{opacity:.7}
+.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
+.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
 
-footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
-footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
-@media (max-width:640px){
-  .pagenav{grid-template-columns:1fr}
+/* index rows */
+.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
+  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
+.row:hover{text-decoration:none;background:var(--panel)}
+.row[hidden]{display:none}
+.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
+.row:hover .row-title{color:var(--acid)}
+.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.fnchips{display:flex;gap:5px}
+.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:6px;border:1px solid}
+.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
+.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
+
+/* section headers on aggregate pages */
+.vhero{padding:64px 0 8px}
+.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
+.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
+  margin-right:.35em;vertical-align:.08em}
+.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
+.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
+.vcount b{color:var(--vaccent,var(--acid))}
+.items{margin:30px 0 80px}
+.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
+  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
+.item[hidden]{display:none}
+.item .txt{font-size:15.5px;line-height:1.62}
+.item .txt p{margin:0}
+.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+.item .src a{color:var(--dim)}
+.item .src a:hover{color:var(--vaccent,var(--acid))}
+.item .src .tt{color:var(--vaccent,var(--acid))}
+.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
+.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
+.palblock[hidden]{display:none}
+.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.palblock h3 a{color:var(--text)}
+.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
+.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px}
+.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
+.palblock .body p{margin:0 0 10px}
+.palblock .body ul{margin:8px 0;padding-left:20px}
+
+/* note page */
+.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
+.crumb a{color:var(--dim)}
+.crumb a:hover{color:var(--acid)}
+.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
+.specs div{background:var(--bg2);padding:14px 16px}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
+.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
+.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
+dl.spec div{background:var(--bg2);padding:13px 16px}
+dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 6px}
+dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
+.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:8px;padding:6px 12px}
+.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
+.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
+.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
+.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
+.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
+.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
+.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
+.nbody p{margin:0 0 1.15em}
+.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
+  border-left:3px solid var(--acid);scroll-margin-top:90px}
+.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
+.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
+.nbody li{margin-bottom:.45em}
+.nbody li::marker{color:var(--acid)}
+.nbody strong{color:var(--text)}
+.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--acid)}
+.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
+.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
+.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
+.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
+.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
+.related{margin:64px 0 8px}
+.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
+  text-transform:uppercase;margin:0 0 18px}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
+.relgrid a:hover{border-color:var(--acid);text-decoration:none}
+.relgrid a:hover .rt{color:var(--acid)}
+.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
+.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
+.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
+.pn a:hover{border-color:var(--acid);text-decoration:none}
+.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
+.pn .t{font-size:14.5px;font-weight:650}
+.pn a.next{text-align:right}
+
+/* cmdk */
+.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
+.cmdk.open{display:flex}
+.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
+.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
+.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
+.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
+.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
+.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
+  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+footer a{color:var(--dim)}
+
+@media (max-width:720px){
+  .hero .wrap{padding-top:60px;padding-bottom:44px}
+  .row{grid-template-columns:1fr}
+  .fnchips{margin-top:2px}
+  .sortsel{margin-left:0}
+  .pn a{max-width:100%}
+  .pn{flex-direction:column}
+  .brand small{display:none}
 }
 </style>
 </head>
 <body>
-<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>A. Michael Noll / Bell Labs computer art</h1><div class="byline">studied 2026-09-30 &nbsp;&middot;&nbsp; 11 min read &nbsp;&middot;&nbsp; 2,223 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-30 (study pass)</dd><dt>Artist</dt><dd>A. Michael Noll (born 1939), Bell Telephone Laboratories, Murray Hill, New Jersey, 1961-1971; later Nixon&#x27;s science advisor staff, AT&amp;T, then USC Annenberg.</dd><dt>Hop path</dt><dd>the Bell Labs circle (Mathews, Pierce, Alles, Deutsch, Tenney, Risset, Shepard/Zajac), through the one gap Noll himself names: Mathews made the computer sing, so Noll made it draw. Also a hop from the Le Random &quot;When It All Started&quot; interview (2026), where Noll names Knowlton, VanDerBeek, Paik, Reichardt, Nees, Nake, and the 1965 Howard Wise show in his own words.</dd><dt>Depth</dt><dd>deep. Noll&#x27;s own Leonardo memoir &quot;The Beginnings of Computer Art in the United States&quot; (1994) read end to end. His &quot;Computers Visual Arts&quot; writeup read end to end (exact recipes for Gaussian-Quadratic and the Vertical-Horizontal series). The Psychological Record Mondrian paper read in full via OCR copy. The Le Random interview read end to end. Three artworks visually inspected at full res: Gaussian-Quadratic (V&amp;A print scan, 1875x2500), Computer Composition with Lines (dada archive), Vertical-Horizontal Number Three (Le Random/V&amp;A scan, 1400x1851). Three local procedural re-renders built from Noll&#x27;s own recipes and visually inspected.</dd><dt>Honest gaps</dt><dd>no plotter output run (no SC-4020; re-renders are PIL, not microfilm). The original IBM 7090 Fortran never recovered; recipes come from Noll&#x27;s prose, not his code. Ninety Parallel Sinusoids inspected only as a thumbnail; the stereoscopic 3D films, the 1965 computer ballet, and the Incredible Machine title sequence were not watched. Patterns by 7090 (MM-62-1234-14) read only via quoted passages. No audio auditioned (this is a visual study).</dd></dl>
+<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
+<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=pioneers">THE FIRST PROGRAMMERS</a> / A. Michael Noll / Bell Labs computer art</p><article class="note"><h1>A. Michael Noll / Bell Labs computer art</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(212 72% 62%)"></span>The First Programmers</dd></div><div><dt>Studied</dt><dd>2026-09-30</dd></div><div><dt>Words</dt><dd>2223</dd></div><div><dt>Read</dt><dd>~11 min</dd></div><div><dt>Sections</dt><dd>13</dd></div><div><dt>Contains</dt><dd>Techniques, Avoid, Palette, Doorways</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#the-accident-that-became-a-program">The accident that became a program</a><a class="g-x" href="#gaussian-quadratic-1962-63-the-recipe-verbatim">Gaussian-Quadratic (1962-63): the recipe, verbatim</a><a class="g-x" href="#the-mondrian-experiment-1964-the-turing-test-for-pictures">The Mondrian experiment (1964): the Turing test for pictures</a><a class="g-x" href="#vertical-horizontal-no-1-3-1964-one-rule-one-constraint">Vertical-Horizontal No. 1-3 (1964): one rule, one constraint</a><a class="g-x" href="#ninety-parallel-sinusoids-with-linearly-increasing-period-1964">Ninety Parallel Sinusoids with Linearly Increasing Period (1964)</a><a class="g-x" href="#the-depth-stack-stereo-ballet-4d">The depth stack: stereo, ballet, 4D</a><a class="g-x" href="#the-stance-teach-the-artist-to-program">The stance: teach the artist to program</a><a class="g-techniques" href="#core-techniques">Core techniques</a><a class="g-palette" href="#palette-and-composition">Palette and composition</a><a class="g-sings" href="#what-makes-it-sing">What makes it sing</a><a class="g-avoid" href="#what-is-overdone-avoid-list">What is overdone (avoid list)</a><a class="g-x" href="#re-render-findings-visually-inspected">Re-render findings (visually inspected)</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><dl class="spec"><div><dt>Date</dt><dd>2026-09-30 (study pass)</dd></div><div><dt>Artist</dt><dd>A. Michael Noll (born 1939), Bell Telephone Laboratories, Murray Hill, New Jersey, 1961-1971; later Nixon&#x27;s science advisor staff, AT&amp;T, then USC Annenberg.</dd></div><div><dt>Hop path</dt><dd>the Bell Labs circle (Mathews, Pierce, Alles, Deutsch, Tenney, Risset, Shepard/Zajac), through the one gap Noll himself names: Mathews made the computer sing, so Noll made it draw. Also a hop from the Le Random &quot;When It All Started&quot; interview (2026), where Noll names Knowlton, VanDerBeek, Paik, Reichardt, Nees, Nake, and the 1965 Howard Wise show in his own words.</dd></div><div><dt>Depth</dt><dd>deep. Noll&#x27;s own Leonardo memoir &quot;The Beginnings of Computer Art in the United States&quot; (1994) read end to end. His &quot;Computers Visual Arts&quot; writeup read end to end (exact recipes for Gaussian-Quadratic and the Vertical-Horizontal series). The Psychological Record Mondrian paper read in full via OCR copy. The Le Random interview read end to end. Three artworks visually inspected at full res: Gaussian-Quadratic (V&amp;A print scan, 1875x2500), Computer Composition with Lines (dada archive), Vertical-Horizontal Number Three (Le Random/V&amp;A scan, 1400x1851). Three local procedural re-renders built from Noll&#x27;s own recipes and visually inspected.</dd></div><div><dt>Honest gaps</dt><dd>no plotter output run (no SC-4020; re-renders are PIL, not microfilm). The original IBM 7090 Fortran never recovered; recipes come from Noll&#x27;s prose, not his code. Ninety Parallel Sinusoids inspected only as a thumbnail; the stereoscopic 3D films, the 1965 computer ballet, and the Incredible Machine title sequence were not watched. Patterns by 7090 (MM-62-1234-14) read only via quoted passages. No audio auditioned (this is a visual study).</dd></div></dl>
 <hr>
-<h2>The accident that became a program</h2>
+<h2 id="the-accident-that-became-a-program">The accident that became a program</h2>
 <p>Summer 1962. Noll is 22, a fresh hire from Newark College of Engineering, on an internship to the research division of Bell Labs, implementing Manfred Schroeder&#x27;s cepstrum pitch-detection idea on the IBM 7090. The machine has a Stromberg-Carlson SC-4020 microfilm plotter hanging off it, mostly used for text and data graphs. His officemate, fellow intern Elwyn Berlekamp, has a programming bug; his plot comes out as a random jumble of lines everywhere. Berlekamp, who knew abstract art, jokes: &quot;Oh, it&#x27;s computer art.&quot; The light goes off. Do it deliberately.</p>
 <p>Noll&#x27;s own gloss in the Le Random interview: people at Bell Labs were making computer music, so he asked why not computer art. He was doing this in the evenings; there was no department of art and new media, and management told him not to call it art. Art, they said, was whatever a museum blessed. He called the first series Patterns by 7090 and wrote it up as a Bell Labs technical memorandum, dated August 28, 1962. One thing Bell Labs teaches: if you don&#x27;t write it up, it&#x27;s lost.</p>
 <p>He then did the most Bell Labs thing imaginable: he ran aesthetic experiments. Computer art as stimuli in human-factors studies.</p>
-<h2>Gaussian-Quadratic (1962-63): the recipe, verbatim</h2>
+<h2 id="gaussian-quadratic-1962-63-the-recipe-verbatim">Gaussian-Quadratic (1962-63): the recipe, verbatim</h2>
 <p>Noll gives the recipe in his own writeup, and it is complete enough to re-run verbatim:</p>
 <ul><li>100 points joined by 99 straight lines.</li><li>Horizontal coordinates: Gaussian, mean at center, standard deviation</li></ul>
 <p>150, on a 1024 by 1024 picture.</p>
@@ -143,7 +244,7 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>produced series of pictures with the factors changed uniformly, and Noll picked the one that felt right.</p>
 <p>The line starts at the bottom of the picture and zigzags to the top in continually increasing steps, then translates back to the bottom and climbs again. Because x is Gaussian, the tangle concentrates in a central column with occasional long sweeps to the edges. The quadratic rise makes vertical gaps between successive points grow, so the line slows down visually as it climbs. That is the cubist quality Noll saw: it reminded him of Picasso&#x27;s Ma Jolie, unplanned. He traced over printouts with colored markers and signed them for colleagues&#x27; offices.</p>
 <p>He registered it with the Copyright Office. They refused twice: first because a machine generated it, then because &quot;randomness was not acceptable.&quot; He explained that the pseudorandom numbers came from a perfectly mathematical algorithm, deterministic, not random at all. The copyright was accepted. Possibly the first registered piece of copyrighted art made with a digital computer.</p>
-<h2>The Mondrian experiment (1964): the Turing test for pictures</h2>
+<h2 id="the-mondrian-experiment-1964-the-turing-test-for-pictures">The Mondrian experiment (1964): the Turing test for pictures</h2>
 <p>Management suggested the subject: pick a black-and-white painter and have the computer imitate them. Mondrian&#x27;s horizontal-vertical theme fit the plotter&#x27;s native stroke set. Noll read a book on Mondrian, studied Composition with Lines (1917), and wrote a program.</p>
 <p>His recipe, from the Psychological Record paper (1966):</p>
 <ul><li>Bars placed uniformly at random within a circle of radius 450 units;</li></ul>
@@ -155,16 +256,16 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>Trial and error until the effect felt close to Mondrian&#x27;s.</li></ul>
 <p>Then the experiment: reproductions of the Mondrian and the computer picture shown to 100 Bell Labs subjects. Result: only 28 percent could correctly identify which was the computer picture; 59 percent preferred the computer picture. Both significant against chance by binomial test. Noll called it, in essence, a Turing experiment. He later varied the program so bars sat on a jittered uniform grid, the perturbation range growing geometrically to plus or minus 250, and tested trained artists against untrained subjects: no meaningful difference found.</p>
 <p>The compositional insight: the circle matters. The real Mondrian is rectangular; Noll&#x27;s bars live inside a disc, density tapering to the edge, which is why the print reads as a constellation rather than a grid.</p>
-<h2>Vertical-Horizontal No. 1-3 (1964): one rule, one constraint</h2>
+<h2 id="vertical-horizontal-no-1-3-1964-one-rule-one-constraint">Vertical-Horizontal No. 1-3 (1964): one rule, one constraint</h2>
 <p>The recipe is even simpler:</p>
 <ul><li>Move from point to point, but change only one coordinate at a time,</li></ul>
 <p>alternating which one changes.</p>
 <ul><li>Otherwise the coordinates are uniform random. No. 1: 50 lines, equal</li></ul>
 <p>ranges. No. 2: 300 lines. No. 3: 100 lines, x in [-200, 200], y in [-500, 500].</p>
 <p>The alternation constraint turns pure randomness into nested rectangles, hairpin corridors, overlapping U-turns. No. 3 at full res reads like a floor plan drawn by someone who forgot the building: every corner is a clean right angle, every edge overshoots. It is the whole trick in one sentence: constrain the degrees of freedom of the random walk and the eye supplies the architecture.</p>
-<h2>Ninety Parallel Sinusoids with Linearly Increasing Period (1964)</h2>
+<h2 id="ninety-parallel-sinusoids-with-linearly-increasing-period-1964">Ninety Parallel Sinusoids with Linearly Increasing Period (1964)</h2>
 <p>Bridget Riley&#x27;s Current (1964) was the provocation. Noll wrote the mathematical version: ninety sine curves, periods increasing linearly down the picture, presumably slight jitter. I did not inspect this one beyond a thumbnail, so the period schedule is reconstructed, not verified. The doctrine here is opposition as method: he saw Op art and asked what the equation was.</p>
-<h2>The depth stack: stereo, ballet, 4D</h2>
+<h2 id="the-depth-stack-stereo-ballet-4d">The depth stack: stereo, ballet, 4D</h2>
 <ul><li>Stereoscopic projections (1964, MM-64-1234-2): software for the 7090</li></ul>
 <p>that rendered left/right pairs of 3D data, including random 3D shapes, viewed in his childhood stereoscope. He found stereo versions were preferred over flat ones in his subject tests.</p>
 <ul><li>3D movies: random objects changing shape, plus a rotating</li></ul>
@@ -175,10 +276,10 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>dimensions, projected down to 3D to 2D, for the AT&amp;T short Incredible Machine. The words &quot;incredible machine&quot; rotate around each other doing things that would be physically impossible. Early flying-logo energy, derived from pure geometry.</p>
 <ul><li>Computer holography (with Michael C. King): strip of perspective</li></ul>
 <p>views combined into a hologram viewable with a flashlight.</p>
-<h2>The stance: teach the artist to program</h2>
+<h2 id="the-stance-teach-the-artist-to-program">The stance: teach the artist to program</h2>
 <p>Noll taught himself no collaboration doctrine at all. Billy Kluever&#x27;s E.A.T. philosophy said artists can&#x27;t understand technology and engineers can&#x27;t understand art, so they must collaborate. Noll&#x27;s answer: &quot;I didn&#x27;t want an artist collaborating with me. I wanted the artists to learn programming.&quot; Aaron Marcus came to Bell Labs in the mid-60s, learned Fortran, and made his own computer art. Nam June Paik came in 1967-68 to learn programming from Noll; years later Greg Zinman found Paik&#x27;s Fortran programs and plotter art, now in the Smithsonian. His paper &quot;Art Ex Machina&quot; is the polemic: the computer is &quot;an intellectual and active creative partner,&quot; and the artist&#x27;s job is to program it, not to be paired with someone who does.</p>
 <p>Note the tension honestly: Stan VanDerBeek worked with Ken Knowlton on Poemfields, and they credited both, always. Noll respected Knowlton&#x27;s animation enough to call him an artist against Knowlton&#x27;s own protest (&quot;I&#x27;m not an artist, I work with an artist&quot;). Noll&#x27;s position was not anti-collaboration so much as anti-dependency.</p>
-<h2>Core techniques</h2>
+<h2 id="core-techniques">Core techniques</h2>
 <ol><li><strong>Mixed randomness and determinism.</strong> Gaussian on one axis,</li></ol>
 <p>quadratic on the other. Random placement, fixed grammar. The art is in choosing which axis gets the distribution and which gets the function.</p>
 <ol><li><strong>One-constraint walks.</strong> The Vertical-Horizontal rule (change one</li></ol>
@@ -189,25 +290,25 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>computer generates the family fast; the human picks. Noll never pretended otherwise. The artist is the curator of the parameter sweep.</p>
 <ol><li><strong>Projection as composition.</strong> Stereo pairs, 3D movies, 4D to 2D</li></ol>
 <p>titles. Dimensionality reduction is treated as a creative act, not a loss.</p>
-<h2>Palette and composition</h2>
+<h2 id="palette-and-composition">Palette and composition</h2>
 <p>Black on white, always. The plotter was a line device, and Noll never fought it. Composition is statistical: Gaussian column, jittered grid, disc boundary, parabola ceiling. The frame is earned by the distribution, not drawn.</p>
-<h2>What makes it sing</h2>
+<h2 id="what-makes-it-sing">What makes it sing</h2>
 <p>The restraint. One distribution, one equation, one constraint. Every piece in this study is legible: you can hold the whole program in your head while looking at the output, and the output still surprises you. That legibility is the aesthetic. It is also why the copyright office had to accept it: the &quot;randomness&quot; was a choice, and the choice was visible.</p>
-<h2>What is overdone (avoid list)</h2>
+<h2 id="what-is-overdone-avoid-list">What is overdone (avoid list)</h2>
 <ul><li>Plotter nostalgia as style. The thin black line on white is a</li></ul>
 <p>constraint of 1962 hardware, not a moral choice. Copying the look without the reasoning is costume.</p>
 <ul><li>The &quot;Turing test for art&quot; framing gets recycled endlessly now; the</li></ul>
 <p>interesting move in 1966 was running the experiment, not the headline.</p>
 <ul><li>Gaussian-everything. Noll used one distribution per piece on purpose.</li></ul>
 <p>Stacking normal jitter on every parameter is the default look of lazy generative work today; it all melts into the same porridge.</p>
-<h2>Re-render findings (visually inspected)</h2>
+<h2 id="re-render-findings-visually-inspected">Re-render findings (visually inspected)</h2>
 <ul><li>Gaussian-Quadratic, 5 seeds, exact recipe: the tangle concentrates</li></ul>
 <p>in a central column with long horizontal sweeps to the edges, exactly like the V&amp;A print. The quadratic rise creates visibly widening vertical gaps up each climb, and the wrap points read as long diagonal slashes. Seed choice matters enormously; two of five seeds looked muddy. Noll&#x27;s trial-and-error was the real algorithm.</p>
 <ul><li>Mondrian stand-in, 3 seeds, adjusted proportions (recipe scale</li></ul>
 <p>reconstructed, not verbatim): matches the real print&#x27;s character once bars are short (25-90 units), sparse (200 placements), and the top parabola shortens them. First pass with long dense bars read as a Mondrian grid, not the scattered constellation. The disc boundary is doing half the compositional work.</p>
 <ul><li>Vertical-Horizontal No. 3, 3 seeds, exact recipe: nearly</li></ul>
 <p>indistinguishable in character from the real piece. Nested right angles, hairpin corridors, tall narrow column. The simplest recipe in the whole study, and the most faithful re-render.</p>
-<h2>Next doorways</h2>
+<h2 id="next-doorways">Next doorways</h2>
 <ul><li>Ken Knowlton and Stan VanDerBeek&#x27;s Poemfields (the BEFLIX mosaic</li></ul>
 <p>films; Noll calls Knowlton an artist, Knowlton disagrees; the collaboration Noll refused is the one that made Poemfields).</p>
 <ul><li>Frieder Nake and Georg Nees (the German exhibits of 1965, months</li></ul>
@@ -217,7 +318,20 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>Nam June Paik&#x27;s Fortran period at Bell Labs (the Zinman recovery;</li></ul>
 <p>what Paik actually plotted).</p>
 <ul><li>Reichardt&#x27;s Cybernetic Serendipity (the book that told the story;</li></ul>
-<p>Noll&#x27;s essays as the movement&#x27;s founding documents).</p></div><nav class="pagenav"><a class="" href="whistler-nocturnes.html"><span class="dir">Previous note</span><span class="t">Whistler&#x27;s Nocturnes: the dark-ground species</span></a><a class="next" href="abraham-moles.html"><span class="dir">Next note</span><span class="t">Abraham A. Moles</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
-<script></script>
+<p>Noll&#x27;s essays as the movement&#x27;s founding documents).</p></div><section class="related"><h2>More in The First Programmers</h2><div class="relgrid"><a href="herbert-franke.html"><span class="rt">Herbert W. Franke</span><span class="rm">undated &middot; 9 MIN</span></a><a href="computer-technique-group.html"><span class="rt">Computer Technique Group, Tokyo</span><span class="rm">2026-10-01 &middot; 9 MIN</span></a><a href="darcy-thompson-on-growth-and-form.html"><span class="rt">D&#x27;Arcy Thompson: On Growth and Form</span><span class="rm">2026-10-01 &middot; 16 MIN</span></a><a href="elena-asins.html"><span class="rt">Elena Asins</span><span class="rm">undated &middot; 10 MIN</span></a></div></section><nav class="pn"><a class="prev" href="bela-julesz-random-dot-stereograms.html"><span class="dir">&larr; Newer</span><span class="t">Bela Julesz / random-dot stereograms, and Leon Harmon&#x27;s block mosaics</span></a><a class="next" href="shepard-zajac-pair-of-paradoxes.html"><span class="dir">Older &rarr;</span><span class="t">Shepard and Zajac / A Pair of Paradoxes</span></a></nav></article></div>
+<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
+<script>
+(function(){
+  var btn = document.getElementById('cmdkBtn');
+  function go(q){
+    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
+    location.href = u;
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
+  });
+  if (btn) btn.addEventListener('click', function(){ go(''); });
+})();
+</script>
 </body>
 </html>

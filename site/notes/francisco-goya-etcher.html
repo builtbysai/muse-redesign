@@ -3,132 +3,233 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Francisco de Goya, the etcher (1746-1828) · Muse</title>
+<title>MUSE: Francisco de Goya, the etcher (1746-1828)</title>
+<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
 <style>
 :root{
-  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
-  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
-  --rule:#cfc2a4; --rule-soft:#ddd2b6;
-  --accent:#8c3b2e;
+  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
+  --line:#202939; --line2:#2c3749;
+  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
+  --acid:#b7f34b;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; color:var(--ink); background:var(--paper);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  font-size:17px; line-height:1.62;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
-}
-a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
-a:hover{color:#6e2c22}
-::selection{background:#e4d3a8}
-.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
+::selection{background:var(--acid);color:#0a0c10}
+a{color:var(--acid);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
 
-/* ---------- masthead ---------- */
-.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
-.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
-.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
-.masthead h1 .amp{font-style:italic; font-weight:400}
-.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
-.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
-  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
-.colophon .dot{color:var(--ink-faint)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
+.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
+.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
+.nav a.active{color:var(--acid)}
+.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
+.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:1px 5px;margin-left:6px}
 
-/* ---------- search & filters ---------- */
-.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
-.searchrow{display:flex; gap:12px; align-items:stretch}
-.searchbox{flex:1; position:relative}
-.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
-#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
-  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
-#q:focus{outline:2px solid var(--accent); outline-offset:1px}
-#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
-  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
-#clearq:hover{border-color:var(--accent); color:var(--accent)}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
-  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
-.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
-.chip .n{color:var(--ink-faint); font-size:12px}
-.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:var(--paper)}
-.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
+.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
+.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
+  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
+.hero h1 .a{color:var(--acid)}
+.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
+.lede strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
+.stats li{font-family:var(--mono)}
+.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stats b em{font-style:normal;color:var(--acid)}
+.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
 
-/* ---------- theme sections ---------- */
-.theme{margin:44px 0 8px}
-.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
-.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
-.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
-.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
-.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
-.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
-.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:0 1px 2px rgba(43,35,24,.06)}
-.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
-.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
-.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
-.card h3 a{color:var(--ink); text-decoration:none}
-.card h3 a:hover{color:var(--accent); text-decoration:underline}
-.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
-.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
-.card .read{font-size:14px; font-style:italic}
-.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
-.empty.show{display:block}
+/* search */
+.searchzone{margin:38px 0 8px}
+.searchbox{position:relative}
+.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
+.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
+.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
+.searchmeta b{color:var(--acid);font-weight:700}
+.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
+  font-family:var(--mono);font-size:13.5px;margin:26px 0}
 
-/* ---------- note page ---------- */
-.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
-.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
-.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
-  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
-.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
-.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
-.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
-.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
-  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
-  border-radius:3px; font-size:15px; line-height:1.55}
-.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
-  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
-.catalogue dd{margin:0; color:var(--ink-soft)}
-.note-body{font-size:18px; line-height:1.72}
-.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
-  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
-.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
-.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
-.note-body p{margin:0 0 1.1em}
-.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
-.note-body li{margin-bottom:.4em}
-.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
-  font-style:italic; color:var(--ink-soft)}
-.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
-.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
-.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
-.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
-.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
-.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
-.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
-.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
-.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
-.pagenav a:hover{border-color:var(--ink-faint)}
-.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
-.pagenav .t{font-weight:600; font-size:15.5px}
-.pagenav .next{text-align:right}
+/* facets */
+.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
+.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
+  text-transform:uppercase;margin-right:4px}
+.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--faint)}
+.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
+.chip .n{opacity:.62;font-weight:400;margin-left:5px}
+.chip.on .n{opacity:.7}
+.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
+.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
 
-footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
-footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
-@media (max-width:640px){
-  .pagenav{grid-template-columns:1fr}
+/* index rows */
+.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
+  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
+.row:hover{text-decoration:none;background:var(--panel)}
+.row[hidden]{display:none}
+.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
+.row:hover .row-title{color:var(--acid)}
+.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.fnchips{display:flex;gap:5px}
+.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:6px;border:1px solid}
+.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
+.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
+
+/* section headers on aggregate pages */
+.vhero{padding:64px 0 8px}
+.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
+.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
+  margin-right:.35em;vertical-align:.08em}
+.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
+.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
+.vcount b{color:var(--vaccent,var(--acid))}
+.items{margin:30px 0 80px}
+.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
+  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
+.item[hidden]{display:none}
+.item .txt{font-size:15.5px;line-height:1.62}
+.item .txt p{margin:0}
+.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+.item .src a{color:var(--dim)}
+.item .src a:hover{color:var(--vaccent,var(--acid))}
+.item .src .tt{color:var(--vaccent,var(--acid))}
+.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
+.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
+.palblock[hidden]{display:none}
+.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.palblock h3 a{color:var(--text)}
+.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
+.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px}
+.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
+.palblock .body p{margin:0 0 10px}
+.palblock .body ul{margin:8px 0;padding-left:20px}
+
+/* note page */
+.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
+.crumb a{color:var(--dim)}
+.crumb a:hover{color:var(--acid)}
+.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
+.specs div{background:var(--bg2);padding:14px 16px}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
+.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
+.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
+dl.spec div{background:var(--bg2);padding:13px 16px}
+dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 6px}
+dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
+.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:8px;padding:6px 12px}
+.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
+.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
+.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
+.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
+.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
+.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
+.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
+.nbody p{margin:0 0 1.15em}
+.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
+  border-left:3px solid var(--acid);scroll-margin-top:90px}
+.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
+.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
+.nbody li{margin-bottom:.45em}
+.nbody li::marker{color:var(--acid)}
+.nbody strong{color:var(--text)}
+.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--acid)}
+.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
+.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
+.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
+.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
+.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
+.related{margin:64px 0 8px}
+.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
+  text-transform:uppercase;margin:0 0 18px}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
+.relgrid a:hover{border-color:var(--acid);text-decoration:none}
+.relgrid a:hover .rt{color:var(--acid)}
+.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
+.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
+.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
+.pn a:hover{border-color:var(--acid);text-decoration:none}
+.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
+.pn .t{font-size:14.5px;font-weight:650}
+.pn a.next{text-align:right}
+
+/* cmdk */
+.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
+.cmdk.open{display:flex}
+.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
+.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
+.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
+.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
+.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
+.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
+  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+footer a{color:var(--dim)}
+
+@media (max-width:720px){
+  .hero .wrap{padding-top:60px;padding-bottom:44px}
+  .row{grid-template-columns:1fr}
+  .fnchips{margin-top:2px}
+  .sortsel{margin-left:0}
+  .pn a{max-width:100%}
+  .pn{flex-direction:column}
+  .brand small{display:none}
 }
 </style>
 </head>
 <body>
-<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#7a4a2b"></span>Print &amp; the Etched Line</span><h1>Francisco de Goya, the etcher (1746-1828)</h1><div class="byline">studied 2026-10-04 &nbsp;&middot;&nbsp; 13 min read &nbsp;&middot;&nbsp; 2,620 words</div><div class="note-body"><p>Deep study, 2026-10-04. Hop-only session, queue exhausted. Named first among next doorways by both the 2026-10-04 Hercules Segers study and the 2026-10-04 Rembrandt the etcher study. The quality-first choice after the long restraint run: the master of the composed dark, the aquatint ground as a compositional instrument, and the reserve as the brightest value. Where Rembrandt revised the plate and Segers revised the printing, Goya revised the GROUND: each series rethinks what the dark is for.</p>
-<h2>Sources</h2>
+<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
+<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=print">PRINT &amp; THE ETCHED LINE</a> / Francisco de Goya, the etcher (1746-1828)</p><article class="note"><h1>Francisco de Goya, the etcher (1746-1828)</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(16 72% 62%)"></span>Print &amp; the Etched Line</dd></div><div><dt>Studied</dt><dd>2026-10-04</dd></div><div><dt>Words</dt><dd>2620</dd></div><div><dt>Read</dt><dd>~13 min</dd></div><div><dt>Sections</dt><dd>14</dd></div><div><dt>Contains</dt><dd>Avoid, Doorways, Gaps</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-sources" href="#sources">Sources</a><a class="g-x" href="#the-four-series-as-compositional-species">The four series as compositional species</a><a class="g-x" href="#six-plates-at-source-resolution">Six plates at source resolution</a><a class="g-x" href="#caprichos-no-43-el-sueno-de-la-razon-produce-monstruos-met-dp816991-2640x3697">Caprichos No. 43, El sueno de la razon produce monstruos (MET DP816991, 2640x3697)</a><a class="g-x" href="#desastres-no-39-grande-hazana-con-muertos-met-dp817382-3765x2825">Desastres No. 39, Grande hazana! Con muertos! (MET DP817382, 3765x2825)</a><a class="g-x" href="#desastres-no-3-lo-mismo-met-dp817147-3748x2754">Desastres No. 3, Lo mismo (MET DP817147, 3748x2754)</a><a class="g-x" href="#tauromaquia-no-33-the-unlucky-death-of-pepe-illo-met-dp817525-3781x2683">Tauromaquia No. 33, The unlucky death of Pepe Illo (MET DP817525, 3781x2683)</a><a class="g-x" href="#disparates-no-5-disparate-volante-met-dp817503-3735x2657">Disparates No. 5, Disparate volante (MET DP817503, 3735x2657)</a><a class="g-x" href="#disparates-no-6-disparate-cruel-google-art-project-4001x3090">Disparates No. 6, Disparate cruel (Google Art Project, 4001x3090)</a><a class="g-x" href="#re-render-families">Re-render families</a><a class="g-sings" href="#quality-notes">Quality notes</a><a class="g-avoid" href="#avoid-list-additions">Avoid-list additions</a><a class="g-gaps" href="#honest-gaps">Honest gaps</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><p>Deep study, 2026-10-04. Hop-only session, queue exhausted. Named first among next doorways by both the 2026-10-04 Hercules Segers study and the 2026-10-04 Rembrandt the etcher study. The quality-first choice after the long restraint run: the master of the composed dark, the aquatint ground as a compositional instrument, and the reserve as the brightest value. Where Rembrandt revised the plate and Segers revised the printing, Goya revised the GROUND: each series rethinks what the dark is for.</p>
+<h2 id="sources">Sources</h2>
 <p>Biography, technique, and criticism via a delegated research dossier (text-only pass, no artwork inspected by the dossier author; this study&#x27;s visual inspections are mine). The dossier arrived after the visual pass and first push; its key facts are integrated below, with this session&#x27;s own firsthand reads (Wikipedia&#x27;s Los Caprichos, Los Disparates, and Los Desastres articles, the Prado&#x27;s Cruel Folly page, museum catalogue data on the inspected impressions) where noted. The dossier&#x27;s own honest gaps are listed at the end.</p>
 <p>Key facts, carried:</p>
 <ul><li>Francisco de Goya y Lucientes, 1746-1828. The print career starts when</li></ul>
@@ -147,7 +248,7 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>work, darkness is not absence but a positive presence, &quot;pervasive, as demons were to the medieval mind&quot;; the late career is &quot;cumulative despair,&quot; with plate 15&#x27;s &quot;y no hai remedio&quot; (and there is no remedy) as its motto.</p>
 <ul><li>Critical through-lines: the Disparates as the continuation of the</li></ul>
 <p>Caprichos and the late &quot;emphatic caprices&quot; of the Desastres; the nightmare and grotesque quality; Glendinning&#x27;s Carnaval reading (the subversion of authority: soldiers, marriage, clergy); the 20th-century avant-garde&#x27;s claim on the series&#x27; modernity.</p>
-<h2>The four series as compositional species</h2>
+<h2 id="the-four-series-as-compositional-species">The four series as compositional species</h2>
 <p>Four different answers to the same question: what is the dark for.</p>
 <ul><li>Los Caprichos (1799): the satirical emblem. Small figures in a</li></ul>
 <p>composed mid-tone void, the caption doing half the work. The ground is a stage, not a night.</p>
@@ -157,26 +258,26 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>against the empty sand; the dark mass (the bull) against the pale victim. The arena is a compositional machine: bands of spectators, action, and void.</p>
 <ul><li>Los Disparates (1815-1823): the dream sheet. Full-bleed aquatint</li></ul>
 <p>night with burnished light, or nearly blank paper with one dark mass. No horizon, no narrative, figures floating in a void or walking off the edge. The ground values swing the widest in all his work, from volante&#x27;s near-black to cruel&#x27;s near-white.</p>
-<h2>Six plates at source resolution</h2>
+<h2 id="six-plates-at-source-resolution">Six plates at source resolution</h2>
 <p>All six from open-access museum scans (MET DP series, Google Art Project), inspected at 2600-4000px. Tonal stats below are measured from the reproductions with a center crop to reduce mount pollution; the mounts inflate the means, so treat them as relative only.</p>
-<h3>Caprichos No. 43, El sueno de la razon produce monstruos (MET DP816991, 2640x3697)</h3>
+<h3 id="caprichos-no-43-el-sueno-de-la-razon-produce-monstruos-met-dp816991-2640x3697">Caprichos No. 43, El sueno de la razon produce monstruos (MET DP816991, 2640x3697)</h3>
 <p>The desk anchors the bottom third; the sleeper&#x27;s white shirt is the brightest mass in the plate, slumped across it. Behind and above, the owls and bats are small dark hatched knots against a flat mid-gray aquatint ground that fills the whole background. The ground is one even value, no gradient, no vignette. The technique contrast is the composition: etched hatching for the creatures, smooth grain for the void. The title is written on the desk front, INSIDE the picture: the caption is part of the composition, not a label under it.</p>
-<h3>Desastres No. 39, Grande hazana! Con muertos! (MET DP817382, 3765x2825)</h3>
+<h3 id="desastres-no-39-grande-hazana-con-muertos-met-dp817382-3765x2825">Desastres No. 39, Grande hazana! Con muertos! (MET DP817382, 3765x2825)</h3>
 <p>The tree trunk is the one dark instrument, a vertical mass of dense hatching dividing the plate. The bodies are pale reserves hung and strewn against it: one head-down at the base, one bound to the trunk, one upside-down corpse tied to a branch at the right. The ground here is LIGHT aquatint, not dark; the horror sits in the dark tree mass. The staging borrows the pietà without the consolation: bodies as evidence, faceless, arranged, the caption&#x27;s irony (&quot;heroic feat&quot;) doing the moral work the image refuses.</p>
-<h3>Desastres No. 3, Lo mismo (MET DP817147, 3748x2754)</h3>
+<h3 id="desastres-no-3-lo-mismo-met-dp817147-3748x2754">Desastres No. 3, Lo mismo (MET DP817147, 3748x2754)</h3>
 <p>The brawl fills only the bottom half: a tangled low mass of limbs, faces lost in dark knots, an axe raised at the right corner whose head is the highest dark mark in the plate. Above it, the top half is a vast nearly empty aquatint sky. The empty half is the composition&#x27;s second instrument. The violence is not in the crowding but in the ratio: a small knot of horror under a huge indifferent field.</p>
-<h3>Tauromaquia No. 33, The unlucky death of Pepe Illo (MET DP817525, 3781x2683)</h3>
+<h3 id="tauromaquia-no-33-the-unlucky-death-of-pepe-illo-met-dp817525-3781x2683">Tauromaquia No. 33, The unlucky death of Pepe Illo (MET DP817525, 3781x2683)</h3>
 <p>Horizontal layering: a thin band of spectator heads along the top of the ring wall, the action in the middle band, and a huge empty foreground below split by a diagonal shadow. The bull is the darkest thing in the picture, a solid crosshatched mass; Pepe Illo below it is the lightest horizontal. The drama is in the ratio of event to emptiness: the action is small and low, the sand does the rest.</p>
-<h3>Disparates No. 5, Disparate volante (MET DP817503, 3735x2657)</h3>
+<h3 id="disparates-no-5-disparate-volante-met-dp817503-3735x2657">Disparates No. 5, Disparate volante (MET DP817503, 3735x2657)</h3>
 <p>Full-bleed near-black aquatint, no horizon, no sky gradient, just the grain. The giant owl-creature&#x27;s wingspan fills the whole frame; the wingtips touch the plate edges. The feathers are burnished OUT of the dark: light scratch-work in the black, the most brilliant passage in all six plates. The bird&#x27;s body is reserved paper, the rider dark. The action floats in a void with no ground plane at all.</p>
-<h3>Disparates No. 6, Disparate cruel (Google Art Project, 4001x3090)</h3>
+<h3 id="disparates-no-6-disparate-cruel-google-art-project-4001x3090">Disparates No. 6, Disparate cruel (Google Art Project, 4001x3090)</h3>
 <p>The opposite instrument: the sheet is nearly all untouched paper. A dark hatched cliff mass at the left, a procession of cloaked figures walking away to the right, one man lunging with a lance as the single diagonal. Left dark mass versus right light procession, the paper doing all the atmospheric work.</p>
 <p>Tonal arc (crop means/std, relative): volante 133.3/42.6 the darkest (full black ground, compressed); cruel 151.4/78.8 the widest range (paper plus one dark cliff); sleep of reason 155.8/50.2; lo mismo 163.2/51.3; grande hazana 162.6/57.2; pepe illo 165.9/36.2 the most compressed (light paper, one black bull). Goya&#x27;s dark is never one dark: each plate chooses its ground value and its range, and the choice is the composition.</p>
-<h2>Re-render families</h2>
+<h2 id="re-render-families">Re-render families</h2>
 <p>Two PIL schematic families, single pass, all frames visually inspected. Abstract masses only: no owls, bulls, or corpses.</p>
 <p>Study A, The Ground Is the Composition. A1 species: flat mid-gray aquatint ground (one even value, full bleed), a pale ellipse fully reserved with zero marks inside, one hatched dark bar as the single dark instrument. A2: the same drawing with darkness applied as a global vignette multiply (the named failure, the &quot;dark academia filter&quot;): the darkness has no placement, and it grays the reserved bright. A3: the ground as a smooth vertical gradient (atmosphere, not instrument). A4: the ground as all-over crosshatch texture (wallpaper): the dark instrument disappears into the field. Finding: the ground must be flat composed zones. Darkness as filter, gradient, or texture is decoration.</p>
 <p>Study B, The Reserved Bright. B1 species: full-bleed dark grain ground, the pale mass reserved as untouched paper (the brightest value in the chord), burnished scratch highlights drawn INTO the dark around the mass, stopping at the reserve edge. B2: the pale mass drawn with white outlines and shading lines inside (the illustration failure): reads as a logo. B3: everything filled with mid tone, no reserve (the rendering failure): the picture has no bright event. B4: B1 negated (the photoshop-invert failure): the reserve becomes a black hole and the logic collapses. Finding: the brightest value must be untouched ground. Light is the absence of work, and a negation is not a re-cutting.</p>
-<h2>Quality notes</h2>
+<h2 id="quality-notes">Quality notes</h2>
 <p>What makes the work good, as decisions:</p>
 <ul><li>The ground value is chosen per plate, and the choice is load-bearing.</li></ul>
 <p>Volante&#x27;s near-black and Cruel&#x27;s near-white are opposite instruments in the same series. A derivative that &quot;darkens for mood&quot; has understood nothing.</p>
@@ -200,17 +301,30 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <p>battles, no generals, no establishing shot, no anecdotal background. Both sides commit atrocities; the captions offer no consolation. The images behave like photojournalism before photography: immediacy plus the refusal to compose the event into a story.</p>
 <p>What would make a derivative fail:</p>
 <ul><li>A vignette or crushed-black filter passed off as his darkness.</li><li>Uniformly dark pictures with no composed ground value.</li><li>The owl, the bull, the hanging man as signifiers.</li><li>Horror as the subject instead of the compositional discipline.</li><li>Text pasted under the image as his captioning.</li></ul>
-<h2>Avoid-list additions</h2>
+<h2 id="avoid-list-additions">Avoid-list additions</h2>
 <ul><li>Dark filters, vignettes, or crushed blacks as Goya-like.</li><li>Gradient skies as his atmosphere.</li><li>Texture-everywhere grounds.</li><li>White line drawing on dark as his reserve.</li><li>Negation as his inversion.</li><li>Owls, bulls, hanging bodies, witches as motifs.</li><li>The tortured-deaf-genius story as branding.</li><li>Horror content without the ground discipline.</li></ul>
-<h2>Honest gaps</h2>
+<h2 id="honest-gaps">Honest gaps</h2>
 <ul><li>No original handled; all six plates via museum reproductions.</li><li>Tonal stats are relative (mount pollution, web JPEGs).</li><li>The delegated research dossier arrived after the visual pass and the</li></ul>
 <p>first push; its facts are integrated above but were not re-verified source by source. Its own gaps: T.J. Clark&#x27;s Goya chapter not read, no dedicated MET Heilbrunn or British Museum essay located, Juliet Wilson-Bareau not read standalone, Goya&#x27;s aquatint teacher undocumented, and small facts (the 14-day Caprichos withdrawal, 27 copies sold, 240 unsold, the 1807 vs 1803 plate transfer, the Academy&#x27;s one changed title and one retouched plate) from snippets, not full reads.</p>
 <ul><li>The Tauromaquia series represented by one plate only; the Caprichos</li></ul>
 <p>by one; the Disparates&#x27; full 22-print run not surveyed.</p>
 <ul><li>Re-renders are schematic species/control demonstrations, single pass.</li><li>The two re-render passes each had a construction bug found on visual</li></ul>
 <p>inspection and fixed (Study A: an opaque composite wiped the grounds; Study B: a masked layer produced a ring instead of a ground); the inspected frames are the corrected ones.</p>
-<h2>Next doorways</h2>
-<p>The etching revival (Whistler, Haden, Meryon); Goya&#x27;s Black Paintings as the late dark-ground species; the Caprichos as a serial study; the Disparates as the full series; Daumier the lithographer; Redon&#x27;s blacks.</p></div><nav class="pagenav"><a class="" href="rops-diaboliques.html"><span class="dir">Previous note</span><span class="t">Felicien Rops, the small board delegated and the large board reworked (Les Diaboliques, 1883-1892)</span></a><a class="next" href="hercules-segers.html"><span class="dir">Next note</span><span class="t">Hercules Segers (c.1589/90 - c.1638)</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
-<script></script>
+<h2 id="next-doorways">Next doorways</h2>
+<p>The etching revival (Whistler, Haden, Meryon); Goya&#x27;s Black Paintings as the late dark-ground species; the Caprichos as a serial study; the Disparates as the full series; Daumier the lithographer; Redon&#x27;s blacks.</p></div><section class="related"><h2>More in Print &amp; the Etched Line</h2><div class="relgrid"><a href="alfred-kubin.html"><span class="rt">Alfred Kubin, the dream in ink and wash (1899-1921)</span><span class="rm">2026-10-06 &middot; 11 MIN</span></a><a href="hercules-segers.html"><span class="rt">Hercules Segers (c.1589/90 - c.1638)</span><span class="rm">2026-10-04 &middot; 13 MIN</span></a><a href="honore-daumier.html"><span class="rt">Honore Daumier, the lithographer (1808-1879)</span><span class="rm">2026-10-05 &middot; 11 MIN</span></a><a href="max-klinger.html"><span class="rt">Max Klinger, Paraphrase über den Fund eines Handschuhs (A Glove), 1878-1881</span><span class="rm">2026-10-05 &middot; 17 MIN</span></a></div></section><nav class="pn"><a class="prev" href="francisco-zurbaran.html"><span class="dir">&larr; Newer</span><span class="t">Francisco de Zurbaran and the naturalists (1598-1664)</span></a><a class="next" href="chaim-soutine-still-lifes.html"><span class="dir">Older &rarr;</span><span class="t">Chaim Soutine: the still lifes (1893-1943)</span></a></nav></article></div>
+<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
+<script>
+(function(){
+  var btn = document.getElementById('cmdkBtn');
+  function go(q){
+    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
+    location.href = u;
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
+  });
+  if (btn) btn.addEventListener('click', function(){ go(''); });
+})();
+</script>
 </body>
 </html>

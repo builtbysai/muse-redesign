@@ -3,132 +3,233 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>James Tenney / Quintext: Five Textures (1972) · Muse</title>
+<title>MUSE: James Tenney / Quintext: Five Textures (1972)</title>
+<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
 <style>
 :root{
-  --paper:#f3ecdc; --paper-deep:#e9dfc7; --paper-card:#f8f3e6;
-  --ink:#2b2318; --ink-soft:#5f5443; --ink-faint:#8a7d64;
-  --rule:#cfc2a4; --rule-soft:#ddd2b6;
-  --accent:#8c3b2e;
+  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
+  --line:#202939; --line2:#2c3749;
+  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
+  --acid:#b7f34b;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; color:var(--ink); background:var(--paper);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  font-size:17px; line-height:1.62;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(140,59,46,.045), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(63,90,122,.05), transparent 50%);
-}
-a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
-a:hover{color:#6e2c22}
-::selection{background:#e4d3a8}
-.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
+::selection{background:var(--acid);color:#0a0c10}
+a{color:var(--acid);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
 
-/* ---------- masthead ---------- */
-.masthead{border-bottom:3px double var(--ink); padding:34px 0 22px; margin-bottom:8px}
-.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
-.masthead h1{font-size:clamp(44px,7vw,84px); line-height:1; margin:0; font-weight:600; letter-spacing:.01em}
-.masthead h1 .amp{font-style:italic; font-weight:400}
-.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
-.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
-  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
-.colophon .dot{color:var(--ink-faint)}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
+.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
+.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
+.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
+.nav a.active{color:var(--acid)}
+.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
+  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
+.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
+.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:1px 5px;margin-left:6px}
 
-/* ---------- search & filters ---------- */
-.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
-.searchrow{display:flex; gap:12px; align-items:stretch}
-.searchbox{flex:1; position:relative}
-.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
-#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--paper-card);
-  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(43,35,24,.08)}
-#q:focus{outline:2px solid var(--accent); outline-offset:1px}
-#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
-  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
-#clearq:hover{border-color:var(--accent); color:var(--accent)}
-.chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
-  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
-.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
-.chip .n{color:var(--ink-faint); font-size:12px}
-.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:var(--paper)}
-.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
+.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
+.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
+  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
+.hero h1 .a{color:var(--acid)}
+.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
+.lede strong{color:var(--text);font-weight:600}
+.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
+.stats li{font-family:var(--mono)}
+.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stats b em{font-style:normal;color:var(--acid)}
+.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
 
-/* ---------- theme sections ---------- */
-.theme{margin:44px 0 8px}
-.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:2px solid var(--ink); padding-bottom:8px}
-.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
-.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
-.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
-.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
-.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
-.card{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
-  box-shadow:0 1px 2px rgba(43,35,24,.06)}
-.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(43,35,24,.10)}
-.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
-.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
-.card h3 a{color:var(--ink); text-decoration:none}
-.card h3 a:hover{color:var(--accent); text-decoration:underline}
-.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
-.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
-.card .read{font-size:14px; font-style:italic}
-.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
-.empty.show{display:block}
+/* search */
+.searchzone{margin:38px 0 8px}
+.searchbox{position:relative}
+.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
+.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
+.searchbox input::placeholder{color:var(--faint)}
+.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
+.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
+.searchmeta b{color:var(--acid);font-weight:700}
+.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
+  font-family:var(--mono);font-size:13.5px;margin:26px 0}
 
-/* ---------- note page ---------- */
-.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
-.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
-.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
-  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
-.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
-.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
-.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
-  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
-.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
-  padding:18px 20px; background:var(--paper-card); border:1px solid var(--rule-soft);
-  border-radius:3px; font-size:15px; line-height:1.55}
-.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
-  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
-.catalogue dd{margin:0; color:var(--ink-soft)}
-.note-body{font-size:18px; line-height:1.72}
-.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
-  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
-.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
-.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
-.note-body p{margin:0 0 1.1em}
-.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
-.note-body li{margin-bottom:.4em}
-.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
-  font-style:italic; color:var(--ink-soft)}
-.note-body pre{background:#2e2a22; color:#ece4d2; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
-.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
-.note-body p code, .note-body li code, .note-body td code{background:#e6dcc2; padding:1px 5px; border-radius:3px}
-.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
-.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
-.note-body th{background:var(--paper-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
-.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
-.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
-.pagenav a{background:var(--paper-card); border:1px solid var(--rule-soft); border-radius:3px;
-  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
-.pagenav a:hover{border-color:var(--ink-faint)}
-.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
-.pagenav .t{font-weight:600; font-size:15.5px}
-.pagenav .next{text-align:right}
+/* facets */
+.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
+.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
+  text-transform:uppercase;margin-right:4px}
+.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
+  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--faint)}
+.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
+.chip .n{opacity:.62;font-weight:400;margin-left:5px}
+.chip.on .n{opacity:.7}
+.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
+.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
 
-footer.site{border-top:3px double var(--ink); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
-footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
-@media (max-width:640px){
-  .pagenav{grid-template-columns:1fr}
+/* index rows */
+.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
+  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
+.row:hover{text-decoration:none;background:var(--panel)}
+.row[hidden]{display:none}
+.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
+.row:hover .row-title{color:var(--acid)}
+.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
+.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.fnchips{display:flex;gap:5px}
+.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
+  text-align:center;border-radius:6px;border:1px solid}
+.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
+.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
+
+/* section headers on aggregate pages */
+.vhero{padding:64px 0 8px}
+.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
+.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
+  margin-right:.35em;vertical-align:.08em}
+.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
+.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
+.vcount b{color:var(--vaccent,var(--acid))}
+.items{margin:30px 0 80px}
+.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
+  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
+.item[hidden]{display:none}
+.item .txt{font-size:15.5px;line-height:1.62}
+.item .txt p{margin:0}
+.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
+.item .src a{color:var(--dim)}
+.item .src a:hover{color:var(--vaccent,var(--acid))}
+.item .src .tt{color:var(--vaccent,var(--acid))}
+.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
+.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
+.palblock[hidden]{display:none}
+.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.palblock h3 a{color:var(--text)}
+.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
+.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px}
+.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
+.palblock .body p{margin:0 0 10px}
+.palblock .body ul{margin:8px 0;padding-left:20px}
+
+/* note page */
+.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
+.crumb a{color:var(--dim)}
+.crumb a:hover{color:var(--acid)}
+.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
+.specs div{background:var(--bg2);padding:14px 16px}
+.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
+.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
+.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
+dl.spec div{background:var(--bg2);padding:13px 16px}
+dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 6px}
+dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
+.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:8px;padding:6px 12px}
+.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
+.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
+.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
+.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
+.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
+.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
+.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
+.nbody p{margin:0 0 1.15em}
+.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
+  border-left:3px solid var(--acid);scroll-margin-top:90px}
+.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
+.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
+.nbody li{margin-bottom:.45em}
+.nbody li::marker{color:var(--acid)}
+.nbody strong{color:var(--text)}
+.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--acid)}
+.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
+.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
+.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
+.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
+.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
+.related{margin:64px 0 8px}
+.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
+  text-transform:uppercase;margin:0 0 18px}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
+.relgrid a:hover{border-color:var(--acid);text-decoration:none}
+.relgrid a:hover .rt{color:var(--acid)}
+.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
+.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
+.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
+.pn a:hover{border-color:var(--acid);text-decoration:none}
+.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
+.pn .t{font-size:14.5px;font-weight:650}
+.pn a.next{text-align:right}
+
+/* cmdk */
+.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
+.cmdk.open{display:flex}
+.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
+.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
+.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
+.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
+.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
+.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
+  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+footer a{color:var(--dim)}
+
+@media (max-width:720px){
+  .hero .wrap{padding-top:60px;padding-bottom:44px}
+  .row{grid-template-columns:1fr}
+  .fnchips{margin-top:2px}
+  .sortsel{margin-left:0}
+  .pn a{max-width:100%}
+  .pn{flex-direction:column}
+  .brand small{display:none}
 }
 </style>
 </head>
 <body>
-<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#5b6e3f"></span>Sound &amp; Music Systems</span><h1>James Tenney / Quintext: Five Textures (1972)</h1><div class="byline">studied 2026-09-29 &nbsp;&middot;&nbsp; 14 min read &nbsp;&middot;&nbsp; 2,709 words</div><div class="note-body"><dl class="catalogue"><dt>Date</dt><dd>2026-09-29 (study pass)</dd><dt>Artist</dt><dd>James Tenney (1934-2006). Bell Labs 1961-1964 with Max Mathews. This pass covers Quintext, the 1972 suite for string quartet and contrabass, Clang&#x27;s sibling piece from the same year, and the work Bob Gilmore called &quot;practically a textbook of Tenney techniques&quot;.</dd><dt>Hop path</dt><dd>named as the first next-doorway by the 2026-09-29 Tenney/Clang study, which also named Quintext explicitly (&quot;Quintext (1972) as Clang&#x27;s sibling piece&quot;). Closes the compositional doorway of the Bell Labs circle.</dd><dt>Depth</dt><dd>deep on text plus four local procedural re-renders visually inspected. Read: the full QUINTEXT section of Robert Wannamaker, &quot;The Spectral Music of James Tenney,&quot; Contemporary Music Review 27:1 (2008), pp. 98-101 (QUINTEXT V analyzed in detail: scordatura, pitch set, formal scheme, the &quot;double lives&quot; passage, conclusion process); Bob Gilmore&#x27;s review of the Bozzini recording in Thirty-One vol. 1 (Summer 2009), read end to end (movement-by-movement descriptions of all five); the Plainsound catalog entry (Quintext I-V, 1972, 30&#x27;, string quartet and contrabass); Larry Polansky on borrowing the Quintet V technique (retuned instruments, natural harmonics, the acoustics taking care of the tuning arithmetic); Wannamaker&#x27;s framing paragraphs on the five homages and their connection to the dedicatees&#x27; work. Four local procedural re-renders built from the published definitions and visually inspected: the V pitch field (harmonics 1-105 of F1 with cents deviations, the conclusion&#x27;s verticality set marked); a scale-model synthesis of the conclusion (irregular accumulation, two sets of strict downward octave transfers, retrogression to the F1 drone, spectrogram-verified); a five-panel formal-scheme diagram of all five textures; the main-section accelerando (5 s/attack to 0.83 s/attack, exponential, constant after the golden section at 5&#x27;30&quot;) with the harmonic ceiling rising to the 105th and thinning to open-string harmonics 5, 6, 7.</dd><dt>Honest gaps</dt><dd>the paper&#x27;s figures are known from a detailed written description of the published figures, not from their pixels (no PDF pixel extraction succeeded in-session); the full score not read (no publicly accessible full score found; the one score-page image located was a 200x220 thumbnail); no recording heard (the Bozzini complete recording, Frankfurt March 2008, exists but was not auditioned in-session); movements I and III are named-only in the paper, and II and IV appear nowhere in it, so their details come from Gilmore&#x27;s review prose, not from Wannamaker or the score; attack-timing and pitch-order details in re-renders 2 and 4 are models of the described processes, not transcriptions. The paper itself draws no comparison between Quintext and Clang, and says nothing about any premiere, performance, or recording; the Clang comparison below is the study&#x27;s own.</dd></dl>
-<h2>Supplement: the paper&#x27;s three figures, described</h2>
+<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
+<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=sound">SOUND &amp; MUSIC SYSTEMS</a> / James Tenney / Quintext: Five Textures (1972)</p><article class="note"><h1>James Tenney / Quintext: Five Textures (1972)</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(152 72% 62%)"></span>Sound &amp; Music Systems</dd></div><div><dt>Studied</dt><dd>2026-09-29</dd></div><div><dt>Words</dt><dd>2709</dd></div><div><dt>Read</dt><dd>~14 min</dd></div><div><dt>Sections</dt><dd>6</dd></div><div><dt>Contains</dt><dd>none</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#supplement-the-paper-s-three-figures-described">Supplement: the paper&#x27;s three figures, described</a><a class="g-x" href="#the-suite-stated-plainly">The suite, stated plainly</a><a class="g-x" href="#quintet-v-the-technique-in-full">Quintet V: the technique, in full</a><a class="g-sings" href="#what-makes-it-sing">What makes it sing</a><a class="g-x" href="#relation-to-clang-and-the-bell-labs-circle">Relation to Clang and the Bell Labs circle</a><a class="g-x" href="#for-the-generative-practice">For the generative practice</a></nav><div class="nbody"><dl class="spec"><div><dt>Date</dt><dd>2026-09-29 (study pass)</dd></div><div><dt>Artist</dt><dd>James Tenney (1934-2006). Bell Labs 1961-1964 with Max Mathews. This pass covers Quintext, the 1972 suite for string quartet and contrabass, Clang&#x27;s sibling piece from the same year, and the work Bob Gilmore called &quot;practically a textbook of Tenney techniques&quot;.</dd></div><div><dt>Hop path</dt><dd>named as the first next-doorway by the 2026-09-29 Tenney/Clang study, which also named Quintext explicitly (&quot;Quintext (1972) as Clang&#x27;s sibling piece&quot;). Closes the compositional doorway of the Bell Labs circle.</dd></div><div><dt>Depth</dt><dd>deep on text plus four local procedural re-renders visually inspected. Read: the full QUINTEXT section of Robert Wannamaker, &quot;The Spectral Music of James Tenney,&quot; Contemporary Music Review 27:1 (2008), pp. 98-101 (QUINTEXT V analyzed in detail: scordatura, pitch set, formal scheme, the &quot;double lives&quot; passage, conclusion process); Bob Gilmore&#x27;s review of the Bozzini recording in Thirty-One vol. 1 (Summer 2009), read end to end (movement-by-movement descriptions of all five); the Plainsound catalog entry (Quintext I-V, 1972, 30&#x27;, string quartet and contrabass); Larry Polansky on borrowing the Quintet V technique (retuned instruments, natural harmonics, the acoustics taking care of the tuning arithmetic); Wannamaker&#x27;s framing paragraphs on the five homages and their connection to the dedicatees&#x27; work. Four local procedural re-renders built from the published definitions and visually inspected: the V pitch field (harmonics 1-105 of F1 with cents deviations, the conclusion&#x27;s verticality set marked); a scale-model synthesis of the conclusion (irregular accumulation, two sets of strict downward octave transfers, retrogression to the F1 drone, spectrogram-verified); a five-panel formal-scheme diagram of all five textures; the main-section accelerando (5 s/attack to 0.83 s/attack, exponential, constant after the golden section at 5&#x27;30&quot;) with the harmonic ceiling rising to the 105th and thinning to open-string harmonics 5, 6, 7.</dd></div><div><dt>Honest gaps</dt><dd>the paper&#x27;s figures are known from a detailed written description of the published figures, not from their pixels (no PDF pixel extraction succeeded in-session); the full score not read (no publicly accessible full score found; the one score-page image located was a 200x220 thumbnail); no recording heard (the Bozzini complete recording, Frankfurt March 2008, exists but was not auditioned in-session); movements I and III are named-only in the paper, and II and IV appear nowhere in it, so their details come from Gilmore&#x27;s review prose, not from Wannamaker or the score; attack-timing and pitch-order details in re-renders 2 and 4 are models of the described processes, not transcriptions. The paper itself draws no comparison between Quintext and Clang, and says nothing about any premiere, performance, or recording; the Clang comparison below is the study&#x27;s own.</dd></div></dl>
+<h2 id="supplement-the-paper-s-three-figures-described">Supplement: the paper&#x27;s three figures, described</h2>
 <p>The Wannamaker article analyzes only movement V in detail: movements I and III are named only (&quot;Some Recent THOUGHTS for Morton Feldman,&quot; &quot;A Choir of ANGELS for Carl Ruggles&quot;), and movements II and IV are not named or discussed anywhere in the article. Footnote 11 points to Polansky 1983 (pp. 208-218) for an analytical treatment of the entire suite. The byline is Robert A. Wannamaker alone.</p>
 <ul><li>Figure 4, &quot;Scordatura and string harmonics used in QUINTEXT V&quot;: a</li></ul>
 <p>five-column table (BASS, CELLO, VIOLA, VIOLIN II, VIOLIN I, all in treble clef) showing each open string&#x27;s available natural harmonics as equal-tempered pitch approximations, in horizontal bands labeled &quot;natural harmonic number&quot; (top 4-7, middle 2-3, bottom 1). The bottom row gives the harmonic of F1 to which each open string is tuned: bass string IV = 1; cello = 2, 3, 5; viola = 3, 5, 7, 10; violin II = 4, 6, 9, 13; violin I = 5, 7, 11, 15. The resonator strings (bass III-I, cello IV) carry no numbers. This is the tuning machine itself, laid out as a table: one column per instrument, fifteen open strings total, each a harmonic of F1.</p>
@@ -137,7 +238,7 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>Figure 6, &quot;Three systems from near the conclusion of QUINTEXT V&quot;:</li></ul>
 <p>reproductions of three handwritten score systems (five staves each: violin I, violin II, viola, cello, bass, top to bottom) in proportional time notation, illustrating the passage the text locates at 7&#x27;30&quot;-8&#x27;15&quot; (© 1972 Sonic Art Editions, Smith Publications). The staves carry dynamics (mf, p, pp), parenthesized string-number indications with open diamond noteheads marking touched nodes (e.g. (3/7), (2/7), (5/3)), sustained tied notes, glissandi, and the continuing low bass drone. The top system is marked 8&#x27;00&quot; at the right.</p>
 <p>Two passages worth quoting verbatim from the article&#x27;s framing: Quintext is &quot;five pieces written by Tenney in tribute to fellow composers&quot; that &quot;represent markedly different sound worlds and methods of compositional organization,&quot; scored &quot;for string quartet and bass.&quot; And on the end of the main section, where the bass skips F1 to F2 to F3: &quot;The &#x27;fundamental&#x27; thus becomes virtual since not all sounding tones are harmonics of these new bass pitches (although most are).&quot; The thinning that precedes the skip runs 7&#x27;30&quot; to 7&#x27;50&quot;, not 7&#x27;00&quot; to 7&#x27;50&quot;. Finally, the article&#x27;s Conclusions quote Polansky&#x27;s debt to the piece verbatim: his &quot;Movement for Lou Harrison&quot; (1975-1977) &quot;uses natural harmonics on just-tuned strings to achieve an evolving variety of pitch constellations within a given harmonic series, a technique that the composer indicates was first suggested to him by Tenney&#x27;s QUINTEXT V: SPECTRA for Harry Partch.&quot;</p>
-<h2>The suite, stated plainly</h2>
+<h2 id="the-suite-stated-plainly">The suite, stated plainly</h2>
 <p>Quintext is Five Textures for String Quartet and Bass, 1972, about 30 minutes on the score (35 on the Bozzini recording). Five movements, each a texture dedicated to a fellow composer, each built by a different method, each a homage that could never be mistaken for the dedicatee&#x27;s own music:</p>
 <ul><li>I. Some Recent THOUGHTS for Morton Feldman: soft, sustained,</li></ul>
 <p>nondevelopmental, dissonant vertical harmonies, the obsession of Feldman&#x27;s early work (the Vertical Thoughts series, which gave the movement its title). But the harmonies are microtonal, in just intonation on a scale analogous to the first 13 odd-number harmonics, Tenney&#x27;s own obsession and a concept totally at odds with Feldman&#x27;s devotion to equal temperament.</p>
@@ -150,25 +251,38 @@ footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:sp
 <ul><li>V. SPECTRA for Harry Partch: nine minutes, the most unprecedented of the</li></ul>
 <p>group, an ingenious scordatura that reaches the 105th harmonic of F1.</p>
 <p>That is the suite&#x27;s real doctrine: one suite, five incompatible methods, each movement a complete portrait of a different way of organizing sound. Feldman gets verticality, Xenakis gets clouds, Ruggles gets quotation, Varese gets curves, Partch gets the harmonic series itself.</p>
-<h2>Quintet V: the technique, in full</h2>
+<h2 id="quintet-v-the-technique-in-full">Quintet V: the technique, in full</h2>
 <p>The contrabass tunes its IV (E) string up to F1, of which it then plays select natural harmonics up to the 15th so that the other instruments can tune their open strings to these. The bass plays only its &quot;F&quot; string throughout, but its other strings are tuned to harmonics of this pitch so that they resonate sympathetically with it; the cello&#x27;s IV string is similarly treated as a resonator. All pitches sounded are either open strings or natural harmonics up to the 7th, so the highest harmonic available is number 7 x 15 = 105 on the first violin&#x27;s I string. Tenney notates all pitches as they sound, borrowing the artificial-harmonic convention for natural harmonics: sounding pitch with a figure in parentheses indicating the string (filled notehead), and the touched node with an open diamond notehead. The score uses proportional time notation but is fully determinate.</p>
 <p>The form is three parts. The opening section, about 60 seconds: the bass&#x27;s mezzo forte F1 drone begins and holds through most of the piece. An additive-synthesis process unfolds over the next half minute as successively higher harmonics of the drone (all sustained on open strings) enter with gradually increasing rapidity in the order {1, 2, 3, 4, 5, 6, 7, 9, 11, 13, 15}, although some octave equivalents are subsequently deleted, so the opening culminates with the sounding harmonic set {1, 2, 3, 5, 7, 9, 11, 13, 15}. The members of this set then drop out in high-to-low order until the 60-second mark, when F1 sounds alone. Wannamaker calls this an &quot;exposition&quot; of the open strings, the exploration of their natural harmonics that follows being the &quot;development.&quot;</p>
 <p>The main section: a gradual introduction of successively higher harmonics of the F1 drone. Players sustain each notated pitch until a new one is indicated. The score&#x27;s dynamic instruction is the piece&#x27;s perceptual core: tones other than the mezzo forte bass drone should be very soft, &quot;hovering near some threshold between being heard as individual tones at all, on the one hand, and being heard simply as intensifications of some harmonic in the spectrum of the bass&#x27;s low F.&quot; Over the next 50 seconds all pitches obtainable using only open strings are heard, in an apparently stochastic order. Then the set is enlarged by adding the first harmonics of open strings, with successively higher harmonics added in stages, until the gamut reaches the 7th natural harmonics at roughly the golden section of the movement&#x27;s duration (5&#x27;30&quot;). The attack timepoints undergo a continuous, roughly exponential accelerando from about 5 seconds per attack to 0.83 seconds per attack, then hold constant to the end of the section. Nearing the section&#x27;s end, lower harmonics of open strings disappear until only open-string harmonics 5, 6, and 7 remain (7&#x27;00&quot; to 7&#x27;50&quot;). The bass drone skips upward to natural harmonics: first F2, then F3 for the last 30 seconds. The &quot;fundamental&quot; thus becomes virtual, since not all sounding tones are harmonics of these new bass pitches.</p>
 <p>The conclusion: the instruments begin sustaining harmonics 1, 2, 3, 5, 7, 9, 11, 13, and 15 of F3, the cumulative verticality of the opening section transposed up two octaves, taken up in an irregularly descending order, some as double stops. Once the full verticality sounds, its tones begin a sequence of downward octave transfers in strict sequential order from highest harmonic number (15) to lowest (1). After the first set, the complete verticality is heard above fundamental F2; a second set of octave transfers returns the piece to the verticality over F1 heard in the opening section. Finally, in a retrogression of the movement&#x27;s opening process, pitches drop out starting with the highest harmonic numbers until only the fading F1 drone remains.</p>
-<h2>What makes it sing</h2>
+<h2 id="what-makes-it-sing">What makes it sing</h2>
 <p>The scordatura is a tuning machine, not a tuning: the player never learns rational arithmetic, the acoustics of the instrument take care of that (Polansky&#x27;s phrase, borrowed from this piece for his own Movement for Lou Harrison). One retuned string times natural harmonics yields 105 partials of exact just intonation from players who only have to touch nodes and bow. That is the same economy Clang wanted from its orchestra (players bending pitches &quot;a little bit in certain directions&quot;) pushed to its limit: here the limitation of the mechanism is the source of the precision.</p>
 <p>The threshold dynamic is the composition. &quot;Hovering near some threshold between being heard as individual tones at all, on the one hand, and being heard simply as intensifications of some harmonic in the spectrum of the bass&#x27;s low F&quot;: the whole nine minutes is a meditation on one perceptual boundary, the line where harmony becomes timbre. Wannamaker&#x27;s summary is worth quoting whole: &quot;Tones in QUINTEXT V lead double lives, alternately as contributors to the timbre of a quasi-steady-state spectrum that subsumes them and as autonomous percepts available to participate in harmonic relationships... When they are discernible, one might regard the role of the string quartet&#x27;s tones as illuminatory, subtly highlighting first one then another of the components and relationships latent within the bass&#x27;s tone (or, more precisely, within our perception of that tone). The representation of very high partials not otherwise discriminable, however, seems to go beyond this in a gesture towards the preternatural and the transcendence of acoustical and perceptual horizons.&quot;</p>
 <p>The form is an arch with a trapdoor. The conclusion restates the opening&#x27;s verticality two octaves up and walks it back down by octave transfers, and the walk is strict where the accumulation was irregular: irregularity builds the chord, strictness dissolves it. The golden section governs twice: the ceiling expansion completes at 5&#x27;30&quot;, and the accelerando plateaus there too. And the &quot;virtual fundamental&quot; at the end of the main section, the bass skipping to F2 and F3 while the upper tones stop being its harmonics, is a quiet joke about the whole spectralist premise: the fundamental is a perception, not a string.</p>
 <p>What is overdone, by Tenney&#x27;s own later standard: nothing here. Gilmore calls it &quot;practically a textbook of Tenney techniques,&quot; and the piece earned that by being the first place where the scordatura engine, the threshold dynamic, and the harmonic-series form all appear together. The avoid-list note is narrower: the homage suite as a format risks reading as pastiche, and Tenney dodges it only because each movement&#x27;s method is genuinely his, not the dedicatee&#x27;s. A portrait that uses the subject&#x27;s palette is fan art; a portrait that uses your own palette is a portrait. Quintext is the second kind, five times.</p>
-<h2>Relation to Clang and the Bell Labs circle</h2>
+<h2 id="relation-to-clang-and-the-bell-labs-circle">Relation to Clang and the Bell Labs circle</h2>
 <p>Clang (same year, same harmonic-series material) is the public, orchestral, indeterminate version of the idea; Quintext V is the private, chamber, fully determinate one. Clang&#x27;s available-pitch process picks pitches at random from prime-partial sets and asks players to swell and fade; Quintext V&#x27;s main section picks open-string pitches in an apparently stochastic order and asks players to sustain until replaced, hovering at the audibility threshold. Both end by walking the harmonic ladder downward: Clang&#x27;s dissolutive process weeds non-harmonics against an ascending conceptual fundamental; Quintext V&#x27;s retrogression drops harmonics high-to-low against the fading F1 drone. The two pieces are the same thought in opposite social forms: one for an orchestra that cannot be precisely tuned, one for five strings that can.</p>
-<h2>For the generative practice</h2>
+<h2 id="for-the-generative-practice">For the generative practice</h2>
 <ul><li>The threshold dynamic is directly portable: tones that hover between</li></ul>
 <p>being heard as tones and being heard as brightening of a drone. A visual analog: marks that hover between being seen as marks and being seen as texture in a field. The interest is all in the boundary, and the boundary is a parameter, not a state.</p>
 <ul><li>The scordatura trick: a tiny retuning of the instrument (one string up a</li></ul>
 <p>semitone) times a simple playing rule (touch nodes) yields a large exact structure (105 just partials). The generative equivalent: retune the coordinate system slightly, then apply the dumbest possible rule inside it. Precision from mechanism, not from control.</p>
 <ul><li>Five textures, five methods: a suite where each movement re-derives its</li></ul>
-<p>construction from scratch. The discipline for a series: never reuse the engine, reuse only the frame (five players, one dedication each).</p></div><nav class="pagenav"><a class="" href="james-tenney-tuning-theory.html"><span class="dir">Previous note</span><span class="t">James Tenney / Meta+Hodos and the tuning theory</span></a><a class="next" href="james-tenney-spectral-canon.html"><span class="dir">Next note</span><span class="t">James Tenney / Spectral CANON for CONLON Nancarrow</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
-<script></script>
+<p>construction from scratch. The discipline for a series: never reuse the engine, reuse only the frame (five players, one dedication each).</p></div><section class="related"><h2>More in Sound &amp; Music Systems</h2><div class="relgrid"><a href="algorave-tidalcycles.html"><span class="rt">Algorave / TidalCycles</span><span class="rm">2026-09-26 &middot; 7 MIN</span></a><a href="atari-amy.html"><span class="rt">Atari AMY / the 64-oscillator chip that never shipped</span><span class="rm">2026-09-29 &middot; 8 MIN</span></a><a href="bespoke-synth-fubble-modulator.html"><span class="rt">Bespoke Synth FubbleModule</span><span class="rm">2026-09-26 &middot; 4 MIN</span></a><a href="diana-deutsch.html"><span class="rt">Diana Deutsch / The Paradox Catalog</span><span class="rm">2026-09-29 &middot; 9 MIN</span></a></div></section><nav class="pn"><a class="prev" href="jean-claude-risset.html"><span class="dir">&larr; Newer</span><span class="t">Jean-Claude Risset / Endless Illusions</span></a><a class="next" href="james-tenney-tuning-theory.html"><span class="dir">Older &rarr;</span><span class="t">James Tenney / Meta+Hodos and the tuning theory</span></a></nav></article></div>
+<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
+<script>
+(function(){
+  var btn = document.getElementById('cmdkBtn');
+  function go(q){
+    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
+    location.href = u;
+  }
+  document.addEventListener('keydown', function(e){
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
+  });
+  if (btn) btn.addEventListener('click', function(){ go(''); });
+})();
+</script>
 </body>
 </html>
