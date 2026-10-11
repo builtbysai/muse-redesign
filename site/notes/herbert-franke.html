@@ -3,235 +3,133 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUSE: Herbert W. Franke</title>
-<meta name="description" content="MUSE: a working research index of 229 study notes on generative art, printmaking, composition and technique.">
+<title>Herbert W. Franke · Muse</title>
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0d1016; --panel:#11161e; --panel2:#171d27;
-  --line:#202939; --line2:#2c3749;
-  --text:#e9edf2; --dim:#9aa6b5; --faint:#626d7d;
-  --acid:#b7f34b;
-  --mono:ui-monospace,'SF Mono','Cascadia Code','Roboto Mono',Menlo,Consolas,'Liberation Mono',monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --surface:#fbfbfa; --surface-deep:#f1f1ee; --card:#ffffff;
+  --ink:#191917; --ink-soft:#5b5b55; --ink-faint:#8d8d85;
+  --rule:#e3e3de; --rule-soft:#edede8;
+  --accent:#8c3b2e;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6}
-::selection{background:var(--acid);color:#0a0c10}
-a{color:var(--acid);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--ink); background:var(--surface);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:#6e2c22}
+::selection{background:rgba(140,59,46,.16)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 
-/* top bar */
-.topbar{position:sticky;top:0;z-index:60;background:rgba(10,12,16,.84);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:26px;height:60px}
-.brand{font-family:var(--mono);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--text);white-space:nowrap}
-.brand:hover{text-decoration:none}
-.brand .blk{display:inline-block;width:11px;height:11px;background:var(--acid);margin-right:9px;vertical-align:baseline}
-.brand small{color:var(--faint);font-weight:400;letter-spacing:.18em;font-size:10.5px;margin-left:10px}
-.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
-.nav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);padding:8px 11px;border-radius:7px;white-space:nowrap}
-.nav a:hover{color:var(--text);text-decoration:none;background:var(--panel)}
-.nav a.active{color:var(--acid)}
-.cmdk-btn{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);
-  border:1px solid var(--line2);border-radius:8px;padding:7px 11px;cursor:pointer;white-space:nowrap}
-.cmdk-btn:hover{color:var(--text);border-color:var(--faint)}
-.cmdk-btn kbd{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line2);
-  border-radius:4px;padding:1px 5px;margin-left:6px}
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule); padding:30px 0 20px; margin-bottom:8px}
+.masthead .kicker{color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:.22em; margin:0 0 10px}
+.masthead h1{font-size:clamp(34px,5vw,58px); line-height:1.04; margin:0; font-weight:600; letter-spacing:.01em}
+.masthead h1 .amp{font-style:italic; font-weight:400}
+.masthead .sub{font-style:italic; color:var(--ink-soft); font-size:clamp(16px,2.4vw,21px); margin:10px 0 0; max-width:34em}
+.colophon{display:flex; flex-wrap:wrap; gap:8px 22px; border-bottom:1px solid var(--rule);
+  padding:12px 0; color:var(--ink-soft); font-size:13.5px}
+.colophon .dot{color:var(--ink-faint)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.85;
-  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 96%);
-  mask-image:linear-gradient(180deg,#000 30%,transparent 96%)}
-.hero .wrap{position:relative;padding-top:88px;padding-bottom:60px}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--acid);margin:0 0 18px}
-.hero h1{margin:0 0 20px;font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800;
-  letter-spacing:-.032em;line-height:1.02;max-width:14ch}
-.hero h1 .a{color:var(--acid)}
-.lede{color:var(--dim);font-size:17.5px;max-width:62ch;margin:0 0 34px}
-.lede strong{color:var(--text);font-weight:600}
-.stats{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0;padding:0;list-style:none}
-.stats li{font-family:var(--mono)}
-.stats b{display:block;font-size:27px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.stats b em{font-style:normal;color:var(--acid)}
-.stats span{font-size:10.5px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase}
+/* ---------- search & filters ---------- */
+.controls{padding:26px 0 6px; display:flex; flex-direction:column; gap:16px}
+.searchrow{display:flex; gap:12px; align-items:stretch}
+.searchbox{flex:1; position:relative}
+.searchbox svg{position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; stroke:var(--ink-faint); fill:none; stroke-width:2}
+#q{width:100%; font:inherit; font-size:17px; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:12px 14px 12px 42px; box-shadow:inset 0 1px 3px rgba(25,25,23,.06)}
+#q:focus{outline:2px solid var(--accent); outline-offset:1px}
+#clearq{display:none; font:inherit; font-size:13px; background:none; border:1px solid var(--rule);
+  border-radius:2px; color:var(--ink-soft); padding:0 14px; cursor:pointer}
+#clearq:hover{border-color:var(--accent); color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:13px; cursor:pointer; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:999px; padding:6px 13px; display:inline-flex; align-items:center; gap:7px}
+.chip .sw{width:9px; height:9px; border-radius:50%; background:var(--sw,#888); flex:none}
+.chip .n{color:var(--ink-faint); font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:var(--surface)}
+.resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:4px 0 0; min-height:1.4em}
 
-/* search */
-.searchzone{margin:38px 0 8px}
-.searchbox{position:relative}
-.searchbox input{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:12px;
-  color:var(--text);font-family:var(--mono);font-size:15.5px;padding:17px 20px 17px 52px;outline:none}
-.searchbox input:focus{border-color:var(--acid);box-shadow:0 0 0 3px rgba(183,243,75,.14)}
-.searchbox input::placeholder{color:var(--faint)}
-.searchbox .mag{position:absolute;left:19px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:17px}
-.searchmeta{font-family:var(--mono);font-size:12px;color:var(--faint);margin:12px 2px 0;min-height:18px}
-.searchmeta b{color:var(--acid);font-weight:700}
-.empty{border:1px dashed var(--line2);border-radius:12px;padding:44px 24px;text-align:center;color:var(--faint);
-  font-family:var(--mono);font-size:13.5px;margin:26px 0}
+/* ---------- theme sections ---------- */
+.theme{margin:44px 0 8px}
+.theme-head{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule); padding-bottom:8px}
+.theme-head .num{font-style:italic; color:var(--ink-faint); font-size:15px}
+.theme-head h2{margin:0; font-size:clamp(22px,3vw,30px); font-weight:600}
+.theme-head .count{margin-left:auto; font-size:13px; color:var(--ink-soft); white-space:nowrap}
+.theme-head .bar{width:34px; height:6px; flex:none; align-self:center}
+.theme .blurb{color:var(--ink-soft); font-style:italic; max-width:44em; margin:10px 0 18px; font-size:15.5px}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(25,25,23,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(25,25,23,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
+.card h3 a{color:var(--ink); text-decoration:none}
+.card h3 a:hover{color:var(--accent); text-decoration:underline}
+.card .meta{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
+.empty{padding:60px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
+.empty.show{display:block}
 
-/* facets */
-.facets{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px;align-items:center}
-.facet-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);
-  text-transform:uppercase;margin-right:4px}
-.chip{font-family:var(--mono);font-size:11.5px;color:var(--dim);background:transparent;
-  border:1px solid var(--line2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.chip:hover{color:var(--text);border-color:var(--faint)}
-.chip.on{background:var(--acid);border-color:var(--acid);color:#0a0c10;font-weight:700}
-.chip .n{opacity:.62;font-weight:400;margin-left:5px}
-.chip.on .n{opacity:.7}
-.chip.theme.on{background:hsl(var(--h) 72% 62%);border-color:hsl(var(--h) 72% 62%)}
-.sortsel{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--dim);
-  background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:7px 10px}
+/* ---------- note page ---------- */
+.backline{border-bottom:1px solid var(--rule); padding:14px 0; font-size:14px}
+.note{max-width:720px; margin:0 auto; padding:40px 28px 20px}
+.note .theme-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:14px}
+.note .theme-tag .sw{width:10px; height:10px; border-radius:50%}
+.note h1{font-size:clamp(30px,4.6vw,46px); line-height:1.12; margin:0 0 8px; font-weight:600}
+.note .byline{font-size:13px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.1em;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:10px 0; margin-bottom:26px}
+.catalogue{display:grid; grid-template-columns:auto 1fr; gap:8px 20px; margin:0 0 30px;
+  padding:18px 20px; background:var(--card); border:1px solid var(--rule-soft);
+  border-radius:3px; font-size:15px; line-height:1.55}
+.catalogue dt{font-size:11.5px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink-faint); white-space:nowrap; padding-top:4px}
+.catalogue dd{margin:0; color:var(--ink-soft)}
+.note-body{font-size:18px; line-height:1.72}
+.note-body > p:first-of-type::first-letter{font-size:3.4em; float:left; line-height:.86;
+  padding:4px 10px 0 0; font-weight:600; color:var(--accent)}
+.note-body h2{font-size:24px; margin:2em 0 .6em; font-weight:600; border-bottom:1px solid var(--rule-soft); padding-bottom:6px}
+.note-body h3{font-size:19px; margin:1.6em 0 .5em; font-weight:600}
+.note-body p{margin:0 0 1.1em}
+.note-body ul,.note-body ol{margin:0 0 1.2em; padding-left:1.4em}
+.note-body li{margin-bottom:.4em}
+.note-body blockquote{border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+  font-style:italic; color:var(--ink-soft)}
+.note-body pre{background:#1d1f21; color:#e8eaec; padding:16px 18px; border-radius:3px; overflow:auto; font-size:14px; line-height:1.55}
+.note-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em}
+.note-body p code, .note-body li code, .note-body td code{background:#efefeb; padding:1px 5px; border-radius:3px}
+.note-body table{border-collapse:collapse; margin:1.4em 0; font-size:15px; width:100%}
+.note-body th,.note-body td{border:1px solid var(--rule); padding:8px 10px; text-align:left}
+.note-body th{background:var(--surface-deep); font-size:13px; text-transform:uppercase; letter-spacing:.06em}
+.note-body hr{border:none; border-top:1px solid var(--rule); margin:2em auto; width:40%}
+.pagenav{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:44px 0 10px}
+.pagenav a{background:var(--card); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:14px 16px; text-decoration:none; color:var(--ink); display:block}
+.pagenav a:hover{border-color:var(--ink-faint)}
+.pagenav .dir{font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); display:block; margin-bottom:4px}
+.pagenav .t{font-weight:600; font-size:15.5px}
+.pagenav .next{text-align:right}
 
-/* index rows */
-.rows{margin:26px 0 70px;border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;
-  padding:17px 10px;border-top:1px solid var(--line);color:var(--text)}
-.row:hover{text-decoration:none;background:var(--panel)}
-.row[hidden]{display:none}
-.row-title{display:block;font-size:16.5px;font-weight:650;letter-spacing:-.008em;line-height:1.35}
-.row:hover .row-title{color:var(--acid)}
-.row-meta{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px;letter-spacing:.04em}
-.row-meta .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
-.fnchips{display:flex;gap:5px}
-.fn{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;line-height:22px;
-  text-align:center;border-radius:6px;border:1px solid}
-.snip{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:7px;line-height:1.55}
-.snip mark{background:rgba(183,243,75,.22);color:var(--acid);border-radius:3px;padding:0 2px}
-
-/* section headers on aggregate pages */
-.vhero{padding:64px 0 8px}
-.vhero h1{margin:0 0 14px;font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em}
-.vhero h1 .tick{display:inline-block;width:.32em;height:.32em;background:var(--vaccent,var(--acid));
-  margin-right:.35em;vertical-align:.08em}
-.vhero p{color:var(--dim);max-width:64ch;margin:0 0 8px;font-size:16.5px}
-.vcount{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.14em;margin:18px 0 0}
-.vcount b{color:var(--vaccent,var(--acid))}
-.items{margin:30px 0 80px}
-.item{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vaccent,var(--acid));
-  border-radius:0 10px 10px 0;padding:15px 18px;margin-bottom:10px}
-.item[hidden]{display:none}
-.item .txt{font-size:15.5px;line-height:1.62}
-.item .txt p{margin:0}
-.item .src{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:10px;letter-spacing:.03em}
-.item .src a{color:var(--dim)}
-.item .src a:hover{color:var(--vaccent,var(--acid))}
-.item .src .tt{color:var(--vaccent,var(--acid))}
-.item .txt mark{background:rgba(183,243,75,.2);color:var(--acid);border-radius:3px;padding:0 2px}
-.palblock{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:14px}
-.palblock[hidden]{display:none}
-.palblock h3{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.palblock h3 a{color:var(--text)}
-.palblock h3 a:hover{color:var(--pal,#c4a5fc)}
-.palblock .secname{font-family:var(--mono);font-size:11px;color:var(--pal,#c4a5fc);letter-spacing:.14em;
-  text-transform:uppercase;margin-bottom:12px}
-.palblock .body{color:var(--dim);font-size:15px;line-height:1.65}
-.palblock .body p{margin:0 0 10px}
-.palblock .body ul{margin:8px 0;padding-left:20px}
-
-/* note page */
-.crumb{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.1em;margin:34px 0 20px}
-.crumb a{color:var(--dim)}
-.crumb a:hover{color:var(--acid)}
-.note h1{margin:0 0 22px;font-size:clamp(1.8rem,4vw,2.9rem);font-weight:800;letter-spacing:-.028em;line-height:1.08;max-width:20ch}
-.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 34px}
-.specs div{background:var(--bg2);padding:14px 16px}
-.specs dt{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:0 0 6px}
-.specs dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--text)}
-.specs dd .tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
-dl.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0 0 30px}
-dl.spec div{background:var(--bg2);padding:13px 16px}
-dl.spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--faint);margin:0 0 6px}
-dl.spec dd{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 36px}
-.toc a{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--line2);
-  border-radius:8px;padding:6px 12px}
-.toc a:hover{color:var(--acid);border-color:var(--acid);text-decoration:none}
-.toc a.g-avoid:hover{color:#ff7a59;border-color:#ff7a59}
-.toc a.g-techniques:hover{color:#b7f34b;border-color:#b7f34b}
-.toc a.g-palette:hover{color:#c4a5fc;border-color:#c4a5fc}
-.toc a.g-doorways:hover{color:#6fd7f7;border-color:#6fd7f7}
-.toc a.g-gaps:hover{color:#f5c453;border-color:#f5c453}
-.nbody{max-width:74ch;font-size:16.5px;line-height:1.72;color:#d5dbe3}
-.nbody p{margin:0 0 1.15em}
-.nbody h2{font-size:21px;font-weight:750;letter-spacing:-.015em;margin:2.4em 0 .9em;padding-left:14px;
-  border-left:3px solid var(--acid);scroll-margin-top:90px}
-.nbody h3{font-size:16.5px;font-weight:700;margin:1.8em 0 .6em;scroll-margin-top:90px}
-.nbody ul,.nbody ol{margin:0 0 1.15em;padding-left:22px}
-.nbody li{margin-bottom:.45em}
-.nbody li::marker{color:var(--acid)}
-.nbody strong{color:var(--text)}
-.nbody code{font-family:var(--mono);font-size:.86em;background:var(--panel2);border:1px solid var(--line);
-  border-radius:5px;padding:1px 6px;color:var(--acid)}
-.nbody pre{background:#07090c;border:1px solid var(--line);border-radius:10px;padding:18px;overflow-x:auto;margin:0 0 1.4em}
-.nbody pre code{background:none;border:none;padding:0;color:#c9d4e0;font-size:13px;line-height:1.6}
-.nbody blockquote{border-left:3px solid var(--line2);margin:0 0 1.4em;padding:4px 0 4px 18px;color:var(--dim)}
-.nbody table{border-collapse:collapse;width:100%;margin:0 0 1.4em;font-size:14px}
-.nbody th,.nbody td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-.nbody th{background:var(--panel);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
-.nbody hr{border:none;border-top:1px solid var(--line);margin:2.4em 0}
-.related{margin:64px 0 8px}
-.related h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--faint);
-  text-transform:uppercase;margin:0 0 18px}
-.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.relgrid a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 17px;color:var(--text)}
-.relgrid a:hover{border-color:var(--acid);text-decoration:none}
-.relgrid a:hover .rt{color:var(--acid)}
-.relgrid .rt{display:block;font-size:14.5px;font-weight:650;line-height:1.4;margin-bottom:6px}
-.relgrid .rm{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-.pn{display:flex;justify-content:space-between;gap:14px;margin:40px 0 80px}
-.pn a{flex:1;max-width:48%;border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--text)}
-.pn a:hover{border-color:var(--acid);text-decoration:none}
-.pn .dir{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:6px}
-.pn .t{font-size:14.5px;font-weight:650}
-.pn a.next{text-align:right}
-
-/* cmdk */
-.cmdk{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
-  background:rgba(4,6,9,.72);backdrop-filter:blur(6px);padding:12vh 20px 20px}
-.cmdk.open{display:flex}
-.cmdk-box{width:min(640px,100%);background:var(--bg2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.cmdk-box input{width:100%;background:transparent;border:none;outline:none;color:var(--text);
-  font-family:var(--mono);font-size:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
-.cmdk-list{max-height:46vh;overflow-y:auto;padding:8px}
-.cmdk-list a{display:block;padding:10px 14px;border-radius:8px;color:var(--text)}
-.cmdk-list a:hover,.cmdk-list a.sel{background:var(--panel);text-decoration:none}
-.cmdk-list .ct{display:block;font-size:14.5px;font-weight:600}
-.cmdk-list .cm{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:block}
-.cmdk-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);padding:10px 18px;border-top:1px solid var(--line)}
-
-/* footer */
-footer{border-top:1px solid var(--line);margin-top:20px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:26px;padding-bottom:34px;
-  font-family:var(--mono);font-size:11.5px;color:var(--faint)}
-footer a{color:var(--dim)}
-
-@media (max-width:720px){
-  .hero .wrap{padding-top:60px;padding-bottom:44px}
-  .row{grid-template-columns:1fr}
-  .fnchips{margin-top:2px}
-  .sortsel{margin-left:0}
-  .pn a{max-width:100%}
-  .pn{flex-direction:column}
-  .brand small{display:none}
+footer.site{border-top:1px solid var(--rule); margin-top:56px; padding:20px 0 60px; color:var(--ink-soft); font-size:14px}
+footer.site .wrap{display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .note{padding:28px 18px 16px}
+  .pagenav{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<header class="topbar"><div class="wrap"><a class="brand" href="../index.html"><span class="blk"></span>MUSE<small>RESEARCH INDEX</small></a><nav class="nav"><a href="../index.html">Index</a><a href="../techniques.html">Techniques</a><a href="../avoid.html">Avoid</a><a href="../palettes.html">Palettes</a><a href="../doorways.html">Doorways</a><a href="../gaps.html">Gaps</a></nav><button class="cmdk-btn" id="cmdkBtn" type="button">Search<kbd>&#8984;K</kbd></button></div></header>
-<div class="wrap"><p class="crumb"><a href="../index.html">INDEX</a> / <a href="../index.html?theme=pioneers">THE FIRST PROGRAMMERS</a> / Herbert W. Franke</p><article class="note"><h1>Herbert W. Franke</h1><dl class="specs"><div><dt>Theme</dt><dd><span class="tdot" style="background:hsl(212 72% 62%)"></span>The First Programmers</dd></div><div><dt>Studied</dt><dd>undated</dd></div><div><dt>Words</dt><dd>1749</dd></div><div><dt>Read</dt><dd>~9 min</dd></div><div><dt>Sections</dt><dd>6</dd></div><div><dt>Contains</dt><dd>Techniques, Avoid, Palette, Doorways</dd></div></dl><nav class="toc" aria-label="Sections"><a class="g-x" href="#the-rational-art-model-his-whole-theory-in-numbers">The rational art model: his whole theory in numbers</a><a class="g-x" href="#the-work-phase-by-phase">The work, phase by phase</a><a class="g-palette" href="#palette-and-composition-habits">Palette and composition habits</a><a class="g-techniques" href="#what-to-steal-study-not-copy">What to steal (study, not copy)</a><a class="g-avoid" href="#what-not-to-do">What NOT to do</a><a class="g-doorways" href="#next-doorways">Next doorways</a></nav><div class="nbody"><dl class="spec"><div><dt>Profile</dt><dd>Herbert W. Franke (1927-2022), Austrian physicist (PhD 1950, electron optics), science-fiction writer, computer-art pioneer and theorist. Co-founder of Ars Electronica (1979). Author of <em>Computergrafik - Computerkunst / Computer Graphics - Computer Art</em> (1971, 2nd ed. 1985), one of the first books treating computer graphics as art. Lecturer in &quot;Cybernetical Aesthetic&quot; at Munich University (1973-1997). His collection of early computer art sits at the Kunsthalle Bremen. Minted 100 works of his</dd></div></dl>
+<div class="backline"><div class="wrap"><a href="../index.html">&larr; The commonplace book</a></div></div><article class="note"><span class="theme-tag"><span class="sw" style="background:#3f5a7a"></span>The First Programmers</span><h1>Herbert W. Franke</h1><div class="byline">9 min read &nbsp;&middot;&nbsp; 1,749 words</div><div class="note-body"><dl class="catalogue"><dt>Profile</dt><dd>Herbert W. Franke (1927-2022), Austrian physicist (PhD 1950, electron optics), science-fiction writer, computer-art pioneer and theorist. Co-founder of Ars Electronica (1979). Author of <em>Computergrafik - Computerkunst / Computer Graphics - Computer Art</em> (1971, 2nd ed. 1985), one of the first books treating computer graphics as art. Lecturer in &quot;Cybernetical Aesthetic&quot; at Munich University (1973-1997). His collection of early computer art sits at the Kunsthalle Bremen. Minted 100 works of his</dd></dl>
 <p><em>Math Art</em> series as NFTs in 2022, months before he died, still arguing that mathematics, art, and computer science go together. This is the root system the whole generative-doodles practice grows out of: mainframe plotter, one bit per turn, art as measured information.</p>
 <p><strong>Depth:</strong> deep on text, deep on four images, three local re-renders. Read in full: his own cybernetic-art-model essay (via art-meets-science.io), the ZORA ZINE interview with Tyler Hobbs (one of his last interviews), dam.org&#x27;s artist and Biennale-serigraphs pages, the p55.art obituary, and the art-meets-science &quot;Big Bang of European Computer Art&quot; account. Four artwork images inspected at full resolution: <em>DRAKULA</em> 21/71 (500px, from the Foundation&#x27;s archive), <em>KAES 1 Algebraic Curves</em> (800x1105, V&amp;A framemark), a 10x10 color-grid plotter piece (1030x1000, Kiefer auction catalogue), and a grain-rendered serigraph from the Biennale series (771x1024, dam.org). Three PIL re-renders built and visually inspected: paperfold dragon curves marked with triangles, a twelve-frame algebraic curve superposition, and a rotating-band color grid. NOT seen: the 1971 book itself, the Herbert W. Franke Archive web application, his <em>Math Art</em> NFTs, <em>Serie Gruen</em>, <em>Einstein Digital</em>, any of his films or animations. The images below are the solid ground; the book&#x27;s ideas come through quoted summaries and his own essays, not firsthand reading.</p>
-<h2 id="the-rational-art-model-his-whole-theory-in-numbers">The rational art model: his whole theory in numbers</h2>
+<h2>The rational art model: his whole theory in numbers</h2>
 <p>Franke approached art as a scientist, and the model is startlingly concrete. From psychological testing he took two numbers: the human brain can consciously absorb about <strong>16 bits per second</strong>, and the apparent contents of consciousness hold about <strong>160 bits</strong>. A work of art, in his definition, is an information stream tuned to that channel:</p>
 <ul><li><strong>Boredom:</strong> fewer than ~16 bits/sec reach consciousness; the viewer goes</li></ul>
 <p>looking for a more productive information source.</p>
@@ -240,16 +138,16 @@ footer a{color:var(--dim)}
 <ul><li><strong>Interest:</strong> about 16 bits/sec; the situation feels desirable.</li></ul>
 <p>So a work of art is &quot;so structured as to evoke a successful perceptual response, awaken interest, and stimulate the appropriate emotions of perceptual behavior.&quot; He got the information part from Max Bense and Abraham Moles, then broke with pure information aesthetics: information flow alone does not cover emotion, which he considered an essential component of art perception with its own, much harder, hidden code. His 1960s art model based on information theory was, by his own account, not enough for him. The emotion had to be brought back in alongside the data.</p>
 <p>The doctrine that falls out of it, stated to Hobbs in plain words: <strong>&quot;A mere algorithm is usually boring, so it must be broken, for example, by random processes.&quot;</strong> The algorithm supplies order (low information), the random break supplies novelty (high information), and the artist tunes the ratio to sit on the 16-bit channel. Every generative practice since is arguing with this sentence, whether it knows it or not.</p>
-<h2 id="the-work-phase-by-phase">The work, phase by phase</h2>
+<h2>The work, phase by phase</h2>
 <p><strong>1. Analog oscillographs (1950s).</strong> Before any computer, he was doing generative photography with scientific equipment borrowed from his day job in Siemens advertising. An analog computer (built for him by a fellow physics student in 1954) drove a 5cm oscillograph screen; he moved a camera in front of it with the aperture open during extra-long exposures, producing &quot;curve multiplications and superimpositions,&quot; ghostly Escher-like waveforms. First solo show <em>Experimentelle Aesthetik</em>, Vienna 1959, the first art-museum exhibition of electronically generated visual art in Europe. By his own definition, already algorithmic art: the artist &quot;constructs&quot; images analytically, with or without a computer.</p>
 <p><strong>2. Quadrate / Squares (1967/1969).</strong> The first two digital series were plotter work, done on time begged from a Siemens mainframe with a plotter (a colleague, F. Faeber, granted him access). Quadrate is the interplay of chance and algorithm made visible. Two forms are documented: the flat 10x10 color-grid silkscreen (shown at the 1970 Venice Biennale, German Pavilion) and, per his cybernetic essay, a version where a random generator distributes red, yellow and orange circles, with the complexity of each of the three distributions countable. The 10x10 piece I inspected: exact mirror symmetry on both axes, flat saturated squares (yellow, black, red, green, orange, blue, white, grey), colors arranged in rotating pairs that read as a spin around a checkered white/grey/black core. The rule is strict and the restraint is total: no outlines, no shading, no margin tricks, just the grid and the palette.</p>
 <p><strong>3. DRAKULA (1970/1971).</strong> His own chosen example for the information theory of art. Dragon curves (paperfold sequences): &quot;sequences of lines that make turns to the right or left at regular intervals, and their information content is obtained by simply counting the turns, each of which takes up just one bit: right or left, which corresponds to the 0,1 scheme of bits.&quot; The plot I inspected: two mirrored curves set apart on white, each step marked not with a line but with a small black triangle, so the filled curve interior reads as dense spiky lattice and the sparser regions as crystallographic scatter. The triangles are doing compositional work: they turn a path into a point field, and the point field is what makes it feel organic instead of geometric. In my PIL re-render at 8192 steps the markers merged into a solid mass; his actual plot (a few hundred steps) stays airy. Lesson: the marker size is the compositional parameter, not the curve.</p>
 <p><strong>4. KAES (Kurven, AESthetische), 1969.</strong> &quot;Aesthetic Curves,&quot; with programmer Peter Henne, his first digitally produced graphics. One algebraic curve as the basic element; the program applies slow, step-by-step superpositions and transformations (enlarge, lengthen, reduce), producing sequences and patterns as silkscreens. The V&amp;A print I inspected: a single thin black curve stacked twelve-ish times with a slow drift, reading like a feathered flame or a flickering wing. The beauty is in the slowness of the gradient: neighboring frames nearly coincide, so the eye reads motion and moire instead of twelve drawings. My re-render confirmed the effect in minutes: one curve, one slow transform, the stack is the piece.</p>
 <p><strong>5. The machines (1973 onward).</strong> Sicograph at the Siemens research labs (one of the first digital picture-processing systems, with an early inkjet plotter and a small monochrome preview screen; used evenings) gave <em>Serie Gruen</em>. The Bildspeicher N with a large color screen gave <em>Einstein Digital</em> (1974) and <em>Digitale Impressionen</em> (1973). He insists, to Hobbs, that immediate feedback was possible and mattered to him even then: working interactively with algorithms, not waiting for batch output. All his 1980s PC programs were interactive. Later decades: game-theory 2D diagrams (early 1990s, &quot;like millennia-long family trees&quot;), 3D models of complex equations placed like statues in virtual worlds (2000s), and the brightly colored <em>Math Art</em> pop series (1980s-90s, minted as NFTs in 2022).</p>
 <p><strong>Curator and theorist.</strong> <em>Ways to Computer Art</em> (Wege zur Computerkunst), 1968: he exhibited concrete painting, photography and computer art together as one rational-approximation lineage, touring 150 cities through 1986 with the Goethe-Institut. The 1971 book placed early computer art in a lineage of &quot;mathematically conceived figuration&quot; from Leonardo and Duerer through Mondrian and Le Corbusier, legitimizing the medium before arguing for entirely original digital forms via animation, mixed media, and especially interactivity.</p>
-<h2 id="palette-and-composition-habits">Palette and composition habits</h2>
+<h2>Palette and composition habits</h2>
 <p>Early work is monochrome by constraint and by choice: black plotter ink or white grain on black. When color arrives it is flat and counted, never blended: the Quadrate grid&#x27;s eight flat squares, the red/yellow/orange circle distributions. Margins are generous on the prints (paper, mats, signatures), tight inside the work: the image is the system, edge to edge within its frame. Symmetry is a compositional device, not a crutch: the 10x10 grid mirrors on both axes, DRAKULA mirrors the curve against itself. Everything is countable, and the count is part of the honesty.</p>
-<h2 id="what-to-steal-study-not-copy">What to steal (study, not copy)</h2>
+<h2>What to steal (study, not copy)</h2>
 <ul><li>The broken-algorithm doctrine as a working instrument: one deterministic</li></ul>
 <p>system, one named random break, and a control for the ratio. Make the break the subject, not the accident.</p>
 <ul><li>One bit per turn: the smallest possible information unit as a drawing</li></ul>
@@ -262,7 +160,7 @@ footer a{color:var(--dim)}
 <p>bit per turn. The honesty is part of the pleasure, and it is why the work reads as art rather than puzzle.</p>
 <ul><li>Interactive feedback as doctrine, not convenience: he preferred machines</li></ul>
 <p>he could work with live, and built the 1980s programs that way.</p>
-<h2 id="what-not-to-do">What NOT to do</h2>
+<h2>What NOT to do</h2>
 <ul><li>Do not ship a dragon curve and call it a Franke study. DRAKULA exists;</li></ul>
 <p>the curve itself is his signature the way the clock gauge is okazz_&#x27;s. The <em>mechanism</em> (one bit per step, mirrored pair, triangle markers) is free, the <em>look</em> is not.</p>
 <ul><li>Do not ship a pure algorithm without the break. He said it himself: a</li></ul>
@@ -271,21 +169,8 @@ footer a{color:var(--dim)}
 <p>like a child&#x27;s color square; the discipline (exact symmetry, rotating pairs, counted palette) is what makes it hold a wall.</p>
 <ul><li>Do not treat the theory as the art. The 16-bit model is a tuning</li></ul>
 <p>instrument, not a subject; a piece about information theory that forgets the eye is exactly the diagram he warned against.</p>
-<h2 id="next-doorways">Next doorways</h2>
-<p>Max Bense (information aesthetics, Franke&#x27;s cited source) and Abraham Moles (information theory and perception); Frieder Nake and Georg Nees (shown alongside Franke at the 1970 Venice Biennale, fellow early plotter artists with their own aesthetic theories); the Herbert W. Franke Archive web application presented at the Generative Art Summit (his manuscripts in digital form).</p></div><section class="related"><h2>More in The First Programmers</h2><div class="relgrid"><a href="michael-noll-bell-labs.html"><span class="rt">A. Michael Noll / Bell Labs computer art</span><span class="rm">2026-09-30 &middot; 11 MIN</span></a><a href="abraham-moles.html"><span class="rt">Abraham A. Moles</span><span class="rm">undated &middot; 10 MIN</span></a><a href="computer-technique-group.html"><span class="rt">Computer Technique Group, Tokyo</span><span class="rm">2026-10-01 &middot; 9 MIN</span></a><a href="darcy-thompson-on-growth-and-form.html"><span class="rt">D&#x27;Arcy Thompson: On Growth and Form</span><span class="rm">2026-10-01 &middot; 16 MIN</span></a></div></section><nav class="pn"><a class="prev" href="hanne-darboven.html"><span class="dir">&larr; Newer</span><span class="t">Hanne Darboven</span></a><a class="next" href="hiroshi-kawano.html"><span class="dir">Older &rarr;</span><span class="t">Hiroshi Kawano</span></a></nav></article></div>
-<footer><div class="wrap"><span><span style="color:var(--acid)">&#9632;</span>&nbsp; MUSE research index</span><span>229 study notes by Hans Sai</span><span><a href="https://github.com/builtbysai/muse">source notes</a></span><span>built static, no trackers, no fonts fetched</span></div></footer>
-<script>
-(function(){
-  var btn = document.getElementById('cmdkBtn');
-  function go(q){
-    var u = '../index.html' + (q ? '?q=' + encodeURIComponent(q) : '#qfocus');
-    location.href = u;
-  }
-  document.addEventListener('keydown', function(e){
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); go(''); }
-  });
-  if (btn) btn.addEventListener('click', function(){ go(''); });
-})();
-</script>
+<h2>Next doorways</h2>
+<p>Max Bense (information aesthetics, Franke&#x27;s cited source) and Abraham Moles (information theory and perception); Frieder Nake and Georg Nees (shown alongside Franke at the 1970 Venice Biennale, fellow early plotter artists with their own aesthetic theories); the Herbert W. Franke Archive web application presented at the Generative Art Summit (his manuscripts in digital form).</p></div><nav class="pagenav"><a class="" href="harold-cohen-aaron.html"><span class="dir">Previous note</span><span class="t">Harold Cohen / AARON</span></a><a class="next" href="hiroshi-kawano.html"><span class="dir">Next note</span><span class="t">Hiroshi Kawano</span></a></nav></article><footer class="site"><div class="wrap"><span>Muse, a commonplace book.</span><span><a href="../index.html">Back to the shelves</a></span></div></footer>
+<script></script>
 </body>
 </html>
