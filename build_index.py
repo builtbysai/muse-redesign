@@ -574,7 +574,7 @@ a:hover{color:var(--accent-ink)}
 .chip[aria-pressed="true"] .n{color:var(--ink-soft)}
 .resultline{color:var(--ink-soft); font-style:italic; font-size:15px; margin:0; min-height:1.4em}
 
-/* ---------- shelves & catalogue entries ---------- */
+/* ---------- shelves & catalogue ---------- */
 .theme{margin:52px 0 8px}
 .theme-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--ink);
   padding-bottom:10px}
@@ -583,20 +583,21 @@ a:hover{color:var(--accent-ink)}
 .theme-head .count{margin-left:auto; font-family:var(--sans); font-size:11.5px;
   text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); white-space:nowrap}
 .theme .blurb{color:var(--ink-soft); font-style:italic; max-width:46em;
-  margin:12px 0 6px; font-size:15.5px; line-height:1.6}
-.card{border-top:1px solid var(--rule); padding:20px 6px 22px; display:block}
-.card:last-child{border-bottom:1px solid var(--rule)}
-.card:hover{background:var(--surface)}
-.card h3{margin:0 0 6px; font-size:20.5px; line-height:1.32; font-weight:600}
+  margin:12px 0 22px; font-size:15.5px; line-height:1.6}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:18px 18px 16px; display:flex; flex-direction:column; gap:8px; position:relative;
+  box-shadow:0 1px 2px rgba(26,30,32,.05)}
+.card:hover{border-color:var(--ink-faint); box-shadow:0 3px 10px rgba(26,30,32,.09)}
+.card .tick{position:absolute; top:0; left:0; right:0; height:3px; border-radius:3px 3px 0 0}
+.card h3{margin:0; font-size:19px; line-height:1.3; font-weight:600}
 .card h3 a{color:var(--ink); text-decoration:none}
 .card h3 a:hover{color:var(--accent); text-decoration:underline;
   text-decoration-thickness:1px; text-underline-offset:3px}
 .card .meta{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint);
-  text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px;
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-.card .meta .sw{width:8px; height:8px; flex:none}
-.card .meta .sep{color:var(--rule)}
-.card .ex{color:var(--ink-soft); font-size:15.5px; line-height:1.62; margin:0; max-width:62em}
+  text-transform:uppercase; letter-spacing:.08em}
+.card .ex{color:var(--ink-soft); font-size:15px; line-height:1.55; margin:0; flex:1}
+.card .read{font-size:14px; font-style:italic}
 .empty{padding:70px 20px; text-align:center; color:var(--ink-soft); font-style:italic; display:none}
 .empty.show{display:block}
 
@@ -775,28 +776,29 @@ def build_index(notes):
         for n in by_theme[tid]:
             meta_bits = []
             if n["date"]:
-                meta_bits.append("studied " + n["date"])
+                meta_bits.append(n["date"])
             meta_bits.append("%d min read" % n["minutes"])
             search = " ".join(
                 [n["title"], n["excerpt"], n["headings"], theme_names[n["theme"]],
                  n["date"]]).replace('"', "")
             cards.append(
                 '<article class="card" data-theme="%s" data-search="%s">'
+                '<span class="tick" style="background:%s"></span>'
                 '<h3><a href="notes/%s.html">%s</a></h3>'
-                '<div class="meta"><span class="sw" style="background:%s"></span>'
-                '<span>%s.</span><span class="sep">/</span><span>%s</span></div>'
+                '<div class="meta">%s</div>'
                 '<p class="ex">%s</p>'
+                '<a class="read" href="notes/%s.html">Read the note</a>'
                 '</article>' % (
-                    tid, html.escape(search, quote=True), n["slug"],
-                    html.escape(n["title"]), color, num,
-                    "</span><span class=\"sep\">/</span><span>".join(meta_bits),
-                    html.escape(n["excerpt"])))
+                    tid, html.escape(search, quote=True), color, n["slug"],
+                    html.escape(n["title"]),
+                    " &middot; ".join(meta_bits),
+                    html.escape(n["excerpt"]), n["slug"]))
         sections.append(
             '<section class="theme" id="theme-%s">'
             '<div class="theme-head"><span class="num">%s.</span><h2>%s</h2>'
             '<span class="count">%d %s</span></div>'
             '<p class="blurb">%s</p>'
-            '%s</section>' % (
+            '<div class="cards">%s</div></section>' % (
                 tid, num, html.escape(name), len(by_theme[tid]),
                 "note" if len(by_theme[tid]) == 1 else "notes",
                 html.escape(blurb), "".join(cards)))
@@ -807,9 +809,6 @@ def build_index(notes):
         '<header class="masthead"><div class="wrap">'
         '<p class="kicker">The study notes of Hans Sai</p>'
         '<h1>Muse</h1>'
-        '<p class="sub">Two hundred twenty-nine research notes on art, '
-        'printmaking, and the systems artists work with. Filed on ten shelves, '
-        'kept for slow reading.</p>'
         '</div></header>'
         '<div class="wrap"><div class="colophon">'
         '<span><span class="lbl">Notes</span>%d</span>'
@@ -832,9 +831,8 @@ def build_index(notes):
         'search and browse instead.</p></div>'
         '</div>'
         '<footer class="site"><div class="wrap">'
-        '<span><span class="lbl">Muse</span> a reading room. Generated from the '
-        'study notes; no servers involved.</span>'
-        '<span>Set in the system serif.</span>'
+        '<span><span class="lbl">Source</span>'
+        '<a href="https://github.com/builtbysai/muse">builtbysai/muse</a></span>'
         '</div></footer>' % (
             len(notes), "{:,}".format(total_words), SVG_SEARCH, "".join(chips),
             "".join(sections)))
